@@ -6,6 +6,7 @@ import {ICONS_LIGHT} from '../styles/iconsLight';
 export const HomeScreenField=()=>{
    return(
       <View>
-
+         <TextInput/>
+         
       </View>
    )
