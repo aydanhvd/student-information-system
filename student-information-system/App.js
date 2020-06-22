@@ -4,6 +4,8 @@ import { StyleSheet,  View } from 'react-native';
 
 import { loadFonts} from './styles/fonts';
 import { CustomText } from "./components";
+import { RootDrawer } from './navigation/RootDrawer';
+
 
 export default function App() {
 	const [ ready, setReady ] = useState(false);
@@ -16,11 +18,7 @@ export default function App() {
 			/>
 		);
 	}
-	return (
-		<View style={styles.container}>
-			<CustomText>Student Information System</CustomText>
-		</View>
-	);
+	return <RootDrawer/>
 }
 
 const styles = StyleSheet.create({

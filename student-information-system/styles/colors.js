@@ -1,10 +1,10 @@
 export const COLORS = Object.freeze({
-	backgroundLight: '#EDEDED', //background(header footer) color for light theme, text color for dark theme
+	backgroundLight: '#FFFFFF', //background(header footer) color for light theme, text color for dark theme
 	backgroundDark: '#333C40', //background color for dark theme
 	drawerLight: '#4375BF', // header, footer, compenents(comunity posts, classes,homeworks, dark part of progress bar) for dark theme and text color, drawer backgraund for light theme
 	drawerDark: '#AE92B6', //components(comunity messages,homeworks tab, grey part of progress bar) for dark theme
 	textColorDark: '#6A7479', // comments for dark theme
 	acsentColor: '#27BABC', // acsent color for both dark and light <ThemeProvider theme={}>
-	acsentLight: '#53565A', // acsent color for light theme
+	acsentLight: '#53565A', // acsent color for light theme text color for light theme
 	commentsColorLight: '#E5E5E5' // comments for light theme
 });
