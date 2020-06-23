@@ -2,8 +2,7 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
-import { ICONS_LIGHT } from '../styles/iconsLight';
-import { CustomText, Footer } from '.';
+import { CustomText } from '.';
 import { COLORS } from '../styles/colors';
 
 //a temperory dammy data for grades
@@ -42,7 +41,7 @@ const transcripts = [
 export const GradeShower = () => {
 	return (
 		<View style={styles.container}>
-			<LinearGradient colors={['#622163', 'transparent' ]} style={styles.gradient} />
+			<LinearGradient colors={['#4375BF', 'transparent' ]} style={styles.gradient} />
 			{transcripts.map((transcript) => (
 				<View style={styles.gradeSection}>
 					<CustomText style={styles.gradeSectionName}>{transcript.name}</CustomText>

@@ -9,6 +9,6 @@ const styles = StyleSheet.create({
 	seperator: {
 		width: '93%',
 		alignSelf: 'center',
-		height: 1,
+		height: 2,
 	}
 });
