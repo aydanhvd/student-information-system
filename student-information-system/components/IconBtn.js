@@ -14,9 +14,11 @@ export const IconBtn = ({ icon, style, onPress }) => {
 
 const styles = StyleSheet.create({
    container:{
-
+		width:22,
+		height:22,
    },
    btnImage:{
-
+		width:"100%",
+		height:"100%"
    }
 })

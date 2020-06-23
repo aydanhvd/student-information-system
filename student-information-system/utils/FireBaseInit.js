@@ -1,3 +1,4 @@
+import * as firebase from 'firebase';
 var firebaseConfig = {
 	apiKey: 'AIzaSyA1qYGVsXxvg0aAfA4dxJkd6grJuP6UqSU',
 	authDomain: 'student-information-syst-ef1f.firebaseapp.com',
@@ -10,3 +11,8 @@ var firebaseConfig = {
 };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
+const fbApp = {
+	db: firebase.database(),
+}
+
+export default fbApp

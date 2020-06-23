@@ -5,13 +5,16 @@ import { HomeStack } from './HomeStack';
 import {ClassStack} from "./ClassStack";
 
 
-const { Screen, Navigator } = createDrawerNavigator();
+import { RootTabs } from './RootTabs';
 
-export const RootDrawer=()=>(
-   <NavigationContainer >
-      <Navigator >
-         <Screen name="HomeStack" component={HomeStack}/>
-          <Screen name="ClassStack" component={ClassStack}/>
-      </Navigator>
-   </NavigationContainer>
-)
+const { Screen, Navigator } = createDrawerNavigator();
+//navigation for screens feeter (callindar, home class,materials, chats)
+//Todo figure out how to create custom buttom tabs looks like on our design
+export const RootDrawer = () => (
+	<NavigationContainer>
+		<Navigator>
+			<Screen name="Home" component={RootTabs} />
+  <Screen name="ClassStack" component={ClassStack}/>
+		</Navigator>
+	</NavigationContainer>
+);
