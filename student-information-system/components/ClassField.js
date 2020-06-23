@@ -2,16 +2,16 @@ import React from 'react';
 import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import { COLORS } from '../styles/colors';
 import { CustomText } from './CustomText';
-import { Seperator } from './Seperator';
 
 export const ClassField = ({ heading, date, topic , style , fontSize}) => {
 	return (
 		<TouchableOpacity style={{...styles.container,...style}}>
-			<CustomText weight="semi" style={{...styles.heading, ...fontSize}}>{heading}</CustomText>
-         <Seperator color={COLORS.backgroundDark} distance={9}/>
+            <View style={styles.headerContainer}>
+			<CustomText style={{...styles.heading, ...fontSize}}>{heading}</CustomText>
+            </View>
          <View style={styles.row}>
-             <CustomText weight="semi" style={styles.topic}>{topic}</CustomText>
-			 <CustomText weight="semi" style={styles.date}>{date}</CustomText>
+             <CustomText style={styles.topic}>{topic}</CustomText>
+			 <CustomText style={styles.date}>{date}</CustomText>
          </View>
 		</TouchableOpacity>
 	);
@@ -19,30 +19,46 @@ export const ClassField = ({ heading, date, topic , style , fontSize}) => {
 
 const styles = StyleSheet.create({
    container:{
-      borderWidth:1,
-      borderColor:COLORS.backgroundDark,
-      borderRadius:4,
-      paddingHorizontal:14,
+       height: 90,
+       borderRadius: 4,
+       backgroundColor: COLORS.backgroundLight,
+
+       shadowColor: '#000',
+       shadowOffset: {
+           width: 0,
+           height: 3
+       },
+       shadowOpacity: 0.46,
+       shadowRadius: 11.14,
+       elevation: 17
+
    },
+    headerContainer:{
+        borderColor: COLORS.backgroundDark,
+        borderTopStartRadius: 4,
+        borderTopEndRadius: 4,
+        backgroundColor: COLORS.commentsColorLight
+    },
     row: {
         flexDirection: 'row',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
+        paddingHorizontal: 14,
     },
    heading:{
       fontSize:20,
-      color: COLORS.backgroundDark,
-      alignSelf:'center',
-      marginVertical:10,
+      color: COLORS.acsentLight,
+      marginVertical: 10,
+       marginHorizontal: 14,
    },
    date:{
       fontSize: 14,
-       marginVertical: 7,
-       color: COLORS.acsentColor
+       marginVertical: 10,
+       color: COLORS.acsentLight
 
    },
    topic:{
       fontSize:13,
-       marginVertical: 7,
+       marginVertical: 10,
 
    }
 });

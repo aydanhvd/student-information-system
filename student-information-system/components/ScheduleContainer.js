@@ -3,7 +3,7 @@ import { StyleSheet, View } from 'react-native';
 import { CustomText } from './CustomText';
 import { COLORS } from '../styles/colors';
 import { Seperator } from './Seperator';
-import { ClassField } from './ClassField';
+import {ScheduleField} from "./ScheduleField";
 
 // a dummydata for schedules
 const schedules = [
@@ -25,10 +25,10 @@ export const ScheduleContainer = () => {
 	return (
 		<View style={styles.container}>
 			<CustomText style={styles.heading}>Schedule</CustomText>
-			<Seperator distance={17} color={COLORS.backgroundDark} />
+			<Seperator distance={17} color={COLORS.commentsColorLight} />
 			<View style={styles.row}>
 				{schedules.map((schedule) => (
-					<ClassField
+					<ScheduleField
 						fontSize={{ fontSize: 14 }}
 						heading={schedule.day}
 						date={schedule.time}
@@ -52,12 +52,23 @@ const styles = StyleSheet.create({
 	},
 	schedule: {
 		alignSelf: 'center',
-		width: 111,
+		width: 116,
 		height: 90,
 	},
 	row: {
 		justifyContent: 'space-around',
 		alignItems: 'center',
-		flexDirection: 'row'
+		flexDirection: 'row',
+		height: 90,
+		borderRadius: 4,
+		backgroundColor: COLORS.backgroundLight,
+		shadowColor: '#000',
+		shadowOffset: {
+			width: 0,
+			height: 3
+		},
+		shadowOpacity: 0.46,
+		shadowRadius: 11.14,
+		elevation: 17
 	}
 });
