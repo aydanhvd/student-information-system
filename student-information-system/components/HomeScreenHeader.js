@@ -1,37 +1,49 @@
-import React, { useState } from 'react';
-import { StyleSheet, View, TouchableOpacity } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, View, TouchableOpacity, FlatList } from 'react-native';
+import { connect } from 'react-redux';
+
 import { COLORS } from '../styles/colors';
 import { CustomText } from './CustomText';
+import { getAndListenFeeds, selectFeeds } from '../redux/posts';
 
-const btns = [
-	{
-		name: 'News'
-	},
-	{
-		name: 'MD1-front-end'
-	}
-];
-export const HomeScreenHeader = () => {
-	const [ indicator, setIndicator ] = useState('News');//indicater will be a props
+const mapStateToProps = (state) => ({
+	feeds: selectFeeds(state)
+	//Todo make it so 
+});
+
+export const HomeScreenHeader = connect(mapStateToProps, {
+	getAndListenFeeds
+})(({ feeds, getAndListenFeeds }) => {
+	const [ indicater, setIndicater ] = useState('News'); //indiator is the line under each group name
+	//Todo update onPress part of the TouchableOpacity
+	useEffect(() => {
+		const unsubscribe = getAndListenFeeds();
+		return unsubscribe;
+	}, []);
 
 	return (
 		<View style={styles.container}>
-			{btns.map((btn) => {
-				const isActive = indicator === btn.name;
-				return (
-					<TouchableOpacity key={btn.name} style={styles.btn} onPress={() => setIndicator(btn.name)}>
-						<CustomText
-							style={{ ...styles.btnText, color: isActive ? COLORS.acsentColor : COLORS.acsentLight }}
+			<FlatList
+				contentContainerStyle={styles.container}
+				data={feeds} //BTNS SHOULD BE FILTERED ACCORDING TO USER ACSESS
+				renderItem={({ item: { feed } }) => {
+					const isActive = feed === indicater;
+					return (
+						<TouchableOpacity
+							style={styles.btn}
+							onPress={() => {
+								setIndicater(feed);
+							}}
 						>
-							{btn.name}
-						</CustomText>
-						{isActive && <View style={styles.indicator} />}
-					</TouchableOpacity>
-				);
-			})}
+							<CustomText style={{ ...styles.btnText }}>{feed}</CustomText>
+							{isActive && <View style={styles.indicator} />}
+						</TouchableOpacity>
+					);
+				}}
+			/>
 		</View>
 	);
-};
+});
 
 const styles = StyleSheet.create({
 	container: {
@@ -51,8 +63,8 @@ const styles = StyleSheet.create({
 		bottom: -20,
 		marginTop: 10,
 		backgroundColor: COLORS.acsentColor,
-		width: 60,
-		height: 2,
+		width: 50,
+		height: 3,
 		alignSelf: 'center'
 	}
 });
