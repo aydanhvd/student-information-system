@@ -37,7 +37,6 @@ export const MaterialsScreen=()=> {
   
        <MaterialsScreenField
        key={data.text}
-       fontsize={{fontsize:20}}
        title={data.title}
        text={data.topic}
        style={{ width: '92%',  marginVertical: 14,top:70 }}

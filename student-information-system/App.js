@@ -5,14 +5,25 @@ import { Provider } from 'react-redux';
 
 import { loadFonts } from './styles/fonts';
 import { RootDrawer } from './navigation/RootDrawer';
-import {MaterialsScreen} from './screens/MaterialsScreen';
+import store from './redux';
 
 export default function App() {
+	const [ ready, setReady ] = useState(false);
+	if (!ready) {
 		return (
-			<MaterialsScreen/>
-	
+			<AppLoading
+				startAsync={loadFonts}
+				onFinish={() => setReady(true)}
+				onError={() => console.log('Ooop something went wrong try again')}
+			/>
 		);
-	};
+	}
+	return (
+		<Provider store={store}>
+			<RootDrawer />
+		</Provider>
+	);
+}
 
 const styles = StyleSheet.create({
 	container: {
