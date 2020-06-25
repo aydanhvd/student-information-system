@@ -4,46 +4,21 @@ import { ICONS_LIGHT } from '../styles/iconsLight';
 import { COLORS } from '../styles/colors';
 import { GLOBAL_STYLES } from '../styles';
 
-const btns = [
-	{
-		name: 'calendar',
-		img: ICONS_LIGHT.calendarLight
-	},
-	{
-		name: 'bookmark',
-		img: ICONS_LIGHT.bookmarkLight
-	},
-	{
-		name: 'menu',
-		img: ICONS_LIGHT.menuLight
-	},
-	{
-		name: 'send',
-		img: ICONS_LIGHT.sendLight
-	},
-	{
-		name: 'noteboook',
-		img: ICONS_LIGHT.notebookLight
-	}
-];
 
-export const Footer = ({ style }) => {
+export const Footer = ({ style, icon }) => {
 	const [ indicator, setIndicator ] = useState('menu'); //indicator will be a props for indicate wich page we r in in future
 	return (
-		<View style={{ ...styles.container, ...style, ...GLOBAL_STYLES.shaddowTop }}>
-			{btns.map((btn) => {
-				return (
-					<TouchableOpacity 
-						style={[ styles.btn ]} 
-						key={btn.name} 
-						onPress={() => setIndicator(btn.name)}
+		<View style={{ ...styles.container, ...style, ...GLOBAL_STYLES.shaddowBottum }}>
+
+					<TouchableOpacity
+						style={[ styles.btn ]}
+						onPress={() => setIndicator(icon)}
 					>
 						{/*TODO rewrite onPress after ur done with testing and create a function to naviagte between screens */}
-						<Image source={btn.img} style={styles.icon} />
-						{btn.name === indicator && <View style={styles.indicator} />}
+						<Image source={icon} style={styles.icon} />
+						{icon !== indicator && <View style={styles.indicator} />}
 					</TouchableOpacity>
-				);
-			})}
+
 		</View>
 	);
 };
@@ -54,9 +29,7 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 		alignItems: 'center',
 		justifyContent: 'space-around',
-		borderTopLeftRadius: 40,
-		borderTopRightRadius: 40,
-		backgroundColor: COLORS.backgroundLight
+		backgroundColor: COLORS.backgroundLight,
 	},
 	btn: {
 		width: 22,

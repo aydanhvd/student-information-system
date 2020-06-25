@@ -30,7 +30,6 @@ export const ClassScreen = () => {
 
             <ProgressBar color={COLORS.acsentColor} height={10} progress={49} percentage={17} />
 
-            <Footer style={styles.footer} />
         </View>
     );
 };

@@ -14,7 +14,7 @@ export const RootDrawer = () => (
 	<NavigationContainer>
 		<Navigator>
 			<Screen name="Home" component={RootTabs} />
-  <Screen name="ClassStack" component={ClassStack}/>
+  			<Screen name="ClassStack" component={ClassStack}/>
 		</Navigator>
 	</NavigationContainer>
 );
