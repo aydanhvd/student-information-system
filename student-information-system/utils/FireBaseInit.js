@@ -12,7 +12,8 @@ var firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 const fbApp = {
-	db: firebase.database(),
-}
+	root: firebase,
+	db: firebase.database()
+};
 
-export default fbApp
+export default fbApp;

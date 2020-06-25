@@ -5,7 +5,9 @@ import { Provider } from 'react-redux';
 
 import { loadFonts } from './styles/fonts';
 import { RootDrawer } from './navigation/RootDrawer';
-import store from './redux';
+import store , { persistor } from './redux';
+import { PersistGate } from 'redux-persist/integration/react';
+
 
 export default function App() {
 	const [ ready, setReady ] = useState(false);
@@ -20,7 +22,9 @@ export default function App() {
 	}
 	return (
 		<Provider store={store}>
-			<RootDrawer />
+			<PersistGate loading={null} persistor={persistor}>
+				<RootDrawer/>
+			</PersistGate>
 		</Provider>
 	);
 }

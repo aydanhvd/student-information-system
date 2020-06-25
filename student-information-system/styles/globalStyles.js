@@ -1,7 +1,6 @@
 export const GLOBAL_STYLES = Object.freeze({
    //global styles for buttom shaddows everywhere
 	shaddowBottum: {
-		paddingHorizontal: 25,
 		shadowColor: '#000',
 		shadowOffset: {
 			width: 0,
