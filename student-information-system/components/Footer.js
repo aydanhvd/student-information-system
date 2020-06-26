@@ -52,9 +52,8 @@ const styles = StyleSheet.create({
 	},
 	indicator: {
 		position: 'absolute',
-		bottom: -13,
+		bottom: -16,
 		alignSelf: 'center',
-		marginTop: 10,
 		backgroundColor: COLORS.acsentColor,
 		width: 40,
 		height: 3

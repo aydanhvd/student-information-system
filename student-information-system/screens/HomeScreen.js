@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, TouchableWithoutFeedback } from 'react-native';
+import { StyleSheet, View, TouchableWithoutFeedback, ScrollView } from 'react-native';
 import { HomeScreenHeader, HomeScreenField, Footer, HomeScreenPosts } from '../components';
 import { COLORS } from '../styles/colors';
 import { connect } from 'react-redux';
@@ -22,7 +22,7 @@ export const HomeScreen = connect(mapStateToProps, {
 				<HomeScreenHeader feeds={feeds} />
 				<HomeScreenField />
 				<HomeScreenPosts />
-				<Footer style={styles.Footer}/>
+				<Footer style={styles.footer}/>
 			</View>
 		</TouchableWithoutFeedback>
 	);
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
 		flex: 1,
 		backgroundColor: COLORS.backgroundLight
 	},
-	Footer: {
+	footer: {
 		position: 'absolute',
 		bottom: 0
 	}
