@@ -1,9 +1,9 @@
 {
-  "devToolsPort": 19005,
+  "devToolsPort": 19002,
   "expoServerPort": 19000,
-  "packagerPort": 19004,
-  "packagerPid": 8648,
+  "packagerPort": 19001,
+  "packagerPid": 13420,
   "expoServerNgrokUrl": "https://ke-qh4.aydanhvd.student-information-system.exp.direct",
   "packagerNgrokUrl": "https://packager.ke-qh4.aydanhvd.student-information-system.exp.direct",
-  "ngrokPid": 9964
+  "ngrokPid": 12704
 }

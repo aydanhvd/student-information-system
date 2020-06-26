@@ -1,24 +1,29 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Image, TouchableOpacity, FlatList } from 'react-native';
 import { ICONS_LIGHT } from '../styles/iconsLight';
 import { COLORS } from '../styles/colors';
 import { GLOBAL_STYLES } from '../styles';
+import { FOOTER_ICONS_DATA } from '../styles/footerIconsData';
+import { useNavigation } from '@react-navigation/native';
 
-
-export const Footer = ({ style, icon }) => {
-	const [ indicator, setIndicator ] = useState('menu'); //indicator will be a props for indicate wich page we r in in future
+export const Footer = ({ style }) => {
+	const [ indicator, setIndicator ] = useState('HomeStack');
+	//indicator will be a props for indicate wich page we r in in future
+	const { navigate } = useNavigation();
+	const navigationHandler = (screen) => {
+		navigate(screen);
+		setIndicator(screen);
+	};
 	return (
-		<View style={{ ...styles.container, ...style, ...GLOBAL_STYLES.shaddowBottum }}>
-
-					<TouchableOpacity
-						style={[ styles.btn ]}
-						onPress={() => setIndicator(icon)}
-					>
-						{/*TODO rewrite onPress after ur done with testing and create a function to naviagte between screens */}
-						<Image source={icon} style={styles.icon} />
-						{icon !== indicator && <View style={styles.indicator} />}
-					</TouchableOpacity>
-
+		<View style={{ ...styles.container, ...styles , ...GLOBAL_STYLES.shaddowTop }}>
+			{FOOTER_ICONS_DATA.map((item) =>{
+				console.log(item.name)
+			return (
+				<TouchableOpacity style={[ styles.btn ]} onPress={()=>navigationHandler(item.name)}>
+					<Image source={item.icon} style={styles.icon} />
+					{item.name === indicator && <View style={styles.indicator} />}
+				</TouchableOpacity>
+			)})}
 		</View>
 	);
 };
@@ -29,7 +34,10 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 		alignItems: 'center',
 		justifyContent: 'space-around',
+		borderTopLeftRadius: 40,
+		borderTopRightRadius: 40,
 		backgroundColor: COLORS.backgroundLight,
+		zIndex: 199
 	},
 	btn: {
 		width: 22,
@@ -52,3 +60,8 @@ const styles = StyleSheet.create({
 		height: 3
 	}
 });
+//FOOTER_ICONS_DATA.map((item) => (
+// 	<TouchableOpacity style={[ styles.btn ]} onPress={navigationHandler(item.name)}>
+// 	<Image source={item.icon} style={styles.icon} />
+// 	{item.name !== indicator && <View style={styles.indicator} />}
+// </TouchableOpacity>
