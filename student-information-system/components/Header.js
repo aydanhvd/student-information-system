@@ -14,7 +14,6 @@ export const Header = ({ title }) => {
             </TouchableOpacity>
             <CustomText style={styles.heading}>{title}</CustomText>
             <Image source={ICONS_LIGHT.settingsLight} style={styles.headerIconRight} />
-            <View style={styles.indicator} />
         </View>
     );
 };
@@ -38,7 +37,6 @@ const styles = StyleSheet.create({
     heading: {
         fontSize: 24,
         color: COLORS.backgroundDark,
-        alignSelf: 'center',
     },
     headerIcon: {
         width: 27,
@@ -49,13 +47,5 @@ const styles = StyleSheet.create({
         width: 27,
         height: 27,
         marginRight: -25,
-    },
-    indicator:{
-        position:'absolute',
-        bottom:0,
-        height:3,
-        left:160,
-        backgroundColor:COLORS.acsentColor,
-        width: 50,
     }
 });

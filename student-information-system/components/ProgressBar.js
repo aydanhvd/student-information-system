@@ -6,16 +6,19 @@ import { CustomText } from './CustomText';
 
 export const ProgressBar = ({ color, height, progress, percentage }) => {
 	return (
-		<>
+		<View style={styles.margin}>
 			<CustomText style={ styles.informationText }>Attendance : {percentage}%</CustomText>
 			<View style={[styles.container,{height:height}]}>
 				<View style={{...styles.progress, width:`${progress}%`, backgroundColor:color}} />
 				{/* width will be changed depending on the progress persantage  it is a plache holder for now*/}
 			</View>
-		</>
+		</View>
 	);
 };
 const styles = StyleSheet.create({
+	margin: {
+		marginVertical: 3
+	},
 	container:{
 		width:'93%',
 		flexDirection: 'row',
