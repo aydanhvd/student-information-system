@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
     indicator:{
         position:'absolute',
         bottom:0,
-        height:4,
+        height:3,
         left:160,
         backgroundColor:COLORS.acsentColor,
         width: 50,

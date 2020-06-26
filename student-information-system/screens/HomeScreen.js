@@ -22,7 +22,7 @@ export const HomeScreen = connect(mapStateToProps, {
 				<HomeScreenHeader feeds={feeds} />
 				<HomeScreenField />
 				<HomeScreenPosts />
-				{/* <Footer style={styles.Footer}/> */}
+				<Footer style={styles.Footer}/>
 			</View>
 		</TouchableWithoutFeedback>
 	);
