@@ -1,45 +1,36 @@
-import React, { useState , useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, TouchableOpacity, TextInput } from 'react-native';
 
 import { COLORS, ICONS_LIGHT, GLOBAL_STYLES } from '../styles';
 import { IconBtn } from './IconBtn';
-import fbApp from '../utils/FireBaseInit';
+import { shareNewPost, selectActivePosts } from '../redux/posts';
+import { connect } from 'react-redux';
 
-export const HomeScreenField = () => {
-	const [ feed, setFeed ] = useState('');
+const mapStateToProps = (state) => ({
+	activePostID: selectActivePosts(state)
+});
 
-	const postHandler = () => {
-		if (feed.trim() !== '') {
-			const newFeedID = fbApp.db.ref('feeds').push().key;
-			const newMessageId = fbApp.db.ref(`posts/${newFeedID}`).push().key;
-			const updates = {
-				[`feeds/${newFeedID}`]: { title },
-				[`posts/${newFeedID}/${newMessageId}`]: {
-					text: 'Today',
-					auther: 'system'
-				}
-			};
-			fbApp.db.ref().update(updates, (err) => {
-				if(err){
-					console.log('errrs durinng post create ', err);
-				}//temperrary error handling
-			});
-			setFeed('');
+export const HomeScreenField = connect(mapStateToProps, { shareNewPost })(({ activePostID, shareNewPost }) => {
+	const [ newPost, setNewPost ] = useState('');
+	const sharePostHandler = () => {
+		if (newPost.trim() !== '') {
+			shareNewPost(activePostID, newPost);
+			setNewPost('');
 		}
-	}; //a temporary function for submit btn
-	
+	};
+
 	return (
 		<View style={{ ...styles.container, ...GLOBAL_STYLES.shaddowBottum }}>
 			<TextInput
-				value={feed}
-				onChangeText={setFeed}
+				value={newPost}
+				onChangeText={setNewPost}
 				style={styles.field}
 				placeholder="what is on your mind...."
 			/>
-			<IconBtn icon={ICONS_LIGHT.origamiLight} style={styles.icon} onPress={postHandler} />
+			<IconBtn icon={ICONS_LIGHT.origamiLight} style={styles.icon} onPress={sharePostHandler} />
 		</View>
 	);
-};
+});
 
 const styles = StyleSheet.create({
 	container: {
@@ -47,7 +38,8 @@ const styles = StyleSheet.create({
 		height: 100,
 		flexDirection: 'row',
 		alignItems: 'center',
-		justifyContent: 'space-between'
+		justifyContent: 'space-between',
+		paddingHorizontal: 10
 	},
 	icon: {
 		width: 40,
