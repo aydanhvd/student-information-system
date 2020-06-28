@@ -45,7 +45,9 @@ export class Calendar extends Component {
 				/>
 				</ScrollView>
 				{/*<Text>SELECTED DATE:{ startDate }</Text>*/}
-                <Footer style={styles.footer}/>
+
+				<Footer style={styles.footer}/>
+
 			</View>
 		);
 	}

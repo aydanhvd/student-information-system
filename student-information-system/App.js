@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 import { AppLoading } from 'expo';
-import { StyleSheet } from 'react-native';
 import { Provider } from 'react-redux';
 
 import { loadFonts } from './styles/fonts';
+import { UIComonentProvider } from './utils/UIComonentProvider';
 import { RootDrawer } from './navigation/RootDrawer';
 import store from './redux';
 
 export default function App() {
+	//a state for determining wether fonst are installes or not
 	const [ ready, setReady ] = useState(false);
+	//is fonts r't insatlled install them and then return rootdrawer
 	if (!ready) {
 		return (
 			<AppLoading
@@ -20,15 +22,9 @@ export default function App() {
 	}
 	return (
 		<Provider store={store}>
-			<RootDrawer />
+			<UIComonentProvider>
+				<RootDrawer />
+			</UIComonentProvider>
 		</Provider>
 	);
 }
-
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		alignItems: 'center',
-		justifyContent: 'center'
-	}
-});

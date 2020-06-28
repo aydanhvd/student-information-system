@@ -5,6 +5,7 @@ import { Footer } from '../components/Footer';
 import { ClassField } from '../components/ClassField';
 import {COLORS} from "../styles";
 
+
 const data = [
 	{
 		title: 'Test',
@@ -23,8 +24,12 @@ const data = [
 export const MaterialsScreen = () => {
 	return (
 		<View style={styles.container}>
-			<Header title='Materials' />
+
+			<Header title={'Materials'} style={{ position: 'absolute', top: -20 }} />
+
+
 		<ScrollView>
+
 			{data.map((data) => (
 
 				<ClassField
@@ -45,6 +50,8 @@ export const MaterialsScreen = () => {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
+		backgroundColor: COLORS.backgroundLight
+
 	},
 	footer: {
 		position: 'absolute',

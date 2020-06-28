@@ -3,6 +3,7 @@ import { StyleSheet, FlatList } from 'react-native';
 import { HomeScreenPostBubble } from './HomeScreenPostBubble';
 import { connect } from 'react-redux';
 import { selectPosts, getAndListenPosts, selectActivePosts } from '../redux/posts';
+import { GLOBAL_STYLES } from '../styles';
 
 const mapStateToProps = (state) => ({
 	posts: selectPosts(state),
@@ -13,7 +14,6 @@ const mapStateToProps = (state) => ({
 export const HomeScreenPosts = connect(mapStateToProps, {
 	getAndListenPosts
 })(({ getAndListenPosts, posts, activePostID }) => {
-	console.log(activePostID);
 	useEffect(
 		() => {
 			if (activePostID !== '') {
@@ -23,13 +23,12 @@ export const HomeScreenPosts = connect(mapStateToProps, {
 		},
 		[ activePostID ]
 	);
-	console.log(posts);
 	return (
 		<FlatList
 			contentContainerStyle={styles.container}
 			data={posts.slice(0).reverse()}
 			renderItem={({ item }) => {
-				return <HomeScreenPostBubble post={item} />;
+				return <HomeScreenPostBubble post={item} style={styles.post} />;
 			}}
 		/>
 	);
@@ -38,6 +37,11 @@ export const HomeScreenPosts = connect(mapStateToProps, {
 const styles = StyleSheet.create({
 	container: {
 		paddingHorizontal: 17,
-		marginTop: 30
+		marginTop: 30,
+		// flexGrow: 1,
+		// paddingBottom: 100,//TODO look into post going under footer
 	}
+	// post:{
+	// 	...GLOBAL_STYLES.shaddowTop
+	// }
 });

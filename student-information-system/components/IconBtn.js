@@ -7,7 +7,7 @@ import { ICONS_LIGHT } from '../styles/iconsLight';
 export const IconBtn = ({ icon, style, onPress }) => {
 	return (
 		<TouchableOpacity style={[styles.container,style]} onPress={onPress}>
-			<Image source={icon} style={styles.btnImage}/>
+			<Image source={icon} style={styles.btnImage} resizeMode='contain'/>
 		</TouchableOpacity>
 	);
 };
@@ -16,6 +16,8 @@ const styles = StyleSheet.create({
    container:{
 		width:22,
 		height:22,
+		alignItems:'flex-end',
+		justifyContent:'center',
    },
    btnImage:{
 		width:"100%",

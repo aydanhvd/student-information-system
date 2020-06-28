@@ -10,11 +10,10 @@ import { Button } from 'react-native-web';
 //single posts in home screen
 export const HomeScreenPostBubble = ({ post }) => {
 	const date = new Date(post.time);
-	const formattedTime = post.time ?  `${date.getHours()}:${date.getMinutes()}` : '';
+	const formattedTime = post.time ? `${date.getHours()}:${date.getMinutes()}` : '';
 	return (
-		<View style={styles.container}>
+		<View style={{...styles.container, ...GLOBAL_STYLES.shaddowTop }}>
 			<Image style={styles.profilePic} source={{ uri: post.autherImage }} />
-
 			<View style={styles.postBodyContainer}>
 				<CustomText weight="semi" style={styles.fullName}>
 					{post.auther}
@@ -34,20 +33,13 @@ export const HomeScreenPostBubble = ({ post }) => {
 const styles = StyleSheet.create({
 	container: {
 		flexDirection: 'row',
-		borderWidth: 1,
 		borderColor: COLORS.textColorDark, //find out why box shadow is not working
-		marginBottom: 22,
+		marginBottom: 25,
+		backgroundColor:COLORS.backgroundLight,
 		padding: 18,
-		borderRadius: 4
-		// shadowColor: '#000',
-		// shadowOffset: {
-		// 	width: 0,
-		// 	height: 1
-		// },
-		// shadowOpacity: 0.22,
-		// shadowRadius: 2.22,
-
-		// elevation: 3
+		borderRadius: 4,
+		zIndex:999,  
+		minHeight:130,
 	},
 	profilePic: {
 		width: 45,
@@ -83,12 +75,12 @@ const styles = StyleSheet.create({
 		color: COLORS.acsentLight,
 		fontSize: 13
 	},
-	time:{
+	time: {
 		// alignSelf: 'center',
 		// marginLeft: 4,
-		position : 'absolute',
-		top:10,
-		right:16,
+		position: 'absolute',
+		top: 10,
+		right: 16,
 		color: COLORS.acsentLight,
 		fontSize: 12
 	}

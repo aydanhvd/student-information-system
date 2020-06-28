@@ -13,6 +13,7 @@ import origamiDark from '../assets/icons/dark-theme/origamiDark.png';
 import sendDark from '../assets/icons/dark-theme/sendDark.png';
 import settingsDark from '../assets/icons/dark-theme/settingsDark.png';
 import userDark from '../assets/icons/dark-theme/userDark.png';
+import logOutDark from '../assets/icons/dark-theme/logoutDark.png';
 
 export const ICONS_DARK = Object.freeze({
 	backDark,
@@ -29,5 +30,6 @@ export const ICONS_DARK = Object.freeze({
 	origamiDark,
 	sendDark,
 	settingsDark,
-	userDark
+	userDark,
+	logOutDark
 });
