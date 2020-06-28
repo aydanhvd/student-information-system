@@ -8,7 +8,7 @@ export const MessageScreen = () => {
 		<View style={styles.container}>
 			<Header title="Message" />
 			{/* a plachholder title for now */}
-			<Footer />
+			<Footer style={styles.footer}/>
 		</View>
 	);
 };

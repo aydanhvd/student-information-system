@@ -43,7 +43,7 @@ export class Calendar extends Component {
 					style={{ width: '92%', marginHorizontal: 15, marginVertical: 15 }}
 				/>
 				{/*<Text>SELECTED DATE:{ startDate }</Text>*/}
-                <Footer/>
+				<Footer style={styles.footer}/>
 			</View>
 		);
 	}

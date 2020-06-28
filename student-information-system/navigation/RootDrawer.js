@@ -6,20 +6,32 @@ import { ClassStack } from './ClassStack';
 import { CalendarStack } from './CalendarStack';
 import { MessageStack } from './MessageStack';
 import { MaterialsStack } from './MaterialsStack';
+import { SettingsStack } from './SettingsStack';
+import { AuthScreen } from '../screens';
+import { connect } from 'react-redux';
+import { selectAuthStatus } from '../redux/auth';
 
-// import { RootTabs } from './RootTabs';
+const mapStateToProps = (state) => ({
+	auth: selectAuthStatus(state)
+});
 
 const { Screen, Navigator } = createDrawerNavigator();
-//Todo figure out how to create custom buttom tabs looks like on our design
-export const RootDrawer = () => (
-	<NavigationContainer>
-		<Navigator>
-			{/* <Screen name="Home" component={RootTabs} /> */}
-			<Screen name="HomeStack" component={HomeStack} />
-			<Screen name="ClassStack" component={ClassStack} />
-			<Screen name="CallendarStack" component={CalendarStack} />
-			<Screen name="MessagesStack" component={MessageStack} />
-			<Screen name="MaterialsStack" component={MaterialsStack} />
-		</Navigator>
-	</NavigationContainer>
-);
+
+export const RootDrawer = connect(mapStateToProps)(({ auth }) => {
+	return (
+		<NavigationContainer>
+			{auth ? (
+				<Navigator>
+					<Screen name="HomeStack" component={HomeStack} />
+					<Screen name="ClassStack" component={ClassStack} />
+					<Screen name="CallendarStack" component={CalendarStack} />
+					<Screen name="MessagesStack" component={MessageStack} />
+					<Screen name="MaterialsStack" component={MaterialsStack} />
+					<Screen name="Settings" component={SettingsStack} />
+				</Navigator>
+			) : (
+				<AuthScreen />
+			)}
+		</NavigationContainer>
+	);
+});

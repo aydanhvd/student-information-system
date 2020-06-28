@@ -4,7 +4,7 @@ import { HomeScreenHeader, HomeScreenField, Footer, HomeScreenPosts } from '../c
 import { COLORS } from '../styles/colors';
 import { connect } from 'react-redux';
 import { getAndListenFeeds, selectFeeds } from '../redux/posts';
-import { Keyboard } from 'react-native-web';
+
 
 const mapStateToProps = (state) => ({
 	feeds: selectFeeds(state)
@@ -17,14 +17,12 @@ export const HomeScreen = connect(mapStateToProps, {
 		return unsubscribe;
 	}, []);
 	return (
-		<TouchableWithoutFeedback onPress={() => Keyboard.dismiss} >
 			<View style={styles.conainer}>
 				<HomeScreenHeader feeds={feeds} />
 				<HomeScreenField />
 				<HomeScreenPosts />
 				<Footer style={styles.Footer}/>
 			</View>
-		</TouchableWithoutFeedback>
 	);
 });
 const styles = StyleSheet.create({
@@ -34,6 +32,6 @@ const styles = StyleSheet.create({
 	},
 	Footer: {
 		position: 'absolute',
-		bottom: 0
+		bottom: -0
 	}
 });

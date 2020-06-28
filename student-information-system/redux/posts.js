@@ -1,5 +1,5 @@
 import fbApp from '../utils/FireBaseInit';
-//Axtion Types
+//Action Types
 const SET_FEEDS = 'SET_FEEDS';
 const SET_POSTS = 'SET_POSTS';
 const SET_ACTIVE_POSTS_ID = 'SET_ACTIVE_POSTS_ID';

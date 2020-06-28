@@ -3,6 +3,7 @@ import { StyleSheet, View, Text, ScrollView } from 'react-native';
 import { Header } from '../components/Header';
 import { Footer } from '../components/Footer';
 import { MaterialsScreenField } from '../components/MaterialsScreenField';
+import { COLORS } from '../styles/colors';
 
 const data = [
 	{
@@ -22,7 +23,7 @@ const data = [
 export const MaterialsScreen = () => {
 	return (
 		<View style={styles.container}>
-			<Header title={'Materials'} style={{}} />
+			<Header title={'Materials'} style={{ position: 'absolute', top: -20 }} />
 
 			{data.map((data) => (
 				<MaterialsScreenField
@@ -41,7 +42,7 @@ export const MaterialsScreen = () => {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		paddingVertical: 20
+		backgroundColor: COLORS.backgroundLight
 	},
 	footer: {
 		position: 'absolute',
