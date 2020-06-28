@@ -1,6 +1,6 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
-import { Footer, GradeShower, ProgressBar, ClassField, Header, ScheduleContainer, Information } from '../components';
+import { StyleSheet, View, ScrollView } from 'react-native';
+import { Footer,  Header } from '../components';
 import { COLORS } from '../styles/colors';
 
 export const MessageScreen = () => {
@@ -8,6 +8,8 @@ export const MessageScreen = () => {
 		<View style={styles.container}>
 			<Header title="Message" />
 			{/* a plachholder title for now */}
+
+			<ScrollView/>
 			<Footer style={styles.footer}/>
 		</View>
 	);

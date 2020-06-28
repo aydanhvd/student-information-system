@@ -3,11 +3,11 @@ import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import { COLORS } from '../styles/colors';
 import { CustomText } from './CustomText';
 
-export const ClassField = ({ heading, date, topic , style , fontSize}) => {
+export const ClassField = ({ heading, date, topic , style , fontSize, backgroundColor, color}) => {
 	return (
 		<TouchableOpacity style={{...styles.container,...style}}>
-            <View style={styles.headerContainer}>
-			<CustomText style={{...styles.heading, ...fontSize}}>{heading}</CustomText>
+            <View style={{...styles.headerContainer, ...backgroundColor}}>
+			<CustomText style={{...styles.heading, ...fontSize, ...color}}>{heading}</CustomText>
             </View>
          <View style={styles.row}>
              <CustomText style={styles.topic}>{topic}</CustomText>
@@ -19,7 +19,7 @@ export const ClassField = ({ heading, date, topic , style , fontSize}) => {
 
 const styles = StyleSheet.create({
    container:{
-       height: 90,
+       minHeight: 90,
        borderRadius: 4,
        backgroundColor: COLORS.backgroundLight,
 
@@ -46,7 +46,6 @@ const styles = StyleSheet.create({
     },
    heading:{
       fontSize:20,
-      color: COLORS.acsentLight,
       marginVertical: 10,
        marginHorizontal: 14,
    },

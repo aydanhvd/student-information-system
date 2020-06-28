@@ -54,8 +54,8 @@ const styles = StyleSheet.create({
 	indicator: {
 		position: 'absolute',
 		bottom: -14,
+
 		alignSelf: 'center',
-		marginTop: 10,
 		backgroundColor: COLORS.acsentColor,
 		width: 40,
 		height: 3

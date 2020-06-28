@@ -2,8 +2,9 @@ import React from 'react';
 import { StyleSheet, View, Text, ScrollView } from 'react-native';
 import { Header } from '../components/Header';
 import { Footer } from '../components/Footer';
-import { MaterialsScreenField } from '../components/MaterialsScreenField';
-import { COLORS } from '../styles/colors';
+import { ClassField } from '../components/ClassField';
+import {COLORS} from "../styles";
+
 
 const data = [
 	{
@@ -23,17 +24,24 @@ const data = [
 export const MaterialsScreen = () => {
 	return (
 		<View style={styles.container}>
+
 			<Header title={'Materials'} style={{ position: 'absolute', top: -20 }} />
 
+
+		<ScrollView>
+
 			{data.map((data) => (
-				<MaterialsScreenField
-					key={data.text}
-					title={data.title}
-					text={data.topic}
-					style={{ width: '92%', marginVertical: 14, top: 70 }}
+
+				<ClassField
+				key={data.text}
+				heading = {data.title}
+				topic = {data.topic}
+				style = {{ width: '92%', marginHorizontal: 15, marginVertical: 15 }}
+				backgroundColor = {{ backgroundColor: COLORS.drawerLight}}
+				color={{ color: "white"}}
 				/>
 			))}
-
+		</ScrollView>
 			<Footer style={styles.footer} />
 		</View>
 	);
@@ -43,6 +51,7 @@ const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 		backgroundColor: COLORS.backgroundLight
+
 	},
 	footer: {
 		position: 'absolute',

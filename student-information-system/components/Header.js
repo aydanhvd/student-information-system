@@ -7,6 +7,7 @@ import { COLORS } from '../styles/colors';
 import { ICONS_LIGHT } from '../styles/iconsLight';
 
 export const Header = ({ title }) => {
+
 	// pass icon in the right and title as a props for each screen
 	const { toggleDrawer, navigate } = useNavigation();
 	return (
@@ -21,6 +22,7 @@ export const Header = ({ title }) => {
 			<View style={styles.indicator} />
 		</View>
 	);
+r
 };
 const styles = StyleSheet.create({
 	container: {

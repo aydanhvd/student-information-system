@@ -1,10 +1,8 @@
 import React, { useState, Component } from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View, ScrollView } from 'react-native';
 import { Footer, ClassField, Header } from '../components';
 import { COLORS } from '../styles/colors';
 import CalendarPicker from 'react-native-calendar-picker';
-
-// export const Calendar = () => {
 
 export class Calendar extends Component {
 	constructor(props) {
@@ -35,15 +33,21 @@ export class Calendar extends Component {
 						selectedDayColor="#4375BF"
 					/>
 				</View>
+				<ScrollView>
 
 				<ClassField
 					heading="Homeworks"
 					date="12:00 PM"
 					topic="To do app"
 					style={{ width: '92%', marginHorizontal: 15, marginVertical: 15 }}
+					backgroundColor = {{ backgroundColor: COLORS.acsentColor}}
+					color={{ color: "white"}}
 				/>
+				</ScrollView>
 				{/*<Text>SELECTED DATE:{ startDate }</Text>*/}
+
 				<Footer style={styles.footer}/>
+
 			</View>
 		);
 	}
@@ -55,10 +59,10 @@ const styles = StyleSheet.create({
 		backgroundColor: COLORS.backgroundLight
 	},
 	calendar: {
-		marginVertical: 20
+		marginVertical: 15
 	},
 	footer: {
 		position: 'absolute',
-		bottom: 0
+		bottom: 0,
 	}
 });
