@@ -1,6 +1,5 @@
 //a function to validate submited data from auth screen
 export const validateForm = (isSignUP, fields, selectedGroup) => {
-	console.log();
 	//if urser is tryring to log their account name must not be left empty
 	if (fields.email.value.trim() === '') {
 		alert('name is requred');
@@ -21,6 +20,15 @@ export const validateForm = (isSignUP, fields, selectedGroup) => {
 		//they have to choose what group they r in
 		if (!selectedGroup) {
 			alert('u must pick your group');
+			return false;
+			
+		}
+		if (fields.userName.value.trim() === '') {
+			alert('userName requred');
+			return false;
+		}
+		if (fields.name.value.trim() === '') {
+			alert('name is requred');
 			return false;
 		}
 	}
