@@ -17,7 +17,6 @@ export const Footer = ({ style }) => {
 	return (
 		<View style={{ ...styles.container, ...style, ...GLOBAL_STYLES.shaddowTop }}>
 			{FOOTER_ICONS_DATA.map((item) => {
-				console.log(item.name);
 				return (
 					<TouchableOpacity style={[ styles.btn ]} onPress={() => navigationHandler(item.name)}>
 						<Image source={item.icon} style={styles.icon} />

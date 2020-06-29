@@ -1,4 +1,5 @@
 import fbApp from '../utils/FireBaseInit';
+import { selectUser } from './auth';
 //Action Types
 const SET_FEEDS = 'SET_FEEDS';
 const SET_POSTS = 'SET_POSTS';
@@ -14,7 +15,7 @@ export const selectActivePosts = (state) => state[MODULE_NAME].activePostsID;
 const initialState = {
 	feeds: [],
 	posts: [],
-	activePostsID: '-MAWDvacjOM3q9QSesbc'//TODO not the best way fix this
+	activePostsID: '-MAWDvacjOM3q9QSesbc' //TODO not the best way fix this
 };
 
 export function reducer(state = initialState, { type, payload }) {
@@ -109,20 +110,22 @@ export const getAndListenPosts = (feedID) => (dispatch) => {
 };
 
 // a middleware for shareing posts in home screen
-export const shareNewPost = (feedID, text) => (dispatch) => {
+export const shareNewPost = (feedID, text) => (dispatch, getState) => {
 	try {
+		const user = selectUser(getState());
 		const reference = fbApp.db.ref(`posts/${feedID}`);
 		//const newPostID = reference.push().key;//use uppercase for IDs
 		const newPost = {
-			auther: 'Cersei Lannister',
-			userName: 'clannister',
+			auther: user.name,
+			userName: user.userName,
+			autherID: user.userID, //use uppercase for IDS
 			likes: 0,
-			time:fbApp.root.database.ServerValue.TIMESTAMP,
+			time: fbApp.root.database.ServerValue.TIMESTAMP,
 			text
 		};
 		reference.push().set(newPost, (err) => {
 			if (err) {
-				console.log(err);
+				console.log('shareNewPost err', err);
 				//TODO handle errors
 			}
 		});
