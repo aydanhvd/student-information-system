@@ -14,9 +14,12 @@ import origamiLight from '../assets/icons/light-theme/origamiLight.png';
 import sendLight from '../assets/icons/light-theme/sendLight.png';
 import settingsLight from '../assets/icons/light-theme/settingsLight.png';
 import userLight from '../assets/icons/light-theme/userLight.png';
+
 import logOutLight from '../assets/icons/light-theme/logoutLight.png';
 import camera from '../assets/icons/light-theme/camera.png';
 import gallery from '../assets/icons/light-theme/gallery.png';
+import survey from '../assets/icons/light-theme/survey.png'
+
 
 export const ICONS_LIGHT = Object.freeze({
 	logInBtn, //arrow icon for auth screen
@@ -38,4 +41,5 @@ export const ICONS_LIGHT = Object.freeze({
 	logOutLight, //log out btn for drawer and settings
 	camera, //camera icon for settings screen
 	gallery //gallery icon for settings screen
+	survey,  // image for feedback
 });

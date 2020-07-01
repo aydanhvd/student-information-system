@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
 	},
 	indicator: {
 		position: 'absolute',
-		bottom: -14,
+		bottom: -12,
 
 		alignSelf: 'center',
 		backgroundColor: COLORS.acsentColor,
