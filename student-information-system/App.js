@@ -16,7 +16,8 @@ export default function App() {
 			<AppLoading
 				startAsync={loadFonts}
 				onFinish={() => setReady(true)}
-				onError={() => console.log('Ooop something went wrong try again')}
+				onError={(err) => console.log('AppLoading err', err)}
+				//todo handele err
 			/>
 		);
 	}

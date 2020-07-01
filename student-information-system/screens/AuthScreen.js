@@ -1,14 +1,5 @@
 import React, { useState } from 'react';
-import {
-	StyleSheet,
-	View,
-	KeyboardAvoidingView,
-	Platform,
-	SafeAreaView,
-	ScrollView,
-	Image,
-	TextInput
-} from 'react-native';
+import { StyleSheet, KeyboardAvoidingView, Platform, ScrollView, Image, TextInput } from 'react-native';
 import { COLORS } from '../styles';
 import signInImage from '../assets/icons/signIn.png';
 import { CustomText, IconBtn } from '../components';
@@ -16,15 +7,16 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { Radio, RadioGroup, CheckBox } from '@ui-kitten/components';
 import { ICONS_LIGHT } from '../styles/index';
 import { connect } from 'react-redux';
-import { logIn } from '../redux/auth';
+import { logIn, signUp } from '../redux/auth';
 import { validateForm } from '../utils/validateField';
 
 //todo reduc this screen and delete unwanted compnents
-export const AuthScreen = connect(null, { logIn })(({ logIn }) => {
+export const AuthScreen = connect(null, { logIn, signUp })(({ logIn, signUp }) => {
 	const [ group, setGroup ] = useState(0);
-	const [ signUp, setSignUp ] = useState(false);
+	const [ isSignUp, setIsSignUp ] = useState(false);
 	const [ fields, setFields ] = useState({
-		email: { value: '', placeHolder: 'email or username ' },
+		email: { value: '', placeHolder: 'email' },
+		userName: { value: '', placeHolder: 'user name', hideWhenLogeIn: true },
 		name: { value: '', placeHolder: 'full name', hideWhenLogeIn: true },
 		password: { value: '', placeHolder: 'password' },
 		rePassword: { value: '', placeHolder: 'repeat password', hideWhenLogeIn: true }
@@ -41,11 +33,22 @@ export const AuthScreen = connect(null, { logIn })(({ logIn }) => {
 	};
 	//a function witch first checks the fields and then submits them
 	const submintHandler = () => {
+		//temperary ganna go
 		const email = fields.email.value.trim();
 		const pass = fields.password.value.trim();
+		const userName = fields.userName.value.trim();
+		const name = fields.name.value.trim();
+		//temperary ganna go
+		let className;
+		if (group < 3) {
+			className = `MD-${group}`;
+		} else {
+			className = `BE-${group}`;
+		}
 
-		if (validateForm(signUp, fields, group)) {
-			if (signUp) {
+		if (validateForm(isSignUp, fields, group)) {
+			if (isSignUp) {
+				signUp(email, name, userName, pass, className);
 			} else {
 				logIn(email, pass);
 			}
@@ -64,8 +67,8 @@ export const AuthScreen = connect(null, { logIn })(({ logIn }) => {
 				<CustomText style={styles.greetingText}>Welcome</CustomText>
 				{/* temporay gonna go */}
 				<CheckBox
-					checked={signUp}
-					onChange={(nextChecked) => setSignUp(nextChecked)}
+					checked={isSignUp}
+					onChange={(nextChecked) => setIsSignUp(nextChecked)}
 					status="control"
 					style={styles.CheckBox}
 				>
@@ -73,7 +76,7 @@ export const AuthScreen = connect(null, { logIn })(({ logIn }) => {
 				</CheckBox>
 				{/* temporary we r going to have only password maybe username */}
 				{Object.keys(fields).map((key) => {
-					if (!fields[key].hideWhenLogeIn || signUp) {
+					if (!fields[key].hideWhenLogeIn || isSignUp) {
 						return (
 							<TextInput
 								key={fields[key].placeholder}
@@ -87,7 +90,7 @@ export const AuthScreen = connect(null, { logIn })(({ logIn }) => {
 					}
 				})}
 				{/* temporay gonna go */}
-				{signUp && (
+				{isSignUp && (
 					<RadioGroup style={styles.groupBtn} selectedIndex={group} onChange={(index) => setGroup(index)}>
 						<Radio value="first" status="control" onPress={(value) => setGroup(value)}>
 							MD-1
@@ -144,7 +147,7 @@ const styles = StyleSheet.create({
 		backgroundColor: COLORS.backgroundLight,
 		width: 60,
 		height: 35,
-		marginTop: 30,
+		marginTop: 10,
 		alignSelf: 'flex-end',
 		borderRadius: 20
 	}
