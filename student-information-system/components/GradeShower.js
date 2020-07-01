@@ -69,6 +69,7 @@ const styles = StyleSheet.create({
 		paddingVertical: 10,
 		alignItems: 'center',
 		overflow:'hidden',
+		
 	},
 	gradient: {
 		...StyleSheet.absoluteFill,

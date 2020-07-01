@@ -18,3 +18,7 @@ export { ScheduleField } from './ScheduleField';
 export { ScheduleContainer } from './ScheduleContainer';
 
 export { IconBtn } from './IconBtn';
+export { PeopleListField } from './PeopleListField';
+export { ProfilePictureLoader } from './ProfilePictureLoader';
+export { SettingsFileds } from './SettingsFileds';
+export { CustomBtn } from './CustomBtn';

@@ -3,58 +3,44 @@ import { StyleSheet, View, Image, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 import { CustomText } from './CustomText';
+import { IconBtn } from './IconBtn';
 import { COLORS } from '../styles/colors';
 import { ICONS_LIGHT } from '../styles/iconsLight';
+import { GLOBAL_STYLES } from '../styles';
 
 export const Header = ({ title }) => {
-
-	// pass icon in the right and title as a props for each screen
 	const { toggleDrawer, navigate } = useNavigation();
 	return (
 		<View style={styles.container}>
-			<TouchableOpacity onPress={() => toggleDrawer()}>
-				<Image source={ICONS_LIGHT.leftAlignLight} style={styles.headerIcon} />
-			</TouchableOpacity>
+			<IconBtn onPress={() => navigate('Settings')} style={styles.headerIcon} icon={ICONS_LIGHT.settingsLight} />
 			<CustomText style={styles.heading}>{title}</CustomText>
-			<TouchableOpacity onPress={() => navigate('Settings')}>
-				<Image source={ICONS_LIGHT.settingsLight} style={styles.headerIconRight} />
-			</TouchableOpacity>
+			<IconBtn onPress={() => toggleDrawer()} style={styles.headerIcon} icon={ICONS_LIGHT.leftAlignLight} />
 			<View style={styles.indicator} />
 		</View>
 	);
-r
 };
 const styles = StyleSheet.create({
 	container: {
 		height: 60,
 		backgroundColor: COLORS.backgroundLight,
 		alignItems: 'center',
-		justifyContent: 'space-around',
+		justifyContent: 'space-between',
 		flexDirection: 'row',
-		shadowColor: '#000',
-		shadowOffset: {
-			width: 0,
-			height: 1
-		},
-		shadowOpacity: 0.22,
-		shadowRadius: 2.22,
-
-		elevation: 3
+		...GLOBAL_STYLES.shaddowBottum,
+		// borderBottomEndRadius: 30,
+		// borderBottomStartRadius: 30
 	},
 	heading: {
 		fontSize: 24,
+		marginTop: 8,
 		color: COLORS.backgroundDark,
 		alignSelf: 'center'
 	},
 	headerIcon: {
-		width: 27,
-		height: 27,
-		marginLeft: -25
-	},
-	headerIconRight: {
-		width: 27,
-		height: 27,
-		marginRight: -25
+		alignSelf: 'center',
+		width: 22,
+		height: 22,
+		marginTop: 8
 	},
 	indicator: {
 		position: 'absolute',

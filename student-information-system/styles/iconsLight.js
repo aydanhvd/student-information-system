@@ -14,10 +14,12 @@ import origamiLight from '../assets/icons/light-theme/origamiLight.png';
 import sendLight from '../assets/icons/light-theme/sendLight.png';
 import settingsLight from '../assets/icons/light-theme/settingsLight.png';
 import userLight from '../assets/icons/light-theme/userLight.png';
-import logOutLight from '../assets/icons/light-theme/logoutLight.png'
+import logOutLight from '../assets/icons/light-theme/logoutLight.png';
+import camera from '../assets/icons/light-theme/camera.png';
+import gallery from '../assets/icons/light-theme/gallery.png';
 
 export const ICONS_LIGHT = Object.freeze({
-	logInBtn,//arrow icon for auth screen
+	logInBtn, //arrow icon for auth screen
 	backLight, //back arrow
 	bookmarkLight, // materials icon for footer
 	calendarLight, //callendar icon for footer
@@ -33,5 +35,7 @@ export const ICONS_LIGHT = Object.freeze({
 	sendLight, //plane icon for messages bnt of footer
 	settingsLight, //settings icon for header
 	userLight, //user default profile pic for messages part
-	logOutLight,//log out btn for drawer and settings
+	logOutLight, //log out btn for drawer and settings
+	camera, //camera icon for settings screen
+	gallery //gallery icon for settings screen
 });
