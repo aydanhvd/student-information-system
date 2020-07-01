@@ -18,3 +18,6 @@ export { ScheduleField } from './ScheduleField';
 export { ScheduleContainer } from './ScheduleContainer';
 
 export { IconBtn } from './IconBtn';
+
+export { Modal } from './Modal';
+export { Feedback } from  './Feedback';

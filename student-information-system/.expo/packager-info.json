@@ -1,10 +1,9 @@
 {
-  "devToolsPort": 19005,
+  "devToolsPort": 19002,
   "expoServerPort": 19000,
-  "packagerPort": 19001,
-  "packagerPid": 7564,
-  "expoServerNgrokUrl": "https://8f-r2n.aydanhvd.student-information-system.exp.direct",
-  "packagerNgrokUrl": "https://packager.8f-r2n.aydanhvd.student-information-system.exp.direct",
-  "ngrokPid": 13452
-
+  "packagerPort": null,
+  "packagerPid": null,
+  "expoServerNgrokUrl": "https://8f-r2n.anonymous.student-information-system.exp.direct",
+  "packagerNgrokUrl": "https://packager.8f-r2n.anonymous.student-information-system.exp.direct",
+  "ngrokPid": 25552
 }
