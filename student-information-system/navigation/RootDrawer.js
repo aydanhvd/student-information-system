@@ -10,6 +10,7 @@ import { SettingsStack } from './SettingsStack';
 import { AuthScreen } from '../screens';
 import { connect } from 'react-redux';
 import { selectAuthStatus } from '../redux/auth';
+import {FeedbackStack} from "./FeedbackStack";
 
 const mapStateToProps = (state) => ({
 	auth: selectAuthStatus(state)
@@ -28,6 +29,7 @@ export const RootDrawer = connect(mapStateToProps)(({ auth }) => {
 					<Screen name="MessagesStack" component={MessageStack} />
 					<Screen name="MaterialsStack" component={MaterialsStack} />
 					<Screen name="Settings" component={SettingsStack} />
+					<Screen name="Feedback" component={ FeedbackStack } />
 				</Navigator>
 			) : (
 				<AuthScreen />

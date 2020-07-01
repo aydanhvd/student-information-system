@@ -15,6 +15,7 @@ import sendLight from '../assets/icons/light-theme/sendLight.png';
 import settingsLight from '../assets/icons/light-theme/settingsLight.png';
 import userLight from '../assets/icons/light-theme/userLight.png';
 import logOutLight from '../assets/icons/light-theme/logoutLight.png'
+import survey from '../assets/icons/light-theme/survey.png'
 
 export const ICONS_LIGHT = Object.freeze({
 	logInBtn,//arrow icon for auth screen
@@ -34,4 +35,5 @@ export const ICONS_LIGHT = Object.freeze({
 	settingsLight, //settings icon for header
 	userLight, //user default profile pic for messages part
 	logOutLight,//log out btn for drawer and settings
+	survey,  // image for feedback
 });
