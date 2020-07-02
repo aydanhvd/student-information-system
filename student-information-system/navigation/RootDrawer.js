@@ -11,6 +11,7 @@ import { AuthScreen } from '../screens';
 import { connect } from 'react-redux';
 import { selectAuthStatus } from '../redux/auth';
 import {FeedbackStack} from "./FeedbackStack";
+import {Drawer} from "../components/Drawer/Drawer";
 
 const mapStateToProps = (state) => ({
 	auth: selectAuthStatus(state)
@@ -22,7 +23,10 @@ export const RootDrawer = connect(mapStateToProps)(({ auth }) => {
 	return (
 		<NavigationContainer>
 			{auth ? (
-				<Navigator>
+				<Navigator
+					drawerContent={(props) => <Drawer {...props}/>}
+					drawerStyle={{ width: 250 }}
+				>
 					<Screen name="HomeStack" component={HomeStack} />
 					<Screen name="ClassStack" component={ClassStack} />
 					<Screen name="CallendarStack" component={CalendarStack} />

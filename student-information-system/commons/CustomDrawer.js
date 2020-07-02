@@ -1,7 +1,7 @@
 
 import React from "react";
 import { StyleSheet, View, Image, TouchableOpacity } from "react-native";
-import {Drawer} from '../components/Drawer';
+import {Drawer} from '../components/Drawer/Drawer';
 
 
 
