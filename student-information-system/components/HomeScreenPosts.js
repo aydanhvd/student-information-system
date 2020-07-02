@@ -3,6 +3,7 @@ import { StyleSheet, FlatList } from 'react-native';
 import { HomeScreenPostBubble } from './HomeScreenPostBubble';
 import { connect } from 'react-redux';
 import { selectPosts, getAndListenPosts, selectActivePosts } from '../redux/posts';
+
 import { GLOBAL_STYLES } from '../styles';
 import { selectUser, selectProfilePiC } from '../redux/auth';
 
