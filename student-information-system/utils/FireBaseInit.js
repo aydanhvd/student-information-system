@@ -14,7 +14,7 @@ firebase.initializeApp(firebaseConfig);
 const fbApp = {
 	root: firebase,
 	db: firebase.database(),
-	auth: firebase.auth()
+	auth: firebase.auth(),
 };
 
 export default fbApp;
