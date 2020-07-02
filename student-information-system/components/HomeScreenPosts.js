@@ -4,18 +4,19 @@ import { HomeScreenPostBubble } from './HomeScreenPostBubble';
 import { connect } from 'react-redux';
 import { selectPosts, getAndListenPosts, selectActivePosts } from '../redux/posts';
 import { GLOBAL_STYLES } from '../styles';
-import { selectUser } from '../redux/auth';
+import { selectUser, selectProfilePiC } from '../redux/auth';
 
 const mapStateToProps = (state) => ({
 	posts: selectPosts(state),
 	activePostID: selectActivePosts(state),
-	user: selectUser(state)
+	user: selectUser(state),
+	profilePic:selectProfilePiC(state)
 });
 
 //posts in home screen
 export const HomeScreenPosts = connect(mapStateToProps, {
 	getAndListenPosts
-})(({ getAndListenPosts, posts, activePostID }) => {
+})(({ getAndListenPosts, posts, activePostID ,profilePic }) => {
 	useEffect(
 		() => {
 			if (activePostID !== '') {
@@ -30,7 +31,7 @@ export const HomeScreenPosts = connect(mapStateToProps, {
 			contentContainerStyle={styles.container}
 			data={posts.slice(0).reverse()}
 			renderItem={({ item }) => {
-				return <HomeScreenPostBubble post={item} style={styles.post} />;
+				return <HomeScreenPostBubble post={item} style={styles.post} profilePic={profilePic} />;
 			}}
 		/>
 	);

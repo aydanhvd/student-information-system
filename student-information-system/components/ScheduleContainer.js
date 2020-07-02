@@ -4,6 +4,7 @@ import { CustomText } from './CustomText';
 import { COLORS } from '../styles/colors';
 import { Seperator } from './Seperator';
 import {ScheduleField} from "./ScheduleField";
+import { GLOBAL_STYLES } from '../styles';
 
 // a dummydata for schedules
 const schedules = [
@@ -62,13 +63,6 @@ const styles = StyleSheet.create({
 		height: 90,
 		borderRadius: 4,
 		backgroundColor: COLORS.backgroundLight,
-		shadowColor: '#000',
-		shadowOffset: {
-			width: 0,
-			height: 3
-		},
-		shadowOpacity: 0.46,
-		shadowRadius: 11.14,
-		elevation: 17
+		...GLOBAL_STYLES.shaddowTop, 
 	}
 });

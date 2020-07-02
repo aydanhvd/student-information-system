@@ -17,6 +17,8 @@ export const ScheduleField = ({ heading, date, topic , style , fontSize}) => {
 const styles = StyleSheet.create({
     container:{
         paddingHorizontal:14,
+        // borderBottomEndRadius: 30,
+		// borderBottomStartRadius: 30
     },
     heading:{
         fontSize:20,

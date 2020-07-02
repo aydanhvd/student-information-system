@@ -1,5 +1,5 @@
 import fbApp from '../utils/FireBaseInit';
-import { selectUser } from './auth';
+import { selectUser, selectProfilePiC } from './auth';
 //Action Types
 const SET_FEEDS = 'SET_FEEDS';
 const SET_POSTS = 'SET_POSTS';
@@ -54,6 +54,7 @@ export const setActivePosts = (payload) => ({
 	type: SET_ACTIVE_POSTS_ID,
 	payload
 });
+
 //Middlewares
 
 //a middleware for getting feeds(hedar of home screen)
@@ -113,7 +114,9 @@ export const getAndListenPosts = (feedID) => (dispatch) => {
 export const shareNewPost = (feedID, text) => (dispatch, getState) => {
 	try {
 		const user = selectUser(getState());
+		const profilePic = selectProfilePiC(getState());
 		const reference = fbApp.db.ref(`posts/${feedID}`);
+
 		//const newPostID = reference.push().key;//use uppercase for IDs
 		const newPost = {
 			auther: user.name,
@@ -121,6 +124,7 @@ export const shareNewPost = (feedID, text) => (dispatch, getState) => {
 			autherID: user.userID, //use uppercase for IDS
 			likes: 0,
 			time: fbApp.root.database.ServerValue.TIMESTAMP,
+			autherProfilePic: profilePic,
 			text
 		};
 		reference.push().set(newPost, (err) => {
