@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { StyleSheet, KeyboardAvoidingView, Platform, ScrollView, Image, TextInput } from 'react-native';
-import { COLORS } from '../styles';
+import { COLORS  } from '../styles';
 import signInImage from '../assets/icons/signIn.png';
 import { CustomText, IconBtn } from '../components';
 import { LinearGradient } from 'expo-linear-gradient';

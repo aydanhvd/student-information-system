@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { StyleSheet, View, Image } from 'react-native';
 import { CustomText } from './CustomText';
 import { AntDesign } from '@expo/vector-icons';
-import fbApp from '../utils/FireBaseInit';
 import { COLORS } from '../styles/colors';
 import { GLOBAL_STYLES } from '../styles/globalStyles';
-import { Button } from 'react-native-web';
+import { ICONS_LIGHT } from '../styles';
 
 //single posts in home screen
 export const HomeScreenPostBubble = ({ post }) => {
@@ -13,7 +12,7 @@ export const HomeScreenPostBubble = ({ post }) => {
 	const formattedTime = post.time ? `${date.getHours()}:${date.getMinutes()}` : '';
 	return (
 		<View style={{...styles.container, ...GLOBAL_STYLES.shaddowTop }}>
-			<Image style={styles.profilePic} source={{ uri: post.autherImage }} />
+			<Image style={styles.profilePic} source={post.autherProfilePic? { uri: post.autherProfilePic } : ICONS_LIGHT.userLight} />
 			<View style={styles.postBodyContainer}>
 				<CustomText weight="semi" style={styles.fullName}>
 					{post.auther}
@@ -37,7 +36,7 @@ const styles = StyleSheet.create({
 		marginBottom: 25,
 		backgroundColor:COLORS.backgroundLight,
 		padding: 18,
-		borderRadius: 4,
+		borderRadius: 10,
 		zIndex:999,  
 		minHeight:130,
 	},

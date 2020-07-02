@@ -3,18 +3,24 @@ import fbApp from '../utils/FireBaseInit';
 const SET_AUTH_STATUS = 'SET_AUTH_STATUS';
 const SET_AUTH_SUCCESS = 'SET_AUTH_SUCCESS';
 const SET_AUTH_LOGOUT = 'SET_AUTH_LOGOUT';
+const SET_AUTH_USER_NAME = 'SET_AUTH_USER_NAME';
+const SET_AUTH_PROFILE_PIC = 'SET_AUTH_PROFILE_PIC';
 
 //Selectors
 export const MODULE_NAME = 'auth';
-export const selectAuthStatus = (state) => state[MODULE_NAME].status;
 export const selectUser = (state) => state[MODULE_NAME];
+export const selectAuthStatus = (state) => state[MODULE_NAME].status;
+export const selectProfilePiC = (state) => state[MODULE_NAME].profilePiC;
+export const selectAuthUserID = (state) => state[MODULE_NAME].userID;
+
 //Reducer
 const initialState = {
 	status: false,
 	userID: null, //use uppercase ID for ids
 	name: null,
 	userName: null,
-	group: null
+	group: null,
+	profilePiC: null
 };
 
 export function reducer(state = initialState, { type, payload }) {
@@ -31,7 +37,18 @@ export function reducer(state = initialState, { type, payload }) {
 				userID: payload.userID,
 				name: payload.name,
 				userName: payload.userName,
-				group: payload.group
+				group: payload.group,
+				profilePiC: payload.profilePiC
+			};
+		case SET_AUTH_PROFILE_PIC:
+			return {
+				...state,
+				profilePiC: payload
+			};
+		case SET_AUTH_USER_NAME:
+			return {
+				...state,
+				userName: payload
 			};
 		case SET_AUTH_LOGOUT:
 			return {
@@ -40,7 +57,8 @@ export function reducer(state = initialState, { type, payload }) {
 				userID: null,
 				name: null,
 				userName: null,
-				group: null
+				group: null,
+				profilePiC: null
 			};
 		default:
 			return state;
@@ -58,6 +76,14 @@ export const setAuthSuccess = (payload) => ({
 });
 export const setAuthLogOut = () => ({
 	type: SET_AUTH_LOGOUT
+});
+export const setAuthProfilePic = (payload) => ({
+	type: SET_AUTH_PROFILE_PIC,
+	payload
+});
+export const setAuthUserName = (payload) => ({
+	type: SET_AUTH_USER_NAME,
+	payload
 });
 //Middlewares
 
@@ -90,7 +116,8 @@ export const signUp = (email, name, userName, password, group) => async (dispatc
 		fbApp.db.ref(`users/${uid}`).set({
 			userName: userName,
 			name: name,
-			group: group
+			group: group,
+			profilePiC: ''
 		});
 
 		dispatch(
@@ -99,7 +126,8 @@ export const signUp = (email, name, userName, password, group) => async (dispatc
 				name,
 				userName,
 				password,
-				group
+				group,
+				profilePiC
 			})
 		);
 	} catch (err) {
@@ -107,12 +135,40 @@ export const signUp = (email, name, userName, password, group) => async (dispatc
 		//todo handle error
 	}
 };
-
+export const changeName=(userName)=>(dispatch,getState)=>{
+	try{
+		const userID = selectAuthUserID(getState())
+		fbApp.db.ref(`users/${userID}/userName`).set(userName)
+		dispatch(setAuthUserName(userName))
+	}catch(err){
+		console.log('changeName err', err)
+	}
+}
 export const logOut = () => async (dispatch) => {
 	try {
 		await fbApp.auth.signOut();
 		dispatch(setAuthLogOut());
 	} catch (err) {
 		console.log('log out err', err);
+	}
+};
+
+
+
+export const uploadProfilePic = (uri) => async (dispatch, getState) => {
+	try {
+		const response = await fetch(uri);
+		const blob = await response.blob();
+
+		const key = (await fbApp.db.ref('keys').push()).key;
+		const snap = await fbApp.storage.ref(key).put(blob);
+		const url = await snap.ref.getDownloadURL();
+		const userID = selectAuthUserID(getState());
+		const result = await fbApp.db.ref(`users/${userID}/profilePiC`).set(url);
+		console.log(result);
+		dispatch(setAuthProfilePic(url));
+	} catch (err) {
+		console.log('aploadProfilePic err ', err);
+		//todo handle error
 	}
 };
