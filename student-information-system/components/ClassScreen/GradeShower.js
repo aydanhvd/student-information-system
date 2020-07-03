@@ -2,8 +2,8 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
-import { CustomText } from '.';
-import { COLORS } from '../styles/colors';
+import { CustomText } from '../index';
+import { COLORS } from '../../styles/colors';
 
 //a temperory dammy data for grades
 const transcripts = [

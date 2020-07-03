@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 
 import { StyleSheet, View, TextInput, TouchableOpacity } from 'react-native';
-import { CustomText } from './CustomText';
-import { COLORS, GLOBAL_STYLES, ICONS_LIGHT } from '../styles';
-import { selectUser, logOut, changeName } from '../redux/auth';
-import { IconBtn } from './IconBtn';
-import { CustomBtn } from './CustomBtn';
+import { CustomText } from '../Customs/CustomText';
+import { COLORS, GLOBAL_STYLES, ICONS_LIGHT } from '../../styles';
+import { selectUser, logOut, changeName } from '../../redux/auth';
+import { CustomIconBtn } from '../Customs/CustomIconBtn';
+import { CustomBtn } from '../Customs/CustomBtn';
 
 const mapStateToProps = (state) => ({
 	userName: selectUser(state).userName
@@ -21,7 +21,7 @@ export const SettingsFileds = connect(mapStateToProps, { logOut, changeName })((
 			<View style={styles.btnContainer}>
 				<CustomBtn text="change name" onPress={()=>changeName(name)}/>
 				<CustomBtn text="log out" onPress={logOut}>
-					<IconBtn icon={ICONS_LIGHT.logOutLight} style={styles.logBtnIcon} />
+					<CustomIconBtn icon={ICONS_LIGHT.logOutLight} style={styles.logBtnIcon} />
 				</CustomBtn>
 			</View>
 		</View>

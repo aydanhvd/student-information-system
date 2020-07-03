@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import { CustomText } from './CustomText';
-import { COLORS, ICONS_LIGHT, GLOBAL_STYLES } from '../styles';
+import { COLORS, ICONS_LIGHT, GLOBAL_STYLES } from '../../styles';
 
 export const CustomBtn = ({ text, style, children, onPress }) => (
 	<TouchableOpacity style={{ ...styles.btn, ...style }} onPress={onPress}>

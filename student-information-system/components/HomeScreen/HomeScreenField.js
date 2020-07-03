@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, TouchableOpacity, TextInput } from 'react-native';
 
-import { COLORS, ICONS_LIGHT, GLOBAL_STYLES } from '../styles';
-import { IconBtn } from './IconBtn';
-import { shareNewPost, selectActivePosts } from '../redux/posts';
+import { COLORS, ICONS_LIGHT, GLOBAL_STYLES } from '../../styles';
+import { CustomIconBtn } from '../Customs/CustomIconBtn';
+import { shareNewPost, selectActivePosts } from '../../redux/posts';
 import { connect } from 'react-redux';
 
 const mapStateToProps = (state) => ({
@@ -27,7 +27,7 @@ export const HomeScreenField = connect(mapStateToProps, { shareNewPost })(({ act
 				style={styles.field}
 				placeholder="what is on your mind...."
 			/>
-			<IconBtn icon={ICONS_LIGHT.origamiLight} style={styles.icon} onPress={sharePostHandler} />
+			<CustomIconBtn icon={ICONS_LIGHT.origamiLight} style={styles.icon} onPress={sharePostHandler} />
 		</View>
 	);
 });

@@ -1,13 +1,13 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import {ClassScreen} from "../screens";
+import {ClassScreen, FeedbackScreen} from "../../screens";
 
 const { Navigator, Screen } = createStackNavigator();
 
-export const ClassStack = () => {
+export const FeedbackStack = () => {
     return (
         <Navigator headerMode={"none"}>
-            <Screen name="Class" component={ClassScreen} />
+            <Screen name="Feedback" component={ FeedbackScreen } />
         </Navigator>
     );
 };

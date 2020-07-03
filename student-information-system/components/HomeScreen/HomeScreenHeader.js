@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, FlatList, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 
-import { COLORS } from '../styles/colors';
-import { CustomText } from './CustomText';
-import { setActivePosts, selectActivePosts, selectPosts } from '../redux/posts';
+import { COLORS } from '../../styles/colors';
+import { CustomText } from '../Customs/CustomText';
+import { setActivePosts, selectActivePosts, selectPosts } from '../../redux/posts';
 
 const mapStateToProps = (state) => ({
 	activePostID: selectActivePosts(state),

@@ -4,7 +4,7 @@ import { Footer, ClassField, Header } from '../components';
 import { COLORS } from '../styles/colors';
 import CalendarPicker from 'react-native-calendar-picker';
 
-export class Calendar extends Component {
+export class CalendarScreen extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -24,7 +24,7 @@ export class Calendar extends Component {
 		const startDate = selectedStartDate ? selectedStartDate.toString() : '';
 		return (
 			<View style={styles.container}>
-				<Header title="Calendar" />
+				<Header title="CalendarScreen" />
 				{/* a plachholder title for now */}
 				<View style={styles.calendar}>
 					<CalendarPicker
@@ -46,7 +46,7 @@ export class Calendar extends Component {
 				</ScrollView>
 				{/*<Text>SELECTED DATE:{ startDate }</Text>*/}
 
-				<Footer style={styles.footer}/>
+				<Footer style={styles.footer} screen='CallendarStack'/>
 
 			</View>
 		);

@@ -1,13 +1,13 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import {ClassScreen, FeedbackScreen} from "../screens";
+import { CalendarScreen } from '../../screens';
 
 const { Navigator, Screen } = createStackNavigator();
 
-export const FeedbackStack = () => {
+export const CalendarStack = () => {
     return (
         <Navigator headerMode={"none"}>
-            <Screen name="Feedback" component={ FeedbackScreen } />
+            <Screen name="Calendar" component={CalendarScreen} />
         </Navigator>
     );
 };

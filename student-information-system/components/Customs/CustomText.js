@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text } from 'react-native';
-import { FontFamiles } from '../styles/fonts';
+import { FontFamiles } from '../../styles/fonts';
 
 export const CustomText = ({ children, weight, style, ...rest }) => {
 	return (

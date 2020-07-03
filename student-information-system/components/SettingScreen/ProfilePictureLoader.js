@@ -2,13 +2,13 @@ import React from 'react';
 import { StyleSheet, View, Image } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 
-import { CustomText } from './CustomText';
-import { IconBtn } from './IconBtn';
-import { ICONS_LIGHT, COLORS, GLOBAL_STYLES } from '../styles';
-import { Seperator } from './Seperator';
-import { askForCameraPermissions, imagePickerOptions } from '../utils/askForCameraPermissions';
+import { CustomText } from '../Customs/CustomText';
+import { CustomIconBtn } from '../Customs/CustomIconBtn';
+import { ICONS_LIGHT, COLORS, GLOBAL_STYLES } from '../../styles';
+import { CustomSeperator } from '../Customs/CustomSeperator';
+import { askForCameraPermissions, imagePickerOptions } from '../../utils/askForCameraPermissions';
 import { connect } from 'react-redux';
-import { uploadProfilePic, selectProfilePiC } from '../redux/auth';
+import { uploadProfilePic, selectProfilePiC } from '../../redux/auth';
 
 const mapStateToProps = (state) => ({
 	profilePic: selectProfilePiC(state)
@@ -51,10 +51,10 @@ export const ProfilePictureLoader = connect(mapStateToProps, {
 			<CustomText weight="semi" style={styles.editText}>
 				Edit Picture
 			</CustomText>
-			<Seperator color={COLORS.acsentColor} style={styles.seperator} />
+			<CustomSeperator color={COLORS.acsentColor} style={styles.seperator} />
 			<View style={styles.row}>
-				<IconBtn icon={ICONS_LIGHT.camera} style={styles.icon} onPress={() => selectImage(true)} />
-				<IconBtn icon={ICONS_LIGHT.gallery} style={styles.icon} onPress={() => selectImage()} />
+				<CustomIconBtn icon={ICONS_LIGHT.camera} style={styles.icon} onPress={() => selectImage(true)} />
+				<CustomIconBtn icon={ICONS_LIGHT.gallery} style={styles.icon} onPress={() => selectImage()} />
 			</View>
 		</View>
 	);

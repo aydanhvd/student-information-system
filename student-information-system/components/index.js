@@ -1,29 +1,28 @@
-export { CustomText } from './CustomText';
+export { CustomText } from './Customs/CustomText';
 export { Header } from './Header';
 export { Footer } from './Footer';
 
-export { HomeScreenField } from './HomeScreenField';
-export { HomeScreenPosts } from './HomeScreenPosts';
-export { HomeScreenHeader } from './HomeScreenHeader';
-export { HomeScreenPostBubble } from './HomeScreenPostBubble';
+export { HomeScreenField } from './HomeScreen/HomeScreenField';
+export { HomeScreenPosts } from './HomeScreen/HomeScreenPosts';
+export { HomeScreenHeader } from './HomeScreen/HomeScreenHeader';
+export { HomeScreenPostBubble } from './HomeScreen/HomeScreenPostBubble';
 
 export { ClassField } from './ClassField';
-export { GradeShower } from './GradeShower';
-export { Seperator } from './Seperator';
-export { MaterialsScreenField } from './MaterialsScreenField';
+export { GradeShower } from './ClassScreen/GradeShower';
+export { CustomSeperator } from './Customs/CustomSeperator';
 
-export { Information } from './Information';
-export { ProgressBar } from './ProgressBar';
-export { ScheduleField } from './ScheduleField';
-export { ScheduleContainer } from './ScheduleContainer';
+export { Information } from './ClassScreen/Information';
+export { ProgressBar } from './ClassScreen/ProgressBar';
+export { ScheduleField } from './ClassScreen/ScheduleField';
+export { ScheduleContainer } from './ClassScreen/ScheduleContainer';
 
-export { IconBtn } from './IconBtn';
+export { CustomIconBtn } from './Customs/CustomIconBtn';
 
-export { PeopleListField } from './PeopleListField';
-export { ProfilePictureLoader } from './ProfilePictureLoader';
-export { SettingsFileds } from './SettingsFileds';
-export { CustomBtn } from './CustomBtn';
+export { PeopleListField } from './MessageScreen/PeopleListField';
+export { ProfilePictureLoader } from './SettingScreen/ProfilePictureLoader';
+export { SettingsFileds } from './SettingScreen/SettingsFileds';
+export { CustomBtn } from './Customs/CustomBtn';
 
-export { Modal } from './Modal';
-export { Feedback } from  './Feedback';
+export { Modal } from './FeedbackScreen/Modal';
+export { Feedback } from './FeedbackScreen/Feedback';
 

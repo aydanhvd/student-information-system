@@ -1,13 +1,16 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { Calendar } from '../screens';
+import {MaterialsScreen} from '../../screens/MaterialsScreen';
+
 
 const { Navigator, Screen } = createStackNavigator();
 
-export const CalendarStack = () => {
+export const MaterialsStack = () => {
     return (
         <Navigator headerMode={"none"}>
-            <Screen name="Calendar" component={Calendar} />
+            <Screen name="MaterialsStack" component={MaterialsScreen} />
         </Navigator>
     );
 };
+
+

@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { COLORS } from '../styles/colors';
-import { CustomText } from './CustomText';
+import { COLORS } from '../../styles/colors';
+import { CustomText } from '../Customs/CustomText';
 
 
 export const ProgressBar = ({ color, height, progress, percentage }) => {

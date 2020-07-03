@@ -1,10 +1,10 @@
 import React from 'react';
 import { StyleSheet, View, Image } from 'react-native';
-import { CustomText } from './CustomText';
+import { CustomText } from '../Customs/CustomText';
 import { AntDesign } from '@expo/vector-icons';
-import { COLORS } from '../styles/colors';
-import { GLOBAL_STYLES } from '../styles/globalStyles';
-import { ICONS_LIGHT } from '../styles';
+import { COLORS } from '../../styles/colors';
+import { GLOBAL_STYLES } from '../../styles/globalStyles';
+import { ICONS_LIGHT } from '../../styles';
 
 //single posts in home screen
 export const HomeScreenPostBubble = ({ post }) => {

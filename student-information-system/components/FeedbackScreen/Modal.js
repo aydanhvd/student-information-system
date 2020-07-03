@@ -2,8 +2,8 @@ import React from 'react';
 import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-import { CustomText } from './CustomText';
-import { COLORS } from '../styles/colors';
+import { CustomText } from '../Customs/CustomText';
+import { COLORS } from '../../styles/colors';
 
 export const Modal = ({ cancel, sent }) => {
 

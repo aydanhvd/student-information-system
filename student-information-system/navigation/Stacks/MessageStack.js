@@ -1,6 +1,6 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { MessageScreen} from '../screens';
+import { MessageScreen} from '../../screens';
 
 const { Navigator, Screen } = createStackNavigator();
 

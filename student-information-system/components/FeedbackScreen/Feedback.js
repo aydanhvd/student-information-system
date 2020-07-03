@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
 import {StyleSheet, View, TextInput, Image, TouchableOpacity} from 'react-native';
-import { CustomText } from './CustomText';
-import { COLORS } from '../styles/colors';
-import { Seperator } from './Seperator';
-import {ICONS_LIGHT} from "../styles";
+import { CustomText } from '../Customs/CustomText';
+import { COLORS } from '../../styles/colors';
+import { CustomSeperator } from '../Customs/CustomSeperator';
+import {ICONS_LIGHT} from "../../styles";
 import {Modal} from "./Modal";
 import {connect} from "react-redux";
-import {submitFeedback} from "../redux/feedback";
+import {submitFeedback} from "../../redux/feedback";
 
 export const Feedback = connect(null, { submitFeedback })(({ activePostID, submitFeedback }) => {
 
@@ -28,7 +28,7 @@ export const Feedback = connect(null, { submitFeedback })(({ activePostID, submi
             <View style={styles.container}>
                 <Image source={ICONS_LIGHT.survey} style={styles.icon} />
                 <CustomText weight='bold' style={styles.heading}>Share your opinions about this app, please!</CustomText>
-                <Seperator distance={17} color={COLORS.commentsColorLight} />
+                <CustomSeperator distance={17} color={COLORS.commentsColorLight} />
                 <View style={styles.textInput}>
                     <TextInput
                         placeholder = 'Type your thoughts...'

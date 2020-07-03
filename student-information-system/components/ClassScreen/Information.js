@@ -1,7 +1,7 @@
 import React from 'react'
 import { View,StyleSheet } from 'react-native'
-import { COLORS } from '../styles/colors'
-import { CustomText } from './CustomText'
+import { COLORS } from '../../styles/colors'
+import { CustomText } from '../Customs/CustomText'
 
 export const Information=()=>{
    return(

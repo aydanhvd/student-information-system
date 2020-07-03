@@ -6,7 +6,7 @@ import { GLOBAL_STYLES } from '../styles';
 import { FOOTER_ICONS_DATA } from '../styles/footerIconsData';
 import { useNavigation } from '@react-navigation/native';
 
-export const Footer = ({ style }) => {
+export const Footer = ({ style, screen }) => {
 	const [ indicator, setIndicator ] = useState('');
 	//indicator will be a props for indicate wich page we r in in future
 	const { navigate } = useNavigation();
@@ -20,7 +20,7 @@ export const Footer = ({ style }) => {
 				return (
 					<TouchableOpacity style={[ styles.btn ]} onPress={() => navigationHandler(item.name)}>
 						<Image source={item.icon} style={styles.icon} />
-						{item.name === indicator && <View style={styles.indicator} />}
+						{item.name === screen && <View style={styles.indicator} />}
 					</TouchableOpacity>
 				);
 			})}
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
 	},
 	indicator: {
 		position: 'absolute',
-		bottom: -12,
+		bottom: -10,
 
 		alignSelf: 'center',
 		backgroundColor: COLORS.acsentColor,
