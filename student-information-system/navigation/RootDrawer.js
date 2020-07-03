@@ -1,16 +1,16 @@
 import React from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
-import { HomeStack } from './HomeStack';
-import { ClassStack } from './ClassStack';
-import { CalendarStack } from './CalendarStack';
-import { MessageStack } from './MessageStack';
-import { MaterialsStack } from './MaterialsStack';
-import { SettingsStack } from './SettingsStack';
+import { HomeStack } from './Stacks/HomeStack';
+import { ClassStack } from './Stacks/ClassStack';
+import { CalendarStack } from './Stacks/CalendarStack';
+import { MessageStack } from './Stacks/MessageStack';
+import { MaterialsStack } from './Stacks/MaterialsStack';
+import { SettingsStack } from './Stacks/SettingsStack';
 import { AuthScreen } from '../screens';
 import { connect } from 'react-redux';
 import { selectAuthStatus } from '../redux/auth';
-import {FeedbackStack} from "./FeedbackStack";
+import {FeedbackStack} from "./Stacks/FeedbackStack";
 import {Drawer} from "../components/Drawer/Drawer";
 
 const mapStateToProps = (state) => ({

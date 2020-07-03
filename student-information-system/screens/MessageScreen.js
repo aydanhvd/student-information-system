@@ -16,7 +16,7 @@ export const MessageScreen = connect(null, { getAndListenChatUsers })(({ getAndL
 			{/* a plachholder title for now */}
 			<PeopleListField />
 			<ScrollView />
-			<Footer style={styles.footer} />
+			<Footer style={styles.footer} screen='MessagesStack'/>
 		</View>
 	);
 });

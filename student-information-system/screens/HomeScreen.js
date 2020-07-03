@@ -21,7 +21,7 @@ export const HomeScreen = connect(mapStateToProps, {
 				<HomeScreenHeader feeds={feeds} />
 				<HomeScreenField />
 				<HomeScreenPosts />
-				<Footer style={styles.footer}/>
+				<Footer style={styles.footer} screen='HomeStack'/>
 			</View>
 	);
 });

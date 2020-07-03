@@ -42,7 +42,7 @@ export const MaterialsScreen = () => {
 				/>
 			))}
 		</ScrollView>
-			<Footer style={styles.footer} />
+			<Footer style={styles.footer} screen='MaterialsStack'/>
 		</View>
 	);
 };

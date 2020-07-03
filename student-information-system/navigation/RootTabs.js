@@ -16,7 +16,7 @@
 			//({ route }) => ({
 		// 	tabBarIcon: ({ focused, color, size }) => {
 		// 		let iconName = null;
-		// 		if (route.name === 'Calendar') {
+		// 		if (route.name === 'CalendarScreen') {
 		// 			iconName = ICONS_LIGHT.calendarLight;
 		// 		} else if (route.name === 'Class') {
 		// 			iconName = ICONS_LIGHT.bookmarkLight;
@@ -31,7 +31,7 @@
 		// 	}
 		// })}
 // 	>
-// 		<Screen name="Calendar" component={CalendarStack} options={{ title: '' }} />
+// 		<Screen name="CalendarScreen" component={CalendarStack} options={{ title: '' }} />
 // 		<Screen name="Class" component={ClassStack} options={{ title: '' }} />
 // 		<Screen name="Feed" component={HomeStack} options={{ title: '' }} />
 // 		<Screen name="Message" component={MessageStack} options={{ title: '' }} />
