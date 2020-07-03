@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import { COLORS } from '../styles/colors';
-import { CustomText } from './CustomText';
+import { CustomText } from './Customs/CustomText';
 import { GLOBAL_STYLES } from '../styles';
 
 export const ClassField = ({ heading, date, topic, style, fontSize, backgroundColor, color }) => {

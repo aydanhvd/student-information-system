@@ -20,7 +20,7 @@ export const ClassScreen = () => {
 			/>
 			<ScheduleContainer />
 			<ProgressBar color={COLORS.acsentColor} height={10} progress={49} percentage={17} />
-			<Footer style={styles.footer} />
+			<Footer style={styles.footer} screen='ClassStack'/>
 		</View>
 	);
 };

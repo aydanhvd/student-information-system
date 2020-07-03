@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, KeyboardAvoidingView, Platform, ScrollView, Image, TextInput } from 'react-native';
 import { COLORS  } from '../styles';
 import signInImage from '../assets/icons/signIn.png';
-import { CustomText, IconBtn } from '../components';
+import { CustomText, CustomIconBtn } from '../components';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Radio, RadioGroup, CheckBox } from '@ui-kitten/components';
 import { ICONS_LIGHT } from '../styles/index';
@@ -106,7 +106,7 @@ export const AuthScreen = connect(null, { logIn, signUp })(({ logIn, signUp }) =
 						</Radio>
 					</RadioGroup>
 				)}
-				<IconBtn icon={ICONS_LIGHT.logInBtn} style={styles.nextBtn} onPress={submintHandler} />
+				<CustomIconBtn icon={ICONS_LIGHT.logInBtn} style={styles.nextBtn} onPress={submintHandler} />
 			</ScrollView>
 		</KeyboardAvoidingView>
 	);

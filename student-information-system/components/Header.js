@@ -2,8 +2,8 @@ import React from 'react';
 import { StyleSheet, View, Image, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-import { CustomText } from './CustomText';
-import { IconBtn } from './IconBtn';
+import { CustomText } from './Customs/CustomText';
+import { CustomIconBtn } from './Customs/CustomIconBtn';
 import { COLORS } from '../styles/colors';
 import { ICONS_LIGHT } from '../styles/iconsLight';
 import { GLOBAL_STYLES } from '../styles';
@@ -12,9 +12,9 @@ export const Header = ({ title }) => {
 	const { toggleDrawer, navigate } = useNavigation();
 	return (
 		<View style={styles.container}>
-			{/* <IconBtn onPress={() => navigate('Settings')} style={styles.headerIcon} icon={ICONS_LIGHT.settingsLight} /> */}
+			{/* <CustomIconBtn onPress={() => navigate('Settings')} style={styles.headerIcon} icon={ICONS_LIGHT.settingsLight} /> */}
 			<CustomText style={styles.heading}>{title}</CustomText>
-			<IconBtn onPress={() => toggleDrawer()} style={styles.headerIcon} icon={ICONS_LIGHT.leftAlignLight} />
+			<CustomIconBtn onPress={() => toggleDrawer()} style={styles.headerIcon} icon={ICONS_LIGHT.leftAlignLight} />
 			{/* <View style={styles.indicator} /> */}
 		</View>
 	);

@@ -1,6 +1,6 @@
 export { HomeScreen } from './HomeScreen';
 export { ClassScreen } from './ClassScreen';
-export { Calendar } from './Calendar';
+export { CalendarScreen } from './CalendarScreen';
 export { MessageScreen } from './MessageScreen';
 export { SettingsScreen } from './SettingsScreen.js';
 export { AuthScreen } from './AuthScreen';
