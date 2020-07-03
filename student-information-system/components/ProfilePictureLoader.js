@@ -21,7 +21,6 @@ export const ProfilePictureLoader = connect(mapStateToProps, {
 		try {
 			//check for permissions
 			let permisions = await askForCameraPermissions();
-			console.log(permisions);
 			if (permisions) {
 				let image;
 				//if person wants to open camera
@@ -42,7 +41,6 @@ export const ProfilePictureLoader = connect(mapStateToProps, {
 			//todo handle err
 		}
 	};
-	console.log(profilePic);
 	return (
 		<View style={styles.container}>
 			<View style={styles.imageWrapper}>

@@ -18,8 +18,10 @@ import userLight from '../assets/icons/light-theme/userLight.png';
 import logOutLight from '../assets/icons/light-theme/logoutLight.png';
 import camera from '../assets/icons/light-theme/camera.png';
 import gallery from '../assets/icons/light-theme/gallery.png';
-import survey from '../assets/icons/light-theme/survey.png'
-
+import survey from '../assets/icons/light-theme/survey.png';
+import search from '../assets/icons/light-theme/search.png';
+import sendMessages from '../assets/icons/light-theme/sendMessages.png'
+import {HomeScreen} from '../screens/index';
 
 export const ICONS_LIGHT = Object.freeze({
 	logInBtn, //arrow icon for auth screen
@@ -40,6 +42,8 @@ export const ICONS_LIGHT = Object.freeze({
 	userLight, //user default profile pic for messages part
 	logOutLight, //log out btn for drawer and settings
 	camera, //camera icon for settings screen
-	gallery //gallery icon for settings screen
-	survey,  // image for feedback
+	gallery, //gallery icon for settings screen
+	survey, // image for feedback
+	search ,//search icon for search bar in messaging screen
+	sendMessages,//send icon in messages HomeScreen
 });
