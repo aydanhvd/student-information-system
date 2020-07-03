@@ -5,8 +5,20 @@ import { COLORS } from '../styles/colors';
 import { Seperator } from './Seperator';
 import {ICONS_LIGHT} from "../styles";
 import {Modal} from "./Modal";
+import {connect} from "react-redux";
+import {submitFeedback} from "../redux/feedback";
 
-export const Feedback = () => {
+export const Feedback = connect(null, { submitFeedback })(({ activePostID, submitFeedback }) => {
+
+    const [ field, setField ] = useState('');
+
+    const submitHandler = () => {
+        if (field.trim() !== '') {
+            submitFeedback(activePostID, field);
+            setField('');
+        }
+        toggleSend();
+    };
 
     const [send, setSend] = useState(false);
     const toggleSend = () => setSend(v => !v);
@@ -18,20 +30,26 @@ export const Feedback = () => {
                 <CustomText weight='bold' style={styles.heading}>Share your opinions about this app, please!</CustomText>
                 <Seperator distance={17} color={COLORS.commentsColorLight} />
                 <View style={styles.textInput}>
-                    <TextInput style={styles.text} placeholder='Type your thoughts...'/>
+                    <TextInput
+                        placeholder = 'Type your thoughts...'
+                        onChangeText={setField}
+                        value={field}
+                        style={styles.text}
+                    />
                     <TouchableOpacity style={styles.touchIcon} onPress={toggleSend} >
                         <Image source={ICONS_LIGHT.sendLight} style={styles.sendIcon}/>
                     </TouchableOpacity>
                 </View>
             </View>
+
             {send && (
                 <Modal cancel={toggleSend}
-                       sent={() => alert('sent')}
+                       sent={submitHandler}
                 />
             )}
         </>
     );
-};
+});
 const styles = StyleSheet.create({
     container: {
         paddingHorizontal: 17,
