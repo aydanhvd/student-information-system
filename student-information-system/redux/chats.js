@@ -1,4 +1,7 @@
 import fbApp from '../utils/FireBaseInit';
+import { generatePriviteChatID } from '../utils/sortID';
+import { selectAuthUserID } from './auth';
+
 //Action Types
 const SET_CHATS_LIST = 'SET_CHATS_LIST';
 const SET_CHAT_MESSAGES = 'SET_CHAT_MESSAGES';
@@ -9,14 +12,14 @@ const CLEAR_CHAT_MESSAGES = 'CLEAR_CHAT_MESSAGES';
 
 export const MODULE_NAME = 'chats';
 export const selectChatsList = (state) => state[MODULE_NAME].chats;
-export const selectChatMessages = (state) => state[MODULE_NAME].messages;
+export const selectChatMessages = (state) => state[MODULE_NAME].chatMessages;
 export const selectChatsUsers = (state) => state[MODULE_NAME].users;
 
 //Reducer
 
 const initialState = {
 	chats: [],
-	messages: [],
+	chatMessages: [],
 	users: []
 };
 export function reducer(state = initialState, { type, payload }) {
@@ -29,7 +32,7 @@ export function reducer(state = initialState, { type, payload }) {
 		case SET_CHAT_MESSAGES:
 			return {
 				...state,
-				messages: payload
+				chatMessages: payload
 			};
 		case SET_CHATS_USERS:
 			return {
@@ -39,7 +42,7 @@ export function reducer(state = initialState, { type, payload }) {
 		case CLEAR_CHAT_MESSAGES:
 			return {
 				...state,
-				messages: []
+				chatMessages: []
 			};
 		default:
 			return state;
@@ -66,17 +69,102 @@ export const clearChatMessages = () => ({
 
 //Middlewares
 
+
+export const getAndListenChatsList = () => (dispatch) => {
+	try {
+		const ref = fbApp.db.ref('chats');
+
+		ref.on(
+			'value',
+			(snapshot) => {
+				if (snapshot.exists()) {
+					const chatsObj = snapshot.val();
+					const chatsArr = Object.keys(chatsObj).map((key) => ({
+						id: key,
+						...chatsObj[key]
+					}));
+
+					dispatch(setChatsList(chatsArr));
+				}
+			},
+			(err) => {
+				console.log('getAndListenChatsList err', err);
+			}
+		);
+
+		return () => ref.off();
+	} catch (error) {
+		console.log('getAndListenChatsList', error);
+	}
+};
+
+
+
+
+export const getAndListenChatMessages = (chatID) => (dispatch) => {
+	try {
+		const ref = fbApp.db.ref(`chatMessages/${chatID}`);
+		ref.on(
+			'value',
+			(snapshot) => {
+				if (snapshot.exists()) {
+					const messagesObj = snapshot.val();
+					const messagesArr = Object.keys(messagesObj).map((key) => ({
+						id: key,
+						...messagesObj[key]
+					}));
+
+					dispatch(setChatMessages(messagesArr));
+				}else{
+					console.log('snapshot doesn exisist')
+				}
+			},
+			(err) => {
+				Alert.alert('Something wrong', err.message);
+			}
+		);
+
+		return () => ref.off();
+	} catch (err) {
+		console.log(`getAndListenChatMessages err`, err);
+	}
+};
+
+
+
 export const getAndListenChatUsers = () => (dispatch) => {
 	try {
-		const reference = fbApp.ref('users');
+		const reference = fbApp.db.ref('users');
 		reference.on('value', (snapshot) => {
 			if (snapshot.exists()) {
-				dispatch(setChatsUsers(snapshot.val()));
+				const usersObj = snapshot.val();
+				dispatch(setChatsUsers(usersObj));
 			}
 		});
 		return () => reference.off();
 	} catch (err) {
 		console.log('getAndListenChatUsers err', err);
+		//Todo handle error
+	}
+};
+
+export const initPriviteChats = (recieverID) => async (dispatch, getState) => {
+	try {
+		const userID = selectAuthUserID(getState());
+		const chatID = generatePriviteChatID(userID, recieverID);
+		const reference = fbApp.db.ref(`chats/${chatID}`);
+		const snap = await reference.once('value');
+		if (!snap.exists()) {
+			await reference.set({ tite: 'chat' });
+			await fbApp.db.ref(`chatMessages/${chatID}`).push().set({
+				auther: 'system',
+				text: 'Today',
+				time: fbApp.root.database.ServerValue.TIMESTAMP
+			});
+		}
+		return chatID;
+	} catch (err) {
+		console.log('initPriviteChats err', err);
 		//Todo handle error
 	}
 };

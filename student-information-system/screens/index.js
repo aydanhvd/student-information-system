@@ -5,4 +5,4 @@ export { MessageScreen } from './MessageScreen';
 export { SettingsScreen } from './SettingsScreen.js';
 export { AuthScreen } from './AuthScreen';
 export { FeedbackScreen } from './FeedbackScreen';
-
+export { PriviteMessageScreen } from './PriviteMessageScreen';

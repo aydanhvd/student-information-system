@@ -127,7 +127,6 @@ export const signUp = (email, name, userName, password, group) => async (dispatc
 				userName,
 				password,
 				group,
-				profilePiC
 			})
 		);
 	} catch (err) {
@@ -165,7 +164,6 @@ export const uploadProfilePic = (uri) => async (dispatch, getState) => {
 		const url = await snap.ref.getDownloadURL();
 		const userID = selectAuthUserID(getState());
 		const result = await fbApp.db.ref(`users/${userID}/profilePiC`).set(url);
-		console.log(result);
 		dispatch(setAuthProfilePic(url));
 	} catch (err) {
 		console.log('aploadProfilePic err ', err);

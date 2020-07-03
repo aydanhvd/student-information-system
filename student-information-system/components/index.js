@@ -25,5 +25,7 @@ export { SettingsFileds } from './SettingsFileds';
 export { CustomBtn } from './CustomBtn';
 
 export { Modal } from './Modal';
-export { Feedback } from  './Feedback';
-
+export { Feedback } from './Feedback';
+export { SearchBar } from './SearchBar';
+export { PriviteMessagesField } from './PriviteMessagesField';
+export { PriviteMessages} from './PriviteMessages'

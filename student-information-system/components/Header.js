@@ -12,10 +12,10 @@ export const Header = ({ title }) => {
 	const { toggleDrawer, navigate } = useNavigation();
 	return (
 		<View style={styles.container}>
-			<IconBtn onPress={() => navigate('Settings')} style={styles.headerIcon} icon={ICONS_LIGHT.settingsLight} />
+			{/* <IconBtn onPress={() => navigate('Settings')} style={styles.headerIcon} icon={ICONS_LIGHT.settingsLight} /> */}
 			<CustomText style={styles.heading}>{title}</CustomText>
 			<IconBtn onPress={() => toggleDrawer()} style={styles.headerIcon} icon={ICONS_LIGHT.leftAlignLight} />
-			<View style={styles.indicator} />
+			{/* <View style={styles.indicator} /> */}
 		</View>
 	);
 };
@@ -31,10 +31,10 @@ const styles = StyleSheet.create({
 		// borderBottomStartRadius: 30
 	},
 	heading: {
-		fontSize: 24,
+		fontSize: 22,
 		marginTop: 8,
 		color: COLORS.backgroundDark,
-		alignSelf: 'center'
+		textAlign:'center',
 	},
 	headerIcon: {
 		alignSelf: 'center',

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 
-import { StyleSheet, View, TextInput, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, TextInput } from 'react-native';
 import { CustomText } from './CustomText';
 import { COLORS, GLOBAL_STYLES, ICONS_LIGHT } from '../styles';
 import { selectUser, logOut, changeName } from '../redux/auth';
