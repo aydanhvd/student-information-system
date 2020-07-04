@@ -1,7 +1,7 @@
 import fbApp from '../utils/FireBaseInit';
 import { generatePriviteChatID } from '../utils/sortID';
 import { selectAuthUserID } from './auth';
-import { applyMiddleware } from 'redux';
+// import { applyMiddleware } from 'redux';
 
 //Action Types
 const SET_CHAT_ID = 'SET_CHAT_ID';
@@ -10,7 +10,8 @@ const SET_CHAT_MESSAGES = 'SET_CHAT_MESSAGES';
 const SET_CHATS_USERS = 'SET_CHATS_USERS';
 const CLEAR_CHAT_MESSAGES = 'CLEAR_CHAT_MESSAGES';
 const SET_STARTED_CHATS = 'SET_STARTED_CHATS';
-
+const SET_RECIEVER_USER = "SET_RECIEVER_USER";
+const SET_RECIEVER_INFO = "SET_RECIEVER_INFO";
 //Selectors
 
 export const MODULE_NAME = 'chats';
@@ -19,11 +20,17 @@ export const selectChatMessages = (state) => state[MODULE_NAME].chatMessages;
 export const selectChatsUsers = (state) => state[MODULE_NAME].users;
 export const selectChatID = (state) => state[MODULE_NAME].chatID;
 export const selectstartedChatsLists = (state) => state[MODULE_NAME].sartedChatsList;
+export const selectRecieverUser =(state)=> state[MODULE_NAME].recieverUser;
+export const selectRecieverUserName=(state)=> state[MODULE_NAME].recieverUserName;
+export const selectRecieverUserImage=(state)=> state[MODULE_NAME].reciverUserImage;
 
 //Reducer
 
 const initialState = {
 	chatID: '',
+	recieverUser:[],
+	recieverUserName:'',
+	reciverUserImage:'',
 	chats: [],
 	sartedChatsList: [],
 	chatMessages: [],
@@ -56,6 +63,17 @@ export function reducer(state = initialState, { type, payload }) {
 				...state,
 				users: payload
 			};
+		case SET_RECIEVER_USER:
+			return {
+				...state,
+				recieverUser: payload
+			};	
+		case SET_RECIEVER_INFO:
+		return{
+			...state,
+			recieverUserName:payload.userName,
+			reciverUserImage:payload.image
+		}
 		case CLEAR_CHAT_MESSAGES:
 			return {
 				...state,
@@ -82,6 +100,14 @@ export const setChatsUsers = (payload) => ({
 });
 export const setChatID = (payload) => ({
 	type: SET_CHAT_ID,
+	payload
+});
+export const setRecieverUser = (payload) => ({
+	type: SET_RECIEVER_USER,
+	payload
+});
+export const setRecieverInfo = (payload) => ({
+	type: SET_RECIEVER_INFO,
 	payload
 });
 export const setStartedChats = (payload) => ({

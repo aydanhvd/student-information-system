@@ -12,7 +12,8 @@ const mapStateToProps = (state) => ({
 
 export const PriviteMessageScreen = connect(mapStateToProps, {
 	getAndListenChatMessages
-})(({ chatID, getAndListenChatMessages, navigation }) => {
+})(({ chatID, getAndListenChatMessages, navigation, recieverID }) => {
+	console.log(recieverID)
 	useEffect(() => {
 		const unsub = getAndListenChatMessages(chatID);
 		return unsub;
@@ -22,9 +23,6 @@ export const PriviteMessageScreen = connect(mapStateToProps, {
 		<View style={styles.container}>
 			<PriviteChatsHeader
 				navigation={navigation}
-				name="hello hello"
-				userName="hello"
-				profilePiC="https://miro.medium.com/max/785/0*Ggt-XwliwAO6QURi.jpg"
 			/>
 			<PriviteMessages />
 			<PriviteMessagesField style={styles.field} chatID={chatID} />
