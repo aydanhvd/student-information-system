@@ -1,17 +1,16 @@
 import React, {useState} from 'react';
-import {StyleSheet, View, TextInput, Image, TouchableOpacity} from 'react-native';
-import { CustomText } from '../Customs/CustomText';
-import { COLORS } from '../../styles/colors';
-import { CustomSeperator } from '../Customs/CustomSeperator';
-import {ICONS_LIGHT} from "../../styles";
-import {Modal} from "./Modal";
+import {StyleSheet, View, TextInput } from 'react-native';
 import {connect} from "react-redux";
+
+import { COLORS } from '../../styles/colors';
+import {ICONS_LIGHT, GLOBAL_STYLES} from "../../styles";
+import {Modal} from "./Modal";
 import {submitFeedback} from "../../redux/feedback";
+import { CustomIconBtn } from '../Customs/CustomIconBtn';
 
 export const Feedback = connect(null, { submitFeedback })(({ activePostID, submitFeedback }) => {
-
     const [ field, setField ] = useState('');
-
+    const [send, setSend] = useState(false);
     const submitHandler = () => {
         if (field.trim() !== '') {
             submitFeedback(activePostID, field);
@@ -19,32 +18,29 @@ export const Feedback = connect(null, { submitFeedback })(({ activePostID, submi
         }
         toggleSend();
     };
-
-    const [send, setSend] = useState(false);
     const toggleSend = () => setSend(v => !v);
-
     return (
         <>
             <View style={styles.container}>
-                <Image source={ICONS_LIGHT.survey} style={styles.icon} />
-                <CustomText weight='bold' style={styles.heading}>Share your opinions about this app, please!</CustomText>
-                <CustomSeperator distance={17} color={COLORS.commentsColorLight} />
                 <View style={styles.textInput}>
                     <TextInput
-                        placeholder = 'Type your thoughts...'
+                        placeholder = 'any suggestions for us to improve ?..'
                         onChangeText={setField}
                         value={field}
                         style={styles.text}
                     />
-                    <TouchableOpacity style={styles.touchIcon} onPress={toggleSend} >
-                        <Image source={ICONS_LIGHT.sendLight} style={styles.sendIcon}/>
-                    </TouchableOpacity>
+                    <CustomIconBtn 
+                        icon={ICONS_LIGHT.sendMessages} 
+                        style={styles.sendIcon} 
+                        onPress={toggleSend}    
+                    />
                 </View>
             </View>
-
             {send && (
-                <Modal cancel={toggleSend}
-                       sent={submitHandler}
+                <Modal 
+                    cancel={toggleSend} 
+                    sent={submitHandler} 
+                    text="Do you want to submit this feedback?"
                 />
             )}
         </>
@@ -52,36 +48,19 @@ export const Feedback = connect(null, { submitFeedback })(({ activePostID, submi
 });
 const styles = StyleSheet.create({
     container: {
-        paddingHorizontal: 17,
         backgroundColor: COLORS.backgroundLight,
-        marginTop: 5
-    },
-    icon: {
-        width: 120,
-        height: 120,
-        alignSelf: 'center',
-        marginVertical: 15,
-    },
-    heading: {
-        fontSize: 20,
-        color: COLORS.acsentColor,
-        textAlign: 'center',
-        marginBottom: 23,
-        marginHorizontal: 10,
+        marginTop: 5,
+        alignItems:'center',
+        justifyContent:'center',
     },
     textInput: {
-        height: 250,
+        width:"90%",
+        height: 400,
         borderRadius: 4,
-        marginVertical: 25,
+        padding: 20,
+        marginTop:60,
         backgroundColor: COLORS.backgroundLight,
-        shadowColor: '#000',
-        shadowOffset: {
-            width: 0,
-            height: 3
-        },
-        shadowOpacity: 0.46,
-        shadowRadius: 11.14,
-        elevation: 17
+        ...GLOBAL_STYLES.shaddowTop
     },
     text: {
         paddingVertical: 15,
@@ -89,11 +68,10 @@ const styles = StyleSheet.create({
         flexWrap: 'wrap'
     },
     sendIcon: {
-        width: 30,
-        height: 30,
         alignSelf: 'center',
         position: 'absolute',
         right: 15,
+        top:10
     },
     touchIcon: {
         marginTop: -35,

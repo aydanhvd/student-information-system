@@ -1,15 +1,31 @@
 import React, { useEffect } from 'react';
-import { StyleSheet, FlatList, View } from 'react-native';
-import { CustomText } from '../Customs/CustomText';
+import { StyleSheet, FlatList } from 'react-native';
+import { selectChatMessages  } from '../../redux/chats';
+import { connect } from 'react-redux';
+import { PriviteMessagesBubble } from './PriviteMessageBubble';
 
+const mapStateToProps = (state) => ({
+	messages: selectChatMessages(state)
+});
 
+export const PriviteMessages = connect(mapStateToProps )(({ messages }) => {
 
-export const PriviteMessages = ({ messages, chatID }) => {
 	return (
-		<View>
-			<CustomText>PriviteMessages</CustomText>
-		</View>
+		<FlatList
+			data={messages.slice(0).reverse()}
+			style={styles.container}
+			inverted={true}
+			renderItem={({ item }) => {
+				return <PriviteMessagesBubble messages={item} />;
+			}}
+		/>
 	);
-};
+});
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+	container: {
+		flex: 1,
+		paddingHorizontal: 17,
+		marginBottom: 70
+	}
+});

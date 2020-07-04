@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, TouchableWithoutFeedback, ScrollView } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { HomeScreenHeader, HomeScreenField, Footer, HomeScreenPosts } from '../components';
 import { COLORS } from '../styles/colors';
 import { connect } from 'react-redux';
 import { getAndListenFeeds, selectFeeds } from '../redux/posts';
-
 
 const mapStateToProps = (state) => ({
 	feeds: selectFeeds(state)
@@ -12,17 +11,20 @@ const mapStateToProps = (state) => ({
 export const HomeScreen = connect(mapStateToProps, {
 	getAndListenFeeds
 })(({ feeds, getAndListenFeeds }) => {
+	
 	useEffect(() => {
 		const unsubscribe = getAndListenFeeds();
 		return unsubscribe;
 	}, []);
+
+
 	return (
-			<View style={styles.conainer}>
-				<HomeScreenHeader feeds={feeds} />
-				<HomeScreenField />
-				<HomeScreenPosts />
-				<Footer style={styles.footer} screen='HomeStack'/>
-			</View>
+		<View style={styles.conainer}>
+			<HomeScreenHeader feeds={feeds} />
+			<HomeScreenField />
+			<HomeScreenPosts />
+			<Footer style={styles.footer} screen="HomeStack" />
+		</View>
 	);
 });
 const styles = StyleSheet.create({
