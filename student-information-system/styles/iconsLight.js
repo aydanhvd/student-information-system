@@ -18,11 +18,8 @@ import logOut from '../assets/icons/light-theme/logout.png';
 import logOutLight from '../assets/icons/light-theme/logouts.png';
 import camera from '../assets/icons/light-theme/camera.png';
 import gallery from '../assets/icons/light-theme/gallery.png';
-
 import search from '../assets/icons/light-theme/search.png';
 import sendMessages from '../assets/icons/light-theme/sendMessages.png'
-import {HomeScreen} from '../screens/index';
-
 import survey from '../assets/icons/light-theme/survey.png'
 import settingsWhite from '../assets/icons/light-theme/settingsWhite.png';
 import feedbackWhite from '../assets/icons/light-theme/feedbackWhite.png'
@@ -47,9 +44,8 @@ export const ICONS_LIGHT = Object.freeze({
 	logOutLight, //log out btn for drawer and settings
 	camera, //camera icon for settings screen
 	gallery, //gallery icon for settings screen
-
 	search ,//search icon for search bar in messaging screen
-	sendMessages,//send icon in messages HomeScreen
+	sendMessages,//send icon in messages privite messages
 	survey,  // image for feedback,
 	logOut, // logOut icon for drawer
 	settingsWhite, // setting icon for drawer

@@ -24,8 +24,6 @@ const styles = StyleSheet.create({
 		borderRadius: 4,
 		backgroundColor: COLORS.backgroundLight,
 		...GLOBAL_STYLES.shaddowTop
-		// borderBottomEndRadius: 30,
-		// borderBottomStartRadius: 30
 	},
 	headerContainer: {
 		borderColor: COLORS.backgroundDark,
@@ -40,7 +38,7 @@ const styles = StyleSheet.create({
 	},
 	heading: {
 		fontSize: 20,
-		marginVertical: 10,
+		marginVertical: 5,
 		marginHorizontal: 14
 	},
 	date: {

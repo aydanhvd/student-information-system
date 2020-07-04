@@ -10,8 +10,8 @@ import { SettingsStack } from './Stacks/SettingsStack';
 import { AuthScreen } from '../screens';
 import { connect } from 'react-redux';
 import { selectAuthStatus } from '../redux/auth';
-import {FeedbackStack} from "./Stacks/FeedbackStack";
-import {Drawer} from "../components/Drawer/Drawer";
+import { FeedbackStack } from './Stacks/FeedbackStack';
+import { Drawer } from '../components/Drawer/Drawer';
 
 const mapStateToProps = (state) => ({
 	auth: selectAuthStatus(state)
@@ -24,7 +24,9 @@ export const RootDrawer = connect(mapStateToProps)(({ auth }) => {
 		<NavigationContainer>
 			{auth ? (
 				<Navigator
-					drawerContent={(props) => <Drawer {...props}/>}
+					drawerContent={(props) => {
+						return <Drawer {...props} />;
+					}}
 					drawerStyle={{ width: 250 }}
 				>
 					<Screen name="HomeStack" component={HomeStack} />
@@ -33,7 +35,7 @@ export const RootDrawer = connect(mapStateToProps)(({ auth }) => {
 					<Screen name="MessagesStack" component={MessageStack} />
 					<Screen name="MaterialsStack" component={MaterialsStack} />
 					<Screen name="Settings" component={SettingsStack} />
-					<Screen name="Feedback" component={ FeedbackStack } />
+					<Screen name="Feedback" component={FeedbackStack} />
 				</Navigator>
 			) : (
 				<AuthScreen />

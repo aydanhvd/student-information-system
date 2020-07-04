@@ -7,8 +7,6 @@ import { connect } from 'react-redux';
 import { selectChatsUsers, initPriviteChats } from '../../redux/chats';
 import { UserCard } from './UserCard';
 import { selectAuthUserID } from '../../redux/auth';
-import { useNavigation } from '@react-navigation/native';
-
 
 const mapStateToProps = (state) => ({
 	users: selectChatsUsers(state),
@@ -16,8 +14,7 @@ const mapStateToProps = (state) => ({
 });
 export const PeopleListField = connect(mapStateToProps, {
 	initPriviteChats
-})(({ users, initPriviteChats, userID  }) => {
-	const {navigate}=useNavigation()
+})(({ users, initPriviteChats, userID, navigation }) => {
 	const usersArr = Object.keys(users)
 		.map((key) => ({
 			ID: key, //use uppercase letters for IDs
@@ -26,9 +23,8 @@ export const PeopleListField = connect(mapStateToProps, {
 		.filter((user) => user.ID !== userID);
 
 	const onUserCardPressHandler = async (recieverID) => {
-		const chatID = await initPriviteChats(recieverID);
-		console.log(chatID)
-		navigate('PriviteChat', {chatID});
+		initPriviteChats(recieverID);
+		navigation.navigate('PriviteChat');
 	};
 	return (
 		<View style={styles.container}>
@@ -45,15 +41,17 @@ export const PeopleListField = connect(mapStateToProps, {
 		</View>
 	);
 });
+
 const styles = StyleSheet.create({
 	container: {
-		height: 160,
+		height: 170,
 		width: '100%',
 		backgroundColor: COLORS.backgroundLight,
 		borderBottomEndRadius: 30,
 		borderBottomStartRadius: 30,
 		marginTop: 5,
-		...GLOBAL_STYLES.shaddowBottum
+		...GLOBAL_STYLES.shaddowBottum,
+		
 	},
 	listContainer: {
 		width: '100%',

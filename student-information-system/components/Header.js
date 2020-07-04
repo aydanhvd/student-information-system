@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 import { CustomText } from './Customs/CustomText';
@@ -9,13 +9,11 @@ import { ICONS_LIGHT } from '../styles/iconsLight';
 import { GLOBAL_STYLES } from '../styles';
 
 export const Header = ({ title }) => {
-	const { toggleDrawer, navigate } = useNavigation();
+	const { toggleDrawer } = useNavigation();
 	return (
 		<View style={styles.container}>
-			{/* <CustomIconBtn onPress={() => navigate('Settings')} style={styles.headerIcon} icon={ICONS_LIGHT.settingsLight} /> */}
 			<CustomText style={styles.heading}>{title}</CustomText>
 			<CustomIconBtn onPress={() => toggleDrawer()} style={styles.headerIcon} icon={ICONS_LIGHT.leftAlignLight} />
-			{/* <View style={styles.indicator} /> */}
 		</View>
 	);
 };
@@ -27,8 +25,8 @@ const styles = StyleSheet.create({
 		justifyContent: 'space-between',
 		flexDirection: 'row',
 		...GLOBAL_STYLES.shaddowBottum,
-		// borderBottomEndRadius: 30,
-		// borderBottomStartRadius: 30
+		borderBottomEndRadius: 30,
+		borderBottomStartRadius: 30
 	},
 	heading: {
 		fontSize: 22,
