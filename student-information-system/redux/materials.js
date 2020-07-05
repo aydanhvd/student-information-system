@@ -1,40 +1,33 @@
 import fbApp from '../utils/FireBaseInit';
+import { selectAuthGroup } from './auth';
 //Action Types
-const SET_GROUPS = 'SET_GROUPS';
+const SET_GROUP = 'SET_GROUP';
 const SET_MATERIALS = 'SET_MATERIALS';
-const SET_ACTIVE_GROUP_ID = 'SET_ACTIVE_GROUP_ID';
 
 //Selectors
 export const MODULE_NAME = 'groups';
-export const selectGroups = (state) => state[MODULE_NAME].groups;
+export const selectGroup = (state) => state[MODULE_NAME].group;
 export const selectMaterials = (state) => state[MODULE_NAME].materials;
-export const selectActiveGroup = (state) => state[MODULE_NAME].activeGroup;
 
 //Reducer
 const initialState = {
-    groups: [],
+    group: [],
     materials: [],
-    activeGroup: `-MAWE1GqdEzb77P4wMVS`,
 };
 
 
 
 export function reducer(state = initialState, { type, payload }) {
     switch (type) {
-        case SET_GROUPS:
+        case SET_GROUP:
             return {
                 ...state,
-                groups: payload
+                group: payload
             };
         case SET_MATERIALS:
             return {
                 ...state,
                 materials: payload
-            };
-        case SET_ACTIVE_GROUP_ID:
-            return {
-                ...state,
-                activeGroup: payload
             };
         default:
             return state;
@@ -43,37 +36,29 @@ export function reducer(state = initialState, { type, payload }) {
 
 //ActionCreators
 
-export const setGroups = (payload) => ({
-    type: SET_GROUPS,
+export const setGroup = (payload) => ({
+    type: SET_GROUP,
     payload
 });
 export const setMaterials = (payload) => ({
     type: SET_MATERIALS,
     payload
 });
-export const setActiveGroup = (payload) => ({
-    type: SET_ACTIVE_GROUP_ID,
-    payload
-
-});
 
 
 //Middlewares
 
 //a middleware for getting groups on material screen
-export const getAndListenGroups = () => (dispatch) => {
+export const getAndListenGroup = () => (dispatch , getState) => {
     try {
-        const reference = fbApp.db.ref('groups');
+        const groupID = selectAuthGroup(getState())
+        const reference = fbApp.db.ref(`groups/${groupID}`);
         reference.on(
             'value',
             (snapshot) => {
                 if (snapshot.exists()) {
                     const groupTitlesObj = snapshot.val();
-                    const groupTitlesArr = Object.keys(groupTitlesObj).map((key) => ({
-                        ID: key, //use uppercase for ids
-                        ...groupTitlesObj[key]
-                    }));
-                    dispatch(setGroups(groupTitlesArr));
+                    dispatch(setGroup(groupTitlesObj));
                 }
             },
             (err) => {
@@ -90,7 +75,7 @@ export const getAndListenGroups = () => (dispatch) => {
 //a middleware for getting titles of materials in material screen
 export const getAndListenMaterials = (groupID) => (dispatch) => {
     try {
-        const reference = fbApp.db.ref(`materials`);
+        const reference = fbApp.db.ref(`materials/${groupID}`);
         reference.on(
             'value',
             (snapshot) => {

@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import { COLORS } from '../styles/colors';
 import { CustomText } from './Customs/CustomText';
+import { CustomLink} from './Customs/CustomLink'
 import { GLOBAL_STYLES } from '../styles';
 
 export const ClassField = ({ heading, date, topic, style, fontSize, backgroundColor, color }) => {
@@ -11,7 +12,7 @@ export const ClassField = ({ heading, date, topic, style, fontSize, backgroundCo
 				<CustomText style={{ ...styles.heading, ...fontSize, ...color }}>{heading}</CustomText>
 			</View>
 			<View style={styles.row}>
-				<CustomText style={styles.topic}>{topic}</CustomText>
+				<CustomLink link={topic} styleText={styles.topic}/>
 				<CustomText style={styles.date}>{date}</CustomText>
 			</View>
 		</TouchableOpacity>
@@ -48,6 +49,7 @@ const styles = StyleSheet.create({
 	},
 	topic: {
 		fontSize: 13,
-		marginVertical: 10
+		marginVertical: 10,
+		color: COLORS.drawerLight
 	}
 });

@@ -14,7 +14,7 @@ export const selectProfilePiC = (state) => state[MODULE_NAME].profilePiC;
 export const selectAuthUserID = (state) => state[MODULE_NAME].userID;
 export const selectAuthGrades = (state) => state[MODULE_NAME].grades;
 export const selectAuthAbsence = (state) => state[MODULE_NAME].absence;
-export const selectGroup = (state) => state[MODULE_NAME].group;
+export const selectAuthGroup = (state) => state[MODULE_NAME].group;
 
 
 //Reducer
@@ -23,7 +23,7 @@ const initialState = {
 	userID: null, //use uppercase ID for ids
 	name: null,
 	userName: null,
-	group: null,
+	group:'',
 	profilePiC: null,
 	grades: [],
 	absence: 0
@@ -65,7 +65,7 @@ export function reducer(state = initialState, { type, payload }) {
 				userID: null,
 				name: null,
 				userName: null,
-				group: null,
+				group: '',
 				profilePiC: null,
 				grades: [],
 				absence: 0
@@ -130,10 +130,10 @@ export const signUp = (email, name, userName, password, group) => async (dispatc
 			profilePiC: '',
 			absence: 0
 		});
-		let ref = fbApp.db.ref(`grades/${uid}`).push().key;
+		let reference = fbApp.db.ref(`grades/${uid}`).push().key;
 		//we need 5 homeworks
 		for (let i = 0; i < 5; i++) {
-			ref.set({
+			reference.set({
 				title: `HW-${i}`,
 				grade: 0
 			});
