@@ -5,44 +5,20 @@ import { Footer } from '../components/Footer';
 import { ClassField } from '../components/ClassField';
 import { COLORS } from '../styles';
 import { connect } from 'react-redux';
-import { getAndListenMaterials, selectMaterials } from '../redux/materials';
-import { selectAuthGroup } from '../redux/auth';
+import { getAndListenMaterials } from '../redux/materials';
+import { Materialslist } from '../components/MaterialScreen/MaterialsList';
 
-//materials in material screen
-const mapStateToProps = (state) => ({
-	materials: selectMaterials(state),
-	groupID: selectAuthGroup(state)
-});
-//posts in home screen
-export const MaterialsScreen = connect(mapStateToProps, {
+export const MaterialsScreen = connect(null, {
 	getAndListenMaterials
-})(({ getAndListenMaterials, materials, groupID }) => {
+})(({ getAndListenMaterials }) => {
 	useEffect(() => {
-		getAndListenMaterials(groupID);
+		getAndListenMaterials();
 	}, []);
 
 	return (
 		<View style={styles.container}>
 			<Header title={'Materials'} style={{ position: 'absolute', top: -20 }} />
-
-			<ScrollView>
-				<FlatList
-					data={materials}
-					renderItem={({ item }) => {
-						console.log(item);
-						return (
-							<ClassField
-								heading={item.title}
-								topic={item.link}
-								style={{ width: '92%', marginHorizontal: 15, marginVertical: 15 }}
-								backgroundColor={{ backgroundColor: COLORS.drawerLight }}
-								color={{ color: 'white' }}
-							/>
-						);
-					}}
-				/>
-			</ScrollView>
-
+			<Materialslist/>
 			<Footer style={styles.footer} screen="MaterialsStack" />
 		</View>
 	);

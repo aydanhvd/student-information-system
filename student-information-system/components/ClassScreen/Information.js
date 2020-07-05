@@ -2,8 +2,14 @@ import React from 'react'
 import { View,StyleSheet } from 'react-native'
 import { COLORS } from '../../styles/colors'
 import { CustomText } from '../Customs/CustomText'
+import { connect } from 'react-redux'
+import { selectGroup } from '../../redux/materials';
 
-export const Information=()=>{
+const mapStateToProps = (state) => ({
+   group: selectGroup(state)
+})
+
+export const Information=connect(mapStateToProps)(({group})=>{
    return(
       <View style={styles.information}>
                <CustomText style={styles.informationText}>Course teacher</CustomText>
@@ -11,11 +17,11 @@ export const Information=()=>{
                   weight="semi"
                   style={{ ...styles.informationText, color: COLORS.drawerLight, fontSize: 18 }}
                >
-                  Ph.D Rakib Afandiyev
+                  {group.teacher}
                </CustomText>
 			</View>
    )
-}
+})
 
 const styles = StyleSheet.create({
    information: {

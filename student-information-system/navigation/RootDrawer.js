@@ -24,6 +24,7 @@ export const RootDrawer = connect(mapStateToProps)(({ auth }) => {
 		<NavigationContainer>
 			{auth ? (
 				<Navigator
+					drawerStyle={{ width: 300 }}
 					drawerContent={(props) => {
 						return <Drawer {...props} />;
 					}}

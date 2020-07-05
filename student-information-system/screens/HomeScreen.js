@@ -11,12 +11,10 @@ const mapStateToProps = (state) => ({
 export const HomeScreen = connect(mapStateToProps, {
 	getAndListenFeeds
 })(({ feeds, getAndListenFeeds }) => {
-	
 	useEffect(() => {
 		const unsubscribe = getAndListenFeeds();
 		return unsubscribe;
 	}, []);
-
 
 	return (
 		<View style={styles.conainer}>
