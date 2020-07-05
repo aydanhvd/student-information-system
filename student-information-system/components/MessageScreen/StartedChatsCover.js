@@ -3,15 +3,22 @@ import { StyleSheet, View, Image, TouchableOpacity } from 'react-native';
 import { COLORS } from '../../styles';
 import { CustomText } from '../Customs/CustomText';
 import { connect } from 'react-redux';
-import { setChatID } from '../../redux/chats';
+import { setChatID, setRecieverUserID, selectRecieverUser, setRecieverInfo } from '../../redux/chats';
 
-export const StartedChatsCover = connect(null, { setChatID })(({ item, navigation, setChatID }) => {
+export const StartedChatsCover = connect(null, {
+	setChatID,
+	setRecieverInfo
+})(({ item, navigation, setChatID, setRecieverInfo }) => {
 	const date = new Date(item.lastMessage.time);
 	const humanTime = `${date.getHours()}:${date.getMinutes()}`;
-	const onPressHandler=()=>{
+	const onPressHandler = () => {
 		setChatID(item.id),
-		navigation.navigate('PriviteChat')
-	}
+		setRecieverInfo({
+			userName: item.title,
+			image: item.image
+		});
+		navigation.navigate('PriviteChat');
+	};
 
 	return (
 		<TouchableOpacity style={styles.container} onPress={onPressHandler}>

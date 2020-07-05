@@ -3,21 +3,25 @@ import { StyleSheet, View, Image } from 'react-native';
 import { CustomIconBtn } from '../index';
 import { ICONS_LIGHT, COLORS } from '../../styles';
 import { CustomText } from '../Customs/CustomText';
+import { connect } from 'react-redux';
+import { selectRecieverUserName, selectRecieverUserImage } from '../../redux/chats';
 
-
-export const PriviteChatsHeader = ({ name, userName, profilePiC , navigation }) => {
-
+const mapStateToProps = (state) => ({
+	recieverName: selectRecieverUserName(state),
+	recieverPic: selectRecieverUserImage(state)
+});
+export const PriviteChatsHeader = connect(mapStateToProps)(({ navigation, recieverName, recieverPic }) => {
 	return (
 		<View style={styles.container}>
-			<CustomIconBtn icon={ICONS_LIGHT.backLight} style={styles.backArrow} onPress={()=>navigation.goBack()}/>
-			<Image style={styles.profilePiC} source={{ uri: profilePiC }} />
+			<CustomIconBtn icon={ICONS_LIGHT.backLight} style={styles.backArrow} onPress={() => navigation.goBack()} />
+			<Image style={styles.profilePiC} source={{ uri: recieverPic }} />
 			<View style={styles.nameContainer}>
-				<CustomText style={styles.name}>{name}</CustomText>
-				<CustomText style={styles.userName}>@{userName}</CustomText>
+				<CustomText style={styles.name}>{recieverName}</CustomText>
+				{/* <CustomText style={styles.userName}>@{reciever.userName}</CustomText> */}
 			</View>
 		</View>
 	);
-};
+});
 const styles = StyleSheet.create({
 	container: {
 		flexDirection: 'row',
