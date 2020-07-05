@@ -12,16 +12,15 @@ export const MessageScreen = connect(null, {
 	clearChatMessages
 })(({ getAndListenChatUsers, getAndListenStartedChatsList, navigation, clearChatMessages }) => {
 	useEffect(() => {
+		clearChatMessages();
+	}, []);
+	useEffect(() => {
 		const unsubscribe = getAndListenChatUsers();
 		return unsubscribe;
 	}, []);
 	useEffect(() => {
 		const unsubscribe = getAndListenStartedChatsList();
 		return unsubscribe;
-	}, []);
-
-	useEffect(() => {
-		clearChatMessages();
 	}, []);
 	return (
 		<View style={styles.container}>

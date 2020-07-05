@@ -24,7 +24,7 @@ export const PeopleListField = connect(mapStateToProps, {
 		.filter((user) => user.ID !== userID);
 
 	const onUserCardPressHandler = async (reciever) => {
-		initPriviteChats(reciever.id);
+		initPriviteChats(reciever.ID);
 		setRecieverInfo({
 			userName:reciever.name,
 			image:reciever.profilePiC

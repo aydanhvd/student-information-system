@@ -10,7 +10,6 @@ const SET_CHAT_MESSAGES = 'SET_CHAT_MESSAGES';
 const SET_CHATS_USERS = 'SET_CHATS_USERS';
 const CLEAR_CHAT_MESSAGES = 'CLEAR_CHAT_MESSAGES';
 const SET_STARTED_CHATS = 'SET_STARTED_CHATS';
-const SET_RECIEVER_USER = "SET_RECIEVER_USER";
 const SET_RECIEVER_INFO = "SET_RECIEVER_INFO";
 //Selectors
 
@@ -20,7 +19,6 @@ export const selectChatMessages = (state) => state[MODULE_NAME].chatMessages;
 export const selectChatsUsers = (state) => state[MODULE_NAME].users;
 export const selectChatID = (state) => state[MODULE_NAME].chatID;
 export const selectstartedChatsLists = (state) => state[MODULE_NAME].sartedChatsList;
-export const selectRecieverUser =(state)=> state[MODULE_NAME].recieverUser;
 export const selectRecieverUserName=(state)=> state[MODULE_NAME].recieverUserName;
 export const selectRecieverUserImage=(state)=> state[MODULE_NAME].reciverUserImage;
 
@@ -28,7 +26,6 @@ export const selectRecieverUserImage=(state)=> state[MODULE_NAME].reciverUserIma
 
 const initialState = {
 	chatID: '',
-	recieverUser:[],
 	recieverUserName:'',
 	reciverUserImage:'',
 	chats: [],
@@ -62,11 +59,6 @@ export function reducer(state = initialState, { type, payload }) {
 			return {
 				...state,
 				users: payload
-			};
-		case SET_RECIEVER_USER:
-			return {
-				...state,
-				recieverUser: payload
 			};	
 		case SET_RECIEVER_INFO:
 		return{
@@ -100,10 +92,6 @@ export const setChatsUsers = (payload) => ({
 });
 export const setChatID = (payload) => ({
 	type: SET_CHAT_ID,
-	payload
-});
-export const setRecieverUser = (payload) => ({
-	type: SET_RECIEVER_USER,
 	payload
 });
 export const setRecieverInfo = (payload) => ({

@@ -33,7 +33,9 @@ const styles = StyleSheet.create({
 		width: 40,
 		height: 40,
 		borderRadius: 30,
-		marginHorizontal: 15
+		marginHorizontal: 15,
+		borderWidth:2,
+		borderColor:COLORS.acsentColor
 	},
 	backArrow: {
 		marginLeft: 16
