@@ -12,6 +12,8 @@ export const selectUser = (state) => state[MODULE_NAME];
 export const selectAuthStatus = (state) => state[MODULE_NAME].status;
 export const selectProfilePiC = (state) => state[MODULE_NAME].profilePiC;
 export const selectAuthUserID = (state) => state[MODULE_NAME].userID;
+export const selectAuthGrades = (state) => state[MODULE_NAME].grades;
+export const selectAuthAbsence = (state) => state[MODULE_NAME].absence;
 export const selectGroup = (state) => state[MODULE_NAME].group;
 
 
@@ -22,7 +24,9 @@ const initialState = {
 	name: null,
 	userName: null,
 	group: null,
-	profilePiC: null
+	profilePiC: null,
+	grades: [],
+	absence: 0
 };
 
 export function reducer(state = initialState, { type, payload }) {
@@ -40,7 +44,9 @@ export function reducer(state = initialState, { type, payload }) {
 				name: payload.name,
 				userName: payload.userName,
 				group: payload.group,
-				profilePiC: payload.profilePiC
+				profilePiC: payload.profilePiC,
+				grades: payload.grades,
+				absence: payload.absence
 			};
 		case SET_AUTH_PROFILE_PIC:
 			return {
@@ -60,7 +66,9 @@ export function reducer(state = initialState, { type, payload }) {
 				name: null,
 				userName: null,
 				group: null,
-				profilePiC: null
+				profilePiC: null,
+				grades: [],
+				absence: 0
 			};
 		default:
 			return state;
@@ -119,8 +127,17 @@ export const signUp = (email, name, userName, password, group) => async (dispatc
 			userName: userName,
 			name: name,
 			group: group,
-			profilePiC: ''
+			profilePiC: '',
+			absence: 0
 		});
+		let ref = fbApp.db.ref(`grades/${uid}`).push().key;
+		//we need 5 homeworks
+		for (let i = 0; i < 5; i++) {
+			ref.set({
+				title: `HW-${i}`,
+				grade: 0
+			});
+		}
 
 		dispatch(
 			setAuthSuccess({
@@ -128,7 +145,7 @@ export const signUp = (email, name, userName, password, group) => async (dispatc
 				name,
 				userName,
 				password,
-				group,
+				group
 			})
 		);
 	} catch (err) {
@@ -136,15 +153,15 @@ export const signUp = (email, name, userName, password, group) => async (dispatc
 		//todo handle error
 	}
 };
-export const changeName=(userName)=>(dispatch,getState)=>{
-	try{
-		const userID = selectAuthUserID(getState())
-		fbApp.db.ref(`users/${userID}/userName`).set(userName)
-		dispatch(setAuthUserName(userName))
-	}catch(err){
-		console.log('changeName err', err)
+export const changeName = (userName) => (dispatch, getState) => {
+	try {
+		const userID = selectAuthUserID(getState());
+		fbApp.db.ref(`users/${userID}/userName`).set(userName);
+		dispatch(setAuthUserName(userName));
+	} catch (err) {
+		console.log('changeName err', err);
 	}
-}
+};
 export const logOut = () => async (dispatch) => {
 	try {
 		await fbApp.auth.signOut();
@@ -153,8 +170,6 @@ export const logOut = () => async (dispatch) => {
 		console.log('log out err', err);
 	}
 };
-
-
 
 export const uploadProfilePic = (uri) => async (dispatch, getState) => {
 	try {

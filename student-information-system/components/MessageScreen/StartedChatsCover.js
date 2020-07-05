@@ -3,7 +3,7 @@ import { StyleSheet, View, Image, TouchableOpacity } from 'react-native';
 import { COLORS } from '../../styles';
 import { CustomText } from '../Customs/CustomText';
 import { connect } from 'react-redux';
-import { setChatID, setRecieverUserID, selectRecieverUser, setRecieverInfo } from '../../redux/chats';
+import { setChatID, setRecieverInfo } from '../../redux/chats';
 
 export const StartedChatsCover = connect(null, {
 	setChatID,

@@ -1,6 +1,7 @@
 {
-  "devToolsPort": 19002,
+  "devToolsPort": 19005,
   "expoServerPort": 19000,
+
   "packagerPort": 19001,  
   "packagerPid": 7556,
   "expoServerNgrokUrl": "https://8f-r2n.aydanhvd.student-information-system.exp.direct",
