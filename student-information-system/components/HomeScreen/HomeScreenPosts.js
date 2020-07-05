@@ -13,7 +13,6 @@ const mapStateToProps = (state) => ({
 	user: selectUser(state),
 	profilePic:selectProfilePiC(state)
 });
-
 //posts in home screen
 export const HomeScreenPosts = connect(mapStateToProps, {
 	getAndListenPosts
@@ -40,9 +39,10 @@ export const HomeScreenPosts = connect(mapStateToProps, {
 
 const styles = StyleSheet.create({
 	container: {
-		paddingHorizontal: 17,
-		marginTop: 30
-		// flexGrow: 1,
+		paddingBottom: 70,
+		marginTop: 30,
+		flexGrow: 1,
+		paddingHorizontal:17
 		// paddingBottom: 100,//TODO look into post going under footer
 	}
 	// post:{

@@ -1,22 +1,34 @@
 import React, { useEffect } from 'react';
-import { StyleSheet, View, ScrollView } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { Footer, Header, PeopleListField } from '../components';
 import { COLORS } from '../styles/colors';
-import { getAndListenChatUsers } from '../redux/chats';
+import { getAndListenChatUsers, getAndListenStartedChatsList, clearChatMessages } from '../redux/chats';
 import { connect } from 'react-redux';
+import { StartedMessagesField } from '../components/MessageScreen/StartedMessagesField';
 
-export const MessageScreen = connect(null, { getAndListenChatUsers })(({ getAndListenChatUsers }) => {
+export const MessageScreen = connect(null, {
+	getAndListenChatUsers,
+	getAndListenStartedChatsList,
+	clearChatMessages
+})(({ getAndListenChatUsers, getAndListenStartedChatsList, navigation, clearChatMessages }) => {
 	useEffect(() => {
 		const unsubscribe = getAndListenChatUsers();
 		return unsubscribe;
 	}, []);
+	useEffect(() => {
+		const unsubscribe = getAndListenStartedChatsList();
+		return unsubscribe;
+	}, []);
+
+	useEffect(() => {
+		clearChatMessages();
+	}, []);
 	return (
 		<View style={styles.container}>
-			<Header title="Message" />
-			{/* a plachholder title for now */}
-			<PeopleListField />
-			<ScrollView />
-			<Footer style={styles.footer} screen='MessagesStack'/>
+			<Header title="Messages" />
+			<PeopleListField navigation={navigation} />
+			<StartedMessagesField navigation={navigation} />
+			<Footer style={styles.footer} screen="MessagesStack" />
 		</View>
 	);
 });

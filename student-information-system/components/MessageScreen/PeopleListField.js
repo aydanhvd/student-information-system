@@ -4,20 +4,18 @@ import { StyleSheet, View, FlatList } from 'react-native';
 import { COLORS, GLOBAL_STYLES } from '../../styles';
 import { SearchBar } from './SearchBar';
 import { connect } from 'react-redux';
-import { selectChatsUsers, initPriviteChats } from '../../redux/chats';
+import { selectChatsUsers, initPriviteChats, setRecieverInfo} from '../../redux/chats';
 import { UserCard } from './UserCard';
-import { selectAuthUserID } from '../../redux/auth';
-import { useNavigation } from '@react-navigation/native';
-
+import { selectAuthUserID} from '../../redux/auth';
 
 const mapStateToProps = (state) => ({
 	users: selectChatsUsers(state),
 	userID: selectAuthUserID(state)
 });
 export const PeopleListField = connect(mapStateToProps, {
-	initPriviteChats
-})(({ users, initPriviteChats, userID  }) => {
-	const {navigate}=useNavigation()
+	initPriviteChats,
+	setRecieverInfo
+})(({ users, initPriviteChats, userID, navigation, setRecieverInfo}) => {
 	const usersArr = Object.keys(users)
 		.map((key) => ({
 			ID: key, //use uppercase letters for IDs
@@ -25,10 +23,14 @@ export const PeopleListField = connect(mapStateToProps, {
 		}))
 		.filter((user) => user.ID !== userID);
 
-	const onUserCardPressHandler = async (recieverID) => {
-		const chatID = await initPriviteChats(recieverID);
-		console.log(chatID)
-		navigate('PriviteChat', {chatID});
+	const onUserCardPressHandler = async (reciever) => {
+		initPriviteChats(reciever.id);
+		setRecieverInfo({
+			userName:reciever.name,
+			image:reciever.profilePiC
+		})
+
+		navigation.navigate('PriviteChat');
 	};
 	return (
 		<View style={styles.container}>
@@ -39,15 +41,16 @@ export const PeopleListField = connect(mapStateToProps, {
 				showsHorizontalScrollIndicator={false}
 				data={usersArr}
 				renderItem={({ item }) => {
-					return <UserCard user={item} onPress={() => onUserCardPressHandler(item.ID)} />;
+					return <UserCard user={item} onPress={() => onUserCardPressHandler(item)} />;
 				}}
 			/>
 		</View>
 	);
 });
+
 const styles = StyleSheet.create({
 	container: {
-		height: 160,
+		height: 170,
 		width: '100%',
 		backgroundColor: COLORS.backgroundLight,
 		borderBottomEndRadius: 30,

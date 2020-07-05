@@ -3,25 +3,29 @@ import { StyleSheet, View } from 'react-native';
 import { connect } from 'react-redux';
 import { PriviteMessagesField, PriviteMessages } from '../components';
 import { COLORS } from '../styles';
-import { selectChatMessages, getAndListenChatMessages } from '../redux/chats';
+import { getAndListenChatMessages, selectChatID } from '../redux/chats';
+import { PriviteChatsHeader } from '../components/PriviteMessageScreen/PriviteChatHeader';
 
 const mapStateToProps = (state) => ({
-	messages: selectChatMessages(state)
+	chatID: selectChatID(state)
 });
 
 export const PriviteMessageScreen = connect(mapStateToProps, {
 	getAndListenChatMessages
-})(({ chatID, getAndListenChatMessages, messages }) => {
-	console.log(getAndListenChatMessages);
+})(({ chatID, getAndListenChatMessages, navigation, recieverID }) => {
+	console.log(recieverID)
 	useEffect(() => {
 		const unsub = getAndListenChatMessages(chatID);
 		return unsub;
-	});
-	console.log('messages', messages);
+	}, []);
+	
 	return (
 		<View style={styles.container}>
-			<PriviteMessages chatID={chatID} />
-			<PriviteMessagesField style={styles.field} />
+			<PriviteChatsHeader
+				navigation={navigation}
+			/>
+			<PriviteMessages />
+			<PriviteMessagesField style={styles.field} chatID={chatID} />
 		</View>
 	);
 });

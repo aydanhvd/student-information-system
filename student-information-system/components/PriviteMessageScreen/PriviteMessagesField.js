@@ -1,24 +1,33 @@
-import React from 'react';
-import { StyleSheet, View, TextInput, KeyboardAvoidingView, Platform, Keyboard, SafeAreaView } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, TextInput, KeyboardAvoidingView, Platform, Keyboard, SafeAreaView } from 'react-native';
+
 import { CustomIconBtn } from '../Customs/CustomIconBtn';
 import { COLORS, ICONS_LIGHT, GLOBAL_STYLES } from '../../styles';
+import { connect } from 'react-redux';
+import { sendMessage } from '../../redux/chats';
 
-export const PriviteMessagesField = ({ style }) => {
+export const PriviteMessagesField = connect(null, { sendMessage })(({ style, chatID, sendMessage }) => {
+	const [ message, setMesage ] = useState('');
+	const submitHadler = () => {
+		if (message !== '') {
+			sendMessage(chatID, message);
+			setMesage('');
+		}
+	};
 	return (
 		<KeyboardAvoidingView
-			keyboardVerticalOffset={80}
-			behavior={Platform.OS === 'ios' ? 'position' : ''}
-			style={{ ...styles.container, ...style }}
-			enabled
+			keyboardVerticalOffset={20}
+			style={{ ...style, ...styles.container }}
+			behavior={Platform.OS === 'ios' ? 'padding' : ''}
 		>
-			<TextInput style={styles.inputField}/>
-			<CustomIconBtn icon={ICONS_LIGHT.sendMessages} style={styles.btn} />
+			<TextInput style={styles.inputField} value={message} onChangeText={(value) => setMesage(value)} />
+			<CustomIconBtn icon={ICONS_LIGHT.sendMessages} onPress={submitHadler} />
 		</KeyboardAvoidingView>
 	);
-};
+});
 const styles = StyleSheet.create({
 	container: {
-		height: 50,
+		minHeight: 50,
 		width: '95%',
 		...GLOBAL_STYLES.shaddowTop,
 		backgroundColor: COLORS.backgroundLight,
@@ -27,18 +36,18 @@ const styles = StyleSheet.create({
 		alignSelf: 'center',
 		alignItems: 'center',
 		justifyContent: 'space-between',
-		paddingHorizontal: 20
+		paddingHorizontal: 20,
+		flexDirection: 'row',
+		padding: 5
 	},
-   inputField:{
-      width:"100%",
-      height:"100%"
-   },
+	inputField: {
+		width: '90%',
+		height: '100%'
+	},
 	btn: {
-		position: 'absolute',
-		top: 10,
-		right: 20,
 		width: 26,
 		height: 26,
-		marginRight: 20
+		marginRight: 20,
+		marginTop: 5
 	}
 });

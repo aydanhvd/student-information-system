@@ -14,7 +14,7 @@ export const UserCard = ({ user , onPress}) => {
 };
 const styles = StyleSheet.create({
 	card: {
-		width: 68,
+		width: 70,
 		height: '100%',
 		alignItems: 'center',
 		// justifyContent:'space-around',
@@ -22,10 +22,10 @@ const styles = StyleSheet.create({
 		overflow: 'hidden'
 	},
 	image: {
-		width: 50,
-		height: 50,
-		borderRadius: 25,
-		borderWidth: 5,
+		width: 55,
+		height: 55,
+		borderRadius: 40,
+		borderWidth: 3,
 		borderColor: COLORS.acsentColor
 	},
 	userName: {
