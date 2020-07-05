@@ -9,8 +9,9 @@ import { AsyncStorage } from "react-native";
 
 import { MODULE_NAME as postsModuleName, reducer as postsReducer } from './posts';
 import { MODULE_NAME as authModuleName, reducer as authReducer } from './auth';
-
 import { MODULE_NAME as chatsModuleName, reducer as chatsReducer } from './chats';
+import { MODULE_NAME as materialsModuleName, reducer as materialsReducer } from './materials';
+
 
 const config = {
 	key: "root",
@@ -19,8 +20,10 @@ const config = {
   const reducer = combineReducers({
 	[postsModuleName]: postsReducer,
 	[authModuleName]: authReducer,
-	[chatsModuleName]: chatsReducer
-});
+	[chatsModuleName]: chatsReducer,
+	  [materialsModuleName]: materialsReducer,
+
+  });
   const rootPersistReducer = persistReducer(config,reducer);
 
   const store = createStore(

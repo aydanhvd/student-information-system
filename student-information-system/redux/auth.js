@@ -12,6 +12,8 @@ export const selectUser = (state) => state[MODULE_NAME];
 export const selectAuthStatus = (state) => state[MODULE_NAME].status;
 export const selectProfilePiC = (state) => state[MODULE_NAME].profilePiC;
 export const selectAuthUserID = (state) => state[MODULE_NAME].userID;
+export const selectGroup = (state) => state[MODULE_NAME].group;
+
 
 //Reducer
 const initialState = {
