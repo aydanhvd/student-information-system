@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
 	name: {
 		fontSize: 18,
 		color: COLORS.textColorDark,
-		marginBottom: 12
+		// marginBottom: 12
 	},
 	text: {
 		fontSize: 12,
