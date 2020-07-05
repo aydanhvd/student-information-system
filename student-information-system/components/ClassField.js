@@ -2,18 +2,17 @@ import React from 'react';
 import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import { COLORS } from '../styles/colors';
 import { CustomText } from './Customs/CustomText';
-import { CustomLink} from './Customs/CustomLink'
+import { CustomLink } from './Customs/CustomLink';
 import { GLOBAL_STYLES } from '../styles';
 
-export const ClassField = ({ heading, date, topic, style, fontSize, backgroundColor, color }) => {
+export const ClassField = ({ heading, topic, style, backgroundColor,  onPress , textStyles }) => {
 	return (
-		<TouchableOpacity style={{ ...styles.container, ...style }}>
+		<TouchableOpacity style={{ ...styles.container, ...style }} onPress={onPress}>
 			<View style={{ ...styles.headerContainer, ...backgroundColor }}>
-				<CustomText style={{ ...styles.heading, ...fontSize, ...color }}>{heading}</CustomText>
+				<CustomText style={{ ...styles.heading, ...textStyles }}>{heading}</CustomText>
 			</View>
 			<View style={styles.row}>
-				<CustomLink link={topic} styleText={styles.topic}/>
-				<CustomText style={styles.date}>{date}</CustomText>
+				<CustomLink link={topic} styleText={styles.topic} />
 			</View>
 		</TouchableOpacity>
 	);
@@ -24,7 +23,8 @@ const styles = StyleSheet.create({
 		minHeight: 90,
 		borderRadius: 4,
 		backgroundColor: COLORS.backgroundLight,
-		...GLOBAL_STYLES.shaddowTop
+		...GLOBAL_STYLES.shaddowTop,
+		marginBottom:20
 	},
 	headerContainer: {
 		borderColor: COLORS.backgroundDark,
