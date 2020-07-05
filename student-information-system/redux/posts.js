@@ -6,7 +6,7 @@ const SET_POSTS = 'SET_POSTS';
 const SET_ACTIVE_POSTS_ID = 'SET_ACTIVE_POSTS_ID';
 
 //Selectors
-export const MODULE_NAME = 'groups';
+export const MODULE_NAME = 'feeds';
 export const selectFeeds = (state) => state[MODULE_NAME].feeds;
 export const selectPosts = (state) => state[MODULE_NAME].posts;
 export const selectActivePosts = (state) => state[MODULE_NAME].activePostsID;

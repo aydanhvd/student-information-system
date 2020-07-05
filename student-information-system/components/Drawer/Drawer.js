@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
@@ -7,9 +7,16 @@ import { COLORS } from '../../styles';
 import { DrawerHeader } from './DrawerHeader';
 import { DrawerBody } from './DrawerBody';
 import { DrawerFooter } from './DrawerFooter';
+import { connect } from 'react-redux';
+import {getAndListenGroup} from '../../redux/materials';
 
 
-export const Drawer = ({ navigation }) => {
+
+export const Drawer = connect(null,{getAndListenGroup})(({ navigation ,getAndListenGroup}) => {
+	useEffect(() => {
+		const unsub = getAndListenGroup()
+		return unsub
+	}, []);
 	return (
 		<SafeAreaProvider>
 			<View style={styles.container}>
@@ -25,7 +32,7 @@ export const Drawer = ({ navigation }) => {
 			</View>
 		</SafeAreaProvider>
 	);
-};
+});
 
 const styles = StyleSheet.create({
 	container: {

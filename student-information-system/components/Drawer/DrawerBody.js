@@ -6,12 +6,15 @@ import { connect } from 'react-redux';
 import { CustomText } from '../index';
 import { COLORS, GLOBAL_STYLES, ICONS_LIGHT } from '../../styles';
 import { logOut, selectProfilePiC, selectUser, uploadProfilePic } from '../../redux/auth';
+import { selectGroup } from '../../redux/materials';
+import { SearchBar } from '../MessageScreen/SearchBar';
+import { CustomSeperator } from '../Customs/CustomSeperator';
 
 const mapStateToProps = (state) => ({
 	profilePic: selectProfilePiC(state),
 	userName: selectUser(state).userName,
 	name: selectUser(state).name,
-	group: selectUser(state).group
+	group: selectGroup(state)
 });
 
 export const DrawerBody = connect(mapStateToProps, {
@@ -21,24 +24,12 @@ export const DrawerBody = connect(mapStateToProps, {
 	return (
 		<SafeAreaProvider>
 			<View style={styles.container}>
-				<View style={styles.userInfo}>
-					<Image style={styles.profilePic} source={{ uri: profilePic }} />
-				</View>
+				<Image style={styles.profilePic} source={{ uri: profilePic }} />
 				<CustomText style={styles.name}>{name}</CustomText>
 				<CustomText style={styles.username}>@{userName}</CustomText>
-				<CustomText style={styles.status}>student</CustomText>
-				<CustomText weight="semi" style={styles.drawerTitle}>
-					group: {group}
-				</CustomText>
-				<CustomText weight="semi" style={styles.drawerTitle}>
-					adviser:
-				</CustomText>
-				<TouchableOpacity style={styles.drawerLogout} onPress={logOut}>
-					<CustomText weight="semi" style={styles.drawerTitle}>
-						Log Out
-					</CustomText>
-					<Image resizeMode="cover" style={styles.userIm} source={ICONS_LIGHT.logOut} />
-				</TouchableOpacity>
+				<CustomSeperator color={COLORS.backgroundLight} style={styles.seperator} />
+				<CustomText style={styles.drawerTitle}>group: {group.title}</CustomText>
+				<CustomText style={styles.drawerTitle}>adviser: {group.teacher}</CustomText>
 			</View>
 		</SafeAreaProvider>
 	);
@@ -47,20 +38,22 @@ export const DrawerBody = connect(mapStateToProps, {
 const styles = StyleSheet.create({
 	container: {
 		marginTop: -100,
-		paddingHorizontal: 25
-	},
-	userInfo: {
-		width: 100,
-		height: 100,
-		borderRadius: 100,
-		marginBottom: 17,
-		...GLOBAL_STYLES.shaddowTop,
-		alignSelf: 'center'
+		paddingHorizontal: 25,
+		alignItems: 'center',
+		justifyContent: 'center'
 	},
 	profilePic: {
-		width: '100%',
-		height: '100%',
-		borderRadius: 100
+		width: 100,
+		height: 100,
+		alignSelf: 'center',
+		marginBottom: 17,
+		borderRadius: 100,
+		...GLOBAL_STYLES.shaddowTop
+	},
+	seperator:{
+		width:"75%",
+		height:1,
+		marginBottom:10
 	},
 	name: {
 		textAlign: 'center',
@@ -71,6 +64,7 @@ const styles = StyleSheet.create({
 		fontSize: 16,
 		textAlign: 'center',
 		marginTop: 6,
+		marginBottom: 15,
 		color: COLORS.backgroundLight
 	},
 	status: {
@@ -80,13 +74,15 @@ const styles = StyleSheet.create({
 		color: COLORS.backgroundLight
 	},
 	drawerLogout: {
+		flexDirection: 'row',
+		justifyContent: 'center',
 		alignSelf: 'center',
 		marginTop: 20
 	},
 	drawerTitle: {
-		fontSize: 16,
-		marginTop: 10,
-		color: COLORS.backgroundLight
+		fontSize: 14,
+		color: COLORS.backgroundLight,
+		marginBottom:5
 	},
 	userIm: {
 		marginTop: 15,
