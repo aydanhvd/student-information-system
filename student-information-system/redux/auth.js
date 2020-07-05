@@ -14,6 +14,8 @@ export const selectProfilePiC = (state) => state[MODULE_NAME].profilePiC;
 export const selectAuthUserID = (state) => state[MODULE_NAME].userID;
 export const selectAuthGrades = (state) => state[MODULE_NAME].grades;
 export const selectAuthAbsence = (state) => state[MODULE_NAME].absence;
+export const selectGroup = (state) => state[MODULE_NAME].group;
+
 
 //Reducer
 const initialState = {
