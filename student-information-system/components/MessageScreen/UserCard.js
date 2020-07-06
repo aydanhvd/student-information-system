@@ -7,8 +7,8 @@ export const UserCard = ({ user , onPress}) => {
 	return (
 		<TouchableOpacity style={styles.card} onPress={onPress}>
 			<Image source={{ uri: user.profilePiC }} style={styles.image} />
-			<CustomText style={styles.userName}>@{user.userName}</CustomText>
-			<CustomText style={styles.name}>{user.name}</CustomText>
+			<CustomText numberOfLines={1} style={styles.userName}>@{user.userName}</CustomText>
+			<CustomText numberOfLines={2} style={styles.name}>{user.name}</CustomText>
 		</TouchableOpacity>
 	);
 };

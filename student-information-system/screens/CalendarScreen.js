@@ -24,7 +24,7 @@ export class CalendarScreen extends Component {
 		const startDate = selectedStartDate ? selectedStartDate.toString() : '';
 		return (
 			<View style={styles.container}>
-				<Header title="CalendarScreen" />
+				<Header title="Calendar" />
 				{/* a plachholder title for now */}
 				<View style={styles.calendar}>
 					<CalendarPicker
@@ -41,7 +41,7 @@ export class CalendarScreen extends Component {
 					topic="To do app"
 					style={{ width: '92%', marginHorizontal: 15, marginVertical: 15 }}
 					backgroundColor = {{ backgroundColor: COLORS.acsentColor}}
-					color={{ color: "white"}}
+					textStyles={{color: COLORS.backgroundLight}}
 				/>
 				</ScrollView>
 				{/*<Text>SELECTED DATE:{ startDate }</Text>*/}

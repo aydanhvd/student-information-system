@@ -5,9 +5,9 @@ import { CustomText } from './Customs/CustomText';
 import { CustomLink } from './Customs/CustomLink';
 import { GLOBAL_STYLES } from '../styles';
 
-export const ClassField = ({ heading, topic, style, backgroundColor,  onPress , textStyles }) => {
+export const ClassField = ({ heading, topic, backgroundColor,  onPress , textStyles }) => {
 	return (
-		<TouchableOpacity style={{ ...styles.container, ...style }} onPress={onPress}>
+		<TouchableOpacity style={{ ...styles.container }} onPress={onPress}>
 			<View style={{ ...styles.headerContainer, ...backgroundColor }}>
 				<CustomText style={{ ...styles.heading, ...textStyles }}>{heading}</CustomText>
 			</View>
@@ -24,7 +24,8 @@ const styles = StyleSheet.create({
 		borderRadius: 4,
 		backgroundColor: COLORS.backgroundLight,
 		...GLOBAL_STYLES.shaddowTop,
-		marginBottom:20
+		marginBottom:20,
+		marginHorizontal:16
 	},
 	headerContainer: {
 		borderColor: COLORS.backgroundDark,

@@ -25,7 +25,6 @@ export const ClassScreen = connect(mapStateToProps, {
 				heading="Homeworks"
 				topic="Your assingned homeworks"
 				style={{ width: '92%', marginHorizontal: 15, marginVertical: 15 }}
-				color={{ color: COLORS.acsentLight }}
 				onPress={() => navigation.navigate('Homeworks')}
 			/>
 			<ScheduleContainer />
@@ -38,7 +37,7 @@ export const ClassScreen = connect(mapStateToProps, {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		backgroundColor: COLORS.backgroundLight
+		backgroundColor: COLORS.backgroundLight,
 	},
 	footer: {
 		position: 'absolute',

@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
 		width: 200,
 		height: 200,
 		borderRadius: 100,
-		borderWidth: 20,
+		borderWidth: 2,
 		borderColor: COLORS.acsentColor,
 		marginBottom: 17,
 		...GLOBAL_STYLES.shaddowTop

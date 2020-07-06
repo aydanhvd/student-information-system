@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
 		alignSelf: 'center',
 		marginBottom: 17,
 		borderRadius: 100,
-		...GLOBAL_STYLES.shaddowTop
+		// ...GLOBAL_STYLES.shaddowTop
 	},
 	seperator:{
 		width:"75%",
