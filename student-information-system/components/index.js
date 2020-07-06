@@ -2,6 +2,7 @@ export { CustomText } from './Customs/CustomText';
 export { Header } from './Header';
 export { Footer } from './Footer';
 
+export { HomeScreenPostLikes } from './HomeScreen/HomeScreenPostLikes';
 export { HomeScreenField } from './HomeScreen/HomeScreenField';
 export { HomeScreenPosts } from './HomeScreen/HomeScreenPosts';
 export { HomeScreenHeader } from './HomeScreen/HomeScreenHeader';

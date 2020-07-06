@@ -1,10 +1,10 @@
 import React from 'react';
 import { StyleSheet, View, Image } from 'react-native';
 import { CustomText } from '../Customs/CustomText';
-import { AntDesign } from '@expo/vector-icons';
 import { COLORS } from '../../styles/colors';
 import { GLOBAL_STYLES } from '../../styles/globalStyles';
 import { ICONS_LIGHT } from '../../styles';
+import {HomeScreenPostLikes} from "./HomeScreenPostLikes";
 
 //single posts in home screen
 export const HomeScreenPostBubble = ({ post }) => {
@@ -20,8 +20,7 @@ export const HomeScreenPostBubble = ({ post }) => {
 				<CustomText style={styles.userName}>@{post.userName}</CustomText>
 				<CustomText style={styles.text}>{post.text}</CustomText>
 				<View style={styles.likesContainer}>
-					<AntDesign name="hearto" size={15} color={COLORS.acsentLight} />
-					<CustomText style={styles.likes}>{post.likes}</CustomText>
+					<HomeScreenPostLikes postID={post.id}/>
 				</View>
 			</View>
 			<CustomText style={styles.time}>{formattedTime}</CustomText>
@@ -67,12 +66,6 @@ const styles = StyleSheet.create({
 		marginTop: 10,
 		alignItems: 'center',
 		justifyContent: 'flex-end'
-	},
-	likes: {
-		alignSelf: 'center',
-		marginLeft: 4,
-		color: COLORS.acsentLight,
-		fontSize: 13
 	},
 	time: {
 		// alignSelf: 'center',
