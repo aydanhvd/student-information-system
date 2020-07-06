@@ -6,6 +6,7 @@ const SET_AUTH_LOGOUT = 'SET_AUTH_LOGOUT';
 const SET_AUTH_USER_NAME = 'SET_AUTH_USER_NAME';
 const SET_AUTH_PROFILE_PIC = 'SET_AUTH_PROFILE_PIC';
 const SET_AUTH_GROUPS_LIST = 'SET_AUTH_GROUPS_LIST';
+const SET_AUTH_ABSENCE = 'SET_AUTH_ABSENCE';
 
 //Selectors
 export const MODULE_NAME = 'auth';
@@ -20,15 +21,14 @@ export const selectAuthGroupsList = (state) => state[MODULE_NAME].groupsList;
 
 //Reducer
 const initialState = {
-	status: false,
+	status: false, //if ur signd in or not
 	userID: null, //use uppercase ID for ids
-	name: null,
-	userName: null,
-	group: '',
-	profilePiC: null,
-	grades: [],
-	absence: 0,
-	groupsList: []
+	name: null, //full name of user
+	userName: null, //username of user
+	group: '', //iD of the group ur in
+	profilePiC: null, //profile picture
+	grades: [], //grades which assingned is 0 for each users
+	absence: 0 //absence mark by default asigned 0 for each user
 };
 
 export function reducer(state = initialState, { type, payload }) {
@@ -64,6 +64,11 @@ export function reducer(state = initialState, { type, payload }) {
 			return {
 				...state,
 				groupsList: payload
+			};
+		case SET_AUTH_ABSENCE:
+			return {
+				...state,
+				absence: payload
 			};
 		case SET_AUTH_LOGOUT:
 			return {
@@ -106,6 +111,10 @@ export const setAuthGroupsList = (payload) => ({
 	type: SET_AUTH_GROUPS_LIST,
 	payload
 });
+export const setAuthAbsence = (payload) => ({
+	type: SET_AUTH_ABSENCE,
+	payload
+});
 
 //Middlewares
 export const getAndListenAuthGroupsList = () => (dispatch) => {
@@ -134,6 +143,21 @@ export const getAndListenAuthGroupsList = () => (dispatch) => {
 	}
 };
 
+export const getAndListenAbcence = () => (dispatch, getState) => {
+	try {
+		const userID = selectAuthUserID(getState());
+		const ref = fbApp.db.ref(`users/${userID}`)
+		ref.on('value', (snapshot) => {
+			if (snapshot.exists()) {
+				const absenceMark = snapshot.val().absence;
+				dispatch(setAuthAbsence(absenceMark));
+			}
+		});
+		return () => ref.off();
+	} catch (err) {
+		console.log('getAndListenAbcence err', err);
+	}
+};
 export const logIn = (email, password) => async (dispatch) => {
 	try {
 		//todo ask what else can u use for not using email
@@ -165,9 +189,7 @@ export const signUp = (email, name, userName, password, group) => async (dispatc
 			userName: userName,
 			name: name,
 			group: group,
-			profilePiC:
-				'https://cdn.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png',
-				//stock image for profile pic
+			profilePiC: '',
 			absence: 0
 		});
 		fbApp.db.ref(`grades/${uid}`).push().set({ title: `HW-1`, grade: 0 });
@@ -175,6 +197,7 @@ export const signUp = (email, name, userName, password, group) => async (dispatc
 		fbApp.db.ref(`grades/${uid}`).push().set({ title: `HW-3`, grade: 0 });
 		fbApp.db.ref(`grades/${uid}`).push().set({ title: `HW-4`, grade: 0 });
 		fbApp.db.ref(`grades/${uid}`).push().set({ title: `SP`, grade: 0 });
+		fbApp.db.ref(`grades/${uid}`).push().set({ title: `Final`, grade: 0 });
 		dispatch(
 			setAuthSuccess({
 				userID: uid,

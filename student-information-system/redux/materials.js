@@ -1,21 +1,24 @@
 import fbApp from '../utils/FireBaseInit';
-import { selectAuthGroup } from './auth';
+import { selectAuthGroup , selectAuthUserID} from './auth';
 //Action Types
 const SET_GROUP = 'SET_GROUP';
 const SET_MATERIALS = 'SET_MATERIALS';
 const SET_HOMEWOKS = 'SET_HOMEWOKS';
+const SET_GRADES = 'SET_GRADES';
 
 //Selectors
 export const MODULE_NAME = 'groups';
 export const selectGroup = (state) => state[MODULE_NAME].group;
 export const selectMaterials = (state) => state[MODULE_NAME].materials;
 export const selectHomeworks = (state) => state[MODULE_NAME].homeworks;
+export const selectGrades = (state) => state[MODULE_NAME].grades;
 
 //Reducer
 const initialState = {
-	group: [],
-	materials: [],
-	homeworks: []
+	group: [],//information abut users group ex: id, teacher, abcence allowence, title
+	materials: [],//list of materiasl appropiate to users group
+	homeworks: [],//list of materiasl accined to users group
+	grades: []//grade of each homework
 };
 
 export function reducer(state = initialState, { type, payload }) {
@@ -34,6 +37,11 @@ export function reducer(state = initialState, { type, payload }) {
 			return {
 				...state,
 				homeworks: payload
+			};
+		case SET_GRADES:
+			return {
+				...state,
+				grades: payload
 			};
 		default:
 			return state;
@@ -54,7 +62,10 @@ export const setHomeworks = (payload) => ({
 	type: SET_HOMEWOKS,
 	payload
 });
-
+export const setGrades = (payload) => ({
+	type: SET_GRADES,
+	payload
+});
 //Middlewares
 
 //a middleware for getting groups on material screen
@@ -137,23 +148,29 @@ export const getAndListenHomeWorks = () => (dispatch, getState) => {
 	}
 };
 
-// // a middleware for shareing posts in home screen
-// export const createMaterial = (groupID, title, link) => (dispatch, getState) => {
-// 	try {
-// 		const reference = fbApp.db.ref(`materials/-MAWEK84WckMvCne8onF`);
-
-// 		// const newPostID = reference.push().key;//use uppercase for IDs
-// 		const newPost = {
-// 			title,
-// 			link
-// 		};
-// 		reference.push().set(newPost, (err) => {
-// 			if (err) {
-// 				console.log('shareNewPost err', err);
-// 				//TODO handle errors
-// 			}
-// 		});
-// 	} catch (err) {
-// 		console.log('sharePost err', err);
-// 	}
-// };
+export const getAndListenGrades = () => (dispatch, getState) => {
+	try {
+		const userID = selectAuthUserID(getState())
+		const reference = fbApp.db.ref(`grades/${userID}`);
+		reference.on(
+			'value',
+			(snapshot) => {
+				if (snapshot.exists()) {
+					const gradesObj = snapshot.val();
+					const gradesArr = Object.keys(gradesObj).map((key) => ({
+						ID: key, //use upperase for ids
+						...gradesObj[key]
+					}));
+					dispatch(setGrades(gradesArr));
+				}
+			},
+			(err) => {
+				console.log('getAndListenGrades part 1 err', err);
+			}
+		);
+		return () => reference.off();
+	} catch (err) {
+		console.log('getAndListenGrades err', err);
+		//todo handle error
+	}
+};
