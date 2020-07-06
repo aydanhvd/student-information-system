@@ -15,12 +15,14 @@ export const selectAuthUserID = (state) => state[MODULE_NAME].userID;
 export const selectAuthGrades = (state) => state[MODULE_NAME].grades;
 export const selectAuthAbsence = (state) => state[MODULE_NAME].absence;
 export const selectAuthGroup = (state) => state[MODULE_NAME].group;
+export const getAuthToken = (state) => state[MODULE_NAME].idToken;
 
 
 //Reducer
 const initialState = {
 	status: false,
 	userID: null, //use uppercase ID for ids
+	idToken: null,
 	name: null,
 	userName: null,
 	group:'',
@@ -41,6 +43,7 @@ export function reducer(state = initialState, { type, payload }) {
 				...state,
 				status: true,
 				userID: payload.userID,
+				idToken: payload.idToken,
 				name: payload.name,
 				userName: payload.userName,
 				group: payload.group,
@@ -63,6 +66,7 @@ export function reducer(state = initialState, { type, payload }) {
 				...state,
 				status: false,
 				userID: null,
+				idToken: null,
 				name: null,
 				userName: null,
 				group: '',

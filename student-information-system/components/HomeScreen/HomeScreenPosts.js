@@ -7,12 +7,13 @@ import { selectPosts, getAndListenPosts, selectActivePosts } from '../../redux/p
 import { GLOBAL_STYLES } from '../../styles';
 import { selectUser, selectProfilePiC } from '../../redux/auth';
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state, props) => {
+	return {
 	posts: selectPosts(state),
 	activePostID: selectActivePosts(state),
 	user: selectUser(state),
 	profilePic:selectProfilePiC(state)
-});
+}};
 //posts in home screen
 export const HomeScreenPosts = connect(mapStateToProps, {
 	getAndListenPosts
