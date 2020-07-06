@@ -5,6 +5,7 @@ const SET_AUTH_SUCCESS = 'SET_AUTH_SUCCESS';
 const SET_AUTH_LOGOUT = 'SET_AUTH_LOGOUT';
 const SET_AUTH_USER_NAME = 'SET_AUTH_USER_NAME';
 const SET_AUTH_PROFILE_PIC = 'SET_AUTH_PROFILE_PIC';
+const SET_AUTH_GROUPS_LIST = 'SET_AUTH_GROUPS_LIST';
 
 //Selectors
 export const MODULE_NAME = 'auth';
@@ -17,6 +18,7 @@ export const selectAuthAbsence = (state) => state[MODULE_NAME].absence;
 export const selectAuthGroup = (state) => state[MODULE_NAME].group;
 export const getAuthToken = (state) => state[MODULE_NAME].idToken;
 
+export const selectAuthGroupsList = (state) => state[MODULE_NAME].groupsList;
 
 //Reducer
 const initialState = {
@@ -25,10 +27,11 @@ const initialState = {
 	idToken: null,
 	name: null,
 	userName: null,
-	group:'',
+	group: '',
 	profilePiC: null,
 	grades: [],
-	absence: 0
+	absence: 0,
+	groupsList: []
 };
 
 export function reducer(state = initialState, { type, payload }) {
@@ -60,6 +63,11 @@ export function reducer(state = initialState, { type, payload }) {
 			return {
 				...state,
 				userName: payload
+			};
+		case SET_AUTH_GROUPS_LIST:
+			return {
+				...state,
+				groupsList: payload
 			};
 		case SET_AUTH_LOGOUT:
 			return {
@@ -99,7 +107,37 @@ export const setAuthUserName = (payload) => ({
 	type: SET_AUTH_USER_NAME,
 	payload
 });
+export const setAuthGroupsList = (payload) => ({
+	type: SET_AUTH_GROUPS_LIST,
+	payload
+});
+
 //Middlewares
+export const getAndListenAuthGroupsList = () => (dispatch) => {
+	try {
+		const ref = fbApp.db.ref(`groups`);
+		ref.on(
+			'value',
+			(snapshot) => {
+				if (snapshot.exists()) {
+					const groupsObj = snapshot.val();
+					const groupsArr = Object.keys(groupsObj).map((key) => ({
+						ID: key,
+						...groupsObj[key]
+					}));
+					dispatch(setAuthGroupsList(groupsArr));
+				}
+			},
+			(err) => {
+				console.log('getAndListenAuthGroupsList err', err);
+			}
+		);
+		return () => ref.off();
+	} catch (err) {
+		console.log('getAndListenAuthGroupsList', err);
+		//todo handle error
+	}
+};
 
 export const logIn = (email, password) => async (dispatch) => {
 	try {
@@ -123,6 +161,7 @@ export const logIn = (email, password) => async (dispatch) => {
 		//todo handle error
 	}
 };
+
 export const signUp = (email, name, userName, password, group) => async (dispatch) => {
 	try {
 		//todo ask what else can u use for not using email
@@ -131,18 +170,16 @@ export const signUp = (email, name, userName, password, group) => async (dispatc
 			userName: userName,
 			name: name,
 			group: group,
-			profilePiC: '',
+			profilePiC:
+				'https://cdn.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png',
+				//stock image for profile pic
 			absence: 0
 		});
-		let reference = fbApp.db.ref(`grades/${uid}`).push().key;
-		//we need 5 homeworks
-		for (let i = 0; i < 5; i++) {
-			reference.set({
-				title: `HW-${i}`,
-				grade: 0
-			});
-		}
-
+		fbApp.db.ref(`grades/${uid}`).push().set({ title: `HW-1`, grade: 0 });
+		fbApp.db.ref(`grades/${uid}`).push().set({ title: `HW-2`, grade: 0 });
+		fbApp.db.ref(`grades/${uid}`).push().set({ title: `HW-3`, grade: 0 });
+		fbApp.db.ref(`grades/${uid}`).push().set({ title: `HW-4`, grade: 0 });
+		fbApp.db.ref(`grades/${uid}`).push().set({ title: `SP`, grade: 0 });
 		dispatch(
 			setAuthSuccess({
 				userID: uid,
@@ -157,6 +194,7 @@ export const signUp = (email, name, userName, password, group) => async (dispatc
 		//todo handle error
 	}
 };
+
 export const changeName = (userName) => (dispatch, getState) => {
 	try {
 		const userID = selectAuthUserID(getState());

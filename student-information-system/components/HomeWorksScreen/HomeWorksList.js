@@ -26,7 +26,6 @@ export const HomeWorksList=connect(mapStateToProps)(({homeworks})=>{
 const styles = StyleSheet.create({
    container:{
       flex: 1,
-      paddingHorizontal:18,
       paddingTop:30,
       marginBottom:50
    }

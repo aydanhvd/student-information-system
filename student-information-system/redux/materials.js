@@ -108,6 +108,8 @@ export const getAndListenMaterials = () => (dispatch, getState) => {
 		//TODO handle errors
 	}
 };
+
+//a middlewhere to render homeworks
 export const getAndListenHomeWorks = () => (dispatch, getState) => {
 	try {
 		const groupID = selectAuthGroup(getState());
@@ -135,23 +137,23 @@ export const getAndListenHomeWorks = () => (dispatch, getState) => {
 	}
 };
 
-// a middleware for shareing posts in home screen
-export const createMaterial = (groupID, title, link) => (dispatch, getState) => {
-	try {
-		const reference = fbApp.db.ref(`materials/-MAWEK84WckMvCne8onF`);
+// // a middleware for shareing posts in home screen
+// export const createMaterial = (groupID, title, link) => (dispatch, getState) => {
+// 	try {
+// 		const reference = fbApp.db.ref(`materials/-MAWEK84WckMvCne8onF`);
 
-		// const newPostID = reference.push().key;//use uppercase for IDs
-		const newPost = {
-			title,
-			link
-		};
-		reference.push().set(newPost, (err) => {
-			if (err) {
-				console.log('shareNewPost err', err);
-				//TODO handle errors
-			}
-		});
-	} catch (err) {
-		console.log('sharePost err', err);
-	}
-};
+// 		// const newPostID = reference.push().key;//use uppercase for IDs
+// 		const newPost = {
+// 			title,
+// 			link
+// 		};
+// 		reference.push().set(newPost, (err) => {
+// 			if (err) {
+// 				console.log('shareNewPost err', err);
+// 				//TODO handle errors
+// 			}
+// 		});
+// 	} catch (err) {
+// 		console.log('sharePost err', err);
+// 	}
+// };

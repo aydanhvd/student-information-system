@@ -14,7 +14,6 @@ export const StartedMessagesField = connect(mapStateToProps)(({ startedChats, na
 			contentContainerStyle={styles.container}
 			data={startedChats}
 			renderItem={({ item }) => {
-				console.log('item', item);
 				return (
 					<StartedChatsCover
 						item={item}
