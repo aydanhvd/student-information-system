@@ -1,17 +1,19 @@
 import React from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
+import { connect } from 'react-redux';
+
+import { selectAuthStatus } from '../redux/auth';
+import { Drawer } from '../components/Drawer/Drawer';
+
 import { HomeStack } from './Stacks/HomeStack';
 import { ClassStack } from './Stacks/ClassStack';
 import { CalendarStack } from './Stacks/CalendarStack';
 import { MessageStack } from './Stacks/MessageStack';
 import { MaterialsStack } from './Stacks/MaterialsStack';
 import { SettingsStack } from './Stacks/SettingsStack';
-import { AuthScreen } from '../screens';
-import { connect } from 'react-redux';
-import { selectAuthStatus } from '../redux/auth';
 import { FeedbackStack } from './Stacks/FeedbackStack';
-import { Drawer } from '../components/Drawer/Drawer';
+import { AuthStack } from './Stacks/AuthStack';
 
 const mapStateToProps = (state) => ({
 	auth: selectAuthStatus(state)
@@ -20,6 +22,7 @@ const mapStateToProps = (state) => ({
 const { Screen, Navigator } = createDrawerNavigator();
 
 export const RootDrawer = connect(mapStateToProps)(({ auth }) => {
+	console.log(auth);
 	return (
 		<NavigationContainer>
 			{auth ? (
@@ -39,7 +42,15 @@ export const RootDrawer = connect(mapStateToProps)(({ auth }) => {
 					<Screen name="Feedback" component={FeedbackStack} />
 				</Navigator>
 			) : (
-				<AuthScreen />
+				<Navigator>
+					<Screen
+						name="AuthStack"
+						component={AuthStack}
+						options={{
+							swipeEnabled: false
+						}}
+					/>
+				</Navigator>
 			)}
 		</NavigationContainer>
 	);

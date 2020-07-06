@@ -25,7 +25,7 @@ export const StartedChatsCover = connect(null, {
 			<Image source={{ uri: item.image }} style={styles.image} />
 			<View style={styles.textContainer}>
 				<CustomText style={styles.name}>{item.title}</CustomText>
-				<CustomText style={styles.text}>{item.lastMessage.text}</CustomText>
+				<CustomText numberOfLines={1} style={styles.text}>{item.lastMessage.text}</CustomText>
 			</View>
 			<CustomText style={styles.time}>{humanTime}</CustomText>
 		</TouchableOpacity>
