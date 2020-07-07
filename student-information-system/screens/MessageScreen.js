@@ -13,7 +13,7 @@ export const MessageScreen = connect(null, {
 })(({ getAndListenChatUsers, getAndListenStartedChatsList, navigation, clearChatMessages }) => {
 	useEffect(() => {
 		clearChatMessages();
-	}, []);
+	}, []);//chage it too unmount
 	useEffect(() => {
 		const unsubscribe = getAndListenChatUsers();
 		return unsubscribe;

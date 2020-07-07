@@ -11,6 +11,7 @@ const mapStateToProps = (state) => ({
 export const HomeScreen = connect(mapStateToProps, {
 	getAndListenFeeds
 })(({ feeds, getAndListenFeeds }) => {
+	
 	useEffect(() => {
 		const unsubscribe = getAndListenFeeds();
 		return unsubscribe;
@@ -28,7 +29,7 @@ export const HomeScreen = connect(mapStateToProps, {
 const styles = StyleSheet.create({
 	conainer: {
 		flex: 1,
-		backgroundColor: COLORS.backgroundLight
+		backgroundColor: COLORS.backgroundLight,
 	},
 	footer: {
 		position: 'absolute',
