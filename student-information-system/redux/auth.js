@@ -17,6 +17,8 @@ export const selectAuthUserID = (state) => state[MODULE_NAME].userID;
 export const selectAuthGrades = (state) => state[MODULE_NAME].grades;
 export const selectAuthAbsence = (state) => state[MODULE_NAME].absence;
 export const selectAuthGroup = (state) => state[MODULE_NAME].group;
+export const getAuthToken = (state) => state[MODULE_NAME].idToken;
+
 export const selectAuthGroupsList = (state) => state[MODULE_NAME].groupsList;
 
 //Reducer
@@ -29,6 +31,8 @@ const initialState = {
 	profilePiC: null, //profile picture
 	grades: [], //grades which assingned is 0 for each users
 	absence: 0 //absence mark by default asigned 0 for each user
+	idToken: null,
+	absence: 0,
 };
 
 export function reducer(state = initialState, { type, payload }) {
@@ -43,6 +47,7 @@ export function reducer(state = initialState, { type, payload }) {
 				...state,
 				status: true,
 				userID: payload.userID,
+				idToken: payload.idToken,
 				name: payload.name,
 				userName: payload.userName,
 				group: payload.group,
@@ -75,6 +80,7 @@ export function reducer(state = initialState, { type, payload }) {
 				...state,
 				status: false,
 				userID: null,
+				idToken: null,
 				name: null,
 				userName: null,
 				group: '',
