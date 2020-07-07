@@ -54,9 +54,9 @@ const styles = StyleSheet.create({
 	container: {
 		backgroundColor: COLORS.backgroundLight,
 		height: 60,
-		width: '100%',
 		flexDirection: 'row',
 		alignItems: 'center',
+		overflow:'hidden',
 		justifyContent: 'flex-end'
 	},
 	btnText: {

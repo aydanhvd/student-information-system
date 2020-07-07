@@ -20,7 +20,7 @@ export const HomeScreenPostBubble = ({ post }) => {
 				<CustomText style={styles.userName}>@{post.userName}</CustomText>
 				<CustomText style={styles.text}>{post.text}</CustomText>
 				<View style={styles.likesContainer}>
-					<HomeScreenPostLikes postID={post.id}/>
+					<HomeScreenPostLikes postID={post.ID}/>
 				</View>
 			</View>
 			<CustomText style={styles.time}>{formattedTime}</CustomText>
