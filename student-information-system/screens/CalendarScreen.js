@@ -5,13 +5,10 @@ import { COLORS } from '../styles/colors';
 import CalendarPicker from 'react-native-calendar-picker';
 
 export const CalendarScreen = () => {
-
 	const [ markedDates, setMarkedDates ] = useState(new Date());
-
 	const markDate = () => {
 		setMarkedDates(markedDates);
 	};
-
 	return (
 		<View style={styles.container}>
 			<Header title="Calendar" />
@@ -24,7 +21,6 @@ export const CalendarScreen = () => {
 				/>
 			</View>
 			<ScrollView>
-
 			<ClassField
 				heading="Homeworks"
 				date="12:00 PM"
@@ -35,9 +31,7 @@ export const CalendarScreen = () => {
 			/>
 			</ScrollView>
 			{/*<Text>SELECTED DATE:{ startDate }</Text>*/}
-
 			<Footer style={styles.footer} screen='CallendarStack'/>
-
 		</View>
 	);
 }

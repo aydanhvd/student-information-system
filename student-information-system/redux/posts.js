@@ -1,18 +1,16 @@
 import fbApp from '../utils/FireBaseInit';
-import { selectUser, selectProfilePiC, getAuthToken } from './auth';
+import { selectUser, selectProfilePiC, selectAuthUserID } from './auth';
 //Action Types
 const SET_FEEDS = 'SET_FEEDS';
 const SET_POSTS = 'SET_POSTS';
 const SET_ACTIVE_POSTS_ID = 'SET_ACTIVE_POSTS_ID';
-const SET_POST_LIKES = "SET_POST_LIKES";
+const SET_POST_LIKES = 'SET_POST_LIKES';
 
 //Selectors
 export const MODULE_NAME = 'feeds';
 export const selectFeeds = (state) => state[MODULE_NAME].feeds;
 export const selectPosts = (state) => state[MODULE_NAME].posts;
 export const selectActivePosts = (state) => state[MODULE_NAME].activePostsID;
-export const selectPostLikes = (state, id) =>
-	state[MODULE_NAME].posts.find((post) => post.id === id)?.likes || {};
 
 //Reducer
 const initialState = {
@@ -38,19 +36,7 @@ export function reducer(state = initialState, { type, payload }) {
 				...state,
 				activePostsID: payload
 			};
-		case SET_POST_LIKES:
-			return {
-				...state,
-				posts: state.posts.map((post) => {
-					if (post.id === payload.postID) {
-						return {
-							...post,
-							likes: payload.likes,
-						};
-					}
-					return post;
-				}),
-			};
+
 		default:
 			return state;
 	}
@@ -68,10 +54,6 @@ export const setPosts = (payload) => ({
 export const setActivePosts = (payload) => ({
 	type: SET_ACTIVE_POSTS_ID,
 	payload
-});
-export const setPostLikes = (payload) => ({
-	type: SET_POST_LIKES,
-	payload,
 });
 //Middlewares
 
@@ -155,34 +137,68 @@ export const shareNewPost = (feedID, text) => (dispatch, getState) => {
 	}
 };
 
-export const toggleLike = ({ feedID, userID, isLiked }) => async (
-	dispatch,
-	getState
-) => {
+export const remuveLike = (postID) => (dispatch, getState) => {
 	try {
-		const token = getAuthToken(getState());
+		const state = getState();
+		const userID = selectAuthUserID(state);
+		const feedID = selectActivePosts(state);
 
-		const likesURL = fbApp.db.ref(`posts/${feedID}/likes`);
-		await fetch(`${likesURL}/${userID}.json?auth=${token}`, {
-			headers: {
-				"Content-Type": "application/json",
-			},
-			method: isLiked ? "DELETE" : "PUT",
-			body: JSON.stringify(true),
-		});
-
-		const likesResponse = await fetch(`${likesURL}.json?auth=${token}`);
-		const likes = await likesResponse.json();
-		if (!likes?.error) {
-			dispatch(
-				setPostLikes({
-					feedID,
-					likes,
-				})
-			);
-		}
-
+		let ref = fbApp.db.ref(`posts/${feedID}/${postID}/likes/${userID}`);
+		ref.remove();
 	} catch (err) {
-		console.log("toggleLike err", err);
+		console.log('remuveLike err', err);
+		//todo handle error
 	}
 };
+
+export const addLike = (postID) => (dispatch, getState) => {
+	try {
+		const state = getState();
+		const userID = selectAuthUserID(state);
+		const feedID = selectActivePosts(state);
+		fbApp.db.ref(`posts/${feedID}/${postID}/likes`).update({
+			[userID]: true
+		});
+	} catch (err) {
+		console.log('addLike err', err);
+	}
+};
+
+export const getAndListenLikeStatus=(postID)=> (dispatch, getState) => {
+	try{
+		const state = getState();
+		const userID = selectAuthUserID(state);
+		const feedID = selectActivePosts(state);
+		const likeStatus = fbApp.db.ref(`posts/${feedID}/${postID}/likes/${userID}`)
+		return likeStatus
+	}catch(err){
+		console.log('getAndListenLikeStatus err', err)
+	}
+}
+
+export const getAndListenLiksCount=(postID)=> (dispatch, getState) => {
+	try{
+		const state = getState();
+		const feedID = selectActivePosts(state);
+		const likesCout = fbApp.db.ref(`posts/${feedID}/${postID}/likes`)
+		likesCout.on(
+			'value',
+			(snapshot) => {
+				if (snapshot.exists()) {
+					const likesCoutObj = snapshot.val();
+					const likesCoutArr = Object.keys(likesCoutObj).map((key) => ({
+						ID: key, //use upperase for ids
+						...likesCoutObj[key]
+					}));
+					return likesCoutArr
+				}
+			},
+			(err) => {
+				console.log('getAndListenLiksCount part 1 err', err);
+			}
+		);
+		return () => likesCout.off();
+	}catch(err){
+		console.log('getAndListenLiksCount',err)
+	}
+}

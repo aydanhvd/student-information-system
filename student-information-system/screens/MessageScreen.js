@@ -11,9 +11,7 @@ export const MessageScreen = connect(null, {
 	getAndListenStartedChatsList,
 	clearChatMessages
 })(({ getAndListenChatUsers, getAndListenStartedChatsList, navigation, clearChatMessages }) => {
-	useEffect(() => {
-		clearChatMessages();
-	}, []);//chage it too unmount
+		clearChatMessages();//to clear previous messages
 	useEffect(() => {
 		const unsubscribe = getAndListenChatUsers();
 		return unsubscribe;
