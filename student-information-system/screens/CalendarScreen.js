@@ -1,56 +1,45 @@
-import React, { useState, Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, ScrollView } from 'react-native';
 import { Footer, ClassField, Header } from '../components';
 import { COLORS } from '../styles/colors';
 import CalendarPicker from 'react-native-calendar-picker';
 
-export class CalendarScreen extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			selectedStartDate: null
-		};
-		this.onDateChange = this.onDateChange.bind(this);
-	}
+export const CalendarScreen = () => {
 
-	onDateChange(date) {
-		this.setState({
-			selectedStartDate: date
-		});
-	}
+	const [ markedDates, setMarkedDates ] = useState(new Date());
 
-	render() {
-		const { selectedStartDate } = this.state;
-		const startDate = selectedStartDate ? selectedStartDate.toString() : '';
-		return (
-			<View style={styles.container}>
-				<Header title="Calendar" />
-				{/* a plachholder title for now */}
-				<View style={styles.calendar}>
-					<CalendarPicker
-						onDateChange={this.onDateChange}
-						todayBackgroundColor="#27BABC"
-						selectedDayColor="#4375BF"
-					/>
-				</View>
-				<ScrollView>
+	const markDate = () => {
+		setMarkedDates(markedDates);
+	};
 
-				<ClassField
-					heading="Homeworks"
-					date="12:00 PM"
-					topic="To do app"
-					style={{ width: '92%', marginHorizontal: 15, marginVertical: 15 }}
-					backgroundColor = {{ backgroundColor: COLORS.acsentColor}}
-					textStyles={{color: COLORS.backgroundLight}}
+	return (
+		<View style={styles.container}>
+			<Header title="Calendar" />
+			{/* a plachholder title for now */}
+			<View style={styles.calendar}>
+				<CalendarPicker
+					onDayPress={markDate}
+					todayBackgroundColor="#27BABC"
+					selectedDayColor="#4375BF"
 				/>
-				</ScrollView>
-				{/*<Text>SELECTED DATE:{ startDate }</Text>*/}
-
-				<Footer style={styles.footer} screen='CallendarStack'/>
-
 			</View>
-		);
-	}
+			<ScrollView>
+
+			<ClassField
+				heading="Homeworks"
+				date="12:00 PM"
+				topic="To do app"
+				style={{ width: '92%', marginHorizontal: 15, marginVertical: 15 }}
+				backgroundColor = {{ backgroundColor: COLORS.acsentColor}}
+				textStyles={{color: COLORS.backgroundLight}}
+			/>
+			</ScrollView>
+			{/*<Text>SELECTED DATE:{ startDate }</Text>*/}
+
+			<Footer style={styles.footer} screen='CallendarStack'/>
+
+		</View>
+	);
 }
 
 const styles = StyleSheet.create({

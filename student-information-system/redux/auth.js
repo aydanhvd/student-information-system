@@ -31,9 +31,8 @@ const initialState = {
 	group: '', //iD of the group ur in
 	profilePiC: null, //profile picture
 	grades: [], //grades which assingned is 0 for each users
-	absence: 0 //absence mark by default asigned 0 for each user
+	absence: 0, //absence mark by default asigned 0 for each user
 	idToken: null,
-	absence: 0,
 
 };
 
