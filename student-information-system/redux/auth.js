@@ -25,6 +25,7 @@ export const selectAuthGroupsList = (state) => state[MODULE_NAME].groupsList;
 const initialState = {
 	status: false, //if ur signd in or not
 	userID: null, //use uppercase ID for ids
+
 	name: null, //full name of user
 	userName: null, //username of user
 	group: '', //iD of the group ur in
@@ -33,6 +34,7 @@ const initialState = {
 	absence: 0 //absence mark by default asigned 0 for each user
 	idToken: null,
 	absence: 0,
+
 };
 
 export function reducer(state = initialState, { type, payload }) {
