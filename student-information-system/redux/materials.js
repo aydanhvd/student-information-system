@@ -1,10 +1,11 @@
 import fbApp from '../utils/FireBaseInit';
-import { selectAuthGroup , selectAuthUserID} from './auth';
+import { selectAuthGroup, selectAuthUserID } from './auth';
 //Action Types
 const SET_GROUP = 'SET_GROUP';
 const SET_MATERIALS = 'SET_MATERIALS';
 const SET_HOMEWOKS = 'SET_HOMEWOKS';
 const SET_GRADES = 'SET_GRADES';
+const SET_AGENDA = 'SET_AGENDA';
 
 //Selectors
 export const MODULE_NAME = 'groups';
@@ -12,13 +13,15 @@ export const selectGroup = (state) => state[MODULE_NAME].group;
 export const selectMaterials = (state) => state[MODULE_NAME].materials;
 export const selectHomeworks = (state) => state[MODULE_NAME].homeworks;
 export const selectGrades = (state) => state[MODULE_NAME].grades;
+export const selectAgenda = (state) => state[MODULE_NAME].agenda;
 
 //Reducer
 const initialState = {
-	group: [],//information abut users group ex: id, teacher, abcence allowence, title
-	materials: [],//list of materiasl appropiate to users group
-	homeworks: [],//list of materiasl accined to users group
-	grades: []//grade of each homework
+	group: [], //information abut users group ex: id, teacher, abcence allowence, title
+	materials: [], //list of materiasl appropiate to users group
+	homeworks: [], //list of materiasl accined to users group
+	grades: [], //grade of each homework
+	agenda: [] //callendar data
 };
 
 export function reducer(state = initialState, { type, payload }) {
@@ -43,6 +46,11 @@ export function reducer(state = initialState, { type, payload }) {
 				...state,
 				grades: payload
 			};
+		case SET_AGENDA:
+			return {
+				...state,
+				agenda: payload
+			};
 		default:
 			return state;
 	}
@@ -66,6 +74,11 @@ export const setGrades = (payload) => ({
 	type: SET_GRADES,
 	payload
 });
+export const setAgenda = (payload) => ({
+	type: SET_AGENDA,
+	payload
+});
+
 //Middlewares
 
 //a middleware for getting groups on material screen
@@ -150,7 +163,7 @@ export const getAndListenHomeWorks = () => (dispatch, getState) => {
 
 export const getAndListenGrades = () => (dispatch, getState) => {
 	try {
-		const userID = selectAuthUserID(getState())
+		const userID = selectAuthUserID(getState());
 		const reference = fbApp.db.ref(`grades/${userID}`);
 		reference.on(
 			'value',
@@ -172,5 +185,24 @@ export const getAndListenGrades = () => (dispatch, getState) => {
 	} catch (err) {
 		console.log('getAndListenGrades err', err);
 		//todo handle error
+	}
+};
+
+export const getAndListenAgenda = () => (dispatch, getState) => {
+	try {
+		const groupID = selectAuthGroup(getState());
+		let ref = fbApp.db.ref(`agenda/${groupID}`);
+		ref.on('value', (snapshot) => {
+			if (snapshot.exists()) {
+				const datesObj = snapshot.val();
+				const transformedDates = Object.fromEntries(
+					Object.entries(datesObj).map(([ key, val ]) => [ key, [ val ] ])
+				);
+				dispatch(setAgenda(transformedDates))
+			}
+		});
+		return () => ref.off();
+	} catch (err) {
+		console.log('getAndListenAgenda', errr);
 	}
 };

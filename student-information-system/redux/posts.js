@@ -166,13 +166,13 @@ export const getAndListenLikes = (postID) => (dispatch, getState) => {
 		const state = getState();
 		const feedID = selectActivePosts(state);
 		const ref = fbApp.db.ref(`posts/${feedID}/${postID}/likes`);
-		ref.on(
+		ref.once(
 			'value',
 			(snapshot) => {
 				if (snapshot.exists()) {
 					const likesObj = snapshot.val();
 					const likesArr =  Object.keys(likesObj).map(key=>({
-						[key]:likesObj[key]
+						[key]:[likesObj[key]]
 					}))	
 					console.log(likesArr)
 				}

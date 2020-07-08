@@ -24,21 +24,23 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		justifyContent: 'space-between',
 		flexDirection: 'row',
-		...GLOBAL_STYLES.shaddowBottum,
-		borderBottomEndRadius: 30,
-		borderBottomStartRadius: 30
+		// ...GLOBAL_STYLES.shaddowBottum,
+		// borderBottomEndRadius: 30,
+		// borderBottomStartRadius: 30
 	},
 	heading: {
 		fontSize: 22,
 		marginTop: 8,
 		color: COLORS.backgroundDark,
 		textAlign:'center',
+		marginLeft:22
 	},
 	headerIcon: {
 		alignSelf: 'center',
 		width: 22,
 		height: 22,
-		marginTop: 8
+		marginTop: 8,
+		marginRight:22
 	},
 	indicator: {
 		position: 'absolute',
