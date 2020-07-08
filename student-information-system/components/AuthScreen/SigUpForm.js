@@ -32,7 +32,7 @@ export const SignUpForm = connect(null, { signUp })(({ signUp, groupsList }) => 
 		const rePass = fields.rePassword.value.trim();
 		const userName = fields.userName.value.trim();
 		const name = fields.name.value.trim();
-		if (validateForm(true, email, pass, rePass, userName, name, groupIndex)) {
+		if (validateForm(true, email, pass, rePass, userName, name, groupsList[groupIndex].ID)) {
 			signUp(email, name, userName, pass, groupsList[groupIndex].ID);
 		}
 	};

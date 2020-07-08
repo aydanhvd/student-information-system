@@ -11,7 +11,7 @@ const mapStateToProps = (state) => ({
 	grades: selectGrades(state)
 });
 
-export const GradeShower = connect(mapStateToProps, { getAndListenGrades })(({ getAndListenGrades, grades }) => {
+export const GradeShower = connect(mapStateToProps, { getAndListenGrades })(({ getAndListenGrades, grades=[]}) => {
 	useEffect(() => {
 		const unsub = getAndListenGrades();
 		return unsub;
@@ -19,13 +19,13 @@ export const GradeShower = connect(mapStateToProps, { getAndListenGrades })(({ g
 	return (
 		<View style={styles.container}>
 			<LinearGradient colors={[ '#4375BF', 'transparent' ]} style={styles.gradient} />
-			{grades.map((grade) => (
-				<View style={styles.gradeSection} key={grade.id}>
+		{grades.map((grade) => (
+				<View style={styles.gradeSection} key={grade.ID}>
 					<CustomText style={styles.gradeSectionName}>{grade.title}</CustomText>
 					<CustomText weight="semi" style={styles.gradeSectionGrade}>
 						{grade.grade}
 					</CustomText>
-				</View>
+				</View>	
 			))}
 		</View>
 	);
