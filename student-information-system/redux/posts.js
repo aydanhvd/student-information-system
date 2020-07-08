@@ -123,7 +123,7 @@ export const shareNewPost = (feedID, text) => (dispatch, getState) => {
 			userName: user.userName,
 			autherID: user.userID, //use uppercase for IDS
 			time: fbApp.root.database.ServerValue.TIMESTAMP,
-			autherProfilePic: profilePic,
+			autherProfilePic: profilePic ? profilePic : '',
 			text
 		};
 		reference.push().set(newPost, (err) => {
@@ -137,50 +137,57 @@ export const shareNewPost = (feedID, text) => (dispatch, getState) => {
 	}
 };
 
-export const remuveLike = (postID) => (dispatch, getState) => {
+export const toggleLike = (postID) => (dispatch, getState) => {
 	try {
 		const state = getState();
 		const userID = selectAuthUserID(state);
 		const feedID = selectActivePosts(state);
-
 		let ref = fbApp.db.ref(`posts/${feedID}/${postID}/likes/${userID}`);
-		ref.remove();
+		ref.once('value', (snapshot) => {
+			if (snapshot.exists()) {
+				if (snapshot.val()) {
+					ref.remove();
+				}
+			} else {
+				fbApp.db.ref(`posts/${feedID}/${postID}/likes`).update({
+					[userID]: true
+				});
+			}
+		});
+		return () => ref.off();
 	} catch (err) {
-		console.log('remuveLike err', err);
-		//todo handle error
+		console.log('toggleLike err', err);
+		//todo handle err
 	}
 };
 
-export const addLike = (postID) => (dispatch, getState) => {
+export const getAndListenLikes = (postID) => (dispatch, getState) => {
 	try {
 		const state = getState();
-		const userID = selectAuthUserID(state);
 		const feedID = selectActivePosts(state);
-		fbApp.db.ref(`posts/${feedID}/${postID}/likes`).update({
-			[userID]: true
-		});
+		const ref = fbApp.db.ref(`posts/${feedID}/${postID}/likes`);
+		ref.on(
+			'value',
+			(snapshot) => {
+				if (snapshot.exists()) {
+					const likesObj = snapshot.val();
+					const likesArr =  Object.keys(likesObj).map(key=>({
+						[key]:likesObj[key]
+					}))	
+					console.log(likesArr)
+				}
+			}
+		);
 	} catch (err) {
-		console.log('addLike err', err);
+		console.log('getAndListenLike err', err);
 	}
 };
 
-export const getAndListenLikeStatus=(postID)=> (dispatch, getState) => {
-	try{
-		const state = getState();
-		const userID = selectAuthUserID(state);
-		const feedID = selectActivePosts(state);
-		const likeStatus = fbApp.db.ref(`posts/${feedID}/${postID}/likes/${userID}`)
-		return likeStatus
-	}catch(err){
-		console.log('getAndListenLikeStatus err', err)
-	}
-}
-
-export const getAndListenLiksCount=(postID)=> (dispatch, getState) => {
-	try{
+export const getAndListenLiksCount = (postID) => (dispatch, getState) => {
+	try {
 		const state = getState();
 		const feedID = selectActivePosts(state);
-		const likesCout = fbApp.db.ref(`posts/${feedID}/${postID}/likes`)
+		const likesCout = fbApp.db.ref(`posts/${feedID}/${postID}/likes`);
 		likesCout.on(
 			'value',
 			(snapshot) => {
@@ -190,15 +197,14 @@ export const getAndListenLiksCount=(postID)=> (dispatch, getState) => {
 						ID: key, //use upperase for ids
 						...likesCoutObj[key]
 					}));
-					return likesCoutArr
+					return likesCoutArr;
 				}
 			},
 			(err) => {
 				console.log('getAndListenLiksCount part 1 err', err);
 			}
 		);
-		return () => likesCout.off();
-	}catch(err){
-		console.log('getAndListenLiksCount',err)
+	} catch (err) {
+		console.log('getAndListenLiksCount', err);
 	}
-}
+};
