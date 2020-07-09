@@ -19,9 +19,9 @@ export const HomeScreenPostBubble = ({ post }) => {
 				</CustomText>
 				<CustomText style={styles.userName}>@{post.userName}</CustomText>
 				<CustomText style={styles.text}>{post.text}</CustomText>
-				<View style={styles.likesContainer}>
+				{/* <View style={styles.likesContainer}>
 					<HomeScreenPostLikes postID={post.ID}/>
-				</View>
+				</View> */}
 			</View>
 			<CustomText style={styles.time}>{formattedTime}</CustomText>
 		</View>

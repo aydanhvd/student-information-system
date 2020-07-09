@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react';
 import { StyleSheet, FlatList } from 'react-native';
-import { selectChatMessages  } from '../../redux/chats';
+import { selectChatMessages, clearChatMessages, selectChatID } from '../../redux/chats';
 import { connect } from 'react-redux';
 import { PriviteMessagesBubble } from './PriviteMessageBubble';
 
 const mapStateToProps = (state) => ({
-	messages: selectChatMessages(state)
+	messages: selectChatMessages(state),
 });
 
-export const PriviteMessages = connect(mapStateToProps )(({ messages }) => {
+export const PriviteMessages = connect(mapStateToProps)(({ messages }) => {
 
 	return (
 		<FlatList

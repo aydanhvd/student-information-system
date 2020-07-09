@@ -27,10 +27,10 @@ export const SignUpForm = connect(null, { signUp })(({ signUp, groupsList }) => 
 		}));
 	};
 	const submintHandler = (fields) => {
-		const email = fields.email.value.trim();
+		const email = fields.email.value.toLowerCase().trim();
 		const pass = fields.password.value.trim();
 		const rePass = fields.rePassword.value.trim();
-		const userName = fields.userName.value.trim();
+		const userName = fields.userName.value.toLowerCase().trim();
 		const name = fields.name.value.trim();
 		if (validateForm(true, email, pass, rePass, userName, name, groupsList[groupIndex].ID)) {
 			signUp(email, name, userName, pass, groupsList[groupIndex].ID);

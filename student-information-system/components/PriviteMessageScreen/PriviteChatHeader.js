@@ -14,7 +14,7 @@ export const PriviteChatsHeader = connect(mapStateToProps)(({ navigation, reciev
 	return (
 		<View style={styles.container}>
 			<CustomIconBtn icon={ICONS_LIGHT.backLight} style={styles.backArrow} onPress={() => navigation.goBack()} />
-			<Image style={styles.profilePiC} source={{ uri: recieverPic }} />
+			<Image style={styles.profilePiC} source={recieverPic ? { uri: recieverPic } : ICONS_LIGHT.userLight} />
 			<View style={styles.nameContainer}>
 				<CustomText style={styles.name}>{recieverName}</CustomText>
 				{/* <CustomText style={styles.userName}>@{reciever.userName}</CustomText> */}
@@ -34,8 +34,8 @@ const styles = StyleSheet.create({
 		height: 40,
 		borderRadius: 30,
 		marginHorizontal: 15,
-		borderWidth:2,
-		borderColor:COLORS.acsentColor
+		borderWidth: 2,
+		borderColor: COLORS.acsentColor
 	},
 	backArrow: {
 		marginLeft: 16

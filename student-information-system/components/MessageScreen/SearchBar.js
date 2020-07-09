@@ -1,16 +1,48 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, View, TextInput } from 'react-native';
+import { connect } from 'react-redux';
+
 import { COLORS, ICONS_LIGHT } from '../../styles';
 import { CustomIconBtn } from '../Customs/CustomIconBtn';
+import { selectChatsUsers, setChatsUsers, getAndListenChatUsers } from '../../redux/chats';
 
-export const SearchBar = () => {
+const mapStateToProps = (state) => ({
+	users: selectChatsUsers(state)
+});
+
+export const SearchBar = connect(mapStateToProps, {
+	setChatsUsers,
+	getAndListenChatUsers
+})(({ users, setChatsUsers, getAndListenChatUsers }) => {
+	const [ searchName, setSaerchName ] = useState('');
+	const usersArr = Object.keys(users).map((key) => ({
+		ID: key, //use uppercase letters for IDs
+		...users[key]
+	}));
+	const onPressHandler = () => {
+		if (searchName !== '') {
+			if (!!usersArr) {
+				let user = usersArr.find((user) => {
+					return user.userName.includes(searchName.toLowerCase().trim());
+				});
+				setChatsUsers({ user });
+			}
+		}
+	};
 	return (
 		<View style={styles.container}>
-			<TextInput style={styles.searchBar} placeholder="search" placeholderTextColor={COLORS.textColorDark} />
-			<CustomIconBtn icon={ICONS_LIGHT.search} style={styles.searchIcon} />
+			<TextInput
+				value={searchName}
+				style={styles.searchBar}
+				placeholder="search by username"
+				onChangeText={(value) => setSaerchName(value)}
+				placeholderTextColor={COLORS.textColorDark}
+			/>
+			<CustomIconBtn icon={ICONS_LIGHT.search} style={styles.searchIcon} onPress={onPressHandler} />
+			<CustomIconBtn icon={ICONS_LIGHT.refresUsers} style={styles.refresh} onPress={getAndListenChatUsers} />
 		</View>
 	);
-};
+});
 const styles = StyleSheet.create({
 	container: {
 		flexDirection: 'row',
@@ -31,5 +63,12 @@ const styles = StyleSheet.create({
 	searchIcon: {
 		width: 18,
 		height: 18
+	},
+	refresh: {
+		position: 'absolute',
+		right: 30,
+		width: 18,
+		height: 18,
+		marginRight: 5
 	}
 });

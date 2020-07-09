@@ -3,12 +3,16 @@ import { StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { COLORS, ICONS_LIGHT } from '../../styles';
 import { CustomText } from '../Customs/CustomText';
 
-export const UserCard = ({ user , onPress}) => {
+export const UserCard = ({ user, onPress }) => {
 	return (
 		<TouchableOpacity style={styles.card} onPress={onPress}>
-			<Image source={{ uri: user.profilePiC }} style={styles.image} />
-			<CustomText numberOfLines={1} style={styles.userName}>@{user.userName}</CustomText>
-			<CustomText numberOfLines={2} style={styles.name}>{user.name}</CustomText>
+			<Image source={user.profilePiC ? { uri: user.profilePiC } : ICONS_LIGHT.userLight} style={styles.image} />
+			<CustomText numberOfLines={1} style={styles.userName}>
+				@{user.userName}
+			</CustomText>
+			<CustomText numberOfLines={2} style={styles.name}>
+				{user.name}
+			</CustomText>
 		</TouchableOpacity>
 	);
 };
