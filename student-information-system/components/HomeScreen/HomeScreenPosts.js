@@ -20,6 +20,7 @@ export const HomeScreenPosts = connect(mapStateToProps, {
 	useEffect(
 		() => {
 			if (activePostID !== '') {
+				console.log(activePostID)
 				const unsub = getAndListenPosts(activePostID);
 				return unsub;
 			}
@@ -28,7 +29,7 @@ export const HomeScreenPosts = connect(mapStateToProps, {
 	);
 	return (
 		<FlatList
-			style={styles.container}
+			contentContainerStyle={styles.container}
 			data={posts.slice(0).reverse()}
 			renderItem={({ item }) => {
 				return <HomeScreenPostBubble post={item} style={styles.post} profilePic={profilePic} />;
@@ -42,8 +43,8 @@ const styles = StyleSheet.create({
 		paddingBottom: 70,
 		marginTop: 30,
 		flexGrow: 1,
-		paddingHorizontal:17
-		// paddingBottom: 100,//TODO look into post going under footer
+		paddingHorizontal:17,
+		paddingBottom: 100,//TODO look into post going under footer
 	}
 	// post:{
 	// 	...GLOBAL_STYLES.shaddowTop

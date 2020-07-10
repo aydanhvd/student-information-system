@@ -171,6 +171,8 @@ export const toggleLike = (postID) => (dispatch, getState) => {
 	}
 };
 
+
+//
 export const getAndListenLikes = (postID) => (dispatch, getState) => {
 	try {
 		const state = getState();
@@ -179,8 +181,7 @@ export const getAndListenLikes = (postID) => (dispatch, getState) => {
 		likesCout.on('value', (snapshot) => {
 			if (snapshot.exists()) {
 				const likesCoutObj = snapshot.val();
-				console.log(likesCoutObj)
-				
+				console.log(likesCoutObj)			
 				// dispatch(setPostLikes(likesCoutArr));
 			}
 		});

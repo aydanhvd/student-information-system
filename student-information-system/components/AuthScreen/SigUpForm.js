@@ -15,7 +15,7 @@ const mapStateToProps = (state) => ({
 
 export const SignUpForm = connect(mapStateToProps, { signUp, setAuthError, clearAuthError })
 	(({ signUp, groupsList, error, setAuthError, clearAuthError }) => {
-		console.log(error)
+		// console.log(error)
 
 	const [ groupIndex, setGroupIndex ] = useState(null);
 	const [ fields, setFields ] = useState({
