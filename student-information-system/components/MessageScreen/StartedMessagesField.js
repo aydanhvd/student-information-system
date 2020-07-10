@@ -11,8 +11,9 @@ const mapStateToProps = (state) => ({
 export const StartedMessagesField = connect(mapStateToProps)(({ startedChats, navigation}) => {
 	return (
 		<FlatList
-			contentContainerStyle={styles.container}
+			style={styles.container}
 			data={startedChats}
+			showsHorizontalScrollIndicator={false}
 			renderItem={({ item }) => {
 				return (
 					<StartedChatsCover
@@ -29,6 +30,6 @@ const styles = StyleSheet.create({
 		flex: 1,
 		marginHorizontal: 20,
 		marginTop: 25,
-		marginBottom:70
+		marginBottom:50,
 	}
 });

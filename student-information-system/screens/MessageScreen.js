@@ -1,17 +1,17 @@
 import React, { useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
+import { connect } from 'react-redux';
+
 import { Footer, Header, PeopleListField } from '../components';
 import { COLORS } from '../styles/colors';
-import { getAndListenChatUsers, getAndListenStartedChatsList, clearChatMessages } from '../redux/chats';
-import { connect } from 'react-redux';
+import { getAndListenChatUsers, getAndListenStartedChatsList,  selectChatID } from '../redux/chats';
 import { StartedMessagesField } from '../components/MessageScreen/StartedMessagesField';
+
 
 export const MessageScreen = connect(null, {
 	getAndListenChatUsers,
-	getAndListenStartedChatsList,
-	clearChatMessages
-})(({ getAndListenChatUsers, getAndListenStartedChatsList, navigation, clearChatMessages }) => {
-		clearChatMessages();//to clear previous messages
+	getAndListenStartedChatsList
+})(({ getAndListenChatUsers, getAndListenStartedChatsList, navigation ,}) => {
 	useEffect(() => {
 		const unsubscribe = getAndListenChatUsers();
 		return unsubscribe;
@@ -20,6 +20,7 @@ export const MessageScreen = connect(null, {
 		const unsubscribe = getAndListenStartedChatsList();
 		return unsubscribe;
 	}, []);
+
 	return (
 		<View style={styles.container}>
 			<Header title="Messages" />
