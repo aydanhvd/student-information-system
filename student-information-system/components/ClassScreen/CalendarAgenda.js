@@ -6,7 +6,7 @@ import { ICONS_LIGHT } from '../../styles/iconsLight';
 import { CustomText } from '../Customs/CustomText';
 import { connect } from 'react-redux';
 import { selectAgenda, getAndListenAgenda } from '../../redux/materials';
-import {ClassField} from "../ClassField";
+import { ClassField } from '../ClassField';
 
 const mapStateToProps = (state) => ({
 	agendaData: selectAgenda(state)
@@ -14,7 +14,7 @@ const mapStateToProps = (state) => ({
 
 export const CalendarAgenda = connect(mapStateToProps, {
 	getAndListenAgenda
-})(({ agendaData =[], getAndListenAgenda }) => {
+})(({ agendaData = [], getAndListenAgenda }) => {
 	useEffect(() => {
 		const unsub = getAndListenAgenda();
 		return unsub;
@@ -22,9 +22,9 @@ export const CalendarAgenda = connect(mapStateToProps, {
 	return (
 		<Agenda
 			items={agendaData}
-			renderItem={(item ) => {
+			renderItem={(item) => {
 				return (
-					<View >
+					<View>
 						<ClassField
 							heading={item.time}
 							topic={item.topic}
@@ -42,8 +42,9 @@ export const CalendarAgenda = connect(mapStateToProps, {
 			}}
 			refreshing={true}
 			theme={{
-				agendaTodayColor: COLORS.acsentColor,
+				agendaTodayColor: COLORS.acsentColor
 			}}
+			style={{ backgroundColor: COLORS.backgroundLight }}
 		/>
 	);
 });

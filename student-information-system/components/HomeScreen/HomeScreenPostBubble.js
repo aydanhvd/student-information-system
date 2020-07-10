@@ -41,11 +41,11 @@ const styles = StyleSheet.create({
 		minHeight:130,
 	},
 	profilePic: {
-		width: 45,
-		height: 45,
+		width: 50,
+		height: 50,
 		borderRadius: 40,
 		borderWidth: 3,
-		borderColor: COLORS.acsentColor,
+		borderColor: COLORS.commentsColorLight,
 		marginRight: 13
 	},
 	postBodyContainer: {
@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
 	},
 	userName: {
 		fontSize: 12,
-		color: COLORS.drawerLight
+		color: COLORS.acsentColor
 	},
 	text: {
 		fontSize: 16

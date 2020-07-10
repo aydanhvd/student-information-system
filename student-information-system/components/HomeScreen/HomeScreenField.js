@@ -27,7 +27,7 @@ export const HomeScreenField = connect(mapStateToProps, { shareNewPost })(({ act
 				style={styles.field}
 				placeholder="what is on your mind...."
 			/>
-			<CustomIconBtn icon={ICONS_LIGHT.origamiLight} style={styles.icon} onPress={sharePostHandler} />
+			<CustomIconBtn icon={ICONS_LIGHT.sendLight} style={styles.icon} onPress={sharePostHandler} />
 		</View>
 	);
 });
@@ -37,19 +37,18 @@ const styles = StyleSheet.create({
 		backgroundColor: COLORS.backgroundLight,
 		height: 100,
 		flexDirection: 'row',
-		alignItems: 'center',
-		justifyContent: 'space-between',
-		paddingHorizontal: 10,
-		borderBottomEndRadius: 30,
-		borderBottomStartRadius: 30,
+		borderBottomEndRadius: 40,
+		borderBottomStartRadius: 40,
 	},
 	icon: {
-		width: 40,
-		height: 40
+		width: 22,
+		height: 22
 	},
 	field: {
-		width: '80%',
+		width: '90%',
 		height: '100%',
-		color: COLORS.backgroundDark
+		color: COLORS.backgroundDark,
+		textAlign:"auto",
+		flexWrap:'wrap',
 	}
 });
