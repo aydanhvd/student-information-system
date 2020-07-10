@@ -14,7 +14,7 @@ const mapStateToProps = (state) => ({
 
 export const CalendarAgenda = connect(mapStateToProps, {
 	getAndListenAgenda
-})(({ agendaData = {}, getAndListenAgenda }) => {
+})(({ agendaData =[], getAndListenAgenda }) => {
 	useEffect(() => {
 		const unsub = getAndListenAgenda();
 		return unsub;
@@ -22,7 +22,7 @@ export const CalendarAgenda = connect(mapStateToProps, {
 	return (
 		<Agenda
 			items={agendaData}
-			renderItem={(item, firstItemInDay) => {
+			renderItem={(item ) => {
 				return (
 					<View >
 						<ClassField

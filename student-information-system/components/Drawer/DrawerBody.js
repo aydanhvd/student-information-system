@@ -20,7 +20,7 @@ const mapStateToProps = (state) => ({
 export const DrawerBody = connect(mapStateToProps, {
 	uploadProfilePic,
 	logOut
-})(({ profilePic, userName, name, group, logOut }) => {
+})(({ profilePic, userName, name, group={}, logOut }) => {
 	return (
 		<SafeAreaProvider>
 			<View style={styles.container}>
