@@ -13,7 +13,7 @@ const mapStateToProps = (state) => ({
 export const HomeScreenField = connect(mapStateToProps, { shareNewPost })(({ activePostID, shareNewPost }) => {
 	const [ newPost, setNewPost ] = useState('');
 	const sharePostHandler = () => {
-		if (newPost !== '') {
+		if (newPost.trim() !== '') {
 			shareNewPost(activePostID, newPost);
 			setNewPost('');
 		}

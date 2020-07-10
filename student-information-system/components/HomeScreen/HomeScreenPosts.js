@@ -2,12 +2,11 @@ import React, { useEffect } from 'react';
 import { StyleSheet, FlatList } from 'react-native';
 import { HomeScreenPostBubble } from './HomeScreenPostBubble';
 import { connect } from 'react-redux';
-import { selectPosts, getAndListenPosts, selectActivePosts } from '../../redux/posts';
 
-import { GLOBAL_STYLES } from '../../styles';
+import { selectPosts, getAndListenPosts, selectActivePosts } from '../../redux/posts';
 import { selectUser, selectProfilePiC } from '../../redux/auth';
 
-const mapStateToProps = (state, props) => {
+const mapStateToProps = (state) => {
 	return {
 	posts: selectPosts(state),
 	activePostID: selectActivePosts(state),
