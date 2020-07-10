@@ -29,14 +29,14 @@ export const validateForm = (isSignUP, email, password, rePassword, userName, na
 	}
 	//they have to provide a password
 	if (password.trim() === '') {
-		alert('Password is requred');
+		alert('Password is required');
 		return false;
 	}
 	//if user is trying to sign up(create new acount)
 	if (isSignUP) {
 		//they have to provede repassword which has to mach with password itself
 		if (password.trim() !== rePassword.trim()) {
-			alert('password must match');
+			alert('Passwords must match');
 			return false;
 		}
 		//they have to choose what group they r in
@@ -44,12 +44,20 @@ export const validateForm = (isSignUP, email, password, rePassword, userName, na
 			alert('u must pick your group');
 			return false;
 		}
+		if (password.trim().length < 8) {
+			alert('Password should be included at least 8 characters');
+			return false;
+		}
 		if (userName.trim() === '') {
-			alert('userName requred');
+			alert('userName required');
+			return false;
+		}
+		if (userName.trim().toUpperCase() === '') {
+			alert('Username must be written with lowercase');
 			return false;
 		}
 		if (name.trim() === '') {
-			alert('name is requred');
+			alert('name is required');
 			return false;
 		}
 	}

@@ -1,14 +1,22 @@
 import React, { useState } from 'react';
-import { StyleSheet, TextInput, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, TextInput, View, TouchableOpacity, Text } from 'react-native';
 import { Radio, RadioGroup } from '@ui-kitten/components';
 import { COLORS, ICONS_LIGHT } from '../../styles';
 import { connect } from 'react-redux';
 import { validateForm } from '../../utils/validateField';
-import { signUp } from '../../redux/auth';
+import {clearAuthError, getAuthError, setAuthError, signUp} from '../../redux/auth';
 import { CustomIconBtn } from '../index';
 import { CustomText } from '../Customs/CustomText';
+import {authErrorsText} from "../../utils/authErrorsText";
 
-export const SignUpForm = connect(null, { signUp })(({ signUp, groupsList }) => {
+const mapStateToProps = (state) => ({
+	error: getAuthError(state),
+});
+
+export const SignUpForm = connect(mapStateToProps, { signUp, setAuthError, clearAuthError })
+	(({ signUp, groupsList, error, setAuthError, clearAuthError }) => {
+		console.log(error)
+
 	const [ groupIndex, setGroupIndex ] = useState(null);
 	const [ fields, setFields ] = useState({
 		email: { value: '', placeholder: 'email' },
@@ -18,6 +26,7 @@ export const SignUpForm = connect(null, { signUp })(({ signUp, groupsList }) => 
 		rePassword: { value: '', placeholder: 'rePassword' }
 	});
 	const fieldChnageHandler = (name, value) => {
+		clearAuthError();
 		setFields((fields) => ({
 			...fields,
 			[name]: {
@@ -32,8 +41,26 @@ export const SignUpForm = connect(null, { signUp })(({ signUp, groupsList }) => 
 		const rePass = fields.rePassword.value.trim();
 		const userName = fields.userName.value.trim();
 		const name = fields.name.value.trim();
-		if (validateForm(true, email, pass, rePass, userName, name, groupIndex)) {
-			signUp(email, name, userName, pass, groupsList[groupIndex].ID);
+
+
+		if (email !== "" && pass !== "") {
+
+			if (validateForm(true, email, pass, rePass, userName, name, groupIndex)) {
+				signUp(email, name, userName, pass, groupsList[groupIndex].ID);
+			} else {
+				if (fields.password === fields.rePassword) {
+					signUp(fields, false);
+				}else if(pass.length < 8){
+					setAuthError("PASS_LENGTH")
+				}else if(fields.userName === userName.toUpperCase()){
+					setAuthError("USERNAME_ERROR")
+				}
+				else {
+					setAuthError("PASS_NOT_MATCH");
+				}
+			}
+		}else {
+			setAuthError("EMAIL_PASS_EMPTY");
 		}
 	};
 	return (
@@ -50,7 +77,7 @@ export const SignUpForm = connect(null, { signUp })(({ signUp, groupsList }) => 
 					/>
 				);
 			})}
-			<CustomText style={styles.label}>Select Goup</CustomText>
+			<CustomText style={styles.label}>Select Group</CustomText>
 			<RadioGroup style={styles.groupBtn} selectedIndex={groupIndex} onChange={(index) => setGroupIndex(index)}>
 				<Radio status="control">MD-1</Radio>
 				<Radio status="control">MD-2</Radio>
@@ -58,6 +85,9 @@ export const SignUpForm = connect(null, { signUp })(({ signUp, groupsList }) => 
 				<Radio status="control">BE-4</Radio>
 			</RadioGroup>
 			<CustomIconBtn icon={ICONS_LIGHT.logInBtn} style={styles.nextBtn} onPress={() => submintHandler(fields)} />
+			{error.status && (
+				<CustomText weight='semi' style={styles.error}>{authErrorsText[error.errCode]}</CustomText>
+			)}
 		</View>
 	);
 });
@@ -94,5 +124,10 @@ const styles = StyleSheet.create({
 		height: 35,
 		alignSelf: 'flex-end',
 		borderRadius: 20
-	}
+	},
+	error: {
+		fontSize: 16,
+		color: "red",
+		marginTop: 10,
+	},
 });

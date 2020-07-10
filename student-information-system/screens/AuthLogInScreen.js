@@ -37,10 +37,10 @@ const styles = StyleSheet.create({
 	},
 	signInImage: {
 		alignSelf: 'center',
-		width:300,
-		height:300,
+		width: 250,
+		height: 250,
 		resizeMode: 'contain',
-		marginTop: 100,
+		marginTop: 80,
 		marginLeft: 20
 	},
 	link: {

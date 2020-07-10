@@ -11,7 +11,7 @@ const mapStateToProps = (state) => ({
 	grades: selectGrades(state)
 });
 
-export const GradeShower = connect(mapStateToProps, { getAndListenGrades })(({ getAndListenGrades, grades }) => {
+export const GradeShower = connect(mapStateToProps, { getAndListenGrades })(({ getAndListenGrades, grades=[] }) => {
 	useEffect(() => {
 		const unsub = getAndListenGrades();
 		return unsub;

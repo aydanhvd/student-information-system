@@ -18,7 +18,7 @@ export const HomeScreenHeader = connect(mapStateToProps, {
 })(({ feeds, setActivePosts, activePostID, group }) => {
 	return (
 		<FlatList
-			contentContainerStyle={styles.container}
+			contentContainerStyle={{...styles.container, ...GLOBAL_STYLES.shaddowBottum}}
 			data={feeds} //BTNS SHOULD BE FILTERED ACCORDING TO USER ACSESS
 			renderItem={({ item }) => {
 				return (
@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 		alignItems: 'center',
 		overflow:'hidden',
-		justifyContent: 'flex-end'
+		justifyContent: 'flex-end',
 	},
 	btnText: {
 		fontSize: 18,

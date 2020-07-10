@@ -7,7 +7,7 @@ import { COLORS } from '../styles';
 import { TouchableText } from '../components/Customs/ToucableText';
 import { SignUpForm } from '../components/AuthScreen/SigUpForm';
 import { connect } from 'react-redux';
-import { selectAuthGroupsList, getAndListenAuthGroupsList } from '../redux/auth';
+import {selectAuthGroupsList, getAndListenAuthGroupsList, setAuthError, clearAuthError} from '../redux/auth';
 
 const mapStateToProps = (state) => ({
 	groupsList: selectAuthGroupsList(state)
