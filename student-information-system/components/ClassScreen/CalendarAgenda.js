@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, ScrollView, ClippingRectangle } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { Agenda } from 'react-native-calendars';
 import { COLORS } from '../../styles';
 import { ICONS_LIGHT } from '../../styles/iconsLight';
 import { CustomText } from '../Customs/CustomText';
 import { connect } from 'react-redux';
 import { selectAgenda, getAndListenAgenda } from '../../redux/materials';
+import {ClassField} from "../ClassField";
 
 const mapStateToProps = (state) => ({
 	agendaData: selectAgenda(state)
@@ -24,8 +25,12 @@ export const CalendarAgenda = connect(mapStateToProps, {
 			renderItem={(item ) => {
 				return (
 					<View >
-						<CustomText>{item.time}</CustomText>
-						<CustomText>{item.topic}</CustomText>
+						<ClassField
+							heading={item.time}
+							topic={item.topic}
+							backgroundColor={{ backgroundColor: COLORS.acsentColor }}
+							textStyles={{ color: COLORS.backgroundLight, fontSize: 15, textAlign: 'right' }}
+						/>
 					</View>
 				);
 			}}
@@ -37,7 +42,7 @@ export const CalendarAgenda = connect(mapStateToProps, {
 			}}
 			refreshing={true}
 			theme={{
-				agendaTodayColor: COLORS.acsentColor
+				agendaTodayColor: COLORS.acsentColor,
 			}}
 		/>
 	);
