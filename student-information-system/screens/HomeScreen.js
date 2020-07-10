@@ -18,7 +18,7 @@ export const HomeScreen = connect(mapStateToProps, {
 	}, []);
 
 	return (
-		<View style={styles.conainer}>
+		<View style={styles.container}>
 			<HomeScreenHeader feeds={feeds} />
 			<HomeScreenField />
 			<HomeScreenPosts />
@@ -27,7 +27,7 @@ export const HomeScreen = connect(mapStateToProps, {
 	);
 });
 const styles = StyleSheet.create({
-	conainer: {
+	container: {
 		flex: 1,
 		backgroundColor: COLORS.backgroundLight,
 	},

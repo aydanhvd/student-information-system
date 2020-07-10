@@ -7,6 +7,8 @@ const SET_AUTH_USER_NAME = 'SET_AUTH_USER_NAME';
 const SET_AUTH_PROFILE_PIC = 'SET_AUTH_PROFILE_PIC';
 const SET_AUTH_GROUPS_LIST = 'SET_AUTH_GROUPS_LIST';
 const SET_AUTH_ABSENCE = 'SET_AUTH_ABSENCE';
+const SET_AUTH_ERROR = "SET_AUTH_ERROR";
+const CLEAR_AUTH_ERROR = "CLEAR_AUTH_ERROR";
 
 //Selectors
 export const MODULE_NAME = 'auth';
@@ -17,6 +19,7 @@ export const selectAuthUserID = (state) => state[MODULE_NAME].userID;
 export const selectAuthGrades = (state) => state[MODULE_NAME].grades;
 export const selectAuthAbsence = (state) => state[MODULE_NAME].absence;
 export const selectAuthGroup = (state) => state[MODULE_NAME].group;
+export const getAuthError = (state) => state[MODULE_NAME].error;
 
 
 export const selectAuthGroupsList = (state) => state[MODULE_NAME].groupsList;
@@ -31,6 +34,10 @@ const initialState = {
 	profilePiC: null, //profile picture
 	grades: [], //grades which assingned is 0 for each users
 	absence: 0, //absence mark by default asigned 0 for each user
+	error: {
+		status: false,
+		errCode: null,
+	},
 };
 
 export function reducer(state = initialState, { type, payload }) {
@@ -84,6 +91,22 @@ export function reducer(state = initialState, { type, payload }) {
 				grades: [],
 				absence: 0
 			};
+		case SET_AUTH_ERROR:
+			return {
+				...state,
+				error: {
+					status: true,
+					errCode: payload,
+				},
+			};
+		case CLEAR_AUTH_ERROR:
+			return {
+				...state,
+				error: {
+					status: false,
+					errCode: null,
+				},
+			};
 		default:
 			return state;
 	}
@@ -117,6 +140,14 @@ export const setAuthAbsence = (payload) => ({
 	type: SET_AUTH_ABSENCE,
 	payload
 });
+export const setAuthError = (payload) => ({
+	type: SET_AUTH_ERROR,
+	payload,
+});
+export const clearAuthError = () => ({
+	type: CLEAR_AUTH_ERROR,
+});
+
 
 //Middlewares
 export const getAndListenAuthGroupsList = () => (dispatch) => {
@@ -132,6 +163,8 @@ export const getAndListenAuthGroupsList = () => (dispatch) => {
 						...groupsObj[key]
 					}));
 					dispatch(setAuthGroupsList(groupsArr));
+				} else {
+					dispatch(setAuthError(ref.error.message));
 				}
 			},
 			(err) => {
@@ -175,11 +208,16 @@ export const logIn = (email, password) => async (dispatch) => {
 						...userObj
 					})
 				);
+			} else {
+				dispatch(setAuthError(reference.error.message));
 			}
 		});
+		return () => reference.off();
+
 	} catch (err) {
 		console.log('log in err', err);
 		//todo handle error
+		alert('Email/password is wrong');
 	}
 };
 
@@ -209,9 +247,11 @@ export const signUp = (email, name, userName, password, group) => async (dispatc
 				group
 			})
 		);
+
 	} catch (err) {
 		console.log('signUp err', err);
 		//todo handle error
+		alert('The email address is already used')
 	}
 };
 

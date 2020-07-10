@@ -18,8 +18,8 @@ export const HomeScreenHeader = connect(mapStateToProps, {
 	const filteredFeed=feeds.filter(feed=>(feed.ID === groupID )|| (feed.feed ==="News"))
 	return (
 		<FlatList
-			contentContainerStyle={styles.container}
-			data={filteredFeed} //FILTERED btns ACCORDING TO USERs group
+			contentContainerStyle={{...styles.container, ...GLOBAL_STYLES.shaddowBottum}}
+			data={feeds} //BTNS SHOULD BE FILTERED ACCORDING TO USER ACSESS
 			renderItem={({ item }) => {
 				return (
 							<TouchableOpacity

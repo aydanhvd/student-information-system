@@ -18,6 +18,7 @@ export const HomeScreenField = connect(mapStateToProps, { shareNewPost })(({ act
 			setNewPost('');
 		}
 	};
+	console.log(shareNewPost(activePostID, newPost))
 
 	return (
 		<View style={{ ...styles.container, ...GLOBAL_STYLES.shaddowBottum }}>

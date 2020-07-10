@@ -29,7 +29,7 @@ export const HomeScreenPosts = connect(mapStateToProps, {
 	);
 	return (
 		<FlatList
-			contentContainerStyle={styles.container}
+			style={styles.container}
 			data={posts.slice(0).reverse()}
 			renderItem={({ item }) => {
 				return <HomeScreenPostBubble post={item} style={styles.post} profilePic={profilePic} />;
