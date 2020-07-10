@@ -6,6 +6,7 @@ import { COLORS } from '../../styles/colors';
 import { CustomText } from '../Customs/CustomText';
 import { setActivePosts, selectActivePosts} from '../../redux/posts';
 import { selectAuthGroup } from '../../redux/auth';
+import {GLOBAL_STYLES} from "../../styles/globalStyles";
 
 const mapStateToProps = (state) => ({
 	activePostID: selectActivePosts(state),
