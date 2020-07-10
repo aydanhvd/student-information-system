@@ -22,7 +22,6 @@ const mapStateToProps = (state) => ({
 const { Screen, Navigator } = createDrawerNavigator();
 
 export const RootDrawer = connect(mapStateToProps)(({ auth }) => {
-	console.log(auth);
 	return (
 		<NavigationContainer>
 			{auth ? (

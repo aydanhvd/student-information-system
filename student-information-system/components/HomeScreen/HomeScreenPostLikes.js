@@ -3,30 +3,25 @@ import { StyleSheet, View, TouchableOpacity, Text } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import { connect } from 'react-redux';
 import { COLORS } from '../../styles';
-import { addLike, remuveLike, getAndListenLikeStatus, getAndListenLiksCount } from '../../redux/posts';
+import { getAndListenLikes, getAndListenLiksCount ,toggleLike } from '../../redux/posts';
 
 const mapStateToProps = (state) => ({});
 
 export const HomeScreenPostLikes = connect(null, {
-	addLike,
-	remuveLike,
-	getAndListenLikeStatus,
+	toggleLike,
+	getAndListenLikes,
 	getAndListenLiksCount
-})(({ likesCount, addLike, remuveLike, postID, getAndListenLikeStatus, getAndListenLiksCount }) => {
-	let likesArr = getAndListenLiksCount(postID);
-	console.log(likesArr);
-	const [ isLiked, setIsLiked ] = useState(getAndListenLikeStatus());
-	const handleLike = (postID) => {
-		setIsLiked((v) => !v);
-		if (isLiked) {
-			remuveLike(postID);
-		} else if (!isLiked) {
-			addLike(postID);
-		}
-	};
+})(({ likesCount, postID, getAndListenLikes, toggleLike }) => {
+	const [ isLiked, setIsLiked ] = useState();
+	let likes = getAndListenLikes(postID)
+	console.log(likes)
+	const handleLike=()=>{
+		setIsLiked((v)=>!v)
+		toggleLike(postID)
+	}
 	return (
 		<View style={styles.container}>
-			<TouchableOpacity onPress={() => handleLike(postID)}>
+			<TouchableOpacity onPress={handleLike}>
 				<AntDesign name="heart" size={15} color={isLiked ? COLORS.acsentColor : COLORS.textColorDark} />
 			</TouchableOpacity>
 			<Text style={styles.count}>{likesCount}</Text>
