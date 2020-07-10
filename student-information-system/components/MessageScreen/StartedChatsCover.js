@@ -12,6 +12,7 @@ export const StartedChatsCover = connect(null, {
 })(({ item, navigation, setChatID, setRecieverInfo }) => {
 	const date = new Date(item.lastMessage.time);
 	const humanTime = `${date.getHours()}:${date.getMinutes()}`;
+
 	const onPressHandler = () => {
 		setChatID(item.id),
 			setRecieverInfo({
@@ -20,7 +21,6 @@ export const StartedChatsCover = connect(null, {
 			});
 		navigation.navigate('PriviteChat');
 	};
-
 	return (
 		<TouchableOpacity style={styles.container} onPress={onPressHandler}>
 			<Image source={item.image ? { uri: item.image } : ICONS_LIGHT.userLight} style={styles.image} />

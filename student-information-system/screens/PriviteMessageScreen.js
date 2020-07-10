@@ -13,10 +13,11 @@ const mapStateToProps = (state) => ({
 export const PriviteMessageScreen = connect(mapStateToProps, {
 	getAndListenChatMessages,
 })(({ chatID, getAndListenChatMessages,  navigation }) => {
+
 	useEffect(() => {
 		const unsub = getAndListenChatMessages(chatID);
 		return unsub;
-	}, []);
+	}, [chatID]);
 
 	return (
 		<View style={styles.container}>
