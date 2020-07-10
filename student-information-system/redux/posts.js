@@ -11,11 +11,13 @@ export const MODULE_NAME = 'feeds';
 export const selectFeeds = (state) => state[MODULE_NAME].feeds;
 export const selectPosts = (state) => state[MODULE_NAME].posts;
 export const selectActivePosts = (state) => state[MODULE_NAME].activePostsID;
+export const selectLikes = (state) => state[MODULE_NAME].likes;
 
 //Reducer
 const initialState = {
 	feeds: [],
 	posts: [],
+	likes: [],
 	activePostsID: '-MAWDvacjOM3q9QSesbc' //TODO not the best way fix this
 };
 
@@ -36,7 +38,11 @@ export function reducer(state = initialState, { type, payload }) {
 				...state,
 				activePostsID: payload
 			};
-
+		case SET_POST_LIKES:
+			return {
+				...state,
+				likes: [ ...state.likes, payload ]
+			};
 		default:
 			return state;
 	}
@@ -53,6 +59,10 @@ export const setPosts = (payload) => ({
 });
 export const setActivePosts = (payload) => ({
 	type: SET_ACTIVE_POSTS_ID,
+	payload
+});
+export const setPostLikes = (payload) => ({
+	type: SET_POST_LIKES,
 	payload
 });
 //Middlewares
@@ -165,46 +175,17 @@ export const getAndListenLikes = (postID) => (dispatch, getState) => {
 	try {
 		const state = getState();
 		const feedID = selectActivePosts(state);
-		const ref = fbApp.db.ref(`posts/${feedID}/${postID}/likes`);
-		ref.once(
-			'value',
-			(snapshot) => {
-				if (snapshot.exists()) {
-					const likesObj = snapshot.val();
-					const likesArr =  Object.keys(likesObj).map(key=>({
-						[key]:[likesObj[key]]
-					}))	
-					console.log(likesArr)
-				}
-			}
-		);
-	} catch (err) {
-		console.log('getAndListenLike err', err);
-	}
-};
-
-export const getAndListenLiksCount = (postID) => (dispatch, getState) => {
-	try {
-		const state = getState();
-		const feedID = selectActivePosts(state);
 		const likesCout = fbApp.db.ref(`posts/${feedID}/${postID}/likes`);
-		likesCout.on(
-			'value',
-			(snapshot) => {
-				if (snapshot.exists()) {
-					const likesCoutObj = snapshot.val();
-					const likesCoutArr = Object.keys(likesCoutObj).map((key) => ({
-						ID: key, //use upperase for ids
-						...likesCoutObj[key]
-					}));
-					return likesCoutArr;
-				}
-			},
-			(err) => {
-				console.log('getAndListenLiksCount part 1 err', err);
+		likesCout.on('value', (snapshot) => {
+			if (snapshot.exists()) {
+				const likesCoutObj = snapshot.val();
+				console.log(likesCoutObj)
+				
+				// dispatch(setPostLikes(likesCoutArr));
 			}
-		);
+		});
+		return () => likesCout.off();
 	} catch (err) {
-		console.log('getAndListenLiksCount', err);
+		console.log('getAndListenLikes', err);
 	}
 };

@@ -29,6 +29,7 @@ const styles = StyleSheet.create({
 	container: {
 		minHeight: 50,
 		width: '95%',
+		flexWrap: 'wrap',
 		...GLOBAL_STYLES.shaddowTop,
 		backgroundColor: COLORS.backgroundLight,
 		borderRadius: 30,

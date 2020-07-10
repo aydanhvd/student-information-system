@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, FlatList } from 'react-native';
 
-import { COLORS, GLOBAL_STYLES } from '../../styles';
+import { COLORS, GLOBAL_STYLES, ICONS_LIGHT } from '../../styles';
 import { SearchBar } from './SearchBar';
 import { connect } from 'react-redux';
 import { selectChatsUsers, initPriviteChats, setRecieverInfo} from '../../redux/chats';
@@ -29,7 +29,6 @@ export const PeopleListField = connect(mapStateToProps, {
 			userName:reciever.name,
 			image:reciever.profilePiC
 		})
-
 		navigation.navigate('PriviteChat');
 	};
 	return (
@@ -61,5 +60,5 @@ const styles = StyleSheet.create({
 	listContainer: {
 		width: '100%',
 		height: '80%'
-	}
+	},
 });

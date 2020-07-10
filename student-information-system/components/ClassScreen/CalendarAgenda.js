@@ -11,17 +11,19 @@ const mapStateToProps = (state) => ({
 	agendaData: selectAgenda(state)
 });
 
-export const CalendarAgenda = connect(mapStateToProps, { getAndListenAgenda })(({ agendaData={}, getAndListenAgenda }) => {
+export const CalendarAgenda = connect(mapStateToProps, {
+	getAndListenAgenda
+})(({ agendaData = {}, getAndListenAgenda }) => {
 	useEffect(() => {
 		const unsub = getAndListenAgenda();
 		return unsub;
-   }, []);
+	}, []);
 	return (
 		<Agenda
 			items={agendaData}
 			renderItem={(item, firstItemInDay) => {
 				return (
-					<View>
+					<View >
 						<CustomText>{item.time}</CustomText>
 						<CustomText>{item.topic}</CustomText>
 					</View>
@@ -40,4 +42,3 @@ export const CalendarAgenda = connect(mapStateToProps, { getAndListenAgenda })((
 		/>
 	);
 });
-const styles = StyleSheet.create({});

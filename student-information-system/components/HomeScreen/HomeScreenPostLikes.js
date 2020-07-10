@@ -1,20 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Children } from 'react';
 import { StyleSheet, View, TouchableOpacity, Text } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import { connect } from 'react-redux';
 import { COLORS } from '../../styles';
-import { getAndListenLikes, getAndListenLiksCount ,toggleLike } from '../../redux/posts';
+import { toggleLike , getAndListenLikes} from '../../redux/posts';
 
 const mapStateToProps = (state) => ({});
 
 export const HomeScreenPostLikes = connect(null, {
-	toggleLike,
-	getAndListenLikes,
-	getAndListenLiksCount
-})(({ likesCount, postID, getAndListenLikes, toggleLike }) => {
+	toggleLike,getAndListenLikes
+})(({ postID, toggleLike , getAndListenLikes}) => {
 	const [ isLiked, setIsLiked ] = useState();
-	let likes = getAndListenLikes(postID)
-	console.log(likes)
+	let like = getAndListenLikes(postID)
+	console.log('like',like)
 	const handleLike=()=>{
 		setIsLiked((v)=>!v)
 		toggleLike(postID)
@@ -24,7 +22,7 @@ export const HomeScreenPostLikes = connect(null, {
 			<TouchableOpacity onPress={handleLike}>
 				<AntDesign name="heart" size={15} color={isLiked ? COLORS.acsentColor : COLORS.textColorDark} />
 			</TouchableOpacity>
-			<Text style={styles.count}>{likesCount}</Text>
+			<Text style={styles.count}>{}</Text>
 		</View>
 	);
 });
