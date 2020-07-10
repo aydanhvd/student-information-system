@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
 		height: 55,
 		borderRadius: 40,
 		borderWidth: 3,
-		borderColor: COLORS.acsentColor
+		borderColor: COLORS.commentsColorLight
 	},
 	userName: {
 		fontSize: 9,

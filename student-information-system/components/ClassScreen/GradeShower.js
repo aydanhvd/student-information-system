@@ -13,14 +13,13 @@ const mapStateToProps = (state) => ({
 
 
 export const GradeShower = connect(mapStateToProps, { getAndListenGrades })(({ getAndListenGrades, grades=[]}) => {
-
 	useEffect(() => {
 		const unsub = getAndListenGrades();
 		return unsub;
 	}, []);
 	return (
 		<View style={styles.container}>
-			<LinearGradient colors={[ '#4375BF', 'transparent' ]} style={styles.gradient} />
+			<LinearGradient colors={[COLORS.drawerLight, 'transparent' ]} style={styles.gradient} />
 		{grades.map((grade) => (
 				<View style={styles.gradeSection} key={grade.ID}>
 					<CustomText style={styles.gradeSectionName}>{grade.title}</CustomText>

@@ -46,14 +46,14 @@ export const ProfilePictureLoader = connect(mapStateToProps, {
 			<View style={styles.imageWrapper}>
 				<Image style={styles.profilePic} source={{ uri: profilePic }} />
 			</View>
-			<CustomText weight="semi" style={styles.editText}>
+			<CustomText  style={styles.editText}>
 				Edit Picture
-			</CustomText>
-			<CustomSeperator color={COLORS.acsentColor} style={styles.seperator} />
+			</CustomText>		
 			<View style={styles.row}>
 				<CustomIconBtn icon={ICONS_LIGHT.camera} style={styles.icon} onPress={() => selectImage(true)} />
 				<CustomIconBtn icon={ICONS_LIGHT.gallery} style={styles.icon} onPress={() => selectImage()} />
 			</View>
+			<CustomSeperator color={COLORS.acsentColor} style={styles.seperator} />
 		</View>
 	);
 });
@@ -85,8 +85,7 @@ const styles = StyleSheet.create({
 	seperator: {
 		marginTop: 10,
 		height:1,
-		width: '80%',
-		...GLOBAL_STYLES.shaddowBottum
+		width: '85%',
 	},
 	row: {
 		width: 75,
@@ -98,7 +97,10 @@ const styles = StyleSheet.create({
 	editText: {
 		color: COLORS.acsentColor,
 		fontSize: 12,
-		alignSelf: 'center'
+		// alignSelf: 'center',
+		position:'absolute',
+		left:40,
+		bottom:10
 	},
 
 });
