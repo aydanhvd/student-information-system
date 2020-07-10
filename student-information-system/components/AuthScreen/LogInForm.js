@@ -30,15 +30,11 @@ export const LogInForm = connect(mapStateToProps, { logIn, setAuthError, clearAu
 		if (email !== "" && pass !== "") {
 			if (validateForm(false, email, pass, null)) {
 				logIn(email, pass);
-			} else {
-				if (fields.password === pass) {
-					logIn(fields, false);
-				} else {
-					setAuthError("INVALID_PASSWORD");
-				}
 			}
-		} else {
+		} else if (email === ""){
 			setAuthError("INVALID_EMAIL");
+		} else {
+			setAuthError("INVALID_PASSWORD")
 		}
 	};
 	return (
