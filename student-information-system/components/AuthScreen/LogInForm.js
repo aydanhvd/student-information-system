@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { StyleSheet, TextInput, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, TextInput, View } from 'react-native';
 import { validateForm } from '../../utils/validateField';
 import { ICONS_LIGHT, COLORS } from '../../styles';
 import {IconBtn, CustomText} from '../index';
 import {clearAuthError, getAuthError, logIn, setAuthError} from '../../redux/auth';
 import { connect } from 'react-redux';
-import {authErrorsText} from "../../utils/authErrorsText";
+import Slider from 'react-native-slide-to-unlock';
 
 const mapStateToProps = (state) => ({
 	error: getAuthError(state),
@@ -48,7 +48,6 @@ export const LogInForm = connect(mapStateToProps, { logIn, setAuthError, clearAu
 				placeholderTextColor="rgba(255,255,255, 0.3)"
 			/>
 			<IconBtn icon={ICONS_LIGHT.logInBtn} style={styles.nextBtn} onPress={() => submitHandler(fields)} />
-
 		</View>
 	);
 });
@@ -67,12 +66,13 @@ const styles = StyleSheet.create({
 		flexWrap: 'wrap'
 	},
 	nextBtn: {
-		backgroundColor: COLORS.backgroundLight,
-		width: 60,
-		height: 35,
-		marginTop: 30,
 		alignSelf: 'flex-end',
-		borderRadius: 20
+		borderRadius: 20,
+		backgroundColor:COLORS.backgroundLight,
+		height: 45,
+		width:64,
+		marginTop: 60,
+		borderRadius: 25,
 	},
 	error: {
 		fontSize: 16,
