@@ -1,5 +1,8 @@
 import fbApp from '../utils/FireBaseInit';
 import { selectUser, selectProfilePiC, selectAuthUserID } from './auth';
+import { COLORS } from '../styles/colors';
+import { showMessage } from 'react-native-flash-message';
+
 //Action Types
 const SET_FEEDS = 'SET_FEEDS';
 const SET_POSTS = 'SET_POSTS';
@@ -85,11 +88,25 @@ export const getAndListenFeeds = () => (dispatch) => {
 			},
 			(err) => {
 				console.log('getAndListenFeeds err', err);
+				showMessage({
+					message: { err },
+					type: 'danger',
+					icon: 'auto',
+					style: { backgroundColor: COLORS.error },
+					textStyle: { fontFamily: 'RelewayRegular' }
+				});
 			}
 		);
 		return () => reference.off();
 	} catch (err) {
 		console.log('getAndListenFeeds', err);
+		showMessage({
+			message: { err },
+			type: 'danger',
+			icon: 'auto',
+			style: { backgroundColor: COLORS.error },
+			textStyle: { fontFamily: 'RelewayRegular' }
+		});
 		//TODO handle errors
 	}
 };
@@ -111,11 +128,25 @@ export const getAndListenPosts = (feedID) => (dispatch) => {
 			},
 			(err) => {
 				console.log('getAndListeToPosts part 1 err', err);
+				showMessage({
+					message: { err },
+					type: 'danger',
+					icon: 'auto',
+					style: { backgroundColor: COLORS.error },
+					textStyle: { fontFamily: 'RelewayRegular' }
+				});
 			}
 		);
 		return () => reference.off();
 	} catch (err) {
 		console.log('getAndListeToPosts err', err);
+		showMessage({
+			message: { err },
+			type: 'danger',
+			icon: 'auto',
+			style: { backgroundColor: COLORS.error },
+			textStyle: { fontFamily: 'RelewayRegular' }
+		});
 		//TODO handle errors
 	}
 };
@@ -139,11 +170,25 @@ export const shareNewPost = (feedID, text) => (dispatch, getState) => {
 		reference.push().set(newPost, (err) => {
 			if (err) {
 				console.log('shareNewPost err', err);
+				showMessage({
+					message: { err },
+					type: 'danger',
+					icon: 'auto',
+					style: { backgroundColor: COLORS.error },
+					textStyle: { fontFamily: 'RelewayRegular' }
+				});
 				//TODO handle errors
 			}
 		});
 	} catch (err) {
 		console.log('sharePost err', err);
+		showMessage({
+			message: { err },
+			type: 'danger',
+			icon: 'auto',
+			style: { backgroundColor: COLORS.error },
+			textStyle: { fontFamily: 'RelewayRegular' }
+		});
 	}
 };
 
@@ -167,10 +212,16 @@ export const toggleLike = (postID) => (dispatch, getState) => {
 		return () => ref.off();
 	} catch (err) {
 		console.log('toggleLike err', err);
+		showMessage({
+			message: { err },
+			type: 'danger',
+			icon: 'auto',
+			style: { backgroundColor: COLORS.error },
+			textStyle: { fontFamily: 'RelewayRegular' }
+		});
 		//todo handle err
 	}
 };
-
 
 //
 export const getAndListenLikes = (postID) => (dispatch, getState) => {
@@ -181,12 +232,19 @@ export const getAndListenLikes = (postID) => (dispatch, getState) => {
 		likesCout.on('value', (snapshot) => {
 			if (snapshot.exists()) {
 				const likesCoutObj = snapshot.val();
-				console.log(likesCoutObj)			
+				console.log(likesCoutObj);
 				// dispatch(setPostLikes(likesCoutArr));
 			}
 		});
 		return () => likesCout.off();
 	} catch (err) {
 		console.log('getAndListenLikes', err);
+		showMessage({
+			message: { err },
+			type: 'danger',
+			icon: 'auto',
+			style: { backgroundColor: COLORS.error },
+			textStyle: { fontFamily: 'RelewayRegular' }
+		});
 	}
 };
