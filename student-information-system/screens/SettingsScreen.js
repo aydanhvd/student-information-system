@@ -1,12 +1,10 @@
 import React from 'react';
-import { StyleSheet, View, ScrollView, KeyboardAvoidingView, Platform } from 'react-native';
+import { StyleSheet, ScrollView, KeyboardAvoidingView, Platform } from 'react-native';
 
 import { Footer, Header, ProfilePictureLoader, SettingsFileds } from '../components';
-import { COLORS, ICONS_LIGHT } from '../styles/colors';
-import { connect } from 'react-redux';
-import { logOut } from '../redux/auth';
+import { COLORS } from '../styles/colors';
 
-export const SettingsScreen = connect(null, { logOut })(({ logOut }) => {
+export const SettingsScreen = () => {
 	return (
 		<KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : ''}>
 			<Header title="Settings" />
@@ -17,7 +15,7 @@ export const SettingsScreen = connect(null, { logOut })(({ logOut }) => {
 			<Footer style={styles.footer} />
 		</KeyboardAvoidingView>
 	);
-});
+};
 
 const styles = StyleSheet.create({
 	container: {

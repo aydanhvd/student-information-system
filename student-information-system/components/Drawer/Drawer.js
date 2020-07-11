@@ -21,7 +21,7 @@ export const Drawer = connect(null,{getAndListenGroup})(({ navigation ,getAndLis
 		<SafeAreaProvider>
 			<View style={styles.container}>
 				<LinearGradient
-					colors={[ COLORS.drawerLight, COLORS.acsentColor ]}
+					colors={[ COLORS.acsentColor, COLORS.drawerLight ]}
 					style={{ ...StyleSheet.absoluteFill }}
 					enabled
 					keyboardVerticalOffset={100}

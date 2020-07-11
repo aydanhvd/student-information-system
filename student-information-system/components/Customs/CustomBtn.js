@@ -15,12 +15,12 @@ const styles = StyleSheet.create({
 		width: '45%',
 		alignItems: 'center',
 		justifyContent: 'space-around',
-		borderWidth: 1,
+		borderBottomWidth: 1,
 		borderColor: COLORS.acsentColor,
 		height: 40,
 		borderRadius: 4,
-		backgroundColor: COLORS.backgroundLight,
-		...GLOBAL_STYLES.shaddowTop
+		// backgroundColor: COLORS.backgroundLight,
+		// ...GLOBAL_STYLES.shaddowTop
 	},
 	text: {
 		fontSize: 16,

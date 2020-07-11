@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, FlatList, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 
 import { COLORS, GLOBAL_STYLES } from '../../styles';
@@ -17,25 +17,21 @@ export const HomeScreenHeader = connect(mapStateToProps, {
 })(({ feeds, setActivePosts, activePostID, groupID }) => {
 	const filteredFeed = feeds.filter((feed) => feed.ID === groupID || feed.feed === 'News');
 	return (
-		<FlatList
-			contentContainerStyle={{ ...styles.container, ...GLOBAL_STYLES.shaddowBottum }}
-			data={filteredFeed} //BTNS SHOULD BE FILTERED ACCORDING TO USER ACSESS
-			renderItem={({ item }) => {
-				return (
-					<TouchableOpacity style={styles.btn} onPress={() => setActivePosts(item.ID)}>
-						<CustomText
-							style={{
-								...styles.btnText,
-								color: activePostID === item.ID ? COLORS.acsentColor : COLORS.acsentLight
-							}}
-						>
-							{item.feed}
-						</CustomText>
-						{activePostID === item.ID && <View style={styles.indicator} />}
-					</TouchableOpacity>
-				);
-			}}
-		/>
+		<View style={styles.container}>
+			{filteredFeed.map((feed) => (
+				<TouchableOpacity style={styles.btn} onPress={() => setActivePosts(feed.ID)} key={feed.id}>
+					<CustomText
+						style={{
+							...styles.btnText,
+							color: activePostID === feed.ID ? COLORS.acsentColor : COLORS.acsentLight
+						}}
+					>
+						{feed.feed}
+					</CustomText>
+					{activePostID === feed.ID && <View style={styles.indicator} />}
+				</TouchableOpacity>
+			))}
+		</View>
 	);
 });
 
@@ -50,7 +46,7 @@ const styles = StyleSheet.create({
 	},
 	btnText: {
 		fontSize: 18,
-		marginHorizontal: 17
+		marginHorizontal: 25
 	},
 	indicator: {
 		position: 'absolute',
@@ -62,3 +58,4 @@ const styles = StyleSheet.create({
 		alignSelf: 'center'
 	}
 });
+

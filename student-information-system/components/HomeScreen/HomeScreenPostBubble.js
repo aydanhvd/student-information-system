@@ -9,7 +9,8 @@ import {HomeScreenPostLikes} from "./HomeScreenPostLikes";
 //single posts in home screen
 export const HomeScreenPostBubble = ({ post }) => {
 	const date = new Date(post.time);
-	const formattedTime = post.time ? `${date.getHours()}:${date.getMinutes()}` : '';
+	let week= ["Sunday","Monday","Tuesday","Wednesday ","Thursday","Friday","Saturday"];
+	const formattedTime = post.time ? `${week[date.getDay()]} ${date.getHours()}:${date.getMinutes()}` : '';
 	return (
 		<View style={{...styles.container, ...GLOBAL_STYLES.shaddowTop }}>
 			<Image style={styles.profilePic} source={post.autherProfilePic? { uri: post.autherProfilePic } : ICONS_LIGHT.userLight} />
@@ -40,11 +41,11 @@ const styles = StyleSheet.create({
 		minHeight:130,
 	},
 	profilePic: {
-		width: 45,
-		height: 45,
+		width: 50,
+		height: 50,
 		borderRadius: 40,
 		borderWidth: 3,
-		borderColor: COLORS.acsentColor,
+		borderColor: COLORS.commentsColorLight,
 		marginRight: 13
 	},
 	postBodyContainer: {
@@ -56,7 +57,7 @@ const styles = StyleSheet.create({
 	},
 	userName: {
 		fontSize: 12,
-		color: COLORS.drawerLight
+		color: COLORS.acsentColor
 	},
 	text: {
 		fontSize: 16

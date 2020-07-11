@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
 		height: 55,
 		borderRadius: 40,
 		borderWidth: 3,
-		borderColor: COLORS.drawerLight,
+		borderColor: COLORS.commentsColorLight,
 		alignSelf: 'center',
 		marginLeft: 3
 		// marginRight:
