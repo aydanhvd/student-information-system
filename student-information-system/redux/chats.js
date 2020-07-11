@@ -1,6 +1,8 @@
 import fbApp from '../utils/FireBaseInit';
 import { generatePriviteChatID } from '../utils/sortID';
+import { showMessage } from 'react-native-flash-message';
 import { selectAuthUserID } from './auth';
+import {COLORS} from '../styles/colors'
 // import { applyMiddleware } from 'redux';
 
 //Action Types
@@ -125,11 +127,25 @@ export const getAndListenChatsList = () => (dispatch) => {
 			},
 			(err) => {
 				console.log('getAndListenChatsList err', err);
+				showMessage({
+					message: {err},
+					type: 'danger',
+					icon: 'auto',
+					style: { backgroundColor: COLORS.error },
+					textStyle: { fontFamily: 'RelewayRegular' }
+				});
 			}
 		);
 		return () => ref.off();
-	} catch (error) {
+	} catch (err) {
 		console.log('getAndListenChatsList', error);
+		showMessage({
+			message: {err},
+			type: 'danger',
+			icon: 'auto',
+			style: { backgroundColor: COLORS.error },
+			textStyle: { fontFamily: 'RelewayRegular' }
+		});
 	}
 };
 
@@ -151,6 +167,13 @@ export const getAndListenChatMessages = (chatID) => (dispatch) => {
 			},
 			(err) => {
 				Alert.alert('Something wrong', err.message);
+				showMessage({
+					message: {err},
+					type: 'danger',
+					icon: 'auto',
+					style: { backgroundColor: COLORS.error },
+					textStyle: { fontFamily: 'RelewayRegular' }
+				});
 				//todo handle error
 			}
 		);
@@ -179,11 +202,25 @@ export const getAndListenStartedChatsList = () => (dispatch, getState) => {
 			},
 			(err) => {
 				console.log('getAndListenStartedChats err', err);
+				showMessage({
+					message: {err},
+					type: 'danger',
+					icon: 'auto',
+					style: { backgroundColor: COLORS.error },
+					textStyle: { fontFamily: 'RelewayRegular' }
+				});
 			}
 		);
 		return () => ref.off();
-	} catch (error) {
-		console.log('getAndListenChatsList', error);
+	} catch (err) {
+		console.log('getAndListenChatsList', err);
+		showMessage({
+			message: {err},
+			type: 'danger',
+			icon: 'auto',
+			style: { backgroundColor: COLORS.error },
+			textStyle: { fontFamily: 'RelewayRegular' }
+		});
 	}
 };
 
@@ -200,6 +237,13 @@ export const getAndListenChatUsers = () => (dispatch) => {
 		return () => reference.off();
 	} catch (err) {
 		console.log('getAndListenChatUsers err', err);
+		showMessage({
+			message: {err},
+			type: 'danger',
+			icon: 'auto',
+			style: { backgroundColor: COLORS.error },
+			textStyle: { fontFamily: 'RelewayRegular' }
+		});
 		//Todo handle error
 	}
 };
@@ -240,6 +284,13 @@ export const initPriviteChats = (recieverID) => async (dispatch, getState) => {
 		dispatch(setChatID(chatID));
 	} catch (err) {
 		console.log('initPriviteChats err', err);
+		showMessage({
+			message: {err},
+			type: 'danger',
+			icon: 'auto',
+			style: { backgroundColor: COLORS.error },
+			textStyle: { fontFamily: 'RelewayRegular' }
+		});
 		//Todo handle error
 	}
 };
@@ -256,6 +307,13 @@ export const sendMessage = (chatID, text) => (dispatch, getState) => {
 		ref.push().set(message, (err) => {
 			if(err){
 				console.log('send message err', err);
+				showMessage({
+					message: {err},
+					type: 'danger',
+					icon: 'auto',
+					style: { backgroundColor: COLORS.error },
+					textStyle: { fontFamily: 'RelewayRegular' }
+				});
 			//todo handle errr
 			}	
 		});
@@ -267,6 +325,13 @@ export const sendMessage = (chatID, text) => (dispatch, getState) => {
 		fbApp.db.ref().update(updates)
 	} catch (err) {
 		console.log('sendMessage err', err);
+		showMessage({
+			message: {err},
+			type: 'danger',
+			icon: 'auto',
+			style: { backgroundColor: COLORS.error },
+			textStyle: { fontFamily: 'RelewayRegular' }
+		});
 		//todo handle errr
 	}
 };

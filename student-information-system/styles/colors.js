@@ -7,5 +7,6 @@ export const COLORS = Object.freeze({
 	acsentColor: '#27BABC', // acsent color for both dark and light <ThemeProvider theme={}>
 	acsentLight: '#53565A', // acsent color for light theme text color for light theme
 	commentsColorLight: '#E5E5E5', // comments for light theme
-	borderLight: '#C9D5E1' //border color for search btn
+	borderLight: '#C9D5E1', //border color for search btn
+	error:"#CF007C"
 });

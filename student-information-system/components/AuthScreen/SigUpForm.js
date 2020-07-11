@@ -42,7 +42,7 @@ export const SignUpForm = connect(mapStateToProps, { signUp, setAuthError, clear
 		const userName = fields.userName.value.toLowerCase().trim();
 		const name = fields.name.value.trim();
 
-		if (validateForm(true, email, pass, rePass, userName, name, groupIndex)) {
+		if (validateForm(true, email, pass, rePass, userName, name, groupsList[groupIndex]?.ID)) {
 			signUp(email, name, userName, pass, groupsList[groupIndex].ID);
 		}
 	};

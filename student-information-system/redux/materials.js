@@ -1,5 +1,8 @@
 import fbApp from '../utils/FireBaseInit';
 import { selectAuthGroup, selectAuthUserID } from './auth';
+import { COLORS } from '../styles/colors';
+import { showMessage } from 'react-native-flash-message';
+
 //Action Types
 const SET_GROUP = 'SET_GROUP';
 const SET_MATERIALS = 'SET_MATERIALS';
@@ -96,11 +99,25 @@ export const getAndListenGroup = () => (dispatch, getState) => {
 			},
 			(err) => {
 				console.log('getAndListenGroups err', err);
+				showMessage({
+					message: { err },
+					type: 'danger',
+					icon: 'auto',
+					style: { backgroundColor: COLORS.error },
+					textStyle: { fontFamily: 'RelewayRegular' }
+				});
 			}
 		);
 		return () => reference.off();
 	} catch (err) {
 		console.log('getAndListenGroups', err);
+		showMessage({
+			message: { err },
+			type: 'danger',
+			icon: 'auto',
+			style: { backgroundColor: COLORS.error },
+			textStyle: { fontFamily: 'RelewayRegular' }
+		});
 		//TODO handle errors
 	}
 };
@@ -124,11 +141,25 @@ export const getAndListenMaterials = () => (dispatch, getState) => {
 			},
 			(err) => {
 				console.log('getAndListToMaterials part 1 err', err);
+				showMessage({
+					message: { err },
+					type: 'danger',
+					icon: 'auto',
+					style: { backgroundColor: COLORS.error },
+					textStyle: { fontFamily: 'RelewayRegular' }
+				});
 			}
 		);
 		return () => reference.off();
 	} catch (err) {
 		console.log('getAndListToMaterials err', err);
+		showMessage({
+			message: { err },
+			type: 'danger',
+			icon: 'auto',
+			style: { backgroundColor: COLORS.error },
+			textStyle: { fontFamily: 'RelewayRegular' }
+		});
 		//TODO handle errors
 	}
 };
@@ -152,11 +183,25 @@ export const getAndListenHomeWorks = () => (dispatch, getState) => {
 			},
 			(err) => {
 				console.log('getAndListenHomeWorks part 1 err', err);
+				showMessage({
+					message: { err },
+					type: 'danger',
+					icon: 'auto',
+					style: { backgroundColor: COLORS.error },
+					textStyle: { fontFamily: 'RelewayRegular' }
+				});
 			}
 		);
 		return () => reference.off();
 	} catch (err) {
 		console.log('getAndListenHomeWorks err', err);
+		showMessage({
+			message: { err },
+			type: 'danger',
+			icon: 'auto',
+			style: { backgroundColor: COLORS.error },
+			textStyle: { fontFamily: 'RelewayRegular' }
+		});
 		//todo handle error
 	}
 };
@@ -179,11 +224,25 @@ export const getAndListenGrades = () => (dispatch, getState) => {
 			},
 			(err) => {
 				console.log('getAndListenGrades part 1 err', err);
+				showMessage({
+					message: { err },
+					type: 'danger',
+					icon: 'auto',
+					style: { backgroundColor: COLORS.error },
+					textStyle: { fontFamily: 'RelewayRegular' }
+				});
 			}
 		);
 		return () => reference.off();
 	} catch (err) {
 		console.log('getAndListenGrades err', err);
+		showMessage({
+			message: { err },
+			type: 'danger',
+			icon: 'auto',
+			style: { backgroundColor: COLORS.error },
+			textStyle: { fontFamily: 'RelewayRegular' }
+		});
 		//todo handle error
 	}
 };
@@ -198,11 +257,18 @@ export const getAndListenAgenda = () => (dispatch, getState) => {
 				const transformedDates = Object.fromEntries(
 					Object.entries(datesObj).map(([ key, val ]) => [ key, [ val ] ])
 				);
-				dispatch(setAgenda(transformedDates))
+				dispatch(setAgenda(transformedDates));
 			}
 		});
 		return () => ref.off();
 	} catch (err) {
-		console.log('getAndListenAgenda', errr);
+		console.log('getAndListenAgenda', err);
+		showMessage({
+			message: { err },
+			type: 'danger',
+			icon: 'auto',
+			style: { backgroundColor: COLORS.error },
+			textStyle: { fontFamily: 'RelewayRegular' }
+		});
 	}
 };
