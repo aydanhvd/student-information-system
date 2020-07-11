@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Image, TouchableOpacity , FlatList} from 'react-native';
 import { Footer, ClassField } from '../components';
-import { Header } from '../components/Header';
+import { Header } from '../commons/Header';
 import { COLORS } from '../styles';
 import { selectHomeworks } from '../redux/materials';
 import { connect } from 'react-redux';

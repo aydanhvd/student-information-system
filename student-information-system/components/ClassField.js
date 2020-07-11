@@ -1,8 +1,8 @@
 import React from 'react';
 import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import { COLORS } from '../styles/colors';
-import { CustomText } from './Customs/CustomText';
-import { CustomLink } from './Customs/CustomLink';
+import { CustomText } from '../commons/CustomText';
+import { Link } from '../commons/Link';
 import { GLOBAL_STYLES } from '../styles';
 
 export const ClassField = ({ heading, topic, backgroundColor,  onPress , textStyles, style }) => {
@@ -12,7 +12,7 @@ export const ClassField = ({ heading, topic, backgroundColor,  onPress , textSty
 				<CustomText style={{ ...styles.heading, ...textStyles }}>{heading}</CustomText>
 			</View>
 			<View style={styles.row}>
-				<CustomLink link={topic} styleText={styles.topic} />
+				<Link link={topic} styleText={styles.topic} />
 			</View>
 		</TouchableOpacity>
 	);

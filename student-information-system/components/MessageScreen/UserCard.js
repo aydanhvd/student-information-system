@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { COLORS, ICONS_LIGHT } from '../../styles';
-import { CustomText } from '../Customs/CustomText';
+import { CustomText } from '../../commons/CustomText';
 
 export const UserCard = ({ user, onPress }) => {
 	return (

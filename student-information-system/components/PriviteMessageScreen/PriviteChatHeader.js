@@ -1,8 +1,8 @@
 import React from 'react';
 import { StyleSheet, View, Image } from 'react-native';
-import { CustomIconBtn } from '../index';
+import { IconBtn } from '../index';
 import { ICONS_LIGHT, COLORS } from '../../styles';
-import { CustomText } from '../Customs/CustomText';
+import { CustomText } from '../../commons/CustomText';
 import { connect } from 'react-redux';
 import { selectRecieverUserName, selectRecieverUserImage } from '../../redux/chats';
 
@@ -13,7 +13,7 @@ const mapStateToProps = (state) => ({
 export const PriviteChatsHeader = connect(mapStateToProps)(({ navigation, recieverName, recieverPic }) => {
 	return (
 		<View style={styles.container}>
-			<CustomIconBtn icon={ICONS_LIGHT.backLight} style={styles.backArrow} onPress={() => navigation.goBack()} />
+			<IconBtn icon={ICONS_LIGHT.backLight} style={styles.backArrow} onPress={() => navigation.goBack()} />
 			<Image style={styles.profilePiC} source={recieverPic ? { uri: recieverPic } : ICONS_LIGHT.userLight} />
 			<View style={styles.nameContainer}>
 				<CustomText style={styles.name}>{recieverName}</CustomText>

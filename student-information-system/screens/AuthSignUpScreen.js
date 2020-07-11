@@ -4,7 +4,7 @@ import signUpImage from '../assets/icons/signUp.png';
 import { CustomText } from '../components';
 import { LinearGradient } from 'expo-linear-gradient';
 import { COLORS } from '../styles';
-import { TouchableText } from '../components/Customs/ToucableText';
+import { TouchableText } from '../commons/ToucableText';
 import { SignUpForm } from '../components/AuthScreen/SigUpForm';
 import { connect } from 'react-redux';
 import {selectAuthGroupsList, getAndListenAuthGroupsList, setAuthError, clearAuthError} from '../redux/auth';

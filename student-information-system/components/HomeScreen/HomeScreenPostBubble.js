@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, Image } from 'react-native';
-import { CustomText } from '../Customs/CustomText';
+import { CustomText } from '../../commons/CustomText';
 import { COLORS } from '../../styles/colors';
 import { GLOBAL_STYLES } from '../../styles/globalStyles';
 import { ICONS_LIGHT } from '../../styles';

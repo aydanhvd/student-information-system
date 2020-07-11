@@ -5,7 +5,7 @@ import signInImage from '../assets/icons/signIn.png';
 import { CustomText } from '../components';
 import { LinearGradient } from 'expo-linear-gradient';
 import { LogInForm } from '../components/AuthScreen/LogInForm';
-import { TouchableText } from '../components/Customs/ToucableText';
+import { TouchableText } from '../commons/ToucableText';
 
 //todo reduc this screen and delete unwanted compnents
 export const AuthLogInScreen = ({ navigation }) => {

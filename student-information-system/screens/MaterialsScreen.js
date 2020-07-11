@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { StyleSheet, View, Text, ScrollView, FlatList } from 'react-native';
-import { Header } from '../components/Header';
-import { Footer } from '../components/Footer';
+import { Header } from '../commons/Header';
+import { Footer } from '../commons/Footer';
 import { ClassField } from '../components/ClassField';
 import { COLORS } from '../styles';
 import { connect } from 'react-redux';

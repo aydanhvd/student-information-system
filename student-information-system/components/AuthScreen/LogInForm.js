@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, TextInput, View, TouchableOpacity } from 'react-native';
 import { validateForm } from '../../utils/validateField';
 import { ICONS_LIGHT, COLORS } from '../../styles';
-import {CustomIconBtn, CustomText} from '../index';
+import {IconBtn, CustomText} from '../index';
 import {clearAuthError, getAuthError, logIn, setAuthError} from '../../redux/auth';
 import { connect } from 'react-redux';
 import {authErrorsText} from "../../utils/authErrorsText";
@@ -47,7 +47,7 @@ export const LogInForm = connect(mapStateToProps, { logIn, setAuthError, clearAu
 				style={styles.input}
 				placeholderTextColor="rgba(255,255,255, 0.3)"
 			/>
-			<CustomIconBtn icon={ICONS_LIGHT.logInBtn} style={styles.nextBtn} onPress={() => submitHandler(fields)} />
+			<IconBtn icon={ICONS_LIGHT.logInBtn} style={styles.nextBtn} onPress={() => submitHandler(fields)} />
 
 		</View>
 	);

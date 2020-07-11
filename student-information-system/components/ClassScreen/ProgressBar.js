@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { COLORS } from '../../styles/colors';
-import { CustomText } from '../Customs/CustomText';
+import { CustomText } from '../../commons/CustomText';
 import { connect } from 'react-redux';
 import { selectAuthAbsence, getAndListenAbcence } from '../../redux/auth';
 import { selectGroup } from '../../redux/materials';

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, TextInput, KeyboardAvoidingView, Platform, Keyboard, SafeAreaView } from 'react-native';
 
-import { CustomIconBtn } from '../Customs/CustomIconBtn';
+import { IconBtn } from '../../commons/IconBtn';
 import { COLORS, ICONS_LIGHT, GLOBAL_STYLES } from '../../styles';
 import { connect } from 'react-redux';
 import { sendMessage } from '../../redux/chats';
@@ -21,7 +21,7 @@ export const PriviteMessagesField = connect(null, { sendMessage })(({ style, cha
 			behavior={Platform.OS === 'ios' ? 'padding' : ''}
 		>
 			<TextInput style={styles.inputField} value={message} onChangeText={(value) => setMesage(value)} />
-			<CustomIconBtn icon={ICONS_LIGHT.sendMessages} onPress={submitHadler} />
+			<IconBtn icon={ICONS_LIGHT.sendMessages} onPress={submitHadler} />
 		</KeyboardAvoidingView>
 	);
 });
