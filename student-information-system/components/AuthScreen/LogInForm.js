@@ -27,15 +27,9 @@ export const LogInForm = connect(mapStateToProps, { logIn, setAuthError, clearAu
 	const submitHandler = (fields) => {
 		const email = fields.email.trim();
 		const pass = fields.password.trim();
-		if (email !== "" && pass !== "") {
 			if (validateForm(false, email, pass, null)) {
 				logIn(email, pass);
 			}
-		} else if (email === ""){
-			setAuthError("INVALID_EMAIL");
-		} else {
-			setAuthError("INVALID_PASSWORD")
-		}
 	};
 	return (
 		<View style={styles.form}>
@@ -53,9 +47,6 @@ export const LogInForm = connect(mapStateToProps, { logIn, setAuthError, clearAu
 				style={styles.input}
 				placeholderTextColor="rgba(255,255,255, 0.3)"
 			/>
-			{error.status && (
-				<CustomText weight='semi' style={styles.error}>{authErrorsText[error.errCode]}</CustomText>
-			)}
 			<CustomIconBtn icon={ICONS_LIGHT.logInBtn} style={styles.nextBtn} onPress={() => submitHandler(fields)} />
 
 		</View>

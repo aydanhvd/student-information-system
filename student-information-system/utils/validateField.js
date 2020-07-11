@@ -24,7 +24,7 @@
 export const validateForm = (isSignUP, email, password, rePassword, userName, name, selectedGroup) => {
 	//if urser is tryring to log their account name must not be left empty
 	if (email.trim() === '') {
-		alert('name is requred');
+		alert('name is required');
 		return false;
 	}
 	//they have to provide a password
@@ -64,4 +64,4 @@ export const validateForm = (isSignUP, email, password, rePassword, userName, na
 	//if all of the conditions are checked the user can log in/sign up validate it
 	return true;
 };
-//todo hadle error
+//todo handle error

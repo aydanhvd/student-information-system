@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
 	},
 	indicator: {
 		position: 'absolute',
-		bottom: -20,
+		bottom: -8,
 		marginTop: 10,
 		backgroundColor: COLORS.acsentColor,
 		width: 50,
