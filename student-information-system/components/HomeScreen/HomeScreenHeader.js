@@ -6,7 +6,6 @@ import { COLORS, GLOBAL_STYLES } from '../../styles';
 import { CustomText } from '../Customs/CustomText';
 import { setActivePosts, selectActivePosts } from '../../redux/posts';
 import { selectAuthGroup } from '../../redux/auth';
-import {GLOBAL_STYLES} from "../../styles/globalStyles";
 
 const mapStateToProps = (state) => ({
 	activePostID: selectActivePosts(state),
@@ -55,7 +54,7 @@ const styles = StyleSheet.create({
 	},
 	indicator: {
 		position: 'absolute',
-		bottom: -20,
+		bottom: -8,
 		marginTop: 10,
 		backgroundColor: COLORS.acsentColor,
 		width: 50,

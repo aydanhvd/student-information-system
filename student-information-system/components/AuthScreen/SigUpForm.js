@@ -42,25 +42,8 @@ export const SignUpForm = connect(mapStateToProps, { signUp, setAuthError, clear
 		const userName = fields.userName.value.toLowerCase().trim();
 		const name = fields.name.value.trim();
 
-
-		if (email !== "" && pass !== "") {
-
-			if (validateForm(true, email, pass, rePass, userName, name, groupIndex)) {
-				signUp(email, name, userName, pass, groupsList[groupIndex].ID);
-			} else {
-				if (fields.password === fields.rePassword) {
-					signUp(fields, false);
-				}else if(pass.length < 8){
-					setAuthError("PASS_LENGTH")
-				}else if(fields.userName === userName.toUpperCase()){
-					setAuthError("USERNAME_ERROR")
-				}
-				else {
-					setAuthError("PASS_NOT_MATCH");
-				}
-			}
-		}else {
-			setAuthError("EMAIL_PASS_EMPTY");
+		if (validateForm(true, email, pass, rePass, userName, name, groupIndex)) {
+			signUp(email, name, userName, pass, groupsList[groupIndex].ID);
 		}
 	};
 	return (
@@ -85,9 +68,7 @@ export const SignUpForm = connect(mapStateToProps, { signUp, setAuthError, clear
 				<Radio status="control">BE-4</Radio>
 			</RadioGroup>
 			<CustomIconBtn icon={ICONS_LIGHT.logInBtn} style={styles.nextBtn} onPress={() => submintHandler(fields)} />
-			{error.status && (
-				<CustomText weight='semi' style={styles.error}>{authErrorsText[error.errCode]}</CustomText>
-			)}
+
 		</View>
 	);
 });
