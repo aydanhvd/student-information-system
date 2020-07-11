@@ -6,7 +6,7 @@ import { COLORS } from '../../styles/colors';
 import {ICONS_LIGHT, GLOBAL_STYLES} from "../../styles";
 import {Modal} from "./Modal";
 import {submitFeedback} from "../../redux/feedback";
-import { CustomIconBtn } from '../Customs/CustomIconBtn';
+import { IconBtn } from '../../commons/IconBtn';
 
 export const Feedback = connect(null, { submitFeedback })(({ activePostID, submitFeedback }) => {
     const [ field, setField ] = useState('');
@@ -29,7 +29,7 @@ export const Feedback = connect(null, { submitFeedback })(({ activePostID, submi
                         value={field}
                         style={styles.text}
                     />
-                    <CustomIconBtn 
+                    <IconBtn
                         icon={ICONS_LIGHT.sendMessages} 
                         style={styles.sendIcon} 
                         onPress={toggleSend}    

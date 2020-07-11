@@ -5,9 +5,7 @@ import chatBubbleDark from '../assets/icons/dark-theme/chat-bubbleDark.png';
 import editDark from '../assets/icons/dark-theme/editDark.png';
 import heartDark from '../assets/icons/dark-theme/heartDark.png';
 import leftAlignDark from '../assets/icons/dark-theme/left-alignDark.png';
-import lockDark from '../assets/icons/dark-theme/lockDark.png';
 import menuDark from '../assets/icons/dark-theme/menuDark.png';
-import moreDark from '../assets/icons/dark-theme/moreDark.png';
 import notebookDark from '../assets/icons/dark-theme/notebookDark.png';
 import origamiDark from '../assets/icons/dark-theme/origamiDark.png';
 import sendDark from '../assets/icons/dark-theme/sendDark.png';
@@ -23,9 +21,7 @@ export const ICONS_DARK = Object.freeze({
 	editDark,
 	heartDark,
 	leftAlignDark,
-	lockDark,
 	menuDark,
-	moreDark,
 	notebookDark,
 	origamiDark,
 	sendDark,

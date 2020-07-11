@@ -8,7 +8,7 @@ import { COLORS, GLOBAL_STYLES, ICONS_LIGHT } from '../../styles';
 import { logOut, selectProfilePiC, selectUser, uploadProfilePic } from '../../redux/auth';
 import { selectGroup } from '../../redux/materials';
 import { SearchBar } from '../MessageScreen/SearchBar';
-import { CustomSeperator } from '../Customs/CustomSeperator';
+import { Seperator } from '../../commons/Seperator';
 
 const mapStateToProps = (state) => ({
 	profilePic: selectProfilePiC(state),
@@ -27,7 +27,7 @@ export const DrawerBody = connect(mapStateToProps, {
 				<Image style={styles.profilePic} source={{ uri: profilePic }} />
 				<CustomText style={styles.name}>{name}</CustomText>
 				<CustomText style={styles.username}>@{userName}</CustomText>
-				<CustomSeperator color={COLORS.backgroundLight} style={styles.seperator} />
+				<Seperator color={COLORS.backgroundLight} style={styles.seperator} />
 				<CustomText style={styles.drawerTitle}>group: {group.title}</CustomText>
 				<CustomText style={styles.drawerTitle}>adviser: {group.teacher}</CustomText>
 			</View>

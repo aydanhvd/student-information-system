@@ -5,8 +5,8 @@ import { COLORS, ICONS_LIGHT } from '../../styles';
 import { connect } from 'react-redux';
 import { validateForm } from '../../utils/validateField';
 import {clearAuthError, getAuthError, setAuthError, signUp} from '../../redux/auth';
-import { CustomIconBtn } from '../index';
-import { CustomText } from '../Customs/CustomText';
+import { IconBtn } from '../index';
+import { CustomText } from '../../commons/CustomText';
 import {authErrorsText} from "../../utils/authErrorsText";
 
 const mapStateToProps = (state) => ({
@@ -67,7 +67,7 @@ export const SignUpForm = connect(mapStateToProps, { signUp, setAuthError, clear
 				<Radio status="control">BE-3</Radio>
 				<Radio status="control">BE-4</Radio>
 			</RadioGroup>
-			<CustomIconBtn icon={ICONS_LIGHT.logInBtn} style={styles.nextBtn} onPress={() => submintHandler(fields)} />
+			<IconBtn icon={ICONS_LIGHT.logInBtn} style={styles.nextBtn} onPress={() => submintHandler(fields)} />
 
 		</View>
 	);

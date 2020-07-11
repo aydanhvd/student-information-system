@@ -3,7 +3,7 @@ import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 
 import { COLORS, GLOBAL_STYLES } from '../../styles';
-import { CustomText } from '../Customs/CustomText';
+import { CustomText } from '../../commons/CustomText';
 import { setActivePosts, selectActivePosts } from '../../redux/posts';
 import { selectAuthGroup } from '../../redux/auth';
 

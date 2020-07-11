@@ -1,21 +1,21 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 
-import { CustomText } from '../Customs/CustomText';
+import { CustomText } from '../../commons/CustomText';
 import { COLORS } from '../../styles/colors';
-import { CustomBtn } from '../Customs/CustomBtn';
+import { Button } from '../../commons/Button';
 import { GLOBAL_STYLES } from '../../styles';
-import { CustomSeperator } from '../Customs/CustomSeperator';
+import { Seperator } from '../../commons/Seperator';
 
 export const Modal = ({ cancel, sent, text }) => {
 	// click send button and confirm with this modal
 	return (
 		<View style={styles.container}>
 			<CustomText style={styles.headerText}>{text}</CustomText>
-			<CustomSeperator />
+			<Seperator />
 			<View style={styles.row}>
-				<CustomBtn onPress={cancel} text="Cancel" />
-				<CustomBtn onPress={sent} text="YES! SEND" />
+				<Button onPress={cancel} text="Cancel" />
+				<Button onPress={sent} text="YES! SEND" />
 			</View>
 		</View>
 	);

@@ -3,7 +3,7 @@ import { StyleSheet, View } from 'react-native';
 import { Agenda } from 'react-native-calendars';
 import { COLORS } from '../../styles';
 import { ICONS_LIGHT } from '../../styles/iconsLight';
-import { CustomText } from '../Customs/CustomText';
+import { CustomText } from '../../commons/CustomText';
 import { connect } from 'react-redux';
 import { selectAgenda, getAndListenAgenda } from '../../redux/materials';
 import { ClassField } from '../ClassField';

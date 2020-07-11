@@ -1,8 +1,8 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { CustomText } from '../Customs/CustomText';
+import { CustomText } from '../../commons/CustomText';
 import { COLORS } from '../../styles/colors';
-import { CustomSeperator } from '../Customs/CustomSeperator';
+import { Seperator } from '../../commons/Seperator';
 import {ScheduleField} from "./ScheduleField";
 import { GLOBAL_STYLES } from '../../styles';
 
@@ -26,7 +26,7 @@ export const ScheduleContainer = () => {
 	return (
 		<View style={styles.container}>
 			<CustomText style={styles.heading}>Schedule</CustomText>
-			<CustomSeperator distance={17} color={COLORS.commentsColorLight} />
+			<Seperator distance={17} color={COLORS.commentsColorLight} />
 			<View style={styles.row}>
 				{schedules.map((schedule) => (
 					<ScheduleField

@@ -3,7 +3,7 @@ import { StyleSheet, View, TextInput } from 'react-native';
 import { connect } from 'react-redux';
 
 import { COLORS, ICONS_LIGHT } from '../../styles';
-import { CustomIconBtn } from '../Customs/CustomIconBtn';
+import { IconBtn } from '../../commons/IconBtn';
 import { selectChatsUsers, setChatsUsers, getAndListenChatUsers } from '../../redux/chats';
 
 const mapStateToProps = (state) => ({
@@ -38,8 +38,8 @@ export const SearchBar = connect(mapStateToProps, {
 				onChangeText={(value) => setSaerchName(value)}
 				placeholderTextColor={COLORS.textColorDark}
 			/>
-			<CustomIconBtn icon={ICONS_LIGHT.search} style={styles.searchIcon} onPress={onPressHandler} />
-			<CustomIconBtn icon={ICONS_LIGHT.refresUsers} style={styles.refresh} onPress={getAndListenChatUsers} />
+			<IconBtn icon={ICONS_LIGHT.search} style={styles.searchIcon} onPress={onPressHandler} />
+			<IconBtn icon={ICONS_LIGHT.refresUsers} style={styles.refresh} onPress={getAndListenChatUsers} />
 		</View>
 	);
 });

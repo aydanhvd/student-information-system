@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, View, TextInput } from 'react-native';
 
 import { COLORS, ICONS_LIGHT, GLOBAL_STYLES } from '../../styles';
-import { CustomIconBtn } from '../Customs/CustomIconBtn';
+import { IconBtn } from '../../commons/IconBtn';
 import { shareNewPost, selectActivePosts } from '../../redux/posts';
 import { connect } from 'react-redux';
 
@@ -27,7 +27,7 @@ export const HomeScreenField = connect(mapStateToProps, { shareNewPost })(({ act
 				style={styles.field}
 				placeholder="what is on your mind...."
 			/>
-			<CustomIconBtn icon={ICONS_LIGHT.sendLight} style={styles.icon} onPress={sharePostHandler} />
+			<IconBtn icon={ICONS_LIGHT.sendLight} style={styles.icon} onPress={sharePostHandler} />
 		</View>
 	);
 });

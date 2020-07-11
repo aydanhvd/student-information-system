@@ -2,10 +2,10 @@ import React from 'react';
 import { StyleSheet, View, Image } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 
-import { CustomText } from '../Customs/CustomText';
-import { CustomIconBtn } from '../Customs/CustomIconBtn';
+import { CustomText } from '../../commons/CustomText';
+import { IconBtn } from '../../commons/IconBtn';
 import { ICONS_LIGHT, COLORS, GLOBAL_STYLES } from '../../styles';
-import { CustomSeperator } from '../Customs/CustomSeperator';
+import { Seperator } from '../../commons/Seperator';
 import { askForCameraPermissions, imagePickerOptions } from '../../utils/askForCameraPermissions';
 import { connect } from 'react-redux';
 import { uploadProfilePic, selectProfilePiC } from '../../redux/auth';
@@ -50,10 +50,10 @@ export const ProfilePictureLoader = connect(mapStateToProps, {
 				Edit Picture
 			</CustomText>		
 			<View style={styles.row}>
-				<CustomIconBtn icon={ICONS_LIGHT.camera} style={styles.icon} onPress={() => selectImage(true)} />
-				<CustomIconBtn icon={ICONS_LIGHT.gallery} style={styles.icon} onPress={() => selectImage()} />
+				<IconBtn icon={ICONS_LIGHT.camera} style={styles.icon} onPress={() => selectImage(true)} />
+				<IconBtn icon={ICONS_LIGHT.gallery} style={styles.icon} onPress={() => selectImage()} />
 			</View>
-			<CustomSeperator color={COLORS.acsentColor} style={styles.seperator} />
+			<Seperator color={COLORS.acsentColor} style={styles.seperator} />
 		</View>
 	);
 });

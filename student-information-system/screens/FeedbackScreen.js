@@ -1,8 +1,8 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 
-import { Header } from '../components/Header';
-import { Footer } from '../components/Footer';
+import { Header } from '../commons/Header';
+import { Footer } from '../commons/Footer';
 import {COLORS} from "../styles";
 import {Feedback} from "../components";
 

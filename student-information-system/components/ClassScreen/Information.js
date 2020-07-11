@@ -1,7 +1,7 @@
 import React from 'react'
 import { View,StyleSheet } from 'react-native'
 import { COLORS } from '../../styles/colors'
-import { CustomText } from '../Customs/CustomText'
+import { CustomText } from '../../commons/CustomText'
 import { connect } from 'react-redux'
 import { selectGroup } from '../../redux/materials';
 

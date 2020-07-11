@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Image, TouchableOpacity } from 'react-native';
 import { COLORS } from '../../styles';
-import { CustomText } from '../Customs/CustomText';
+import { CustomText } from '../../commons/CustomText';
 import { connect } from 'react-redux';
 import { setChatID, setRecieverInfo } from '../../redux/chats';
 import { ICONS_LIGHT } from '../../styles/iconsLight';
