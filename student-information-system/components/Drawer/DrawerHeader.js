@@ -1,22 +1,17 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Toggle } from '@ui-kitten/components';
 import { StyleSheet, View, Image, TouchableOpacity } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { ICONS_LIGHT } from '../../styles';
-import {setTheme} from "../../redux/darkMode";
-import {connect} from "react-redux";
-import {getAndListenGroup} from "../../redux/materials";
+import { COLORS, ICONS_LIGHT } from '../../styles';
+import { toggleTheme, selectTheme } from '../../redux/theme';
+import { connect } from 'react-redux';
+import { CustomText } from '../../commons/CustomText';
 
 const mapStateToProps = (state) => ({
-	onSelectTheme: setTheme
+	theme: selectTheme(state)//true if dark mode false if light
 });
 
-export const DrawerHeader = connect(mapStateToProps, { setTheme })(({ navigation , setTheme }) => {
-	const [ isEnabled, setIsEnabled ] = useState(false);
-
-	const toggleSwitch = () => {
-		setIsEnabled((previousState) => !previousState)
-	};
+export const DrawerHeader = connect(mapStateToProps, { toggleTheme })(({ navigation, theme, toggleTheme }) => {
 	return (
 		<SafeAreaProvider>
 			<View style={styles.container}>
@@ -24,7 +19,20 @@ export const DrawerHeader = connect(mapStateToProps, { setTheme })(({ navigation
 					<TouchableOpacity onPress={() => navigation.navigate('Settings')}>
 						<Image resizeMode="cover" style={styles.userSettings} source={ICONS_LIGHT.settingsWhite} />
 					</TouchableOpacity>
-					<Toggle style={styles.switch} onValueChange={toggleSwitch} value={isEnabled} />
+					<View style={styles.toggleContainer}>
+						<Toggle
+							style={styles.switch}
+							onChange={() => toggleTheme(!theme)}
+							checked={theme}
+							status="control"
+						/>
+						<CustomText
+							weight="semi"
+							style={{ color: theme ? COLORS.backgroundDark : COLORS.backgroundLight }}
+						>
+							dark mode
+						</CustomText>
+					</View>
 				</View>
 			</View>
 		</SafeAreaProvider>
@@ -37,15 +45,18 @@ const styles = StyleSheet.create({
 	},
 	header: {
 		flexDirection: 'row',
-		justifyContent: 'space-around',
+		justifyContent: 'space-between',
 		alignItems: 'center'
 	},
 	userSettings: {
 		width: 22,
 		height: 22,
-		marginLeft: -35
+		marginLeft: 20
 	},
 	switch: {
-		marginRight: -35
+		marginBottom: 5
+	},
+	toggleContainer: {
+		marginRight: 10
 	}
 });

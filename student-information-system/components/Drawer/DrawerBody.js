@@ -1,35 +1,36 @@
 import React from 'react';
-import { StyleSheet, View, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Image } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { connect } from 'react-redux';
 
 import { CustomText } from '../index';
-import { COLORS, GLOBAL_STYLES, ICONS_LIGHT } from '../../styles';
-import { logOut, selectProfilePiC, selectUser, uploadProfilePic } from '../../redux/auth';
+import { COLORS } from '../../styles';
+import {selectProfilePiC, selectUser, uploadProfilePic } from '../../redux/auth';
 import { selectGroup } from '../../redux/materials';
-import { SearchBar } from '../MessageScreen/SearchBar';
 import { Seperator } from '../../commons/Seperator';
+import {selectTheme} from '../../redux/theme';
 
 const mapStateToProps = (state) => ({
 	profilePic: selectProfilePiC(state),
 	userName: selectUser(state).userName,
 	name: selectUser(state).name,
-	group: selectGroup(state)
+	group: selectGroup(state),
+	darkMode: selectTheme(state)
 });
 
 export const DrawerBody = connect(mapStateToProps, {
 	uploadProfilePic,
-	logOut
-})(({ profilePic, userName, name, group={}, logOut }) => {
+})(({ profilePic, userName, name, group={}, darkMode }) => {
+	const colorTheme= darkMode?{color:COLORS.backgroundDark}:{color:COLORS.backgroundLight}
 	return (
 		<SafeAreaProvider>
 			<View style={styles.container}>
 				<Image style={styles.profilePic} source={{ uri: profilePic }} />
-				<CustomText style={styles.name}>{name}</CustomText>
-				<CustomText style={styles.username}>@{userName}</CustomText>
-				<Seperator color={COLORS.backgroundLight} style={styles.seperator} />
-				<CustomText style={styles.drawerTitle}>group: {group.title}</CustomText>
-				<CustomText style={styles.drawerTitle}>adviser: {group.teacher}</CustomText>
+				<CustomText style={{...styles.name, ...colorTheme}}>{name}</CustomText>
+				<CustomText style={{...styles.username, ...colorTheme}}>@{userName}</CustomText>
+				<Seperator color={{...COLORS.backgroundLight, ...colorTheme}} style={styles.seperator} />
+				<CustomText style={{...styles.drawerTitle, ...colorTheme}}>group: {group.title}</CustomText>
+				<CustomText style={{...styles.drawerTitle,...colorTheme}}>adviser: {group.teacher}</CustomText>
 			</View>
 		</SafeAreaProvider>
 	);
@@ -57,7 +58,6 @@ const styles = StyleSheet.create({
 	},
 	name: {
 		textAlign: 'center',
-		color: COLORS.backgroundLight,
 		fontSize: 20
 	},
 	username: {
@@ -65,13 +65,11 @@ const styles = StyleSheet.create({
 		textAlign: 'center',
 		marginTop: 6,
 		marginBottom: 15,
-		color: COLORS.backgroundLight
 	},
 	status: {
 		fontSize: 13,
 		textAlign: 'center',
 		marginVertical: 6,
-		color: COLORS.backgroundLight
 	},
 	drawerLogout: {
 		flexDirection: 'row',
@@ -81,7 +79,6 @@ const styles = StyleSheet.create({
 	},
 	drawerTitle: {
 		fontSize: 14,
-		color: COLORS.backgroundLight,
 		marginBottom:5
 	},
 	userIm: {
