@@ -101,27 +101,3 @@ export const validateForm = (isSignUP, email, password, rePassword, userName, na
 	return true;
 };
 //todo handle error
-
-// export const submintHandler = (fields, group, isSignUp, signUp, logIn) => {
-// 	//temperary ganna go
-// 	const email = fields.email.value.trim();
-// 	const pass = fields.password.value.trim();
-// 	const userName = fields.userName.value.trim();
-// 	const name = fields.name.value.trim();
-// 	//temperary ganna go
-// 	let className;
-// 	if (group < 3) {
-// 		className = `MD-${group}`;
-// 	} else {
-// 		className = `BE-${group}`;
-// 	}
-// 	if (validateForm(isSignUp, fields, group)) {
-// 		if (isSignUp) {
-// 			signUp(email, name, userName, pass, className);
-// 		} else {
-// 			logIn(email, pass);
-// 		}
-// 	}
-// };
-
-//a function to validate submited data from auth screen
