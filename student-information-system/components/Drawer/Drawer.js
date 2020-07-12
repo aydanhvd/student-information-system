@@ -10,8 +10,6 @@ import { DrawerFooter } from './DrawerFooter';
 import { connect } from 'react-redux';
 import {getAndListenGroup} from '../../redux/materials';
 
-
-
 export const Drawer = connect(null,{getAndListenGroup})(({ navigation ,getAndListenGroup}) => {
 	useEffect(() => {
 		const unsub = getAndListenGroup()

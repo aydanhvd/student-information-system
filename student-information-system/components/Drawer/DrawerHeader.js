@@ -3,10 +3,20 @@ import { Toggle } from '@ui-kitten/components';
 import { StyleSheet, View, Image, TouchableOpacity } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { ICONS_LIGHT } from '../../styles';
+import {setTheme} from "../../redux/darkMode";
+import {connect} from "react-redux";
+import {getAndListenGroup} from "../../redux/materials";
 
-export const DrawerHeader = ({ navigation }) => {
+const mapStateToProps = (state) => ({
+	onSelectTheme: setTheme
+});
+
+export const DrawerHeader = connect(mapStateToProps, { setTheme })(({ navigation , setTheme }) => {
 	const [ isEnabled, setIsEnabled ] = useState(false);
-	const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
+
+	const toggleSwitch = () => {
+		setIsEnabled((previousState) => !previousState)
+	};
 	return (
 		<SafeAreaProvider>
 			<View style={styles.container}>
@@ -19,7 +29,7 @@ export const DrawerHeader = ({ navigation }) => {
 			</View>
 		</SafeAreaProvider>
 	);
-};
+});
 
 const styles = StyleSheet.create({
 	container: {
