@@ -42,7 +42,8 @@ const styles = StyleSheet.create({
 	},
 	icon: {
 		width: 22,
-		height: 22
+		height: 22,
+		alignSelf: 'center',
 	},
 	field: {
 		width: '90%',
