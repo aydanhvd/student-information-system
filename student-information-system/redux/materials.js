@@ -9,6 +9,7 @@ const SET_MATERIALS = 'SET_MATERIALS';
 const SET_HOMEWOKS = 'SET_HOMEWOKS';
 const SET_GRADES = 'SET_GRADES';
 const SET_AGENDA = 'SET_AGENDA';
+const SET_SCHEDULE = 'SET_SCHEDULE';
 
 //Selectors
 export const MODULE_NAME = 'groups';
@@ -17,6 +18,7 @@ export const selectMaterials = (state) => state[MODULE_NAME].materials;
 export const selectHomeworks = (state) => state[MODULE_NAME].homeworks;
 export const selectGrades = (state) => state[MODULE_NAME].grades;
 export const selectAgenda = (state) => state[MODULE_NAME].agenda;
+export const selectSchedule = (state) => state[MODULE_NAME].schedule;
 
 //Reducer
 const initialState = {
@@ -24,7 +26,8 @@ const initialState = {
 	materials: [], //list of materiasl appropiate to users group
 	homeworks: [], //list of materiasl accined to users group
 	grades: [], //grade of each homework
-	agenda: [] //callendar data
+	agenda: [], //callendar data
+	schedule: [] //scedule field data for class creeen
 };
 
 export function reducer(state = initialState, { type, payload }) {
@@ -54,6 +57,11 @@ export function reducer(state = initialState, { type, payload }) {
 				...state,
 				agenda: payload
 			};
+		case SET_SCHEDULE:
+			return {
+				...state,
+				schedule: payload
+			};
 		default:
 			return state;
 	}
@@ -79,6 +87,10 @@ export const setGrades = (payload) => ({
 });
 export const setAgenda = (payload) => ({
 	type: SET_AGENDA,
+	payload
+});
+export const setSchedule = (payload) => ({
+	type: SET_SCHEDULE,
 	payload
 });
 
@@ -270,5 +282,45 @@ export const getAndListenAgenda = () => (dispatch, getState) => {
 			style: { backgroundColor: COLORS.error },
 			textStyle: { fontFamily: 'RelewayRegular' }
 		});
+	}
+};
+
+export const getAndListenSchedule = () => (dispatch, getState) => {
+	try {
+		const groupID = selectAuthGroup(getState());
+		let reference= fbApp.db.ref(`schedule/${groupID}`);
+		reference.on(
+			'value',
+			(snapshot) => {
+				if (snapshot.exists()) {
+					const scheduleObj = snapshot.val();
+					const scheduleArr = Object.keys(scheduleObj).map((key) => ({
+						ID: key, //use upperase for ids
+						...scheduleObj[key]
+					}));
+					dispatch(setSchedule(scheduleArr));
+				}
+			},
+			(err) => {
+				console.log('getAndListenSchedule part 1 err', err);
+				showMessage({
+					message: { err },
+					type: 'danger',
+					icon: 'auto',
+					style: { backgroundColor: COLORS.error },
+					textStyle: { fontFamily: 'RelewayRegular' }
+				});
+			}
+		);
+		return () => reference.off();
+	} catch (err) {
+		console.log('getAndListenSchedule err', err),
+			showMessage({
+				message: { err },
+				type: 'danger',
+				icon: 'auto',
+				style: { backgroundColor: COLORS.error },
+				textStyle: { fontFamily: 'RelewayRegular' }
+			});
 	}
 };
