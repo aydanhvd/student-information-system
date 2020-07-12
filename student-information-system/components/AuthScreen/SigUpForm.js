@@ -1,29 +1,26 @@
 import React, { useState } from 'react';
-import { StyleSheet, TextInput, View, TouchableOpacity, Text } from 'react-native';
+import { StyleSheet, TextInput, View ,Text} from 'react-native';
 import { Radio, RadioGroup } from '@ui-kitten/components';
-import { COLORS, ICONS_LIGHT } from '../../styles';
 import { connect } from 'react-redux';
+import Slider from 'react-native-slide-to-unlock';
+
+import { COLORS, ICONS_LIGHT } from '../../styles';
 import { validateForm } from '../../utils/validateField';
-import {clearAuthError, getAuthError, setAuthError, signUp} from '../../redux/auth';
+import {clearAuthError, signUp} from '../../redux/auth';
 import { IconBtn } from '../index';
 import { CustomText } from '../../commons/CustomText';
-import {authErrorsText} from "../../utils/authErrorsText";
 
-const mapStateToProps = (state) => ({
-	error: getAuthError(state),
-});
 
-export const SignUpForm = connect(mapStateToProps, { signUp, setAuthError, clearAuthError })
-	(({ signUp, groupsList, error, setAuthError, clearAuthError }) => {
-		// console.log(error)
 
+export const SignUpForm = connect(null, { signUp, clearAuthError })
+	(({ signUp, groupsList, clearAuthError }) => {
 	const [ groupIndex, setGroupIndex ] = useState(null);
 	const [ fields, setFields ] = useState({
 		email: { value: '', placeholder: 'email' },
-		userName: { value: '', placeholder: 'userName' },
+		userName: { value: '', placeholder: 'username' },
 		name: { value: '', placeholder: 'full name' },
 		password: { value: '', placeholder: 'password' },
-		rePassword: { value: '', placeholder: 'rePassword' }
+		rePassword: { value: '', placeholder: 'repeat password' }
 	});
 	const fieldChnageHandler = (name, value) => {
 		clearAuthError();
@@ -35,14 +32,13 @@ export const SignUpForm = connect(mapStateToProps, { signUp, setAuthError, clear
 			}
 		}));
 	};
-	const submintHandler = (fields) => {
+	const submintHandlerSignUp = (fields,signUp) => {
 		const email = fields.email.value.toLowerCase().trim();
 		const pass = fields.password.value.trim();
 		const rePass = fields.rePassword.value.trim();
 		const userName = fields.userName.value.toLowerCase().trim();
 		const name = fields.name.value.trim();
-
-		if (validateForm(true, email, pass, rePass, userName, name, groupIndex)) {
+		if (validateForm(true, email, pass, rePass, userName, name, groupsList[groupIndex]?.ID)) {
 			signUp(email, name, userName, pass, groupsList[groupIndex].ID);
 		}
 	};
@@ -67,8 +63,16 @@ export const SignUpForm = connect(mapStateToProps, { signUp, setAuthError, clear
 				<Radio status="control">BE-3</Radio>
 				<Radio status="control">BE-4</Radio>
 			</RadioGroup>
-			<IconBtn icon={ICONS_LIGHT.logInBtn} style={styles.nextBtn} onPress={() => submintHandler(fields)} />
-
+			<Slider
+				onEndReached={() =>submintHandlerSignUp(fields,signUp)}
+				containerStyle={styles.nextBtn}
+				sliderElement={
+					<IconBtn icon={ICONS_LIGHT.logInBtn}  style={styles.sliderElement}/>
+				}
+			>
+			<CustomText style={{color:COLORS.backgroundLight , fontSize:17}}>Slide to Join</CustomText>
+			</Slider>
+			
 		</View>
 	);
 });
@@ -76,7 +80,7 @@ export const SignUpForm = connect(mapStateToProps, { signUp, setAuthError, clear
 const styles = StyleSheet.create({
 	form: {
 		marginHorizontal: 33,
-		marginTop: 26
+		// marginTop: 26
 	},
 	input: {
 		width: '100%',
@@ -98,17 +102,27 @@ const styles = StyleSheet.create({
 		textDecorationLine: 'underline'
 	},
 	nextBtn: {
-		backgroundColor: COLORS.backgroundLight,
-		position: 'absolute',
-		bottom: -150,
-		width: 60,
-		height: 35,
+		width: "100%",
+		height: 50,
 		alignSelf: 'flex-end',
-		borderRadius: 20
+		alignItems:'center',
+		justifyContent:'center',
+		borderRadius: 30,
+		borderWidth:1,
+		padding:2,
+		borderColor:COLORS.backgroundLight,
+		position:'absolute',
+		bottom:-140
 	},
 	error: {
 		fontSize: 16,
 		color: "red",
 		marginTop: 10,
 	},
+	sliderElement:{
+		backgroundColor:COLORS.backgroundLight,
+		height: 45,
+		width:64,
+		borderRadius: 25,
+	}
 });

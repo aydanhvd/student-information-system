@@ -12,6 +12,8 @@ const mapStateToProps = (state) => ({
 export const PriviteMessagesBubble = connect(mapStateToProps)(({ messages, userID }) => {
 	const date = new Date(messages.time);
 	const styledTime = messages.time ? `${date.getHours()}:${date.getMinutes()}` : '';
+	let week = [ 'Sunday', 'Monday', 'Tuesday', 'Wednesday ', 'Thursday', 'Friday', 'Saturday' ];
+	const chatStarted = week[date.getDay()];
 
 	const bubbleStyles = [ styles.container ];
 	const isSystem = messages.auther === 'system';
@@ -21,7 +23,10 @@ export const PriviteMessagesBubble = connect(mapStateToProps)(({ messages, userI
 
 	return (
 		<View style={bubbleStyles}>
-			<CustomText style={styles.text}>{messages.text}</CustomText>
+			<CustomText style={styles.text}>
+				{
+				isSystem?`${chatStarted}`:`${messages.text}`}
+			</CustomText>
 			<CustomText style={styles.time}>{styledTime}</CustomText>
 		</View>
 	);

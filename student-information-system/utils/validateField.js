@@ -1,63 +1,99 @@
-// export const submintHandler = (fields, group, isSignUp, signUp, logIn) => {
-// 	//temperary ganna go
-// 	const email = fields.email.value.trim();
-// 	const pass = fields.password.value.trim();
-// 	const userName = fields.userName.value.trim();
-// 	const name = fields.name.value.trim();
-// 	//temperary ganna go
-// 	let className;
-// 	if (group < 3) {
-// 		className = `MD-${group}`;
-// 	} else {
-// 		className = `BE-${group}`;
-// 	}
-// 	if (validateForm(isSignUp, fields, group)) {
-// 		if (isSignUp) {
-// 			signUp(email, name, userName, pass, className);
-// 		} else {
-// 			logIn(email, pass);
-// 		}
-// 	}
-// };
+import { showMessage } from 'react-native-flash-message';
+import { COLORS } from '../styles/colors';
 
-//a function to validate submited data from auth screen
 export const validateForm = (isSignUP, email, password, rePassword, userName, name, selectedGroup) => {
 	//if urser is tryring to log their account name must not be left empty
 	if (email.trim() === '') {
-		alert('name is required');
+		showMessage({
+			message: 'e-mail is required',
+			description: 'e-mail field can not be left empty',
+			type: 'danger',
+			icon: 'auto',
+			style: { backgroundColor: COLORS.error },
+			textStyle: { fontFamily: 'RelewayRegular' }
+		});
 		return false;
 	}
 	//they have to provide a password
 	if (password.trim() === '') {
-		alert('Password is required');
+		showMessage({
+			message: 'Password is required',
+			description: 'Password field can not be left empty',
+			type: 'danger',
+			icon: 'auto',
+			style: { backgroundColor: COLORS.error },
+			textStyle: { fontFamily: 'RelewayRegular' }
+		});
 		return false;
 	}
 	//if user is trying to sign up(create new acount)
 	if (isSignUP) {
 		//they have to provede repassword which has to mach with password itself
 		if (password.trim() !== rePassword.trim()) {
-			alert('Passwords must match');
+			showMessage({
+				message: 'Passwords must match',
+				description: 'Password and repeating of the pasword mast be same',
+				type: 'danger',
+				icon: 'auto',
+				style: { backgroundColor: COLORS.error },
+				textStyle: { fontFamily: 'RelewayRegular' }
+			});
 			return false;
 		}
 		//they have to choose what group they r in
 		if (!selectedGroup) {
-			alert('u must pick your group');
+			showMessage({
+				message: 'group is not celected',
+				description: 'pick your group',
+				type: 'danger',
+				icon: 'auto',
+				style: { backgroundColor: COLORS.error },
+				textStyle: { fontFamily: 'RelewayRegular' }
+			});
 			return false;
 		}
 		if (password.trim().length < 8) {
-			alert('Password should be included at least 8 characters');
+			showMessage({
+				message: 'Password is short',
+				description: 'Password should be included at least 8 characters',
+				type: 'danger',
+				icon: 'auto',
+				style: { backgroundColor: COLORS.error },
+				textStyle: { fontFamily: 'RelewayRegular' }
+			});
 			return false;
 		}
 		if (userName.trim() === '') {
-			alert('userName required');
+			showMessage({
+				message: 'Username required',
+				description: 'Username field can not be empty',
+				type: 'danger',
+				icon: 'auto',
+				style: { backgroundColor: COLORS.error },
+				textStyle: { fontFamily: 'RelewayRegular' }
+			});
 			return false;
 		}
 		if (userName.trim().toUpperCase() === '') {
-			alert('Username must be written with lowercase');
+			showMessage({
+				message: 'Username must be all lowercas',
+				description: 'Username use lovvercase latter for username',
+				type: 'danger',
+				icon: 'auto',
+				style: { backgroundColor: COLORS.error },
+				textStyle: { fontFamily: 'RelewayRegular' }
+			});
 			return false;
 		}
 		if (name.trim() === '') {
-			alert('name is required');
+			showMessage({
+				message: 'name is required',
+				description: 'name field can not be empty',
+				type: 'danger',
+				icon: 'auto',
+				style: { backgroundColor: COLORS.error },
+				textStyle: { fontFamily: 'RelewayRegular' }
+			});
 			return false;
 		}
 	}
