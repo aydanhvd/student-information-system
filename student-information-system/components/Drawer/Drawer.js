@@ -8,18 +8,32 @@ import { DrawerHeader } from './DrawerHeader';
 import { DrawerBody } from './DrawerBody';
 import { DrawerFooter } from './DrawerFooter';
 import { connect } from 'react-redux';
-import {getAndListenGroup} from '../../redux/materials';
+import { getAndListenGroup } from '../../redux/materials';
+import { selectTheme } from '../../redux/theme';
 
-export const Drawer = connect(null,{getAndListenGroup})(({ navigation ,getAndListenGroup}) => {
+const mapStateToProps = (state) => ({
+	darkMode: selectTheme(state)
+});
+
+export const Drawer = connect(mapStateToProps, { getAndListenGroup })(({ navigation, getAndListenGroup, darkMode }) => {
 	useEffect(() => {
-		const unsub = getAndListenGroup()
-		return unsub
+		const unsub = getAndListenGroup();
+		return unsub;
 	}, []);
+	const colorTheme = darkMode
+		? {
+				dawerStart: COLORS.drawerLight,
+				drawerEnd: COLORS.drawerDark,
+			}
+		: {
+				dawerStart: COLORS.drawerLight,
+				drawerEnd: COLORS.acsentColor,
+			};
 	return (
 		<SafeAreaProvider>
 			<View style={styles.container}>
 				<LinearGradient
-					colors={[ COLORS.acsentColor, COLORS.drawerLight ]}
+					colors={[ colorTheme.dawerStart, colorTheme.drawerEnd ]}
 					style={{ ...StyleSheet.absoluteFill }}
 					enabled
 					keyboardVerticalOffset={100}

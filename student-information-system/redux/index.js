@@ -9,18 +9,19 @@ import { MODULE_NAME as postsModuleName, reducer as postsReducer } from './posts
 import { MODULE_NAME as authModuleName, reducer as authReducer } from './auth';
 import { MODULE_NAME as chatsModuleName, reducer as chatsReducer } from './chats';
 import { MODULE_NAME as materialsModuleName, reducer as materialsReducer } from './materials';
-import { MODULE_NAME as darkModeModuleName, reducer as darkModeReducer } from './darkMode';
+import { MODULE_NAME as themeModuleName, reducer as themeReducer } from './theme';
 
 const config = {
 	key: 'root',
 	storage: AsyncStorage
 };
+
 const reducer = combineReducers({
 	[postsModuleName]: postsReducer,
 	[authModuleName]: authReducer,
 	[chatsModuleName]: chatsReducer,
 	[materialsModuleName]: materialsReducer,
-	[darkModeModuleName]: darkModeReducer,
+	[themeModuleName]: themeReducer,
 });
 const rootPersistReducer = persistReducer(config, reducer);
 
