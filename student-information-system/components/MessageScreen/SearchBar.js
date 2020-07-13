@@ -49,7 +49,7 @@ export const SearchBar = connect(mapStateToProps, {
 		<View style={{...styles.container, ...colorTheme}}>
 			<TextInput
 				value={searchName}
-				style={styles.searchBar}
+				style={{...styles.searchBar, color: colorTheme.placeHolderColor}}
 				placeholder="search by username"
 				onChangeText={(value) => setSaerchName(value)}
 				placeholderTextColor={colorTheme.placeHolderColor}

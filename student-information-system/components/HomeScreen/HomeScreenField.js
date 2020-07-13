@@ -39,7 +39,7 @@ export const HomeScreenField = connect(mapStateToProps, { shareNewPost })(({ act
 				value={newPost}
 				onChangeText={setNewPost}
 				placeholderTextColor = {colorTheme.placeHolderTheme}
-				style={styles.field}
+				style={{...styles.field, color: colorTheme.placeHolderTheme}}
 				placeholder="what is on your mind...."
 			/>
 			<IconBtn icon={colorTheme.source} style={styles.icon} onPress={sharePostHandler} />
@@ -62,7 +62,6 @@ const styles = StyleSheet.create({
 	field: {
 		width: '90%',
 		height: '100%',
-		color: COLORS.backgroundDark,
 		textAlign:"auto",
 		flexWrap:'wrap',
 	}

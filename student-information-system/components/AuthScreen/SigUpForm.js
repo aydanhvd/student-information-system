@@ -19,8 +19,8 @@ export const SignUpForm = connect(null, { signUp, clearAuthError })
 		email: { value: '', placeholder: 'email' },
 		userName: { value: '', placeholder: 'username' },
 		name: { value: '', placeholder: 'full name' },
-		password: { value: '', placeholder: 'password' },
-		rePassword: { value: '', placeholder: 'repeat password' }
+		password: { value: '', placeholder: 'password', secureTextEntry: true },
+		rePassword: { value: '', placeholder: 'repeat password', secureTextEntry: true }
 	});
 	const fieldChnageHandler = (name, value) => {
 		clearAuthError();
@@ -50,6 +50,7 @@ export const SignUpForm = connect(null, { signUp, clearAuthError })
 						key={fields[key].placeholder}
 						placeholder={fields[key].placeholder}
 						value={fields[key].value}
+						secureTextEntry={fields[key].secureTextEntry}
 						onChangeText={(value) => fieldChnageHandler(key, value)}
 						style={styles.input}
 						placeholderTextColor="rgba(255,255,255, 0.3)"

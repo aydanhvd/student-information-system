@@ -42,6 +42,7 @@ export const LogInForm = connect(mapStateToProps, { logIn, setAuthError, clearAu
 			/>
 			<TextInput
 				placeholder="password"
+				secureTextEntry={true}
 				value={fields.password.value}
 				onChangeText={(value) => fieldChangeHndler('password', value)}
 				style={styles.input}
@@ -67,7 +68,6 @@ const styles = StyleSheet.create({
 	},
 	nextBtn: {
 		alignSelf: 'flex-end',
-		borderRadius: 20,
 		backgroundColor:COLORS.backgroundLight,
 		height: 45,
 		width:64,
