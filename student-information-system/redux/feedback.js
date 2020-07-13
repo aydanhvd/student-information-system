@@ -51,7 +51,8 @@ export const submitFeedback = (text) => (dispatch, getState) => {
 			if (err) {
 				console.log('submitFeedback err', err);
 				showMessage({
-					message: { err },
+					message: `something went wront please try later again`,
+					description: `${err.message}`,
 					type: 'danger',
 					icon: 'auto',
 					style: { backgroundColor: COLORS.error },
@@ -63,7 +64,8 @@ export const submitFeedback = (text) => (dispatch, getState) => {
 	} catch (err) {
 		console.log('submitFeedback err', err);
 		showMessage({
-			message: { err },
+			message: `something went wront please try later again`,
+			description: `${err.message}`,
 			type: 'danger',
 			icon: 'auto',
 			style: { backgroundColor: COLORS.error },

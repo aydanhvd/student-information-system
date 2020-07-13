@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
-import { CustomText } from '../index';
+import { CustomText } from '../../components';
 import { COLORS } from '../../styles/colors';
 import { connect } from 'react-redux';
 import { selectGrades, getAndListenGrades } from '../../redux/materials';

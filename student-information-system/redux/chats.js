@@ -128,7 +128,8 @@ export const getAndListenChatsList = () => (dispatch) => {
 			(err) => {
 				console.log('getAndListenChatsList err', err);
 				showMessage({
-					message: {err},
+					message: `something went wront please try later again`,
+					description: `${err.message}`,
 					type: 'danger',
 					icon: 'auto',
 					style: { backgroundColor: COLORS.error },
@@ -140,7 +141,8 @@ export const getAndListenChatsList = () => (dispatch) => {
 	} catch (err) {
 		console.log('getAndListenChatsList', error);
 		showMessage({
-			message: {err},
+			message: `something went wront please try later again`,
+			description: `${err.message}`,
 			type: 'danger',
 			icon: 'auto',
 			style: { backgroundColor: COLORS.error },
@@ -168,7 +170,8 @@ export const getAndListenChatMessages = (chatID) => (dispatch) => {
 			(err) => {
 				Alert.alert('Something wrong', err.message);
 				showMessage({
-					message: {err},
+					message: `something went wront please try later again`,
+					description: `${err.message}`,
 					type: 'danger',
 					icon: 'auto',
 					style: { backgroundColor: COLORS.error },
@@ -203,7 +206,8 @@ export const getAndListenStartedChatsList = () => (dispatch, getState) => {
 			(err) => {
 				console.log('getAndListenStartedChats err', err);
 				showMessage({
-					message: {err},
+					message: `something went wront please try later again`,
+					description: `${err.message}`,
 					type: 'danger',
 					icon: 'auto',
 					style: { backgroundColor: COLORS.error },
@@ -215,7 +219,8 @@ export const getAndListenStartedChatsList = () => (dispatch, getState) => {
 	} catch (err) {
 		console.log('getAndListenChatsList', err);
 		showMessage({
-			message: {err},
+			message: `something went wront please try later again`,
+			description: `${err.message}`,
 			type: 'danger',
 			icon: 'auto',
 			style: { backgroundColor: COLORS.error },
@@ -238,7 +243,8 @@ export const getAndListenChatUsers = () => (dispatch) => {
 	} catch (err) {
 		console.log('getAndListenChatUsers err', err);
 		showMessage({
-			message: {err},
+			message: `something went wront please try later again`,
+			description: `${err.message}`,
 			type: 'danger',
 			icon: 'auto',
 			style: { backgroundColor: COLORS.error },
@@ -285,7 +291,8 @@ export const initPriviteChats = (recieverID) => async (dispatch, getState) => {
 	} catch (err) {
 		console.log('initPriviteChats err', err);
 		showMessage({
-			message: {err},
+			message: `something went wront please try later again`,
+			description: `${err.message}`,
 			type: 'danger',
 			icon: 'auto',
 			style: { backgroundColor: COLORS.error },
@@ -308,7 +315,8 @@ export const sendMessage = (chatID, text) => (dispatch, getState) => {
 			if(err){
 				console.log('send message err', err);
 				showMessage({
-					message: {err},
+					message: `something went wront please try later again`,
+					description: `${err.message}`,
 					type: 'danger',
 					icon: 'auto',
 					style: { backgroundColor: COLORS.error },
@@ -326,7 +334,8 @@ export const sendMessage = (chatID, text) => (dispatch, getState) => {
 	} catch (err) {
 		console.log('sendMessage err', err);
 		showMessage({
-			message: {err},
+			message: `something went wront please try later again`,
+			description: `${err.message}`,
 			type: 'danger',
 			icon: 'auto',
 			style: { backgroundColor: COLORS.error },

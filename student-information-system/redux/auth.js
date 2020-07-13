@@ -170,7 +170,8 @@ export const getAndListenAuthGroupsList = () => (dispatch) => {
 			(err) => {
 				console.log('getAndListenAuthGroupsList err', err);
 				showMessage({
-					message: { err },
+					message: `something went wront please try later again`,
+					description: `${err.message}`,
 					type: 'danger',
 					icon: 'auto',
 					style: { backgroundColor: COLORS.error },
@@ -182,7 +183,8 @@ export const getAndListenAuthGroupsList = () => (dispatch) => {
 	} catch (err) {
 		console.log('getAndListenAuthGroupsList', err);
 		showMessage({
-			message: { err },
+			message: `something went wront please try later again`,
+					description: `${err.message}`,
 			type: 'danger',
 			icon: 'auto',
 			style: { backgroundColor: COLORS.error },
@@ -206,7 +208,8 @@ export const getAndListenAbcence = () => (dispatch, getState) => {
 	} catch (err) {
 		console.log('getAndListenAbcence', err);
 		showMessage({
-			message: { err },
+			message: `something went wront please try later again`,
+			description: `${err.message}`,
 			type: 'danger',
 			icon: 'auto',
 			style: { backgroundColor: COLORS.error },
@@ -214,6 +217,7 @@ export const getAndListenAbcence = () => (dispatch, getState) => {
 		});
 	}
 };
+
 export const logIn = (email, password) => async (dispatch) => {
 	try {
 		//todo ask what else can u use for not using email
@@ -237,7 +241,8 @@ export const logIn = (email, password) => async (dispatch) => {
 	} catch (err) {
 		console.log('logIn', err);
 		showMessage({
-			message: { err },
+			message: `something went wront please try later again`,
+			description: `${err.message}`,
 			type: 'danger',
 			icon: 'auto',
 			style: { backgroundColor: COLORS.error },
@@ -266,6 +271,7 @@ export const signUp = (email, name, userName, password, group) => async (dispatc
 		fbApp.db.ref(`grades/${uid}`).push().set({ title: `HW-4`, grade: 0 });
 		fbApp.db.ref(`grades/${uid}`).push().set({ title: `SP`, grade: 0 });
 		fbApp.db.ref(`grades/${uid}`).push().set({ title: `Final`, grade: 0 });
+		//todo add homework id here
 		dispatch(
 			setAuthSuccess({
 				userID: uid,
@@ -277,7 +283,8 @@ export const signUp = (email, name, userName, password, group) => async (dispatc
 		);
 	} catch (err) {
 		showMessage({
-			message: { err },
+			message: `something went wront please try later again`,
+			description: `${err.message}`,
 			type: 'danger',
 			icon: 'auto',
 			style: { backgroundColor: COLORS.error },
@@ -297,7 +304,8 @@ export const changeName = (userName) => (dispatch, getState) => {
 	} catch (err) {
 		console.log('changeName err', err);
 		showMessage({
-			message: {err},
+			message: `something went wront please try later again`,
+			escription: `${err.message}`,
 			type: 'danger',
 			icon: 'auto',
 			style: { backgroundColor: COLORS.error },
@@ -312,7 +320,8 @@ export const logOut = () => async (dispatch) => {
 	} catch (err) {
 		console.log('log out err', err);
 		showMessage({
-			message: {err},
+			message: `something went wront please try later again`,
+			description: `${err.message}`,
 			type: 'danger',
 			icon: 'auto',
 			style: { backgroundColor: COLORS.error },
@@ -334,7 +343,8 @@ export const uploadProfilePic = (uri) => async (dispatch, getState) => {
 	} catch (err) {
 		console.log('aploadProfilePic err ', err);
 		showMessage({
-			message: {err},
+			message: `something went wront please try later again`,
+			description: `${err.message}`,
 			type: 'danger',
 			icon: 'auto',
 			style: { backgroundColor: COLORS.error },

@@ -13,12 +13,13 @@ const mapStateToProps = (state) => ({
     darkMode: selectTheme(state)
 });
 
-export const Feedback = connect(mapStateToProps, { submitFeedback })(({ activePostID, submitFeedback, darkMode }) => {
+export const Feedback = connect(mapStateToProps, { submitFeedback })(({submitFeedback, darkMode }) => {
     const [ field, setField ] = useState('');
     const [send, setSend] = useState(false);
     const submitHandler = () => {
+
         if (field.trim() !== '') {
-            submitFeedback(activePostID, field);
+            submitFeedback(field);
             setField('');
         }
         toggleSend();
@@ -30,20 +31,17 @@ export const Feedback = connect(mapStateToProps, { submitFeedback })(({ activePo
             backgroundColor: COLORS.backgroundDark,
             placeHolderTheme: COLORS.backgroundLight,
             sendIcon: ICONS_DARK.sendMessage
-          }
-        : {
+        }:{
             backgroundColor: COLORS.backgroundLight ,
             placeHolderTheme: COLORS.textColorDark,
             sendIcon: ICONS_LIGHT.sendMessages
         };
-
-
     return (
         <>
             <View style={styles.container }>
                 <View style={{...styles.textInput, ...colorTheme}}>
                     <TextInput
-                        placeholder = 'any suggestions for us to improve ?..'
+                        placeholder = 'any suggestions for us to improve ?..'    
                         placeholderTextColor = {colorTheme.placeHolderTheme}
                         onChangeText={setField}
                         value={field}
