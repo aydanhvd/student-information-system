@@ -7,15 +7,17 @@ import { connect } from 'react-redux';
 import { selectChatsUsers, initPriviteChats, setRecieverInfo} from '../../redux/chats';
 import { UserCard } from './UserCard';
 import { selectAuthUserID} from '../../redux/auth';
+import {selectTheme} from "../../redux/theme";
 
 const mapStateToProps = (state) => ({
 	users: selectChatsUsers(state),
-	userID: selectAuthUserID(state)
+	userID: selectAuthUserID(state),
+	darkMode: selectTheme(state)
 });
 export const PeopleListField = connect(mapStateToProps, {
 	initPriviteChats,
 	setRecieverInfo
-})(({ users, initPriviteChats, userID, navigation, setRecieverInfo}) => {
+})(({ users, initPriviteChats, userID, navigation, setRecieverInfo, darkMode}) => {
 	const usersArr = Object.keys(users)
 		.map((key) => ({
 			ID: key, //use uppercase letters for IDs
@@ -31,8 +33,16 @@ export const PeopleListField = connect(mapStateToProps, {
 		})
 		navigation.navigate('PriviteChat');
 	};
+
+	const colorTheme = darkMode
+		? {
+			backgroundColor: COLORS.backgroundDark
+		} : {
+			backgroundColor: COLORS.backgroundLight
+		};
+
 	return (
-		<View style={styles.container}>
+		<View style={{...styles.container, ...colorTheme}}>
 			<SearchBar />
 			<FlatList
 				style={styles.listContainer}
@@ -51,7 +61,6 @@ const styles = StyleSheet.create({
 	container: {
 		height: 170,
 		width: '100%',
-		backgroundColor: COLORS.backgroundLight,
 		borderBottomEndRadius: 30,
 		borderBottomStartRadius: 30,
 		marginTop: 5,

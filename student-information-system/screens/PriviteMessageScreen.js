@@ -6,21 +6,31 @@ import { COLORS } from '../styles';
 import { PriviteMessagesField, PriviteMessages } from '../components';
 import { getAndListenChatMessages, selectChatID } from '../redux/chats';
 import { PriviteChatsHeader } from '../components/PriviteMessageScreen/PriviteChatHeader';
+import {selectTheme} from "../redux/theme";
+
 const mapStateToProps = (state) => ({
-	chatID: selectChatID(state)
+	chatID: selectChatID(state),
+	darkMode: selectTheme(state)
 });
 
 export const PriviteMessageScreen = connect(mapStateToProps, {
 	getAndListenChatMessages,
-})(({ chatID, getAndListenChatMessages,  navigation }) => {
+})(({ chatID, getAndListenChatMessages,  navigation, darkMode }) => {
 
 	useEffect(() => {
 		const unsub = getAndListenChatMessages(chatID);
 		return unsub;
 	}, [chatID]);
 
+	const colorTheme = darkMode
+		? {
+			backgroundColor: COLORS.backgroundDark
+		} : {
+			backgroundColor: COLORS.backgroundLight
+		};
+
 	return (
-		<View style={styles.container}>
+		<View style={{...styles.container, ...colorTheme}}>
 			<PriviteChatsHeader navigation={navigation} />
 			<PriviteMessages />
 			<PriviteMessagesField style={styles.field} chatID={chatID} />
@@ -30,7 +40,6 @@ export const PriviteMessageScreen = connect(mapStateToProps, {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		backgroundColor: COLORS.backgroundLight
 	},
 	field: {
 		position: 'absolute',

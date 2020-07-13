@@ -5,6 +5,8 @@ import { COLORS } from '../../styles/colors';
 import { Seperator } from '../../commons/Seperator';
 import {ScheduleField} from "./ScheduleField";
 import { GLOBAL_STYLES } from '../../styles';
+import {selectTheme} from "../../redux/theme";
+import {connect} from "react-redux";
 
 // a dummydata for schedules
 const schedules = [
@@ -22,10 +24,23 @@ const schedules = [
 	}
 ];
 
-export const ScheduleContainer = () => {
+const mapStateToProps = (state) => ({
+	darkMode: selectTheme(state)
+});
+
+
+export const ScheduleContainer = connect(mapStateToProps, {})(({ darkMode }) => {
+
+	const colorTheme = darkMode
+		? {
+			color: COLORS.headerColor
+		} : {
+			color: COLORS.acsentColor
+		};
+
 	return (
 		<View style={styles.container}>
-			<CustomText style={styles.heading}>Schedule</CustomText>
+			<CustomText style={{...styles.heading, ...colorTheme}}>Schedule</CustomText>
 			<Seperator distance={17} color={COLORS.commentsColorLight} />
 			<View style={styles.row}>
 				{schedules.map((schedule) => (
@@ -39,7 +54,8 @@ export const ScheduleContainer = () => {
 			</View>
 		</View>
 	);
-};
+});
+
 const styles = StyleSheet.create({
 	container: {
 		marginHorizontal: 14,

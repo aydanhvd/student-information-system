@@ -21,7 +21,9 @@ const mapStateToProps = (state) => ({
 export const DrawerBody = connect(mapStateToProps, {
 	uploadProfilePic,
 })(({ profilePic, userName, name, group={}, darkMode }) => {
-	const colorTheme= darkMode?{color:COLORS.backgroundDark}:{color:COLORS.backgroundLight}
+
+	const colorTheme= darkMode ? { color: COLORS.backgroundDark } : { color: COLORS.backgroundLight };
+
 	return (
 		<SafeAreaProvider>
 			<View style={styles.container}>

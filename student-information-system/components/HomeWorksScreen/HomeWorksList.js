@@ -3,12 +3,25 @@ import { StyleSheet, FlatList} from 'react-native';
 import { selectHomeworks } from '../../redux/materials';
 import { connect } from 'react-redux';
 import { ClassField } from '../ClassField';
+import {COLORS} from "../../styles";
+import {selectTheme} from "../../redux/theme";
 
 const mapStateToProps = (state) => ({
-	homeworks: selectHomeworks(state)
+	homeworks: selectHomeworks(state),
+    darkMode: selectTheme(state)
 });
 
-export const HomeWorksList=connect(mapStateToProps)(({homeworks})=>{
+export const HomeWorksList=connect(mapStateToProps)(({homeworks, darkMode})=>{
+
+    const colorTheme = darkMode
+        ? {
+            headerBackground: COLORS.acsentLight,
+            headerText: COLORS.backgroundLight
+        } : {
+            headerBackground: COLORS.commentsColorLight,
+            headerText: COLORS.acsentLight
+        };
+
    return(
       <FlatList
          style={styles.container}
@@ -18,6 +31,8 @@ export const HomeWorksList=connect(mapStateToProps)(({homeworks})=>{
             <ClassField
                heading={item.title}
                topic={item.link}
+               backgroundColor = {{backgroundColor: colorTheme.headerBackground}}
+               textStyles = {{color: colorTheme.headerText}}
             />)
          }}
       />

@@ -17,27 +17,6 @@ import settingsWhite from '../assets/icons/light-theme/settingsWhite.png';
 import feedbackWhite from '../assets/icons/light-theme/feedbackWhite.png';
 import refresUsers from '../assets/icons/light-theme/refresh.png';
 
-import backLightS from '../assets/icons/svg/backLight.svg';
-import bookmarkLightS from '../assets/icons/svg/bookmarkLight.svg';
-import calendarLightS from '../assets/icons/svg/calendarLight.svg';
-import feedbackLightS from '../assets/icons/svg/feedbackLight.svg';
-import editLightS from '../assets/icons/svg/editLight.svg';
-import heartLightS from '../assets/icons/svg/heartLight.svg';
-import menuLightS from '../assets/icons/svg/menuLight.svg';
-import notebookLightS from '../assets/icons/svg/notebookLight.svg';
-import origamiLightS from '../assets/icons/svg/origamiLight.svg';
-import sendLightS from '../assets/icons/svg/sendLight.svg';
-import sendLightOS from '../assets/icons/svg/sendLightO.svg';
-import settingsLightS from '../assets/icons/svg/settingLight.svg';
-import userLightS from '../assets/icons/svg/userLight.svg';
-import rightArrowLightS from '../assets/icons/svg/rightArrowLight.svg';
-import refreshLightS from '../assets/icons/svg/refreshLight.svg';
-import searchLightS from '../assets/icons/svg/searchLight.svg';
-import galleryLightS from '../assets/icons/svg/galleryLight.svg';
-import cameraLightS from '../assets/icons/svg/cameraLight.svg';
-
-
-
 export const ICONS_LIGHT = Object.freeze({
 	logInBtn, //arrow icon for auth screen
 	backLight, //back arrow
@@ -57,25 +36,5 @@ export const ICONS_LIGHT = Object.freeze({
 	settingsWhite, // setting icon for drawer
 	feedbackWhite, // feedback icon for drawer
 	refresUsers,//refres user icon for MessageScreen
-
-	backLightS,
-	bookmarkLightS,
-	calendarLightS,
-	feedbackLightS,
-	editLightS,
-	heartLightS,
-	menuLightS,
-	notebookLightS,
-	origamiLightS,
-	sendLightS,
-	sendLightOS,
-	settingsLightS,
-	userLightS,
-	rightArrowLightS,
-	refreshLightS,
-	searchLightS,
-	galleryLightS,
-	cameraLightS,
-
 });
 

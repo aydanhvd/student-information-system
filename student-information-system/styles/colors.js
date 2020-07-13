@@ -10,5 +10,6 @@ export const COLORS = Object.freeze({
 	borderLight: '#C9D5E1', //border color for search btn
 	sendLight: '#FF7821',
 	sendDark: '#9BE4BC',
-	error:"#CB0000"
+	error: "#CB0000",
+	headerColor: "#4375BF", //header of material screen field
 });

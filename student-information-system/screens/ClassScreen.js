@@ -4,26 +4,43 @@ import { Footer, GradeShower, ProgressBar, ClassField, Header, ScheduleContainer
 import { COLORS } from '../styles/colors';
 import { connect } from 'react-redux';
 import { selectGroup, getAndListenHomeWorks } from '../redux/materials';
+import {selectTheme} from "../redux/theme";
+import {backgroundColor} from "react-native-calendars/src/style";
 
 const mapStateToProps = (state) => ({
-	groupData: selectGroup(state)
+	groupData: selectGroup(state),
+	darkMode: selectTheme(state)
 });
 
 export const ClassScreen = connect(mapStateToProps, {
 	getAndListenHomeWorks
-})(({ navigation, groupData, getAndListenHomeWorks }) => {
+})(({ navigation, groupData, getAndListenHomeWorks, darkMode }) => {
 	useEffect(() => {
 		const unsub = getAndListenHomeWorks();
 		return unsub;
 	}, []);
+
+	const colorTheme = darkMode
+		? {
+			backgroundColor: COLORS.backgroundDark,
+			headerBackground: COLORS.acsentLight,
+			headerText: COLORS.backgroundLight
+		} : {
+			backgroundColor: COLORS.backgroundLight,
+			headerBackground: COLORS.commentsColorLight,
+			headerText: COLORS.acsentLight
+		};
+
 	return (
-		<View style={styles.container}>
+		<View style={{...styles.container, ...colorTheme}}>
 			<Header title={`Group ${groupData.title}`} />
 			<Information />
 			<GradeShower />
 			<ClassField
 				heading="Homeworks"
 				topic="Your assingned homeworks"
+				backgroundColor = {{backgroundColor: colorTheme.headerBackground}}
+				textStyles = {{color: colorTheme.headerText}}
 				style={{ width: '92%', marginHorizontal: 15, marginVertical: 15 }}
 				onPress={() => navigation.navigate('Homeworks')}
 			/>
@@ -37,7 +54,6 @@ export const ClassScreen = connect(mapStateToProps, {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		backgroundColor: COLORS.backgroundLight,
 	},
 	footer: {
 		position: 'absolute',

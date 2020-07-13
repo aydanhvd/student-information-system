@@ -7,18 +7,33 @@ import { COLORS, GLOBAL_STYLES, ICONS_LIGHT } from '../../styles';
 import { selectUser, logOut, changeName } from '../../redux/auth';
 import { IconBtn } from '../../commons/IconBtn';
 import { Button } from '../../commons/Button';
+import {selectTheme} from "../../redux/theme";
 
 const mapStateToProps = (state) => ({
-	userName: selectUser(state).userName
+	userName: selectUser(state).userName,
+	darkMode: selectTheme(state)
 });
 
-export const SettingsFileds = connect(mapStateToProps, { logOut, changeName })(({ userName, logOut, changeName }) => {
+export const SettingsFileds = connect(mapStateToProps, { logOut, changeName })
+	(({ userName, logOut, changeName, darkMode }) => {
+
 	const [ name, setName ] = useState(userName);
+
+	const colorTheme = darkMode
+		? {
+			color: COLORS.drawerDark,
+			textColor: COLORS.backgroundLight
+		} : {
+			color: COLORS.acsentColor,
+			textColor: COLORS.textColorDark
+		};
+
 	return (
 		<View style={styles.container}>
 			<View style={styles.input}>
-				<CustomText style={styles.label}>name:</CustomText>
-				<TextInput value={name} onChangeText={(value) => setName(value)} style={styles.name} />
+				<CustomText style={{...styles.label, ...colorTheme}}>name:</CustomText>
+				<TextInput value={name} onChangeText={(value) => setName(value)}
+						   style={{...styles.name, color: colorTheme.textColor, borderBottomColor: colorTheme.color}} />
 			</View>
 			<View style={styles.btnContainer}>
 				<Button text="save changes" onPress={() => changeName(name)} style={styles.btn} />
@@ -39,14 +54,11 @@ const styles = StyleSheet.create({
 	},
 	label: {
 		fontSize: 13,
-		color: COLORS.acsentColor,
 		position:'absolute',
 		left:15
 	},
 	name: {
 		borderBottomWidth: 1,
-		borderBottomColor: COLORS.acsentColor,
-		color: COLORS.textColorDark,
 		width: '100%',
 		height: 35,
 		// paddingVertical: 10,

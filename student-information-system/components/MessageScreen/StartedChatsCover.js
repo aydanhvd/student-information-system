@@ -5,11 +5,17 @@ import { CustomText } from '../../commons/CustomText';
 import { connect } from 'react-redux';
 import { setChatID, setRecieverInfo } from '../../redux/chats';
 import { ICONS_LIGHT } from '../../styles/iconsLight';
+import {selectTheme} from "../../redux/theme";
 
-export const StartedChatsCover = connect(null, {
+const mapStateToProps = (state) => ({
+	darkMode: selectTheme(state)
+});
+
+
+export const StartedChatsCover = connect(mapStateToProps, {
 	setChatID,
 	setRecieverInfo
-})(({ item, navigation, setChatID, setRecieverInfo }) => {
+})(({ item, navigation, setChatID, setRecieverInfo, darkMode }) => {
 	const date = new Date(item.lastMessage.time);
 	const humanTime = `${date.getHours()}:${date.getMinutes()}`;
 
@@ -21,16 +27,26 @@ export const StartedChatsCover = connect(null, {
 			});
 		navigation.navigate('PriviteChat');
 	};
+
+	const colorTheme = darkMode
+		? {
+			textColor: COLORS.sendDark,
+			nameColor: COLORS.backgroundLight
+		} : {
+			textColor: COLORS.drawerLight,
+			nameColor: COLORS.acsentLight
+		};
+
 	return (
 		<TouchableOpacity style={styles.container} onPress={onPressHandler}>
 			<Image source={item.image ? { uri: item.image } : ICONS_LIGHT.userLight} style={styles.image} />
 			<View style={styles.textContainer}>
-				<CustomText style={styles.name}>{item.title}</CustomText>
-				<CustomText numberOfLines={1} style={styles.text}>
+				<CustomText style={{...styles.name, color: colorTheme.nameColor}}>{item.title}</CustomText>
+				<CustomText numberOfLines={1} style={{...styles.text, color: colorTheme.textColor}}>
 					{item.lastMessage.text}
 				</CustomText>
 			</View>
-			<CustomText style={styles.time}>{humanTime}</CustomText>
+			<CustomText style={{...styles.time, color: colorTheme.nameColor}}>{humanTime}</CustomText>
 		</TouchableOpacity>
 	);
 });
@@ -57,16 +73,12 @@ const styles = StyleSheet.create({
 	},
 	name: {
 		fontSize: 18,
-		color: COLORS.textColorDark
-		// marginBottom: 12
 	},
 	text: {
 		fontSize: 12,
-		color: COLORS.drawerLight
 	},
 	time: {
 		fontSize: 13,
-		color: COLORS.textColorDark,
 		marginRight: 13
 		// alignSelf:'flex-start',
 	}

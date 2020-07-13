@@ -4,19 +4,21 @@ import * as ImagePicker from 'expo-image-picker';
 
 import { CustomText } from '../../commons/CustomText';
 import { IconBtn } from '../../commons/IconBtn';
-import { ICONS_LIGHT, COLORS, GLOBAL_STYLES } from '../../styles';
+import {ICONS_LIGHT, COLORS, GLOBAL_STYLES, ICONS_DARK} from '../../styles';
 import { Seperator } from '../../commons/Seperator';
 import { askForCameraPermissions, imagePickerOptions } from '../../utils/askForCameraPermissions';
 import { connect } from 'react-redux';
 import { uploadProfilePic, selectProfilePiC } from '../../redux/auth';
+import {selectTheme} from "../../redux/theme";
 
 const mapStateToProps = (state) => ({
-	profilePic: selectProfilePiC(state)
+	profilePic: selectProfilePiC(state),
+	darkMode: selectTheme(state)
 });
 
 export const ProfilePictureLoader = connect(mapStateToProps, {
 	uploadProfilePic
-})(({ profilePic, uploadProfilePic }) => {
+})(({ profilePic, uploadProfilePic, darkMode }) => {
 	const selectImage = async (isCamera) => {
 		try {
 			//check for permissions
@@ -41,19 +43,31 @@ export const ProfilePictureLoader = connect(mapStateToProps, {
 			//todo handle err
 		}
 	};
+
+	const colorTheme = darkMode
+		? {
+			color: COLORS.drawerDark,
+			gallery: ICONS_DARK.galleryDark,
+			camera: ICONS_DARK.cameraDark
+		} : {
+			color: COLORS.acsentColor,
+			gallery: ICONS_LIGHT.gallery,
+			camera: ICONS_LIGHT.camera
+		};
+
 	return (
 		<View style={styles.container}>
-			<View style={styles.imageWrapper}>
+			<View style={{...styles.imageWrapper, borderColor: colorTheme.color}}>
 				<Image style={styles.profilePic} source={{ uri: profilePic }} />
 			</View>
-			<CustomText  style={styles.editText}>
+			<CustomText  style={{...styles.editText, color: colorTheme.color}}>
 				Edit Picture
 			</CustomText>		
 			<View style={styles.row}>
-				<IconBtn icon={ICONS_LIGHT.camera} style={styles.icon} onPress={() => selectImage(true)} />
-				<IconBtn icon={ICONS_LIGHT.gallery} style={styles.icon} onPress={() => selectImage()} />
+				<IconBtn icon={colorTheme.camera} style={styles.icon} onPress={() => selectImage(true)} />
+				<IconBtn icon={colorTheme.gallery} style={styles.icon} onPress={() => selectImage()} />
 			</View>
-			<Seperator color={COLORS.acsentColor} style={styles.seperator} />
+			<Seperator style={{...styles.seperator, backgroundColor: colorTheme.color}} />
 		</View>
 	);
 });
@@ -69,7 +83,6 @@ const styles = StyleSheet.create({
 		height: 200,
 		borderRadius: 100,
 		borderWidth: 2,
-		borderColor: COLORS.acsentColor,
 		marginBottom: 17,
 		...GLOBAL_STYLES.shaddowTop
 	},
@@ -95,7 +108,6 @@ const styles = StyleSheet.create({
 		marginTop: 10
 	},
 	editText: {
-		color: COLORS.acsentColor,
 		fontSize: 12,
 		// alignSelf: 'center',
 		position:'absolute',

@@ -3,10 +3,25 @@ import { StyleSheet, ScrollView, KeyboardAvoidingView, Platform } from 'react-na
 
 import { Footer, Header, ProfilePictureLoader, SettingsFileds } from '../components';
 import { COLORS } from '../styles/colors';
+import {selectTheme} from "../redux/theme";
+import {connect} from "react-redux";
 
-export const SettingsScreen = () => {
+
+const mapStateToProps = (state) => ({
+	darkMode: selectTheme(state)
+});
+
+export const SettingsScreen = connect(mapStateToProps, {})(({ darkMode }) => {
+
+	const colorTheme = darkMode
+		? {
+			backgroundColor: COLORS.backgroundDark
+		} : {
+			backgroundColor: COLORS.backgroundLight
+		};
+
 	return (
-		<KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : ''}>
+		<KeyboardAvoidingView style={{...styles.container, ...colorTheme}} behavior={Platform.OS === 'ios' ? 'padding' : ''}>
 			<Header title="Settings" />
 			<ScrollView>
 				<ProfilePictureLoader />
@@ -15,14 +30,11 @@ export const SettingsScreen = () => {
 			<Footer style={styles.footer} />
 		</KeyboardAvoidingView>
 	);
-};
+});
 
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		// alignItems:'center',
-		// justifyContent:'center',
-		backgroundColor: COLORS.backgroundLight
 	},
 	footer: {
 		position: 'absolute',

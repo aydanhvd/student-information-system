@@ -2,26 +2,35 @@ import React, { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Footer, Header } from '../components';
 import { COLORS } from '../styles/colors';
-import { CalendarAgenda } from '../components/ClassScreen/CalendarAgenda';
+import { CalendarAgenda } from '../components/CalendarScreen/CalendarAgenda';
+import {selectTheme} from "../redux/theme";
+import {connect} from "react-redux";
 
-export const CalendarScreen = () => {
-	const [ markedDates, setMarkedDates ] = useState(new Date());
-	const markDate = () => {
-		setMarkedDates(markedDates);
-	};
+const mapStateToProps = (state) => ({
+	darkMode: selectTheme(state)
+});
+
+export const CalendarScreen = connect(mapStateToProps, {})(({ darkMode }) => {
+
+	const colorTheme = darkMode
+		? {
+			backgroundColor: COLORS.backgroundDark
+		} : {
+			backgroundColor: COLORS.backgroundLight
+		};
+
 	return (
-		<View style={styles.container}>
+		<View style={{...styles.container, ...colorTheme}}>
 			<Header title="Calendar" />
-			<CalendarAgenda />
+			<CalendarAgenda/>
 			<Footer style={styles.footer} screen="CallendarStack" />
 		</View>
 	);
-};
+});
 
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		backgroundColor: COLORS.backgroundLight
 	},
 	calendar: {
 		marginVertical: 15

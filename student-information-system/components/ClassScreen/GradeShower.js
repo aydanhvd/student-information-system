@@ -6,20 +6,33 @@ import { CustomText } from '../index';
 import { COLORS } from '../../styles/colors';
 import { connect } from 'react-redux';
 import { selectGrades, getAndListenGrades } from '../../redux/materials';
+import {selectTheme} from "../../redux/theme";
 
 const mapStateToProps = (state) => ({
-	grades: selectGrades(state)
+	grades: selectGrades(state),
+	darkMode: selectTheme(state)
 });
 
 
-export const GradeShower = connect(mapStateToProps, { getAndListenGrades })(({ getAndListenGrades, grades=[]}) => {
+export const GradeShower = connect(mapStateToProps, { getAndListenGrades })(({ getAndListenGrades, grades=[], darkMode}) => {
 	useEffect(() => {
 		const unsub = getAndListenGrades();
 		return unsub;
 	}, []);
+
+	const colorTheme = darkMode
+		? {
+			start: COLORS.drawerLight,
+			end: COLORS.drawerDark,
+		}
+		: {
+			start: COLORS.headerColor,
+			end: COLORS.acsentColor,
+		};
+
 	return (
 		<View style={styles.container}>
-			<LinearGradient colors={[COLORS.drawerLight, 'transparent' ]} style={styles.gradient} />
+			<LinearGradient colors={[ colorTheme.start, colorTheme.end ]} style={styles.gradient} />
 		{grades.map((grade) => (
 				<View style={styles.gradeSection} key={grade.ID}>
 					<CustomText style={styles.gradeSectionName}>{grade.title}</CustomText>
@@ -34,7 +47,6 @@ export const GradeShower = connect(mapStateToProps, { getAndListenGrades })(({ g
 
 const styles = StyleSheet.create({
 	container: {
-		backgroundColor: COLORS.acsentColor,
 		width: '93%',
 		height: 85,
 		borderRadius: 4,

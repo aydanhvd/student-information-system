@@ -3,16 +3,32 @@ import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import { COLORS } from '../../styles/colors';
 import { CustomText } from '../../commons/CustomText';
 import { Seperator } from '../../commons/Seperator';
+import {selectTheme} from "../../redux/theme";
+import {connect} from "react-redux";
 
-export const ScheduleField = ({ heading, date, topic , style , fontSize}) => {
+const mapStateToProps = (state) => ({
+    darkMode: selectTheme(state)
+});
+
+export const ScheduleField = connect(mapStateToProps, {})(({ heading, date, style , fontSize, darkMode }) => {
+
+    const colorTheme = darkMode
+        ? {
+            backgroundColor: COLORS.backgroundDark,
+            headerText: COLORS.backgroundLight
+        } : {
+            backgroundColor: COLORS.backgroundLight,
+            headerText: COLORS.acsentLight
+        };
+
     return (
-        <TouchableOpacity style={{...styles.container,...style}}>
-            <CustomText weight="semi" style={{...styles.heading, ...fontSize}}>{heading}</CustomText>
+        <TouchableOpacity style={{...styles.container,...style, ...colorTheme}}>
+            <CustomText weight="semi" style={{...styles.heading, ...fontSize, color: colorTheme.headerText}}>{heading}</CustomText>
             <Seperator color={COLORS.commentsColorLight} distance={9}/>
-                <CustomText weight="semi" style={styles.date}>{date}</CustomText>
+                <CustomText weight="semi" style={{...styles.date, color: colorTheme.headerText}}>{date}</CustomText>
         </TouchableOpacity>
     );
-};
+});
 
 const styles = StyleSheet.create({
     container:{
@@ -29,7 +45,6 @@ const styles = StyleSheet.create({
     date:{
         fontSize: 14,
         marginVertical: 7,
-        color: COLORS.acsentLight,
         textAlign: 'center',
     },
 });
