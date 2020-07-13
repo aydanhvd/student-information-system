@@ -58,11 +58,12 @@ export const ProfilePictureLoader = connect(mapStateToProps, {
 	return (
 		<View style={styles.container}>
 			<View style={{...styles.imageWrapper, borderColor: colorTheme.color}}>
-				<Image style={styles.profilePic} source={{ uri: profilePic }} />
+				<Image style={styles.profilePic} source={profilePic ? { uri: profilePic } : ICONS_LIGHT.userLight} />
 			</View>
 			<CustomText  style={{...styles.editText, color: colorTheme.color}}>
 				Edit Picture
 			</CustomText>		
+
 			<View style={styles.row}>
 				<IconBtn icon={colorTheme.camera} style={styles.icon} onPress={() => selectImage(true)} />
 				<IconBtn icon={colorTheme.gallery} style={styles.icon} onPress={() => selectImage()} />
@@ -89,7 +90,7 @@ const styles = StyleSheet.create({
 	profilePic: {
 		width: '100%',
 		height: '100%',
-		borderRadius: 100,
+		borderRadius: 100
 	},
 	chooseBtn: {
 		alignSelf: 'flex-end',
@@ -97,8 +98,8 @@ const styles = StyleSheet.create({
 	},
 	seperator: {
 		marginTop: 10,
-		height:1,
-		width: '85%',
+		height: 1,
+		width: '85%'
 	},
 	row: {
 		width: 75,
@@ -110,9 +111,8 @@ const styles = StyleSheet.create({
 	editText: {
 		fontSize: 12,
 		// alignSelf: 'center',
-		position:'absolute',
-		left:40,
-		bottom:10
-	},
-
+		position: 'absolute',
+		left: 40,
+		bottom: 10
+	}
 });

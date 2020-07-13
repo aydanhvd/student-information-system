@@ -1,49 +1,42 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { CustomText } from '../../commons/CustomText';
 import { COLORS } from '../../styles/colors';
 import { Seperator } from '../../commons/Seperator';
-import {ScheduleField} from "./ScheduleField";
+import { ScheduleField } from './ScheduleField';
 import { GLOBAL_STYLES } from '../../styles';
 import {selectTheme} from "../../redux/theme";
 import {connect} from "react-redux";
+import { getAndListenSchedule, selectSchedule } from '../../redux/materials';
 
-// a dummydata for schedules
-const schedules = [
-	{
-		day: 'Monday',
-		time: '14:00'
-	},
-	{
-		day: 'Wednesday',
-		time: '16:00'
-	},
-	{
-		day: 'Friday',
-		time: '12:00'
-	}
-];
 
 const mapStateToProps = (state) => ({
-	darkMode: selectTheme(state)
+	schedule: selectSchedule(state),
+  	darkMode: selectTheme(state)
 });
 
 
-export const ScheduleContainer = connect(mapStateToProps, {})(({ darkMode }) => {
-
-	const colorTheme = darkMode
+export const ScheduleContainer = connect(mapStateToProps, {
+	getAndListenSchedule
+})(({ schedule, getAndListenSchedule, darkMode }) => {
+	useEffect(() => {
+		const unsub = getAndListenSchedule();
+		return unsub;
+	}, []);
+  
+  	const colorTheme = darkMode
 		? {
 			color: COLORS.headerColor
 		} : {
 			color: COLORS.acsentColor
 		};
-
+  
 	return (
 		<View style={styles.container}>
 			<CustomText style={{...styles.heading, ...colorTheme}}>Schedule</CustomText>
 			<Seperator distance={17} color={COLORS.commentsColorLight} />
 			<View style={styles.row}>
-				{schedules.map((schedule) => (
+				{schedule.map((schedule) => (
 					<ScheduleField
 						fontSize={{ fontSize: 14 }}
 						heading={schedule.day}
@@ -70,7 +63,7 @@ const styles = StyleSheet.create({
 	schedule: {
 		alignSelf: 'center',
 		width: 116,
-		height: 90,
+		height: 90
 	},
 	row: {
 		justifyContent: 'space-around',
@@ -79,6 +72,6 @@ const styles = StyleSheet.create({
 		height: 90,
 		borderRadius: 4,
 		backgroundColor: COLORS.backgroundLight,
-		...GLOBAL_STYLES.shaddowTop, 
+		...GLOBAL_STYLES.shaddowTop
 	}
 });
