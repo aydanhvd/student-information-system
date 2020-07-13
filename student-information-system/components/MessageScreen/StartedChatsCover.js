@@ -17,7 +17,8 @@ export const StartedChatsCover = connect(mapStateToProps, {
 	setRecieverInfo
 })(({ item, navigation, setChatID, setRecieverInfo, darkMode }) => {
 	const date = new Date(item.lastMessage.time);
-	const humanTime = `${date.getHours()}:${date.getMinutes()}`;
+	let week= ["Sunday","Monday","Tuesday","Wednesday ","Thursday","Friday","Saturday"];
+	const humanTime = item.lastMessage.time ? `${week[date.getDay()]} ${date.getHours()}:${date.getMinutes()}` : '';
 
 	const onPressHandler = () => {
 		setChatID(item.id),
@@ -55,7 +56,7 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 		marginBottom: 20,
 		alignItems: 'center',
-		justifyContent: 'space-between'
+		justifyContent: 'space-between',
 	},
 	image: {
 		width: 55,
@@ -79,7 +80,7 @@ const styles = StyleSheet.create({
 	},
 	time: {
 		fontSize: 13,
-		marginRight: 13
+		marginLeft: -17,
 		// alignSelf:'flex-start',
 	}
 });
