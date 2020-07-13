@@ -4,21 +4,30 @@ import { HomeScreenHeader, HomeScreenField, Footer, HomeScreenPosts } from '../c
 import { COLORS } from '../styles/colors';
 import { connect } from 'react-redux';
 import { getAndListenFeeds, selectFeeds } from '../redux/posts';
+import {selectTheme} from "../redux/theme";
 
 const mapStateToProps = (state) => ({
-	feeds: selectFeeds(state)
+	feeds: selectFeeds(state),
+	darkMode: selectTheme(state)
 });
 export const HomeScreen = connect(mapStateToProps, {
 	getAndListenFeeds
-})(({ feeds, getAndListenFeeds }) => {
+})(({ feeds, getAndListenFeeds, darkMode }) => {
 	
 	useEffect(() => {
 		const unsubscribe = getAndListenFeeds();
 		return unsubscribe;
 	}, []);
 
+	const colorTheme = darkMode
+		? {
+			backgroundColor: COLORS.backgroundDark
+		} : {
+			backgroundColor: COLORS.backgroundLight
+		};
+
 	return (
-		<View style={styles.container}>
+		<View style={{...styles.container, ...colorTheme}}>
 			<HomeScreenHeader feeds={feeds} />
 			<HomeScreenField />
 			<HomeScreenPosts />
@@ -29,7 +38,6 @@ export const HomeScreen = connect(mapStateToProps, {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		backgroundColor: COLORS.backgroundLight,
 	},
 	footer: {
 		position: 'absolute',

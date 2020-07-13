@@ -2,7 +2,7 @@ import React from 'react';
 import { Toggle } from '@ui-kitten/components';
 import { StyleSheet, View, Image, TouchableOpacity } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { COLORS, ICONS_LIGHT } from '../../styles';
+import {COLORS, ICONS_DARK, ICONS_LIGHT} from '../../styles';
 import { toggleTheme, selectTheme } from '../../redux/theme';
 import { connect } from 'react-redux';
 import { CustomText } from '../../commons/CustomText';
@@ -12,12 +12,15 @@ const mapStateToProps = (state) => ({
 });
 
 export const DrawerHeader = connect(mapStateToProps, { toggleTheme })(({ navigation, theme, toggleTheme }) => {
+
+	const iconTheme= theme ? { source: ICONS_DARK.settingsDark } : { source: ICONS_LIGHT.settingsWhite }
+
 	return (
 		<SafeAreaProvider>
 			<View style={styles.container}>
 				<View style={styles.header}>
 					<TouchableOpacity onPress={() => navigation.navigate('Settings')}>
-						<Image resizeMode="cover" style={styles.userSettings} source={ICONS_LIGHT.settingsWhite} />
+						<Image resizeMode="cover" style={styles.userSettings} source={iconTheme.source} />
 					</TouchableOpacity>
 					<View style={styles.toggleContainer}>
 						<Toggle

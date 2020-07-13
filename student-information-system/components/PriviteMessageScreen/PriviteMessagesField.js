@@ -2,11 +2,17 @@ import React, { useState } from 'react';
 import { StyleSheet, TextInput, KeyboardAvoidingView, Platform, Keyboard, SafeAreaView } from 'react-native';
 
 import { IconBtn } from '../../commons/IconBtn';
-import { COLORS, ICONS_LIGHT, GLOBAL_STYLES } from '../../styles';
+import {COLORS, ICONS_LIGHT, GLOBAL_STYLES, ICONS_DARK} from '../../styles';
 import { connect } from 'react-redux';
 import { sendMessage } from '../../redux/chats';
+import {selectTheme} from "../../redux/theme";
 
-export const PriviteMessagesField = connect(null, { sendMessage })(({ style, chatID, sendMessage }) => {
+const mapStateToProps = (state) => ({
+	darkMode: selectTheme(state)
+});
+
+
+export const PriviteMessagesField = connect(mapStateToProps, { sendMessage })(({ style, chatID, sendMessage, darkMode }) => {
 	const [ message, setMesage ] = useState('');
 	const submitHadler = () => {
 		if (message !== '') {
@@ -14,14 +20,26 @@ export const PriviteMessagesField = connect(null, { sendMessage })(({ style, cha
 			setMesage('');
 		}
 	};
+
+	const colorTheme = darkMode
+		? {
+			backgroundColor: COLORS.backgroundDark,
+			textColor: COLORS.backgroundLight,
+			sendIcon: ICONS_DARK.sendMessage
+		} : {
+			backgroundColor: COLORS.backgroundLight,
+			textColor: COLORS.backgroundDark,
+			sendIcon: ICONS_LIGHT.sendMessages
+		};
+
 	return (
 		<KeyboardAvoidingView
 			keyboardVerticalOffset={20}
-			style={{ ...style, ...styles.container }}
+			style={{ ...style, ...styles.container, ...colorTheme }}
 			behavior={Platform.OS === 'ios' ? 'padding' : ''}
 		>
-			<TextInput style={styles.inputField} value={message} onChangeText={(value) => setMesage(value)} />
-			<IconBtn icon={ICONS_LIGHT.sendMessages} onPress={submitHadler} />
+			<TextInput style={{...styles.inputField, color: colorTheme.textColor}} value={message} onChangeText={(value) => setMesage(value)} />
+			<IconBtn icon={colorTheme.sendIcon} onPress={submitHadler} />
 		</KeyboardAvoidingView>
 	);
 });
@@ -31,7 +49,6 @@ const styles = StyleSheet.create({
 		width: '95%',
 		flexWrap: 'wrap',
 		...GLOBAL_STYLES.shaddowTop,
-		backgroundColor: COLORS.backgroundLight,
 		borderRadius: 30,
 		marginHorizontal: 15,
 		alignSelf: 'center',

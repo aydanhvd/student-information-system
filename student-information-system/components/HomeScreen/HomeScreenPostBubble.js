@@ -4,37 +4,57 @@ import { CustomText } from '../../commons/CustomText';
 import { COLORS } from '../../styles/colors';
 import { GLOBAL_STYLES } from '../../styles/globalStyles';
 import { ICONS_LIGHT } from '../../styles';
-import {HomeScreenPostLikes} from "./HomeScreenPostLikes";
+import {selectTheme} from "../../redux/theme";
+import {connect} from "react-redux";
+
+const mapStateToProps = (state) => ({
+	darkMode: selectTheme(state)
+});
 
 //single posts in home screen
-export const HomeScreenPostBubble = ({ post }) => {
+export const HomeScreenPostBubble = connect(mapStateToProps, {})(({ post, darkMode }) => {
+
 	const date = new Date(post.time);
 	let week= ["Sunday","Monday","Tuesday","Wednesday ","Thursday","Friday","Saturday"];
 	const formattedTime = post.time ? `${week[date.getDay()]} ${date.getHours()}:${date.getMinutes()}` : '';
+
+	const colorTheme = darkMode
+		? {
+			backgroundColor: COLORS.backgroundDark,
+			borderTheme: COLORS.drawerDark,
+			textTheme: COLORS.backgroundLight,
+		} : {
+			backgroundColor: COLORS.backgroundLight,
+			borderTheme: COLORS.acsentColor,
+			textTheme: COLORS.acsentLight,
+		};
+
 	return (
-		<View style={{...styles.container, ...GLOBAL_STYLES.shaddowTop }}>
-			<Image style={styles.profilePic} source={post.autherProfilePic? { uri: post.autherProfilePic } : ICONS_LIGHT.userLight} />
+		<View style={{...styles.container, ...GLOBAL_STYLES.shaddowTop, ...colorTheme }}>
+			<Image style={styles.profilePic}
+				   borderColor={colorTheme.borderTheme}
+				   source={post.autherProfilePic? { uri: post.autherProfilePic } : ICONS_LIGHT.userLight
+				   } />
 			<View style={styles.postBodyContainer}>
-				<CustomText weight="semi" style={styles.fullName}>
+				<CustomText weight="semi" style={{...styles.fullName, color: colorTheme.textTheme}}>
 					{post.auther}
 				</CustomText>
-				<CustomText style={styles.userName}>@{post.userName}</CustomText>
-				<CustomText style={styles.text}>{post.text}</CustomText>
+				<CustomText style={{...styles.userName, color: colorTheme.borderTheme}} >@{post.userName}</CustomText>
+				<CustomText style={{...styles.text, color: colorTheme.textTheme}}>{post.text}</CustomText>
 				{/* <View style={styles.likesContainer}>
 					<HomeScreenPostLikes postID={post.ID}/>
 				</View> */}
 			</View>
-			<CustomText style={styles.time}>{formattedTime}</CustomText>
+			<CustomText style={{...styles.time, color: colorTheme.textTheme}}>{formattedTime}</CustomText>
 		</View>
 	);
-};
+});
 
 const styles = StyleSheet.create({
 	container: {
 		flexDirection: 'row',
 		borderColor: COLORS.textColorDark, //find out why box shadow is not working
 		marginBottom: 25,
-		backgroundColor:COLORS.backgroundLight,
 		padding: 18,
 		borderRadius: 10,
 		zIndex:999,  
@@ -45,7 +65,6 @@ const styles = StyleSheet.create({
 		height: 50,
 		borderRadius: 40,
 		borderWidth: 3,
-		borderColor: COLORS.commentsColorLight,
 		marginRight: 13
 	},
 	postBodyContainer: {
@@ -57,7 +76,6 @@ const styles = StyleSheet.create({
 	},
 	userName: {
 		fontSize: 12,
-		color: COLORS.acsentColor
 	},
 	text: {
 		fontSize: 16

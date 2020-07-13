@@ -7,18 +7,32 @@ import { CustomText } from '../../commons/CustomText';
 import { connect } from 'react-redux';
 import { selectAgenda, getAndListenAgenda } from '../../redux/materials';
 import { ClassField } from '../ClassField';
+import {selectTheme} from "../../redux/theme";
 
 const mapStateToProps = (state) => ({
-	agendaData: selectAgenda(state)
+	agendaData: selectAgenda(state),
+	darkMode: selectTheme(state)
 });
 
 export const CalendarAgenda = connect(mapStateToProps, {
 	getAndListenAgenda
-})(({ agendaData = [], getAndListenAgenda }) => {
+})(({ agendaData = [], getAndListenAgenda, darkMode }) => {
 	useEffect(() => {
 		const unsub = getAndListenAgenda();
 		return unsub;
 	}, []);
+
+	const colorTheme = darkMode
+		? {
+			backgroundColor: COLORS.backgroundDark,
+			fieldColor: COLORS.headerColor,
+			dayColor: COLORS.backgroundLight,
+		} : {
+			backgroundColor: COLORS.backgroundLight,
+			fieldColor: COLORS.acsentColor,
+			dayColor: COLORS.backgroundDark
+		};
+
 	return (
 		<Agenda
 			items={agendaData}
@@ -28,7 +42,7 @@ export const CalendarAgenda = connect(mapStateToProps, {
 						<ClassField
 							heading={item.time}
 							topic={item.topic}
-							backgroundColor={{ backgroundColor: COLORS.acsentColor }}
+							backgroundColor={{ backgroundColor: colorTheme.fieldColor }}
 							textStyles={{ color: COLORS.backgroundLight, fontSize: 15, textAlign: 'right' }}
 						/>
 					</View>
@@ -42,9 +56,12 @@ export const CalendarAgenda = connect(mapStateToProps, {
 			}}
 			refreshing={true}
 			theme={{
-				agendaTodayColor: COLORS.acsentColor
+				...colorTheme,
+				agendaTodayColor: colorTheme.fieldColor,
+				agendaDayNumColor: colorTheme.dayColor,
+				agendaDayTextColor: colorTheme.dayColor
 			}}
-			style={{ backgroundColor: COLORS.backgroundLight }}
+			style={{ ...colorTheme }}
 		/>
 	);
 });

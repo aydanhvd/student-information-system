@@ -4,25 +4,41 @@ import { COLORS } from '../styles/colors';
 import { CustomText } from '../commons/CustomText';
 import { Link } from '../commons/Link';
 import { GLOBAL_STYLES } from '../styles';
+import {selectTheme} from "../redux/theme";
+import {connect} from "react-redux";
 
-export const ClassField = ({ heading, topic, backgroundColor,  onPress , textStyles, style }) => {
+const mapStateToProps = (state) => ({
+	darkMode: selectTheme(state)
+});
+
+export const ClassField = connect(mapStateToProps, {})
+	(({ heading, topic, backgroundColor,  onPress , textStyles, style, darkMode }) => {
+
+	const colorTheme = darkMode
+		? {
+			backgroundColor: COLORS.backgroundDark,
+			linkColor: COLORS.backgroundLight
+		} : {
+			backgroundColor: COLORS.backgroundLight,
+			linkColor: COLORS.drawerLight
+		};
+
 	return (
-		<TouchableOpacity style={{ ...styles.container, ...style }} onPress={onPress}>
+		<TouchableOpacity style={{ ...styles.container, ...style, ...colorTheme }} onPress={onPress}>
 			<View style={{ ...styles.headerContainer, ...backgroundColor }}>
 				<CustomText style={{ ...styles.heading, ...textStyles }}>{heading}</CustomText>
 			</View>
 			<View style={styles.row}>
-				<Link link={topic} styleText={styles.topic} />
+				<Link link={topic} styleText={{...styles.topic, color: colorTheme.linkColor}} />
 			</View>
 		</TouchableOpacity>
 	);
-};
+});
 
 const styles = StyleSheet.create({
 	container: {
 		minHeight: 90,
 		borderRadius: 4,
-		backgroundColor: COLORS.backgroundLight,
 		...GLOBAL_STYLES.shaddowTop,
 		marginVertical: 10,
 		marginHorizontal:16
@@ -31,7 +47,6 @@ const styles = StyleSheet.create({
 		borderColor: COLORS.backgroundDark,
 		borderTopStartRadius: 4,
 		borderTopEndRadius: 4,
-		backgroundColor: COLORS.commentsColorLight
 	},
 	row: {
 		flexDirection: 'row',
@@ -43,14 +58,8 @@ const styles = StyleSheet.create({
 		marginVertical: 5,
 		marginHorizontal: 14
 	},
-	date: {
-		fontSize: 14,
-		marginVertical: 10,
-		color: COLORS.acsentLight
-	},
 	topic: {
 		fontSize: 13,
 		marginVertical: 10,
-		color: COLORS.drawerLight
 	}
 });

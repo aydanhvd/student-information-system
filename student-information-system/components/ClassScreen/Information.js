@@ -4,18 +4,28 @@ import { COLORS } from '../../styles/colors'
 import { CustomText } from '../../commons/CustomText'
 import { connect } from 'react-redux'
 import { selectGroup } from '../../redux/materials';
+import {selectTheme} from "../../redux/theme";
 
 const mapStateToProps = (state) => ({
-   group: selectGroup(state)
+   group: selectGroup(state),
+    darkMode: selectTheme(state)
 })
 
-export const Information=connect(mapStateToProps)(({group})=>{
+export const Information=connect(mapStateToProps)(({ group, darkMode })=>{
+
+    const colorTheme = darkMode
+        ? {
+            color: COLORS.headerColor
+        } : {
+            color: COLORS.drawerLight
+        };
+
    return(
       <View style={styles.information}>
                <CustomText style={styles.informationText}>Course teacher</CustomText>
                <CustomText
                   weight="semi"
-                  style={{ ...styles.informationText, color: COLORS.drawerLight, fontSize: 18 }}
+                  style={{ ...styles.informationText, color: colorTheme.color, fontSize: 18 }}
                >
                   {group.teacher}
                </CustomText>

@@ -6,12 +6,16 @@ import { Footer, Header, PeopleListField } from '../components';
 import { COLORS } from '../styles/colors';
 import { getAndListenChatUsers, getAndListenStartedChatsList,  selectChatID } from '../redux/chats';
 import { StartedMessagesField } from '../components/MessageScreen/StartedMessagesField';
+import {selectTheme} from "../redux/theme";
 
+const mapStateToProps = (state) => ({
+	darkMode: selectTheme(state)
+});
 
-export const MessageScreen = connect(null, {
+export const MessageScreen = connect(mapStateToProps, {
 	getAndListenChatUsers,
 	getAndListenStartedChatsList
-})(({ getAndListenChatUsers, getAndListenStartedChatsList, navigation ,}) => {
+})(({ getAndListenChatUsers, getAndListenStartedChatsList, navigation, darkMode}) => {
 	useEffect(() => {
 		const unsubscribe = getAndListenChatUsers();
 		return unsubscribe;
@@ -21,8 +25,15 @@ export const MessageScreen = connect(null, {
 		return unsubscribe;
 	}, []);
 
+	const colorTheme = darkMode
+		? {
+			backgroundColor: COLORS.backgroundDark
+		} : {
+			backgroundColor: COLORS.backgroundLight
+		};
+
 	return (
-		<View style={styles.container}>
+		<View style={{...styles.container, ...colorTheme}}>
 			<Header title="Messages" />
 			<PeopleListField navigation={navigation} />
 			<StartedMessagesField navigation={navigation} />

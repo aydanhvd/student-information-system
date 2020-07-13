@@ -5,26 +5,36 @@ import { CustomText } from '../../commons/CustomText';
 import { connect } from 'react-redux';
 import { selectAuthAbsence, getAndListenAbcence } from '../../redux/auth';
 import { selectGroup } from '../../redux/materials';
+import {selectTheme} from "../../redux/theme";
 
 const mapStateToProps = (state) => ({
 	abcenceMark: selectAuthAbsence(state),
-	allowedAbcence: selectGroup(state).attendenceLimit
+	allowedAbcence: selectGroup(state).attendenceLimit,
+	darkMode: selectTheme(state)
 });
 
 export const ProgressBar = connect(mapStateToProps, {
 	getAndListenAbcence
-})(({ height, abcenceMark, allowedAbcence, getAndListenAbcence }) => {
+})(({ height, abcenceMark, allowedAbcence, getAndListenAbcence, darkMode }) => {
 	const attencenceprogress = Math.ceil(( abcenceMark / allowedAbcence )* 100);
 	useEffect(() => {
 		const unsub = getAndListenAbcence();
 		return unsub
 	}, []);
+
+	const colorTheme = darkMode
+		? {
+			backgroundColor: COLORS.drawerDark
+		} : {
+			backgroundColor: COLORS.drawerLight
+		};
+
 	return (
 		<View style={styles.margin}>
 			<CustomText style={styles.informationText}>Attendance : {attencenceprogress}% </CustomText>
 			<View style={[ styles.container, { height: height } ]}>
 				<View
-					style={{ ...styles.progress, width: `${attencenceprogress}%`, backgroundColor: COLORS.drawerLight }}
+					style={{ ...styles.progress, width: `${attencenceprogress}%`, ...colorTheme }}
 				/>
 			</View>
 		</View>

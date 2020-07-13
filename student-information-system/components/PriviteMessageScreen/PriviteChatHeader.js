@@ -5,18 +5,33 @@ import { ICONS_LIGHT, COLORS } from '../../styles';
 import { CustomText } from '../../commons/CustomText';
 import { connect } from 'react-redux';
 import { selectRecieverUserName, selectRecieverUserImage } from '../../redux/chats';
+import {selectTheme} from "../../redux/theme";
 
 const mapStateToProps = (state) => ({
 	recieverName: selectRecieverUserName(state),
-	recieverPic: selectRecieverUserImage(state)
+	recieverPic: selectRecieverUserImage(state),
+	darkMode: selectTheme(state)
 });
-export const PriviteChatsHeader = connect(mapStateToProps)(({ navigation, recieverName, recieverPic }) => {
+
+export const PriviteChatsHeader = connect(mapStateToProps)(({ navigation, recieverName, recieverPic, darkMode }) => {
+
+	const colorTheme = darkMode
+		? {
+			backgroundColor: COLORS.backgroundDark,
+			borderColor: COLORS.drawerDark,
+			nameColor: COLORS.backgroundLight
+		} : {
+			backgroundColor: COLORS.backgroundLight,
+			borderColor: COLORS.acsentColor,
+			nameColor: COLORS.textColorDark
+		};
+
 	return (
-		<View style={styles.container}>
+		<View style={{...styles.container, ...colorTheme}}>
 			<IconBtn icon={ICONS_LIGHT.backLight} style={styles.backArrow} onPress={() => navigation.goBack()} />
-			<Image style={styles.profilePiC} source={recieverPic ? { uri: recieverPic } : ICONS_LIGHT.userLight} />
+			<Image style={{...styles.profilePiC, borderColor: colorTheme.borderColor}} source={recieverPic ? { uri: recieverPic } : ICONS_LIGHT.userLight} />
 			<View style={styles.nameContainer}>
-				<CustomText style={styles.name}>{recieverName}</CustomText>
+				<CustomText style={{...styles.name, color: colorTheme.nameColor}}>{recieverName}</CustomText>
 				{/* <CustomText style={styles.userName}>@{reciever.userName}</CustomText> */}
 			</View>
 		</View>
@@ -35,7 +50,6 @@ const styles = StyleSheet.create({
 		borderRadius: 30,
 		marginHorizontal: 15,
 		borderWidth: 2,
-		borderColor: COLORS.acsentColor
 	},
 	backArrow: {
 		marginLeft: 16
@@ -45,7 +59,6 @@ const styles = StyleSheet.create({
 	},
 	name: {
 		fontSize: 18,
-		color: COLORS.textColorDark
 	},
 	userName: {
 		fontSize: 12,

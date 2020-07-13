@@ -22,18 +22,18 @@ export const Drawer = connect(mapStateToProps, { getAndListenGroup })(({ navigat
 	}, []);
 	const colorTheme = darkMode
 		? {
-				dawerStart: COLORS.drawerLight,
+				drawerStart: COLORS.drawerLight,
 				drawerEnd: COLORS.drawerDark,
 			}
 		: {
-				dawerStart: COLORS.drawerLight,
+				drawerStart: COLORS.drawerLight,
 				drawerEnd: COLORS.acsentColor,
 			};
 	return (
 		<SafeAreaProvider>
 			<View style={styles.container}>
 				<LinearGradient
-					colors={[ colorTheme.dawerStart, colorTheme.drawerEnd ]}
+					colors={[ colorTheme.drawerStart, colorTheme.drawerEnd ]}
 					style={{ ...StyleSheet.absoluteFill }}
 					enabled
 					keyboardVerticalOffset={100}

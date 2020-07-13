@@ -2,13 +2,30 @@ import React from 'react';
 import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import { CustomText } from './CustomText';
 import { COLORS, ICONS_LIGHT, GLOBAL_STYLES } from '../styles';
+import {connect} from "react-redux";
+import {selectTheme} from "../redux/theme";
 
-export const Button = ({ text, style, children, onPress }) => (
-	<TouchableOpacity style={{ ...styles.btn, ...style }} onPress={onPress}>
-		<CustomText style={styles.text}>{text}</CustomText>
-		{children}
-	</TouchableOpacity>
-);
+const mapStateToProps = (state) => ({
+	darkMode: selectTheme(state)
+});
+
+
+export const Button = connect(mapStateToProps, {})(({ text, style, children, onPress, darkMode }) => {
+
+	const colorTheme = darkMode
+		? {
+			color: COLORS.drawerDark,
+		} : {
+			color: COLORS.acsentColor,
+		};
+
+	return (
+		<TouchableOpacity style={{...styles.btn, ...style, borderColor: colorTheme.color}} onPress={onPress}>
+			<CustomText style={{...styles.text, ...colorTheme}}>{text}</CustomText>
+			{children}
+		</TouchableOpacity>
+	)
+});
 const styles = StyleSheet.create({
 	btn: {
 		flexDirection: 'row',
@@ -16,14 +33,11 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		justifyContent: 'space-around',
 		borderBottomWidth: 1,
-		borderColor: COLORS.acsentColor,
 		height: 40,
 		borderRadius: 4,
-		// backgroundColor: COLORS.backgroundLight,
-		// ...GLOBAL_STYLES.shaddowTop
+
 	},
 	text: {
 		fontSize: 16,
-		color: COLORS.acsentColor
 	}
 });

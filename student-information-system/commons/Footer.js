@@ -5,8 +5,14 @@ import { COLORS } from '../styles/colors';
 import { GLOBAL_STYLES } from '../styles';
 import { FOOTER_ICONS_DATA } from '../styles/footerIconsData';
 import { useNavigation } from '@react-navigation/native';
+import {selectTheme} from "../redux/theme";
+import {connect} from "react-redux";
 
-export const Footer = ({ style, screen }) => {
+const mapStateToProps = (state) => ({
+	darkMode: selectTheme(state)
+});
+
+export const Footer = connect(mapStateToProps, {})(({ style, screen, darkMode }) => {
 	const [ indicator, setIndicator ] = useState('');
 	//indicator will be a props for indicate wich page we r in in future
 	const { navigate } = useNavigation();
@@ -14,8 +20,18 @@ export const Footer = ({ style, screen }) => {
 		setIndicator(screen);
 		navigate(screen);
 	};
+
+	const colorTheme = darkMode
+		? {
+			backgroundColor: COLORS.backgroundDark,
+			indicatorTheme: COLORS.drawerDark,
+		} : {
+			backgroundColor: COLORS.backgroundLight,
+			indicatorTheme: COLORS.acsentColor,
+		};
+
 	return (
-		<View style={{ ...styles.container, ...style, ...GLOBAL_STYLES.shaddowTop }}>
+		<View style={{ ...styles.container, ...style, ...GLOBAL_STYLES.shaddowTop, ...colorTheme }}>
 			{FOOTER_ICONS_DATA.map((item) => {
 				return (
 					<TouchableOpacity
@@ -23,14 +39,14 @@ export const Footer = ({ style, screen }) => {
 						onPress={() => navigationHandler(item.name)}
 						key={item.indicator}
 					>
-						<Image source={item.icon} style={styles.icon} />
-						{item.name === screen && <View style={styles.indicator} />}
+						<Image source={darkMode ? item.iconDark : item.icon} style={styles.icon} />
+						{item.name === screen && <View style={{...styles.indicator, backgroundColor: colorTheme.indicatorTheme}} />}
 					</TouchableOpacity>
 				);
 			})}
 		</View>
 	);
-};
+});
 const styles = StyleSheet.create({
 	container: {
 		height: 50,
@@ -40,7 +56,6 @@ const styles = StyleSheet.create({
 		justifyContent: 'space-around',
 		borderTopLeftRadius: 40,
 		borderTopRightRadius: 40,
-		backgroundColor: COLORS.backgroundLight,
 		zIndex: 199
 	},
 	btn: {
@@ -56,10 +71,9 @@ const styles = StyleSheet.create({
 	},
 	indicator: {
 		position: 'absolute',
-		bottom: -12,
+		bottom: -11,
 
 		alignSelf: 'center',
-		backgroundColor: COLORS.acsentColor,
 		width: 40,
 		height: 3
 	}

@@ -6,29 +6,43 @@ import { COLORS, GLOBAL_STYLES } from '../../styles';
 import { CustomText } from '../../commons/CustomText';
 import { setActivePosts, selectActivePosts } from '../../redux/posts';
 import { selectAuthGroup } from '../../redux/auth';
+import {selectTheme} from "../../redux/theme";
 
 const mapStateToProps = (state) => ({
 	activePostID: selectActivePosts(state),
-	groupID: selectAuthGroup(state) //ID of the groups user
+	groupID: selectAuthGroup(state), //ID of the groups user
+	darkMode: selectTheme(state)
 });
 
 export const HomeScreenHeader = connect(mapStateToProps, {
 	setActivePosts
-})(({ feeds, setActivePosts, activePostID, groupID }) => {
+})(({ feeds, setActivePosts, activePostID, groupID, darkMode }) => {
 	const filteredFeed = feeds.filter((feed) => feed.ID === groupID || feed.feed === 'News');
+
+	const colorTheme = darkMode
+		? {
+			backgroundColor: COLORS.backgroundDark,
+			textTheme: COLORS.backgroundLight,
+			activeTextTheme: COLORS.drawerDark
+		} : {
+			backgroundColor: COLORS.backgroundLight,
+			textTheme: COLORS.acsentLight,
+			activeTextTheme: COLORS.acsentColor
+		};
+
 	return (
-		<View style={styles.container}>
+		<View style={{...styles.container, ...colorTheme}}>
 			{filteredFeed.map((feed) => (
 				<TouchableOpacity style={styles.btn} onPress={() => setActivePosts(feed.ID)} key={feed.id}>
 					<CustomText
 						style={{
 							...styles.btnText,
-							color: activePostID === feed.ID ? COLORS.acsentColor : COLORS.acsentLight
+							color: activePostID === feed.ID ? colorTheme.activeTextTheme : colorTheme.textTheme
 						}}
 					>
 						{feed.feed}
 					</CustomText>
-					{activePostID === feed.ID && <View style={styles.indicator} />}
+					{activePostID === feed.ID && <View style={styles.indicator} backgroundColor={colorTheme.activeTextTheme}/>}
 				</TouchableOpacity>
 			))}
 		</View>
@@ -37,7 +51,6 @@ export const HomeScreenHeader = connect(mapStateToProps, {
 
 const styles = StyleSheet.create({
 	container: {
-		backgroundColor: COLORS.backgroundLight,
 		height: 70,
 		flexDirection: 'row',
 		alignItems: 'center',
@@ -52,7 +65,6 @@ const styles = StyleSheet.create({
 		position: 'absolute',
 		bottom: -8,
 		marginTop: 10,
-		backgroundColor: COLORS.acsentColor,
 		width: 50,
 		height: 3,
 		alignSelf: 'center'

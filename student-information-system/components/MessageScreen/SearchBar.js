@@ -2,18 +2,20 @@ import React, { useState } from 'react';
 import { StyleSheet, View, TextInput } from 'react-native';
 import { connect } from 'react-redux';
 
-import { COLORS, ICONS_LIGHT } from '../../styles';
+import {COLORS, ICONS_DARK, ICONS_LIGHT} from '../../styles';
 import { IconBtn } from '../../commons/IconBtn';
 import { selectChatsUsers, setChatsUsers, getAndListenChatUsers } from '../../redux/chats';
+import {selectTheme} from "../../redux/theme";
 
 const mapStateToProps = (state) => ({
-	users: selectChatsUsers(state)
+	users: selectChatsUsers(state),
+	darkMode: selectTheme(state)
 });
 
 export const SearchBar = connect(mapStateToProps, {
 	setChatsUsers,
 	getAndListenChatUsers
-})(({ users, setChatsUsers, getAndListenChatUsers }) => {
+})(({ users, setChatsUsers, getAndListenChatUsers, darkMode }) => {
 	const [ searchName, setSaerchName ] = useState('');
 	const usersArr = Object.keys(users).map((key) => ({
 		ID: key, //use uppercase letters for IDs
@@ -29,17 +31,31 @@ export const SearchBar = connect(mapStateToProps, {
 			}
 		}
 	};
+
+	const colorTheme = darkMode
+		? {
+			backgroundColor: COLORS.acsentLight,
+			placeHolderColor: COLORS.backgroundLight,
+			refreshIcon: ICONS_DARK.refreshDark,
+			searchIcon: ICONS_DARK.searchDark
+		} : {
+			backgroundColor: COLORS.backgroundLight,
+			placeHolderColor: COLORS.textColorDark,
+			refreshIcon: ICONS_LIGHT.refresUsers,
+			searchIcon: ICONS_LIGHT.search
+		};
+
 	return (
-		<View style={styles.container}>
+		<View style={{...styles.container, ...colorTheme}}>
 			<TextInput
 				value={searchName}
 				style={styles.searchBar}
 				placeholder="search by username"
 				onChangeText={(value) => setSaerchName(value)}
-				placeholderTextColor={COLORS.textColorDark}
+				placeholderTextColor={colorTheme.placeHolderColor}
 			/>
-			<IconBtn icon={ICONS_LIGHT.search} style={styles.searchIcon} onPress={onPressHandler} />
-			<IconBtn icon={ICONS_LIGHT.refresUsers} style={styles.refresh} onPress={getAndListenChatUsers} />
+			<IconBtn icon={colorTheme.searchIcon} style={styles.searchIcon} onPress={onPressHandler} />
+			<IconBtn icon={colorTheme.refreshIcon} style={styles.refresh} onPress={getAndListenChatUsers} />
 		</View>
 	);
 });
