@@ -54,7 +54,7 @@ export const validateForm = (isSignUP, email, password, rePassword, userName, na
 		}
 		if (password.trim().length < 8) {
 			showMessage({
-				message: 'Password is short',
+				message: 'Password is too short',
 				description: 'Password should be included at least 8 characters',
 				type: 'danger',
 				icon: 'auto',
@@ -74,7 +74,7 @@ export const validateForm = (isSignUP, email, password, rePassword, userName, na
 			});
 			return false;
 		}
-		if (userName.trim().toUpperCase() === '') {
+		if (userName.trim().toLowerCase()=== '') {
 			showMessage({
 				message: 'Username must be all lowercas',
 				description: 'Username use lovvercase latter for username',

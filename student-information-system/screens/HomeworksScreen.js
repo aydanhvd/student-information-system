@@ -1,9 +1,8 @@
 import React from 'react';
-import { StyleSheet, View, Image, TouchableOpacity , FlatList} from 'react-native';
-import { Footer, ClassField } from '../components';
+import { StyleSheet, View } from 'react-native';
+import { Footer  } from '../components';
 import { Header } from '../commons/Header';
 import { COLORS } from '../styles';
-import { selectHomeworks } from '../redux/materials';
 import { connect } from 'react-redux';
 import { HomeWorksList } from '../components/HomeWorksScreen/HomeWorksList';
 import {selectTheme} from "../redux/theme";

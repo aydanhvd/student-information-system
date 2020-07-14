@@ -5,16 +5,14 @@ import { COLORS } from '../../styles/colors';
 import { Seperator } from '../../commons/Seperator';
 import { ScheduleField } from './ScheduleField';
 import { GLOBAL_STYLES } from '../../styles';
-import {selectTheme} from "../../redux/theme";
-import {connect} from "react-redux";
+import { selectTheme } from '../../redux/theme';
+import { connect } from 'react-redux';
 import { getAndListenSchedule, selectSchedule } from '../../redux/materials';
-
 
 const mapStateToProps = (state) => ({
 	schedule: selectSchedule(state),
-  	darkMode: selectTheme(state)
+	darkMode: selectTheme(state)
 });
-
 
 export const ScheduleContainer = connect(mapStateToProps, {
 	getAndListenSchedule
@@ -23,21 +21,23 @@ export const ScheduleContainer = connect(mapStateToProps, {
 		const unsub = getAndListenSchedule();
 		return unsub;
 	}, []);
-  
-  	const colorTheme = darkMode
+
+	const colorTheme = darkMode
 		? {
-			color: COLORS.headerColor
-		} : {
-			color: COLORS.acsentColor
-		};
-  
+				color: COLORS.headerColor
+			}
+		: {
+				color: COLORS.acsentColor
+			};
+
 	return (
 		<View style={styles.container}>
-			<CustomText style={{...styles.heading, ...colorTheme}}>Schedule</CustomText>
+			<CustomText style={{ ...styles.heading, ...colorTheme }}>Schedule</CustomText>
 			<Seperator distance={17} color={COLORS.commentsColorLight} />
 			<View style={styles.row}>
 				{schedule.map((schedule) => (
 					<ScheduleField
+						key={schedule.day}
 						fontSize={{ fontSize: 14 }}
 						heading={schedule.day}
 						date={schedule.time}

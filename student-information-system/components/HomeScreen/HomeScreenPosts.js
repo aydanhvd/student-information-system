@@ -29,6 +29,7 @@ export const HomeScreenPosts = connect(mapStateToProps, {
 	);
 	return (
 		<FlatList
+			keyExtractor={(item)=>item.ID}
 			contentContainerStyle={styles.container}
 			data={posts.slice(0).reverse()}
 			renderItem={({ item }) => {

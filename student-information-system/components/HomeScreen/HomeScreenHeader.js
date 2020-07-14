@@ -33,7 +33,7 @@ export const HomeScreenHeader = connect(mapStateToProps, {
 	return (
 		<View style={{...styles.container, ...colorTheme}}>
 			{filteredFeed.map((feed) => (
-				<TouchableOpacity style={styles.btn} onPress={() => setActivePosts(feed.ID)} key={feed.id}>
+				<TouchableOpacity style={styles.btn} onPress={() => setActivePosts(feed.ID)} key={feed.ID}>
 					<CustomText
 						style={{
 							...styles.btnText,

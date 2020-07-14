@@ -37,7 +37,7 @@ export const Footer = connect(mapStateToProps, {})(({ style, screen, darkMode })
 					<TouchableOpacity
 						style={[ styles.btn ]}
 						onPress={() => navigationHandler(item.name)}
-						key={item.indicator}
+						key={item.name}
 					>
 						<Image source={darkMode ? item.iconDark : item.icon} style={styles.icon} />
 						{item.name === screen && <View style={{...styles.indicator, backgroundColor: colorTheme.indicatorTheme}} />}

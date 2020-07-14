@@ -15,7 +15,7 @@ const mapStateToProps = (state) => ({
 export const SearchBar = connect(mapStateToProps, {
 	setChatsUsers,
 	getAndListenChatUsers
-})(({ users, setChatsUsers, getAndListenChatUsers, darkMode }) => {
+})(({ users={}, setChatsUsers, getAndListenChatUsers, darkMode }) => {
 	const [ searchName, setSaerchName ] = useState('');
 	const usersArr = Object.keys(users).map((key) => ({
 		ID: key, //use uppercase letters for IDs
@@ -27,11 +27,10 @@ export const SearchBar = connect(mapStateToProps, {
 				let user = usersArr.find((user) => {
 					return user.userName.includes(searchName.toLowerCase().trim());
 				});
-				setChatsUsers({ user });
+				setChatsUsers({user});
 			}
 		}
 	};
-
 	const colorTheme = darkMode
 		? {
 			backgroundColor: COLORS.acsentLight,

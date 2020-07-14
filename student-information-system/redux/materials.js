@@ -112,7 +112,8 @@ export const getAndListenGroup = () => (dispatch, getState) => {
 			(err) => {
 				console.log('getAndListenGroups err', err);
 				showMessage({
-					message: { err },
+					message: `something went wront please try later again`,
+					description: `${err.message}`,
 					type: 'danger',
 					icon: 'auto',
 					style: { backgroundColor: COLORS.error },
@@ -154,7 +155,8 @@ export const getAndListenMaterials = () => (dispatch, getState) => {
 			(err) => {
 				console.log('getAndListToMaterials part 1 err', err);
 				showMessage({
-					message: { err },
+					message: `something went wront please try later again`,
+					description: `${err.message}`,
 					type: 'danger',
 					icon: 'auto',
 					style: { backgroundColor: COLORS.error },
@@ -196,7 +198,8 @@ export const getAndListenHomeWorks = () => (dispatch, getState) => {
 			(err) => {
 				console.log('getAndListenHomeWorks part 1 err', err);
 				showMessage({
-					message: { err },
+					message: `something went wront please try later again`,
+					description: `${err.message}`,
 					type: 'danger',
 					icon: 'auto',
 					style: { backgroundColor: COLORS.error },
@@ -237,7 +240,8 @@ export const getAndListenGrades = () => (dispatch, getState) => {
 			(err) => {
 				console.log('getAndListenGrades part 1 err', err);
 				showMessage({
-					message: { err },
+					message: `something went wront please try later again`,
+					description: `${err.message}`,
 					type: 'danger',
 					icon: 'auto',
 					style: { backgroundColor: COLORS.error },
@@ -276,7 +280,8 @@ export const getAndListenAgenda = () => (dispatch, getState) => {
 	} catch (err) {
 		console.log('getAndListenAgenda', err);
 		showMessage({
-			message: { err },
+			message: `something went wront please try later again`,
+			description: `${err.message}`,
 			type: 'danger',
 			icon: 'auto',
 			style: { backgroundColor: COLORS.error },
@@ -304,7 +309,8 @@ export const getAndListenSchedule = () => (dispatch, getState) => {
 			(err) => {
 				console.log('getAndListenSchedule part 1 err', err);
 				showMessage({
-					message: { err },
+					message: `something went wront please try later again`,
+					description: `${err.message}`,
 					type: 'danger',
 					icon: 'auto',
 					style: { backgroundColor: COLORS.error },
@@ -316,7 +322,8 @@ export const getAndListenSchedule = () => (dispatch, getState) => {
 	} catch (err) {
 		console.log('getAndListenSchedule err', err),
 			showMessage({
-				message: { err },
+				message: `something went wront please try later again`,
+				description: `${err.message}`,
 				type: 'danger',
 				icon: 'auto',
 				style: { backgroundColor: COLORS.error },

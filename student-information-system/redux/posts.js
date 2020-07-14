@@ -89,7 +89,8 @@ export const getAndListenFeeds = () => (dispatch) => {
 			(err) => {
 				console.log('getAndListenFeeds err', err);
 				showMessage({
-					message: { err },
+					message: `something went wront please try later again`,
+					description: `${err.message}`,
 					type: 'danger',
 					icon: 'auto',
 					style: { backgroundColor: COLORS.error },
@@ -101,7 +102,8 @@ export const getAndListenFeeds = () => (dispatch) => {
 	} catch (err) {
 		console.log('getAndListenFeeds', err);
 		showMessage({
-			message: { err },
+			message: `something went wront please try later again`,
+			description: `${err.message}`,
 			type: 'danger',
 			icon: 'auto',
 			style: { backgroundColor: COLORS.error },
@@ -129,7 +131,8 @@ export const getAndListenPosts = (feedID) => (dispatch) => {
 			(err) => {
 				console.log('getAndListeToPosts part 1 err', err);
 				showMessage({
-					message: { err },
+					message: `something went wront please try later again`,
+					description: `${err.message}`,
 					type: 'danger',
 					icon: 'auto',
 					style: { backgroundColor: COLORS.error },
@@ -141,7 +144,8 @@ export const getAndListenPosts = (feedID) => (dispatch) => {
 	} catch (err) {
 		console.log('getAndListeToPosts err', err);
 		showMessage({
-			message: { err },
+			message: `something went wront please try later again`,
+			description: `${err.message}`,
 			type: 'danger',
 			icon: 'auto',
 			style: { backgroundColor: COLORS.error },
@@ -171,7 +175,8 @@ export const shareNewPost = (feedID, text) => (dispatch, getState) => {
 			if (err) {
 				console.log('shareNewPost err', err);
 				showMessage({
-					message: { err },
+					message: `something went wront please try later again`,
+					description: `${err.message}`,
 					type: 'danger',
 					icon: 'auto',
 					style: { backgroundColor: COLORS.error },
@@ -183,7 +188,8 @@ export const shareNewPost = (feedID, text) => (dispatch, getState) => {
 	} catch (err) {
 		console.log('sharePost err', err);
 		showMessage({
-			message: { err },
+			message: `something went wront please try later again`,
+			description: `${err.message}`,
 			type: 'danger',
 			icon: 'auto',
 			style: { backgroundColor: COLORS.error },
@@ -213,7 +219,8 @@ export const toggleLike = (postID) => (dispatch, getState) => {
 	} catch (err) {
 		console.log('toggleLike err', err);
 		showMessage({
-			message: { err },
+			message: `something went wront please try later again`,
+			description: `${err.message}`,
 			type: 'danger',
 			icon: 'auto',
 			style: { backgroundColor: COLORS.error },
@@ -240,7 +247,8 @@ export const getAndListenLikes = (postID) => (dispatch, getState) => {
 	} catch (err) {
 		console.log('getAndListenLikes', err);
 		showMessage({
-			message: { err },
+			message: `something went wront please try later again`,
+			description: `${err.message}`,
 			type: 'danger',
 			icon: 'auto',
 			style: { backgroundColor: COLORS.error },

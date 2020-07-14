@@ -2,12 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Agenda } from 'react-native-calendars';
 import { COLORS } from '../../styles';
-import { ICONS_LIGHT } from '../../styles/iconsLight';
-import { CustomText } from '../../commons/CustomText';
+
 import { connect } from 'react-redux';
 import { selectAgenda, getAndListenAgenda } from '../../redux/materials';
 import { ClassField } from '../ClassField';
-import {selectTheme} from "../../redux/theme";
+import { selectTheme } from '../../redux/theme';
 
 const mapStateToProps = (state) => ({
 	agendaData: selectAgenda(state),
@@ -24,14 +23,15 @@ export const CalendarAgenda = connect(mapStateToProps, {
 
 	const colorTheme = darkMode
 		? {
-			backgroundColor: COLORS.backgroundDark,
-			fieldColor: COLORS.headerColor,
-			dayColor: COLORS.backgroundLight,
-		} : {
-			backgroundColor: COLORS.backgroundLight,
-			fieldColor: COLORS.acsentColor,
-			dayColor: COLORS.backgroundDark
-		};
+				backgroundColor: COLORS.backgroundDark,
+				fieldColor: COLORS.headerColor,
+				dayColor: COLORS.backgroundLight
+			}
+		: {
+				backgroundColor: COLORS.backgroundLight,
+				fieldColor: COLORS.acsentColor,
+				dayColor: COLORS.backgroundDark
+			};
 
 	return (
 		<Agenda
