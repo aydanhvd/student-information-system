@@ -16,7 +16,7 @@ const mapStateToProps = (state) => ({
 
 export const ScheduleContainer = connect(mapStateToProps, {
 	getAndListenSchedule
-})(({ schedule = {}, getAndListenSchedule, darkMode }) => {
+})(({ schedule=[], getAndListenSchedule, darkMode }) => {
 	useEffect(() => {
 		const unsub = getAndListenSchedule();
 		return unsub;
@@ -56,7 +56,6 @@ const styles = StyleSheet.create({
 	},
 	heading: {
 		fontSize: 24,
-		color: COLORS.acsentColor,
 		marginVertical: 10,
 		marginLeft: 10
 	},
@@ -71,7 +70,6 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 		height: 90,
 		borderRadius: 4,
-		backgroundColor: COLORS.backgroundLight,
 		...GLOBAL_STYLES.shaddowTop
 	}
 });

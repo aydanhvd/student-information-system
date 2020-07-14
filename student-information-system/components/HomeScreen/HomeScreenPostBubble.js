@@ -88,12 +88,9 @@ const styles = StyleSheet.create({
 		justifyContent: 'flex-end'
 	},
 	time: {
-		// alignSelf: 'center',
-		// marginLeft: 4,
 		position: 'absolute',
 		top: 10,
 		right: 16,
-		color: COLORS.acsentLight,
 		fontSize: 12
 	}
 });

@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Image } from 'react-native';
 import { IconBtn } from '../index';
-import { ICONS_LIGHT, COLORS } from '../../styles';
+import {ICONS_LIGHT, COLORS, ICONS_DARK} from '../../styles';
 import { CustomText } from '../../commons/CustomText';
 import { connect } from 'react-redux';
 import { selectRecieverUserName, selectRecieverUserImage } from '../../redux/chats';
@@ -19,16 +19,18 @@ export const PriviteChatsHeader = connect(mapStateToProps)(({ navigation, reciev
 		? {
 			backgroundColor: COLORS.backgroundDark,
 			borderColor: COLORS.drawerDark,
-			nameColor: COLORS.backgroundLight
+			nameColor: COLORS.backgroundLight,
+			backIcon: ICONS_DARK.backDark
 		} : {
 			backgroundColor: COLORS.backgroundLight,
 			borderColor: COLORS.acsentColor,
-			nameColor: COLORS.textColorDark
+			nameColor: COLORS.textColorDark,
+			backIcon: ICONS_LIGHT.backLight
 		};
 
 	return (
 		<View style={{...styles.container, ...colorTheme}}>
-			<IconBtn icon={ICONS_LIGHT.backLight} style={styles.backArrow} onPress={() => navigation.goBack()} />
+			<IconBtn icon={colorTheme.backIcon} style={styles.backArrow} onPress={() => navigation.goBack()} />
 			<Image style={{...styles.profilePiC, borderColor: colorTheme.borderColor}} source={recieverPic ? { uri: recieverPic } : ICONS_LIGHT.userLight} />
 			<View style={styles.nameContainer}>
 				<CustomText style={{...styles.name, color: colorTheme.nameColor}}>{recieverName}</CustomText>

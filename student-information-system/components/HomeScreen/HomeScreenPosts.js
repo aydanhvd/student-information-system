@@ -41,7 +41,6 @@ export const HomeScreenPosts = connect(mapStateToProps, {
 
 const styles = StyleSheet.create({
 	container: {
-		paddingBottom: 70,
 		marginTop: 30,
 		flexGrow: 1,
 		paddingHorizontal:17,
