@@ -6,57 +6,73 @@ import Slider from 'react-native-slide-to-unlock';
 
 import { COLORS, ICONS_LIGHT } from '../../styles';
 import { validateForm } from '../../utils/validateField';
-import {clearAuthError, signUp} from '../../redux/auth';
+import { signUp} from '../../redux/auth';
 import { IconBtn } from '../index';
 import { CustomText } from '../../commons/CustomText';
 
-
-
-export const SignUpForm = connect(null, { signUp, clearAuthError })
-	(({ signUp, groupsList, clearAuthError }) => {
+export const SignUpForm = connect(null, { signUp })(({ signUp, groupsList }) => {
 	const [ groupIndex, setGroupIndex ] = useState(null);
 	const [ fields, setFields ] = useState({
-		email: { value: '', placeholder: 'email' },
-		userName: { value: '', placeholder: 'username' },
-		name: { value: '', placeholder: 'full name' },
-		password: { value: '', placeholder: 'password', secureTextEntry: true },
-		rePassword: { value: '', placeholder: 'repeat password', secureTextEntry: true }
+		email: '',
+		userName: '',
+		name: '',
+		password:'',
+		rePassword:''
 	});
 	const fieldChnageHandler = (name, value) => {
-		clearAuthError();
 		setFields((fields) => ({
 			...fields,
-			[name]: {
-				...fields[name],
-				value
-			}
+			[name]: value
 		}));
 	};
 	const submintHandlerSignUp = (fields,signUp) => {
-		const email = fields.email.value.toLowerCase().trim();
-		const pass = fields.password.value.trim();
-		const rePass = fields.rePassword.value.trim();
-		const userName = fields.userName.value.toLowerCase().trim();
-		const name = fields.name.value.trim();
+		const email = fields.email.trim();
+		const pass = fields.password.trim();
+		const rePass = fields.rePassword.trim();
+		const userName = fields.userName.trim();
+		const name = fields.name.trim();
 		if (validateForm(true, email, pass, rePass, userName, name, groupsList[groupIndex]?.ID)) {
 			signUp(email, name, userName, pass, groupsList[groupIndex].ID);
 		}
 	};
 	return (
 		<View style={styles.form}>
-			{Object.keys(fields).map((key) => {
-				return (
 					<TextInput
-						key={fields[key].placeholder}
-						placeholder={fields[key].placeholder}
-						value={fields[key].value}
-						secureTextEntry={fields[key].secureTextEntry}
-						onChangeText={(value) => fieldChnageHandler(key, value)}
+						placeholder='email'
+						value={fields.email}
+						onChangeText={(value) => fieldChnageHandler('email', value)}
 						style={styles.input}
 						placeholderTextColor="rgba(255,255,255, 0.3)"
 					/>
-				);
-			})}
+					<TextInput
+						placeholder='username'
+						value={fields.username}
+						onChangeText={(value) => fieldChnageHandler('userName', value)}
+						style={styles.input}
+						placeholderTextColor="rgba(255,255,255, 0.3)"
+					/>
+					<TextInput
+						placeholder='full name'
+						value={fields.name}
+						onChangeText={(value) => fieldChnageHandler('name', value)}
+						style={styles.input}
+						placeholderTextColor="rgba(255,255,255, 0.3)"
+					/>
+					<TextInput
+						placeholder='password'
+						secureTextEntry={true}
+						value={fields.password}
+						onChangeText={(value) => fieldChnageHandler('password', value)}
+						style={styles.input}
+						placeholderTextColor="rgba(255,255,255, 0.3)"
+					/><TextInput
+						placeholder='repeat password'
+						secureTextEntry={true}
+						value={fields.rePassword}
+						onChangeText={(value) => fieldChnageHandler('rePassword', value)}
+						style={styles.input}
+						placeholderTextColor="rgba(255,255,255, 0.3)"
+					/>
 			<CustomText style={styles.label}>Select Group</CustomText>
 			<RadioGroup style={styles.groupBtn} selectedIndex={groupIndex} onChange={(index) => setGroupIndex(index)}>
 				<Radio status="control">MD-1</Radio>
