@@ -33,7 +33,6 @@ export const HomeworksScreen =connect(mapStateToProps, {})(({ darkMode }) => {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		backgroundColor: COLORS.backgroundLight,
 	},
 	footer: {
 		position: 'absolute',

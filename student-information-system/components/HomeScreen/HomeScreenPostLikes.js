@@ -22,7 +22,7 @@ export const HomeScreenPostLikes = connect(null, {
 			<TouchableOpacity onPress={handleLike}>
 				<AntDesign name="heart" size={15} color={isLiked ? COLORS.acsentColor : COLORS.textColorDark} />
 			</TouchableOpacity>
-			<Text style={styles.count}>{}</Text>
+			<Text style={styles.count}>100</Text>
 		</View>
 	);
 });

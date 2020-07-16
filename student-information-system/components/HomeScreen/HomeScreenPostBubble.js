@@ -6,6 +6,7 @@ import { GLOBAL_STYLES } from '../../styles/globalStyles';
 import { ICONS_LIGHT } from '../../styles';
 import { selectTheme } from '../../redux/theme';
 import { connect } from 'react-redux';
+import { HomeScreenPostLikes }  from './HomeScreenPostLikes'
 
 const mapStateToProps = (state) => ({
 	darkMode: selectTheme(state)
@@ -24,7 +25,7 @@ export const HomeScreenPostBubble = connect(mapStateToProps, {})(({ post, darkMo
 				textTheme: COLORS.backgroundLight
 			}
 		: {
-				backgroundColor: COLORS.backgroundLight,
+				backgroundColor: "#F5F5F5",
 				borderTheme: COLORS.acsentColor,
 				textTheme: COLORS.acsentLight
 			};
@@ -33,18 +34,18 @@ export const HomeScreenPostBubble = connect(mapStateToProps, {})(({ post, darkMo
 		<View style={{ ...styles.container, ...GLOBAL_STYLES.shaddowTop, ...colorTheme }}>
 			<Image
 				style={styles.profilePic}
-				borderColor={colorTheme.borderTheme}
+				// borderColor={colorTheme.borderTheme}
 				source={post.autherProfilePic ? { uri: post.autherProfilePic } : ICONS_LIGHT.userLight}
 			/>
 			<View style={styles.postBodyContainer}>
 				<CustomText weight="semi" style={{ ...styles.fullName, color: colorTheme.textTheme }}>
 					{post.auther}
-				</CustomText>
+				</CustomText>			
 				<CustomText style={{ ...styles.userName, color: colorTheme.borderTheme }}>@{post.userName}</CustomText>
 				<CustomText style={{ ...styles.text, color: colorTheme.textTheme }}>{post.text}</CustomText>
-				{/* <View style={styles.likesContainer}>
+				<View style={styles.likesContainer}>
 					<HomeScreenPostLikes postID={post.ID}/>
-				</View> */}
+				</View>
 			</View>
 			<CustomText style={{ ...styles.time, color: colorTheme.textTheme }}>{formattedTime}</CustomText>
 		</View>
@@ -55,7 +56,7 @@ const styles = StyleSheet.create({
 	container: {
 		flexDirection: 'row',
 		borderColor: COLORS.textColorDark, //find out why box shadow is not working
-		marginBottom: 25,
+		marginBottom: 20,
 		padding: 18,
 		borderRadius: 10,
 		zIndex: 999,
@@ -65,7 +66,7 @@ const styles = StyleSheet.create({
 		width: 50,
 		height: 50,
 		borderRadius: 40,
-		borderWidth: 3,
+		// borderWidth: 3,
 		marginRight: 13
 	},
 	postBodyContainer: {
@@ -76,7 +77,8 @@ const styles = StyleSheet.create({
 		marginBottom: 2
 	},
 	userName: {
-		fontSize: 12
+		fontSize: 12,
+		marginBottom:10
 	},
 	text: {
 		fontSize: 16

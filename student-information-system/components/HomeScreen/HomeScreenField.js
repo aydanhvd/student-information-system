@@ -49,10 +49,10 @@ export const HomeScreenField = connect(mapStateToProps, { shareNewPost })(({ act
 
 const styles = StyleSheet.create({
 	container: {
-		height: 105,
+		height: 100,
 		flexDirection: 'row',
-		borderBottomEndRadius: 40,
-		borderBottomStartRadius: 40,
+		borderBottomEndRadius: 50,
+		borderBottomStartRadius: 50,
 	},
 	icon: {
 		width: 45,
