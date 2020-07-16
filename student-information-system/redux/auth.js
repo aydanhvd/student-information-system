@@ -159,7 +159,7 @@ export const getAndListenAuthGroupsList = () => (dispatch) => {
 				if (snapshot.exists()) {
 					const groupsObj = snapshot.val();
 					const groupsArr = Object.keys(groupsObj).map((key) => ({
-						ID: key,
+						value: key,
 						...groupsObj[key]
 					}));
 					dispatch(setAuthGroupsList(groupsArr));

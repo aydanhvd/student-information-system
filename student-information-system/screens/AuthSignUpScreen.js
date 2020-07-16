@@ -7,7 +7,7 @@ import { COLORS } from '../styles';
 import { TouchableText } from '../commons/ToucableText';
 import { SignUpForm } from '../components/AuthScreen/SigUpForm';
 import { connect } from 'react-redux';
-import { selectAuthGroupsList, getAndListenAuthGroupsList, setAuthError, clearAuthError } from '../redux/auth';
+import { selectAuthGroupsList, getAndListenAuthGroupsList } from '../redux/auth';
 
 const mapStateToProps = (state) => ({
 	groupsList: selectAuthGroupsList(state)
@@ -20,10 +20,11 @@ export const AuthSingUpScreen = connect(mapStateToProps, {
 		const unsub = getAndListenAuthGroupsList();
 		return unsub;
 	}, []);
+	console.log('navigation',navigation)
 	return (
 		<KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : ''}>
 			<LinearGradient colors={[ COLORS.acsentColor, COLORS.drawerDark ]} style={{ ...StyleSheet.absoluteFill }} />
-				<CustomText style={styles.greetingText}>Join The Family</CustomText>		
+				<CustomText weight="bold" style={styles.greetingText}>Join The Family</CustomText>		
 				<Image source={signUpImage} style={styles.signUpImage} />	
 				<SignUpForm groupsList={groupsList} />			
 				<TouchableText style={styles.link} text="One of us?" onPress={() => navigation.goBack()} />
@@ -44,8 +45,8 @@ const styles = StyleSheet.create({
 	greetingText: {
 		color: COLORS.backgroundLight,
 		alignSelf: 'center',
-		fontSize: 48,
-		marginTop: 40,
+		fontSize: 40,
+		marginTop: 70,
 		marginBottom: 20
 	},
 	link: {

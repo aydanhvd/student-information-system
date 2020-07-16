@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
 	greetingText: {
 		color: COLORS.backgroundLight,
 		alignSelf: 'center',
-		fontSize: 64
+		fontSize: 50
 	},
 	signInImage: {
 		alignSelf: 'center',
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
 		marginLeft: 20
 	},
 	link: {
-		marginLeft: 230,
+		marginLeft: 210,
 		color: COLORS.backgroundLight,
 		fontSize: 18,
 		textDecorationLine: 'underline'
