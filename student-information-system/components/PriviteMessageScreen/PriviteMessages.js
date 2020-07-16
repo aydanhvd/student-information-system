@@ -13,7 +13,6 @@ export const PriviteMessages = connect(mapStateToProps)(({ messages }) => {
 	return (
 		<FlatList
 			data={messages.slice(0).reverse()}
-			keyExtractor={(item)=>item.ID}
 			style={styles.container}
 			inverted={true}
 			renderItem={({ item }) => {
