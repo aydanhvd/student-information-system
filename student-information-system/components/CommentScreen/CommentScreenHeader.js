@@ -13,6 +13,7 @@ const mapStateToProps = (state) => ({
     darkMode: selectTheme(state)
 });
 
+
 export const CommentScreenHeader = connect(mapStateToProps)(({ navigation, receiverName, receiverPic, darkMode }) => {
     
     const colorTheme = darkMode
