@@ -4,7 +4,7 @@ import { HomeScreenHeader, HomeScreenField, Footer, HomeScreenPosts } from '../c
 import { COLORS } from '../styles/colors';
 import { connect } from 'react-redux';
 import { getAndListenFeeds, selectFeeds } from '../redux/posts';
-import {selectTheme} from "../redux/theme";
+import { selectTheme } from '../redux/theme';
 
 const mapStateToProps = (state) => ({
 	feeds: selectFeeds(state),
@@ -12,8 +12,7 @@ const mapStateToProps = (state) => ({
 });
 export const HomeScreen = connect(mapStateToProps, {
 	getAndListenFeeds
-})(({ feeds, getAndListenFeeds, darkMode }) => {
-	
+})(({ feeds, getAndListenFeeds, darkMode, navigation }) => {
 	useEffect(() => {
 		const unsubscribe = getAndListenFeeds();
 		return unsubscribe;
@@ -21,23 +20,24 @@ export const HomeScreen = connect(mapStateToProps, {
 
 	const colorTheme = darkMode
 		? {
-			backgroundColor: COLORS.backgroundDark
-		} : {
-			backgroundColor: COLORS.backgroundLight
-		};
+				backgroundColor: COLORS.backgroundDark
+			}
+		: {
+				backgroundColor: COLORS.backgroundLight
+			};
 
 	return (
-		<View style={{...styles.container, ...colorTheme}}>
+		<View style={{ ...styles.container, ...colorTheme }}>
 			<HomeScreenHeader feeds={feeds} />
 			<HomeScreenField />
-			<HomeScreenPosts />
+			<HomeScreenPosts navigation={navigation} />
 			<Footer style={styles.footer} screen="HomeStack" />
 		</View>
 	);
 });
 const styles = StyleSheet.create({
 	container: {
-		flex: 1,
+		flex: 1
 	},
 	footer: {
 		position: 'absolute',

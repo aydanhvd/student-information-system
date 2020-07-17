@@ -12,7 +12,7 @@ const mapStateToProps = (state) => ({
 });
 
 
-export const HomeworksScreen =connect(mapStateToProps, {})(({ darkMode }) => {
+export const HomeworksScreen =connect(mapStateToProps, {})(({ darkMode}) => {
 
 	const colorTheme = darkMode
 		? {

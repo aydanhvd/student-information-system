@@ -1,5 +1,6 @@
 import fbApp from '../utils/FireBaseInit';
 import { showMessage } from 'react-native-flash-message';
+import {COLORS} from '../styles/colors'
 
 //Action Types
 const SET_AUTH_STATUS = 'SET_AUTH_STATUS';
@@ -11,6 +12,8 @@ const SET_AUTH_GROUPS_LIST = 'SET_AUTH_GROUPS_LIST';
 const SET_AUTH_ABSENCE = 'SET_AUTH_ABSENCE';
 const SET_AUTH_ERROR = 'SET_AUTH_ERROR';
 const CLEAR_AUTH_ERROR = 'CLEAR_AUTH_ERROR';
+const SET_AUTH_PASS = 'SET_AUTH_PASS';
+const CLEAR_AUTH_PASS = 'CLEAR_AUTH_PASS';
 
 //Selectors
 export const MODULE_NAME = 'auth';
@@ -22,7 +25,6 @@ export const selectAuthGrades = (state) => state[MODULE_NAME].grades;
 export const selectAuthAbsence = (state) => state[MODULE_NAME].absence;
 export const selectAuthGroup = (state) => state[MODULE_NAME].group;
 export const getAuthError = (state) => state[MODULE_NAME].error;
-
 export const selectAuthGroupsList = (state) => state[MODULE_NAME].groupsList;
 
 //Reducer
@@ -38,7 +40,8 @@ const initialState = {
 	error: {
 		status: false,
 		errCode: null
-	}
+	},
+	passWord: null, 
 };
 
 export function reducer(state = initialState, { type, payload }) {
@@ -108,6 +111,16 @@ export function reducer(state = initialState, { type, payload }) {
 					errCode: null
 				}
 			};
+		case SET_AUTH_PASS:
+			return {
+				...state,
+				passWord: payload
+			};
+		case CLEAR_AUTH_PASS:
+			return {
+				...state,
+				passWord: null
+			};
 		default:
 			return state;
 	}
@@ -148,7 +161,13 @@ export const setAuthError = (payload) => ({
 export const clearAuthError = () => ({
 	type: CLEAR_AUTH_ERROR
 });
-
+export const setAuthPass = (payload) => ({
+	type: SET_AUTH_PASS,
+	payload
+});
+export const clearAuthPass = () => ({
+	type: CLEAR_AUTH_PASS
+});
 //Middlewares
 export const getAndListenAuthGroupsList = () => (dispatch) => {
 	try {
@@ -184,7 +203,7 @@ export const getAndListenAuthGroupsList = () => (dispatch) => {
 		console.log('getAndListenAuthGroupsList', err);
 		showMessage({
 			message: `something went wront please try later again`,
-					description: `${err.message}`,
+			description: `${err.message}`,
 			type: 'danger',
 			icon: 'auto',
 			style: { backgroundColor: COLORS.error },
@@ -235,13 +254,21 @@ export const logIn = (email, password) => async (dispatch) => {
 				);
 			} else {
 				dispatch(setAuthError(reference.error.message));
+				showMessage({
+					message: `failed to log in`,
+					description: `${error.message}`,
+					type: 'danger',
+					icon: 'auto',
+					style: { backgroundColor: COLORS.error },
+					textStyle: { fontFamily: 'RelewayRegular' }
+				});
 			}
 		});
 		return () => reference.off();
 	} catch (err) {
 		console.log('logIn', err);
 		showMessage({
-			message: `something went wront please try later again`,
+			message: `failed to log in`,
 			description: `${err.message}`,
 			type: 'danger',
 			icon: 'auto',
@@ -257,7 +284,7 @@ export const signUp = (email, name, userName, password, group) => async (dispatc
 	try {
 		//todo ask what else can u use for not using email
 		const { user: { uid } } = await fbApp.auth.createUserWithEmailAndPassword(email, password);
-		
+
 		fbApp.db.ref(`users/${uid}`).set({
 			userName: userName,
 			name: name,
@@ -283,7 +310,7 @@ export const signUp = (email, name, userName, password, group) => async (dispatc
 		);
 	} catch (err) {
 		showMessage({
-			message: `something went wront please try later again`,
+			message: `failed to signup`,
 			description: `${err.message}`,
 			type: 'danger',
 			icon: 'auto',
@@ -310,7 +337,7 @@ export const changeName = (userName) => (dispatch, getState) => {
 			icon: 'auto',
 			style: { backgroundColor: COLORS.error },
 			textStyle: { fontFamily: 'RelewayRegular' }
-		})
+		});
 	}
 };
 export const logOut = () => async (dispatch) => {
@@ -326,7 +353,7 @@ export const logOut = () => async (dispatch) => {
 			icon: 'auto',
 			style: { backgroundColor: COLORS.error },
 			textStyle: { fontFamily: 'RelewayRegular' }
-		})
+		});
 	}
 };
 
@@ -349,7 +376,7 @@ export const uploadProfilePic = (uri) => async (dispatch, getState) => {
 			icon: 'auto',
 			style: { backgroundColor: COLORS.error },
 			textStyle: { fontFamily: 'RelewayRegular' }
-		})
+		});
 		//todo handle error
 	}
 };

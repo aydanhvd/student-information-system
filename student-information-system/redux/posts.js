@@ -2,6 +2,7 @@ import fbApp from '../utils/FireBaseInit';
 import { selectUser, selectProfilePiC, selectAuthUserID } from './auth';
 import { COLORS } from '../styles/colors';
 import { showMessage } from 'react-native-flash-message';
+import { p } from '@ui-kitten/components';
 
 //Action Types
 const SET_FEEDS = 'SET_FEEDS';
@@ -20,7 +21,7 @@ export const selectLikes = (state) => state[MODULE_NAME].likes;
 const initialState = {
 	feeds: [],
 	posts: [],
-	likes: [],
+	likes: {},
 	activePostsID: '-MAWDvacjOM3q9QSesbc' //TODO not the best way fix this
 };
 
@@ -44,7 +45,12 @@ export function reducer(state = initialState, { type, payload }) {
 		case SET_POST_LIKES:
 			return {
 				...state,
-				likes: [ ...state.likes, payload ]
+				likes: {
+					...state.likes,
+					[payload.postID]: {
+						...payload.likesObj
+					}
+				}
 			};
 		default:
 			return state;
@@ -235,15 +241,15 @@ export const getAndListenLikes = (postID) => (dispatch, getState) => {
 	try {
 		const state = getState();
 		const feedID = selectActivePosts(state);
-		const likesCout = fbApp.db.ref(`posts/${feedID}/${postID}/likes`);
-		likesCout.on('value', (snapshot) => {
+		const reference = fbApp.db.ref(`posts/${feedID}/${postID}/likes`);
+		reference.on('value', (snapshot) => {
+			let likesObj = {};
 			if (snapshot.exists()) {
-				const likesCoutObj = snapshot.val();
-				console.log(likesCoutObj);
-				// dispatch(setPostLikes(likesCoutArr));
+				likesObj = snapshot.val();
 			}
+			dispatch(setPostLikes({ likesObj, postID }));
 		});
-		return () => likesCout.off();
+		return () => reference.off();
 	} catch (err) {
 		console.log('getAndListenLikes', err);
 		showMessage({
