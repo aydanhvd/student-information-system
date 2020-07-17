@@ -8,16 +8,26 @@ import { selectTheme } from '../../redux/theme';
 import { connect } from 'react-redux';
 import { IconBtn } from '../../commons/IconBtn';
 import { HomeScreenPostLikes } from './HomeScreenPostLikes';
+import {setReceiverInfo} from "../../redux/comments";
 
 const mapStateToProps = (state) => ({
 	darkMode: selectTheme(state)
 });
 
 //single posts in home screen
-export const HomeScreenPostBubble = connect(mapStateToProps, {})(({ navigation, post, darkMode }) => {
+export const HomeScreenPostBubble = connect(mapStateToProps, { setReceiverInfo })(({ navigation, post, setReceiverInfo, darkMode }) => {
 	const date = new Date(post.time);
 	let week = [ 'Sunday', 'Monday', 'Tuesday', 'Wednesday ', 'Thursday', 'Friday', 'Saturday' ];
 	const formattedTime = post.time ? `${week[date.getDay()]} ${date.getHours()}:${date.getMinutes()}` : '';
+
+	const onPressHandler = () => {
+			setReceiverInfo({
+				userName: post.title,
+				image: post.image
+			});
+		navigation.navigate('CommentScreen');
+	};
+
 	const colorTheme = darkMode
 		? {
 				backgroundColor: COLORS.backgroundDark,
@@ -89,7 +99,7 @@ const styles = StyleSheet.create({
 		width:"100%",
 		marginTop: 10,
 		alignItems: 'center',
-		backgroundColor:COLORS.CommentScreenHeader
+		backgroundColor:COLORS.commentsColorLight
 		// justifyContent: 'flex-end'
 	},
 	time: {

@@ -1,0 +1,84 @@
+import React from 'react';
+import { StyleSheet, View, Image } from 'react-native';
+import { CustomText } from '../../commons/CustomText';
+import { COLORS } from '../../styles/colors';
+import { GLOBAL_STYLES } from '../../styles/globalStyles';
+import { ICONS_LIGHT } from '../../styles';
+import { selectTheme } from '../../redux/theme';
+import { connect } from 'react-redux';
+import { IconBtn } from '../../commons/IconBtn';
+import { HomeScreenPostLikes } from '../HomeScreen/HomeScreenPostLikes';
+import {setReceiverInfo} from "../../redux/comments";
+
+const mapStateToProps = (state) => ({
+    darkMode: selectTheme(state)
+});
+
+//single posts in comment screen
+export const CommentScreenPost = connect(mapStateToProps, { setReceiverInfo })(({ navigation, post, setReceiverInfo, darkMode }) => {
+
+    const onPressHandler = () => {
+        setReceiverInfo({
+            userName: post.title,
+            image: post.image
+        });
+        navigation.navigate('CommentScreen');
+    };
+
+    const colorTheme = darkMode
+        ? {
+            backgroundColor: COLORS.backgroundDark,
+            borderTheme: COLORS.drawerDark,
+            textTheme: COLORS.backgroundLight
+        }
+        : {
+            backgroundColor: '#F5F5F5',
+            borderTheme: COLORS.acsentColor,
+            textTheme: COLORS.acsentLight
+        };
+
+    return (
+        <View style={{ ...styles.container, ...GLOBAL_STYLES.shaddowTop, ...colorTheme }}>
+            <View style={styles.postBodyContainer}>
+                <CustomText style={{ ...styles.text, color: colorTheme.textTheme }}>{post.text}</CustomText>
+                <View style={styles.likesContainer}>
+                    <HomeScreenPostLikes postID={post.ID} />
+                    <IconBtn icon={ICONS_LIGHT.commentLight} onPress={onPressHandler} />
+                </View>
+            </View>
+        </View>
+    );
+});
+
+const styles = StyleSheet.create({
+    container: {
+        flexDirection: 'row',
+        borderColor: COLORS.textColorDark, //find out why box shadow is not working
+        marginBottom: 20,
+        padding: 18,
+        borderRadius: 10,
+        zIndex: 999,
+        minHeight: 130
+    },
+    profilePic: {
+        width: 50,
+        height: 50,
+        borderRadius: 40,
+        // borderWidth: 3,
+        marginRight: 13
+    },
+    postBodyContainer: {
+        width: '83%'
+    },
+    text: {
+        fontSize: 16
+    },
+    likesContainer: {
+        flexDirection: 'row',
+        width:"100%",
+        marginTop: 10,
+        alignItems: 'center',
+        backgroundColor:COLORS.commentsColorLight
+        // justifyContent: 'flex-end'
+    },
+});
