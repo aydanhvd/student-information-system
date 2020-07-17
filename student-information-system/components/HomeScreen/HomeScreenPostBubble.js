@@ -44,7 +44,7 @@ export const HomeScreenPostBubble = connect(mapStateToProps, {})(({ navigation, 
 				<CustomText style={{ ...styles.userName, color: colorTheme.borderTheme }}>@{post.userName}</CustomText>
 				<CustomText style={{ ...styles.text, color: colorTheme.textTheme }}>{post.text}</CustomText>
 				<View style={styles.likesContainer}>
-					<HomeScreenPostLikes postID={post.ID} />
+					{post.likes && <HomeScreenPostLikes postID={post.ID} />}
 					<IconBtn icon={ICONS_LIGHT.commentLight} onPress={() => navigation.navigate('CommentScreen')} />
 				</View>
 			</View>

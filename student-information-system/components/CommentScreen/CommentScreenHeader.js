@@ -13,7 +13,7 @@ const mapStateToProps = (state) => ({
 });
 
 
-export const CommentScreenHeader = connect(mapStateToProps, {})(({ navigation, darkMode }) => {
+export const CommentScreenHeader = connect(mapStateToProps)(({ navigation, darkMode }) => {
 
     return (
         <View>
