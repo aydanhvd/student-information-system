@@ -20,14 +20,12 @@ export const HomeScreenPosts = connect(mapStateToProps, {
 	useEffect(
 		() => {
 			if (activePostID !== '') {
-				console.log(activePostID)
 				const unsub = getAndListenPosts(activePostID);
 				return unsub;
 			}
 		},
 		[ activePostID ]
 	);
-	console.log(navigation);
 	return (
 		<FlatList
 			keyExtractor={(item)=>item.ID}

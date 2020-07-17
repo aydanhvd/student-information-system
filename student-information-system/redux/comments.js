@@ -6,27 +6,23 @@ import {COLORS} from '../styles/colors'
 // import { applyMiddleware } from 'redux';
 
 //Action Types
-const SET_RECEIVER_INFO = "SET_RECEIVER_INFO";
+const SET_SELECTED_POST = "SET_SELECTED_POST";
 //Selectors
 
 export const MODULE_NAME = 'comments';
-export const selectChatsUsers = (state) => state[MODULE_NAME].users;
-export const selectReceiverUserName=(state)=> state[MODULE_NAME].recieverUserName;
-export const selectReceiverUserImage=(state)=> state[MODULE_NAME].reciverUserImage;
+export const selectSelectedPost = (state) => state[MODULE_NAME].selectedPost;
 
 //Reducer
 
 const initialState = {
-    receiverUserName:'',
-    receiverUserImage:'',
+    selectedPost:[]
 };
 export function reducer(state = initialState, { type, payload }) {
     switch (type) {
-        case SET_RECEIVER_INFO:
+        case SET_SELECTED_POST:
             return{
                 ...state,
-                receiverUserName:payload.userName,
-                receiverUserImage:payload.image
+                selectedPost:payload
             };
         default:
             return state;
@@ -34,8 +30,8 @@ export function reducer(state = initialState, { type, payload }) {
 }
 
 //ActionCreators
-export const setReceiverInfo = (payload) => ({
-    type: SET_RECEIVER_INFO,
+export const setSelectedPost = (payload) => ({
+    type: SET_SELECTED_POST,
     payload
 });
 

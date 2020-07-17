@@ -8,25 +8,21 @@ import { selectTheme } from '../../redux/theme';
 import { connect } from 'react-redux';
 import { IconBtn } from '../../commons/IconBtn';
 import { HomeScreenPostLikes } from './HomeScreenPostLikes';
-import {setReceiverInfo} from "../../redux/comments";
+import { setSelectedPost } from '../../redux/comments';
+import { selectChatsUsers } from '../../redux/chats';
 
 const mapStateToProps = (state) => ({
-	darkMode: selectTheme(state)
+	darkMode: selectTheme(state),
+	usersList: selectChatsUsers(state)
 });
 
 //single posts in home screen
-export const HomeScreenPostBubble = connect(mapStateToProps, { setReceiverInfo })(({ navigation, post, setReceiverInfo, darkMode }) => {
+export const HomeScreenPostBubble = connect(mapStateToProps, {
+	setSelectedPost
+})(({ navigation, post, setSelectedPost, darkMode, usersList }) => {
 	const date = new Date(post.time);
 	let week = [ 'Sunday', 'Monday', 'Tuesday', 'Wednesday ', 'Thursday', 'Friday', 'Saturday' ];
 	const formattedTime = post.time ? `${week[date.getDay()]} ${date.getHours()}:${date.getMinutes()}` : '';
-
-	const onPressHandler = () => {
-			setReceiverInfo({
-				userName: post.title,
-				image: post.image
-			});
-		navigation.navigate('CommentScreen');
-	};
 
 	const colorTheme = darkMode
 		? {
@@ -40,22 +36,33 @@ export const HomeScreenPostBubble = connect(mapStateToProps, { setReceiverInfo }
 				textTheme: COLORS.acsentLight
 			};
 
+	const onPressHandler = (post) => {
+		setSelectedPost(post);
+		navigation.navigate('CommentScreen');
+	};
+	const auther = Object.keys(usersList)
+		.map((key) => ({
+			ID: key,
+			...usersList[key]
+		}))
+		.filter((user) => user.ID === post.autherID);
+		
 	return (
 		<View style={{ ...styles.container, ...GLOBAL_STYLES.shaddowTop, ...colorTheme }}>
 			<Image
 				style={styles.profilePic}
 				// borderColor={colorTheme.borderTheme}
-				source={post.autherProfilePic ? { uri: post.autherProfilePic } : ICONS_LIGHT.userLight}
+				source={auther[0].profilePiC ? { uri: auther[0].profilePiC } : ICONS_LIGHT.userLight}
 			/>
 			<View style={styles.postBodyContainer}>
 				<CustomText weight="semi" style={{ ...styles.fullName, color: colorTheme.textTheme }}>
-					{post.auther}
+					{auther[0].name}
 				</CustomText>
-				<CustomText style={{ ...styles.userName, color: colorTheme.borderTheme }}>@{post.userName}</CustomText>
+				<CustomText style={{ ...styles.userName, color: colorTheme.borderTheme }}>@{auther[0].userName}</CustomText>
 				<CustomText style={{ ...styles.text, color: colorTheme.textTheme }}>{post.text}</CustomText>
 				<View style={styles.likesContainer}>
 					{post.likes && <HomeScreenPostLikes postID={post.ID} />}
-					<IconBtn icon={ICONS_LIGHT.commentLight} onPress={() => navigation.navigate('CommentScreen')} />
+					<IconBtn icon={ICONS_LIGHT.commentLight} onPress={() => onPressHandler(post)} />
 				</View>
 			</View>
 			<CustomText style={{ ...styles.time, color: colorTheme.textTheme }}>{formattedTime}</CustomText>
@@ -96,10 +103,10 @@ const styles = StyleSheet.create({
 	},
 	likesContainer: {
 		flexDirection: 'row',
-		width:"100%",
+		width: '100%',
 		marginTop: 10,
 		alignItems: 'center',
-		backgroundColor:COLORS.commentsColorLight
+		backgroundColor: COLORS.commentsColorLight
 		// justifyContent: 'flex-end'
 	},
 	time: {

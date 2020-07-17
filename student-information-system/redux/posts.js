@@ -165,16 +165,13 @@ export const getAndListenPosts = (feedID) => (dispatch) => {
 export const shareNewPost = (feedID, text) => (dispatch, getState) => {
 	try {
 		const user = selectUser(getState());
-		const profilePic = selectProfilePiC(getState());
+		// const profilePic = selectProfilePiC(getState());
 		const reference = fbApp.db.ref(`posts/${feedID}`);
 
 		//const newPostID = reference.push().key;//use uppercase for IDs
 		const newPost = {
-			auther: user.name,
-			userName: user.userName,
 			autherID: user.userID, //use uppercase for IDS
 			time: fbApp.root.database.ServerValue.TIMESTAMP,
-			autherProfilePic: profilePic ? profilePic : '',
 			text,
 			likes:{
 				title :'likes'

@@ -12,7 +12,7 @@ import { SignUpInput } from './SignUpInput';
 
 export const SignUpForm = connect(null, { signUp })(({ signUp, groupsList=[] }) => {
 	const [ selectedGroup, setSelectedGroup ] = useState('');
-	console.log(groupsList);
+	
 	const [ fields, setFields ] = useState({
 		email: '',
 		userName: '',
@@ -20,7 +20,7 @@ export const SignUpForm = connect(null, { signUp })(({ signUp, groupsList=[] }) 
 		password: '',
 		rePassword: ''
 	});
-	console.log(selectedGroup);
+	
 	const fieldChnageHandler = (name, value) => {
 		setFields((fields) => ({
 			...fields,

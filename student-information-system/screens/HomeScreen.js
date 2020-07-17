@@ -5,17 +5,23 @@ import { COLORS } from '../styles/colors';
 import { connect } from 'react-redux';
 import { getAndListenFeeds, selectFeeds } from '../redux/posts';
 import { selectTheme } from '../redux/theme';
+import { getAndListenChatUsers } from '../redux/chats';
 
 const mapStateToProps = (state) => ({
 	feeds: selectFeeds(state),
 	darkMode: selectTheme(state)
 });
 export const HomeScreen = connect(mapStateToProps, {
-	getAndListenFeeds
-})(({ feeds, getAndListenFeeds, darkMode, navigation }) => {
+	getAndListenFeeds,
+	getAndListenChatUsers
+})(({ feeds, getAndListenFeeds, darkMode, navigation, getAndListenChatUsers }) => {
 	useEffect(() => {
 		const unsubscribe = getAndListenFeeds();
 		return unsubscribe;
+	}, []);
+	useEffect(() => {
+		const unsub = getAndListenChatUsers();
+		return unsub;
 	}, []);
 
 	const colorTheme = darkMode
