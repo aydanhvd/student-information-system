@@ -27,6 +27,7 @@ export const HomeScreenPosts = connect(mapStateToProps, {
 		},
 		[ activePostID ]
 	);
+	console.log(navigation)
 	return (
 		<FlatList
 			keyExtractor={(item)=>item.ID}

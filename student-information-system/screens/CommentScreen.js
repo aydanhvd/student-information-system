@@ -14,7 +14,6 @@ const mapStateToProps = (state) => ({
 
 
 export const CommentScreen = connect(mapStateToProps, {})(({ navigation, darkMode }) => {
-
     const colorTheme = darkMode
         ? {
             backgroundColor: COLORS.backgroundDark
