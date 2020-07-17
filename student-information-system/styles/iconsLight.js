@@ -16,6 +16,7 @@ import sendMessages from '../assets/icons/light-theme/sendMessages.png'
 import settingsWhite from '../assets/icons/light-theme/settingsWhite.png';
 import feedbackWhite from '../assets/icons/light-theme/feedbackWhite.png';
 import refresUsers from '../assets/icons/light-theme/refresh.png';
+import commentLight from '../assets/icons/light-theme/commentLight.png';
 
 export const ICONS_LIGHT = Object.freeze({
 	logInBtn, //arrow icon for auth screen
@@ -36,5 +37,6 @@ export const ICONS_LIGHT = Object.freeze({
 	settingsWhite, // setting icon for drawer
 	feedbackWhite, // feedback icon for drawer
 	refresUsers,//refres user icon for MessageScreen
+	commentLight,
 });
 

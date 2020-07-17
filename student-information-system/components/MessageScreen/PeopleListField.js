@@ -43,7 +43,7 @@ export const PeopleListField = connect(mapStateToProps, {
 
 	return (
 		<View style={{...styles.container, ...colorTheme}}>
-			{/* <SearchBar /> */}
+			 <SearchBar />
 			<FlatList
 				style={styles.listContainer}
 				keyExtractor={(item)=>item.ID}

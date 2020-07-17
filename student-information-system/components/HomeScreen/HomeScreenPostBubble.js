@@ -6,13 +6,14 @@ import { GLOBAL_STYLES } from '../../styles/globalStyles';
 import { ICONS_LIGHT } from '../../styles';
 import { selectTheme } from '../../redux/theme';
 import { connect } from 'react-redux';
+import {IconBtn} from "../../commons/IconBtn";
 
 const mapStateToProps = (state) => ({
 	darkMode: selectTheme(state)
 });
 
 //single posts in home screen
-export const HomeScreenPostBubble = connect(mapStateToProps, {})(({ post, darkMode }) => {
+export const HomeScreenPostBubble = connect(mapStateToProps, {})(({ navigation, post, darkMode }) => {
 	const date = new Date(post.time);
 	let week = [ 'Sunday', 'Monday', 'Tuesday', 'Wednesday ', 'Thursday', 'Friday', 'Saturday' ];
 	const formattedTime = post.time ? `${week[date.getDay()]} ${date.getHours()}:${date.getMinutes()}` : '';
@@ -45,8 +46,10 @@ export const HomeScreenPostBubble = connect(mapStateToProps, {})(({ post, darkMo
 				{/* <View style={styles.likesContainer}>
 					<HomeScreenPostLikes postID={post.ID}/>
 				</View> */}
+				<IconBtn icon={ICONS_LIGHT.commentLight} onPress={() => navigation.navigate('CommentScreen')} />
 			</View>
 			<CustomText style={{ ...styles.time, color: colorTheme.textTheme }}>{formattedTime}</CustomText>
+
 		</View>
 	);
 });
