@@ -74,17 +74,6 @@ export const validateForm = (isSignUP, email, password, rePassword, userName, na
 			});
 			return false;
 		}
-		if (userName.trim().toLowerCase()=== '') {
-			showMessage({
-				message: 'Username must be all lowercas',
-				description: 'Username use lovvercase latter for username',
-				type: 'danger',
-				icon: 'auto',
-				style: { backgroundColor: COLORS.error },
-				textStyle: { fontFamily: 'RelewayRegular' }
-			});
-			return false;
-		}
 		if (name.trim() === '') {
 			showMessage({
 				message: 'name is required',

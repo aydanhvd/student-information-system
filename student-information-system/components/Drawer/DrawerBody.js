@@ -32,7 +32,7 @@ export const DrawerBody = connect(mapStateToProps, {
 				<CustomText style={{ ...styles.name, ...colorTheme }}>{name}</CustomText>
 				<CustomText style={{ ...styles.username, ...colorTheme }}>@{userName}</CustomText>
 				<Seperator color={{ ...COLORS.backgroundLight, ...colorTheme }} style={styles.seperator} />
-				<CustomText style={{ ...styles.drawerTitle, ...colorTheme }}>group: {group.title}</CustomText>
+				<CustomText style={{ ...styles.drawerTitle, ...colorTheme }}>group: {group.label}</CustomText>
 				<CustomText style={{ ...styles.drawerTitle, ...colorTheme }}>adviser: {group.teacher}</CustomText>
 			</View>
 		</SafeAreaProvider>

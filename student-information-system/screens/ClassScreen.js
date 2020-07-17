@@ -33,7 +33,7 @@ export const ClassScreen = connect(mapStateToProps, {
 
 	return (
 		<View style={{...styles.container, ...colorTheme}}>
-			<Header title={`Group ${groupData.title}`} />
+			<Header title={`Group ${groupData.label}`} />
 			<Information />
 			<GradeShower />
 			<ClassField

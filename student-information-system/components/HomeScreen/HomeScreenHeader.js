@@ -51,7 +51,7 @@ export const HomeScreenHeader = connect(mapStateToProps, {
 
 const styles = StyleSheet.create({
 	container: {
-		height: 70,
+		height:50,
 		flexDirection: 'row',
 		alignItems: 'center',
 		overflow: 'hidden',
@@ -59,11 +59,11 @@ const styles = StyleSheet.create({
 	},
 	btnText: {
 		fontSize: 18,
-		marginHorizontal: 25
+		marginHorizontal: 30
 	},
 	indicator: {
 		position: 'absolute',
-		bottom: -8,
+		bottom: -14,
 		marginTop: 10,
 		width: 50,
 		height: 3,
