@@ -8,6 +8,7 @@ import { validateForm } from '../../utils/validateField';
 import { signUp } from '../../redux/auth';
 import { IconBtn } from '../index';
 import { CustomText } from '../../commons/CustomText';
+import { SignUpInput } from './SignUpInput';
 
 export const SignUpForm = connect(null, { signUp })(({ signUp, groupsList=[] }) => {
 	const [ selectedGroup, setSelectedGroup ] = useState('');
@@ -75,6 +76,7 @@ export const SignUpForm = connect(null, { signUp })(({ signUp, groupsList=[] }) 
 				style={styles.input}
 				placeholderTextColor="rgba(255,255,255, 0.3)"
 			/>
+		{/* <SignUpInput/> */}
 			<RNPickerSelect
 				style={ { inputIOS:{...styles.label} , inputAndroid:{...styles.androidStyles}}}
 				onValueChange={(value) => setSelectedGroup(value)}
