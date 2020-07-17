@@ -6,3 +6,4 @@ export { SettingsScreen } from './SettingsScreen.js';
 export { FeedbackScreen } from './FeedbackScreen';
 export { PriviteMessageScreen } from './PriviteMessageScreen';
 export { HomeworksScreen } from './HomeworksScreen';
+export { CommentScreen } from './CommentScreen';
