@@ -13,7 +13,6 @@ export const StartedMessagesField = connect(mapStateToProps)(({ startedChats, na
 		<FlatList
 			style={styles.container}
 			data={startedChats}
-			keyExtractor={(item)=>item.ID}
 			showsHorizontalScrollIndicator={false}
 			renderItem={({ item }) => {
 				return (
