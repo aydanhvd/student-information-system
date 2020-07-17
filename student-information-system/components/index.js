@@ -30,4 +30,6 @@ export { SearchBar } from './MessageScreen/SearchBar';
 export { PriviteMessagesField } from './PriviteMessageScreen/PriviteMessagesField';
 export { PriviteMessages} from './PriviteMessageScreen/PriviteMessages'
 
-export { CommentScreenHeader } from './CommentScreen/CommentScreenHeader'
+export { CommentScreenHeader } from './CommentScreen/CommentScreenHeader';
+export { CommentScreenPost } from './CommentScreen/CommentScreenPost'
+
