@@ -6,8 +6,8 @@ import { GLOBAL_STYLES } from '../../styles/globalStyles';
 import { ICONS_LIGHT } from '../../styles';
 import { selectTheme } from '../../redux/theme';
 import { connect } from 'react-redux';
-import {IconBtn} from "../../commons/IconBtn";
-import { HomeScreenPostLikes }  from './HomeScreenPostLikes'
+import { IconBtn } from '../../commons/IconBtn';
+import { HomeScreenPostLikes } from './HomeScreenPostLikes';
 
 const mapStateToProps = (state) => ({
 	darkMode: selectTheme(state)
@@ -18,7 +18,6 @@ export const HomeScreenPostBubble = connect(mapStateToProps, {})(({ navigation, 
 	const date = new Date(post.time);
 	let week = [ 'Sunday', 'Monday', 'Tuesday', 'Wednesday ', 'Thursday', 'Friday', 'Saturday' ];
 	const formattedTime = post.time ? `${week[date.getDay()]} ${date.getHours()}:${date.getMinutes()}` : '';
-
 	const colorTheme = darkMode
 		? {
 				backgroundColor: COLORS.backgroundDark,
@@ -26,7 +25,7 @@ export const HomeScreenPostBubble = connect(mapStateToProps, {})(({ navigation, 
 				textTheme: COLORS.backgroundLight
 			}
 		: {
-				backgroundColor: "#F5F5F5",
+				backgroundColor: '#F5F5F5',
 				borderTheme: COLORS.acsentColor,
 				textTheme: COLORS.acsentLight
 			};
@@ -41,17 +40,15 @@ export const HomeScreenPostBubble = connect(mapStateToProps, {})(({ navigation, 
 			<View style={styles.postBodyContainer}>
 				<CustomText weight="semi" style={{ ...styles.fullName, color: colorTheme.textTheme }}>
 					{post.auther}
-				</CustomText>			
+				</CustomText>
 				<CustomText style={{ ...styles.userName, color: colorTheme.borderTheme }}>@{post.userName}</CustomText>
 				<CustomText style={{ ...styles.text, color: colorTheme.textTheme }}>{post.text}</CustomText>
 				<View style={styles.likesContainer}>
-					<HomeScreenPostLikes postID={post.ID}/>
-				</View> 
-				<IconBtn icon={ICONS_LIGHT.commentLight} onPress={() => navigation.navigate('CommentScreen')} />
-
+					<HomeScreenPostLikes postID={post.ID} />
+					<IconBtn icon={ICONS_LIGHT.commentLight} onPress={() => navigation.navigate('CommentScreen')} />
+				</View>
 			</View>
 			<CustomText style={{ ...styles.time, color: colorTheme.textTheme }}>{formattedTime}</CustomText>
-
 		</View>
 	);
 });
@@ -82,16 +79,18 @@ const styles = StyleSheet.create({
 	},
 	userName: {
 		fontSize: 12,
-		marginBottom:10
+		marginBottom: 10
 	},
 	text: {
 		fontSize: 16
 	},
 	likesContainer: {
 		flexDirection: 'row',
+		width:"100%",
 		marginTop: 10,
 		alignItems: 'center',
-		justifyContent: 'flex-end'
+		backgroundColor:COLORS.CommentScreenHeader
+		// justifyContent: 'flex-end'
 	},
 	time: {
 		position: 'absolute',

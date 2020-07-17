@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { setChatID, setRecieverInfo } from '../../redux/chats';
 import { ICONS_LIGHT } from '../../styles/iconsLight';
 import {selectTheme} from "../../redux/theme";
-import {HomeScreenPostBubble} from "..";
+import {HomeScreenPostBubble} from "../HomeScreen/HomeScreenPostBubble";
 
 const mapStateToProps = (state) => ({
     darkMode: selectTheme(state)
@@ -16,7 +16,9 @@ const mapStateToProps = (state) => ({
 export const CommentScreenHeader = connect(mapStateToProps, {})(({ navigation, darkMode }) => {
 
     return (
-        <HomeScreenPostBubble navigation={navigation}/>
+        <View>
+            <CustomText>CommentScreenHeader</CustomText>
+        </View>
     );
 });
 const styles = StyleSheet.create({
