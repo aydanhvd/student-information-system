@@ -16,7 +16,7 @@ const mapStateToProps = (state) => {
 //posts in home screen
 export const HomeScreenPosts = connect(mapStateToProps, {
 	getAndListenPosts
-})(({ getAndListenPosts, posts, activePostID ,profilePic }) => {
+})(({ getAndListenPosts, posts, activePostID ,profilePic, navigation }) => {
 	useEffect(
 		() => {
 			if (activePostID !== '') {
@@ -33,7 +33,7 @@ export const HomeScreenPosts = connect(mapStateToProps, {
 			contentContainerStyle={styles.container}
 			data={posts.slice(0).reverse()}
 			renderItem={({ item }) => {
-				return <HomeScreenPostBubble post={item} style={styles.post} profilePic={profilePic} />;
+				return <HomeScreenPostBubble post={item} style={styles.post} profilePic={profilePic} navigation={navigation}/>;
 			}}
 		/>
 	);

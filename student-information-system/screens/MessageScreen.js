@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { connect } from 'react-redux';
 
-import { Footer, Header, PeopleListField } from '../components';
+import {Footer, Header, PeopleListField, SearchBar} from '../components';
 import { COLORS } from '../styles/colors';
 import { getAndListenChatUsers, getAndListenStartedChatsList,  selectChatID } from '../redux/chats';
 import { StartedMessagesField } from '../components/MessageScreen/StartedMessagesField';
@@ -45,7 +45,6 @@ export const MessageScreen = connect(mapStateToProps, {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		backgroundColor: COLORS.backgroundLight
 	},
 	footer: {
 		position: 'absolute',

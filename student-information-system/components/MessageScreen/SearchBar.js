@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
 		paddingHorizontal: 11,
 		paddingVertical: 8,
 		marginTop: 8,
-		marginBottom: 13
+		marginBottom: 13,
 	},
 	searchBar: {
 		width: '95%',

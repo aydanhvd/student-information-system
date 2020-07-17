@@ -290,14 +290,14 @@ export const initPriviteChats = (recieverID) => async (dispatch, getState) => {
 		dispatch(setChatID(chatID));
 	} catch (err) {
 		console.log('initPriviteChats err', err);
-		showMessage({
-			message: `something went wront please try later again`,
-			description: `${err.message}`,
-			type: 'danger',
-			icon: 'auto',
-			style: { backgroundColor: COLORS.error },
-			textStyle: { fontFamily: 'RelewayRegular' }
-		});
+		// showMessage({
+		// 	message: `something went wront please try later again`,
+		// 	description: `${err.message}`,
+		// 	type: 'danger',
+		// 	icon: 'auto',
+		// 	style: { backgroundColor: COLORS.error },
+		// 	textStyle: { fontFamily: 'RelewayRegular' }
+		// });
 		//Todo handle error
 	}
 };
