@@ -1,13 +1,9 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import {CommentScreenHeader, CommentScreenPost, Footer, HomeScreenPostBubble, HomeScreenPosts} from '../components';
-import { Header } from '../commons/Header';
+import {CommentScreenHeader, CommentScreenField, Footer, CommentScreenComment} from '../components';
 import { COLORS } from '../styles';
 import { connect } from 'react-redux';
-import { HomeWorksList } from '../components/HomeWorksScreen/HomeWorksList';
 import {selectTheme} from "../redux/theme";
-import {Com, Comment} from "../components/CommentScreen/CommentScreenHeader";
-import {PriviteChatsHeader} from "../components/PriviteMessageScreen/PriviteChatHeader";
 
 const mapStateToProps = (state) => ({
     darkMode: selectTheme(state)
@@ -25,6 +21,8 @@ export const CommentScreen = connect(mapStateToProps, {})(({ post, navigation, d
     return (
         <View style={{...styles.container, ...colorTheme}}>
             <CommentScreenHeader navigation={navigation}/>
+            <CommentScreenComment navigation={navigation}/>
+            <CommentScreenField/>
             <Footer style={styles.footer} />
         </View>
     );

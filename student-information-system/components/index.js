@@ -31,5 +31,8 @@ export { PriviteMessagesField } from './PriviteMessageScreen/PriviteMessagesFiel
 export { PriviteMessages} from './PriviteMessageScreen/PriviteMessages'
 
 export { CommentScreenHeader } from './CommentScreen/CommentScreenHeader';
-export { CommentScreenPost } from './CommentScreen/CommentScreenPost'
+export { CommentScreenField } from './CommentScreen/CommentScreenField';
+export { CommentScreenCommentBubble } from './CommentScreen/CommentScreenCommentBubble'
+export { CommentScreenComment } from './CommentScreen/CommentScreenComment'
+
 
