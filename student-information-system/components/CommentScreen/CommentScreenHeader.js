@@ -10,7 +10,8 @@ import { selectChatsUsers } from '../../redux/chats';
 
 const mapStateToProps = (state) => ({
 	selectedPost: selectSelectedPost(state),
-	usersList: selectChatsUsers(state)
+	usersList: selectChatsUsers(state),
+	darkMode: selectTheme(state),
 });
 
 export const CommentScreenHeader = connect(
@@ -49,8 +50,8 @@ export const CommentScreenHeader = connect(
 					<CustomText style={{ ...styles.name, color: colorTheme.nameColor }}>{auther[0].name}</CustomText>
 				</View>
 			</View>
-			<View style={styles.post}>
-				<CustomText>{selectedPost.text}</CustomText>
+			<View style={{...styles.post, ...colorTheme}}>
+				<CustomText style={{ color: colorTheme.nameColor }}>{selectedPost.text}</CustomText>
 			</View>
 		</View>
 	);
@@ -81,16 +82,17 @@ const styles = StyleSheet.create({
 	userName: {
 		fontSize: 12,
 		color: COLORS.acsentColor
-	},
-	post: {
-		width: '100%',
-		minHeight: 90,
-		...GLOBAL_STYLES.shaddowBottum,
-		backgroundColor: COLORS.backgroundLight,
-		borderBottomEndRadius: 50,
-		borderBottomStartRadius: 50,
-		// alignItems:'center',
-		justifyContent: 'center',
-		padding: 20
-	}
+    },
+    post:{
+        width:"100%",
+        minHeight:90,
+        ...GLOBAL_STYLES.shaddowBottum,
+        borderBottomEndRadius: 50,
+        borderBottomStartRadius: 50,
+        // alignItems:'center',
+        justifyContent:'center',
+        padding: 20,
+		marginBottom: -15
+    }
+
 });

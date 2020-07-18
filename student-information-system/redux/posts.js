@@ -2,7 +2,6 @@ import fbApp from '../utils/FireBaseInit';
 import { selectUser, selectProfilePiC, selectAuthUserID } from './auth';
 import { COLORS } from '../styles/colors';
 import { showMessage } from 'react-native-flash-message';
-import { p } from '@ui-kitten/components';
 
 //Action Types
 const SET_FEEDS = 'SET_FEEDS';
