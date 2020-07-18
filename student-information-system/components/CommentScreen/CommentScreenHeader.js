@@ -81,16 +81,16 @@ const styles = StyleSheet.create({
 	userName: {
 		fontSize: 12,
 		color: COLORS.acsentColor
-    },
-    post:{
-        width:"100%",
-        minHeight:90,
-        ...GLOBAL_STYLES.shaddowBottum,
-        backgroundColor:COLORS.backgroundLight,
-        borderBottomEndRadius: 50,
-        borderBottomStartRadius: 50,
-        // alignItems:'center',
-        justifyContent:'center',
-        padding:20
-    }
+	},
+	post: {
+		width: '100%',
+		minHeight: 90,
+		...GLOBAL_STYLES.shaddowBottum,
+		backgroundColor: COLORS.backgroundLight,
+		borderBottomEndRadius: 50,
+		borderBottomStartRadius: 50,
+		// alignItems:'center',
+		justifyContent: 'center',
+		padding: 20
+	}
 });

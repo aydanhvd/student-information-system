@@ -36,7 +36,7 @@ export const HomeScreenPostBubble = connect(mapStateToProps, {
 				textTheme: COLORS.acsentLight
 			};
 
-	const onPressHandler = (post) => {
+	const onPressHandler = (post=[]) => {
 		setSelectedPost(post);
 		navigation.navigate('CommentScreen');
 	};
@@ -49,16 +49,17 @@ export const HomeScreenPostBubble = connect(mapStateToProps, {
 		
 	return (
 		<View style={{ ...styles.container, ...GLOBAL_STYLES.shaddowTop, ...colorTheme }}>
+		{post&&<>
 			<Image
 				style={styles.profilePic}
 				// borderColor={colorTheme.borderTheme}
-				source={auther[0].profilePiC ? { uri: auther[0].profilePiC } : ICONS_LIGHT.userLight}
+				source={auther[0]?.profilePiC ? { uri: auther[0].profilePiC } : ICONS_LIGHT.userLight}
 			/>
 			<View style={styles.postBodyContainer}>
 				<CustomText weight="semi" style={{ ...styles.fullName, color: colorTheme.textTheme }}>
-					{auther[0].name}
+					{auther[0]?.name}
 				</CustomText>
-				<CustomText style={{ ...styles.userName, color: colorTheme.borderTheme }}>@{auther[0].userName}</CustomText>
+				<CustomText style={{ ...styles.userName, color: colorTheme.borderTheme }}>@{auther[0]?.userName}</CustomText>
 				<CustomText style={{ ...styles.text, color: colorTheme.textTheme }}>{post.text}</CustomText>
 				<View style={styles.likesContainer}>
 					{post.likes && <HomeScreenPostLikes postID={post.ID} />}
@@ -66,6 +67,7 @@ export const HomeScreenPostBubble = connect(mapStateToProps, {
 				</View>
 			</View>
 			<CustomText style={{ ...styles.time, color: colorTheme.textTheme }}>{formattedTime}</CustomText>
+			</>}
 		</View>
 	);
 });
