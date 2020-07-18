@@ -14,16 +14,12 @@ const mapStateToProps = (state) => ({
 export const HomeScreen = connect(mapStateToProps, {
 	getAndListenFeeds,
 	getAndListenChatUsers
-})(({ feeds, getAndListenFeeds, darkMode, navigation, getAndListenChatUsers }) => {
+})(({ feeds, getAndListenFeeds, darkMode, navigation ,getAndListenChatUsers}) => {
+	getAndListenChatUsers()
 	useEffect(() => {
 		const unsubscribe = getAndListenFeeds();
 		return unsubscribe;
 	}, []);
-	useEffect(() => {
-		const unsub = getAndListenChatUsers();
-		return unsub;
-	}, []);
-
 	const colorTheme = darkMode
 		? {
 				backgroundColor: COLORS.backgroundDark

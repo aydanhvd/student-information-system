@@ -1,34 +1,46 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, Image, TouchableOpacity } from 'react-native';
+import { connect } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
 
 import { COLORS } from '../styles/colors';
 import { GLOBAL_STYLES } from '../styles';
 import { FOOTER_ICONS_DATA } from '../styles/footerIconsData';
-import { useNavigation } from '@react-navigation/native';
-import {selectTheme} from "../redux/theme";
-import {connect} from "react-redux";
+import { selectTheme } from '../redux/theme';
+import { getAndListenChatUsers } from '../redux/chats';
+import {NoteBookIcon } from '../commons/icons/NoteBookIcon'
+
 
 const mapStateToProps = (state) => ({
 	darkMode: selectTheme(state)
 });
 
-export const Footer = connect(mapStateToProps, {})(({ style, screen, darkMode }) => {
+export const Footer = connect(mapStateToProps, {
+	getAndListenChatUsers
+})(({ style, screen, darkMode, getAndListenChatUsers }) => {
+
 	const [ indicator, setIndicator ] = useState('');
 	//indicator will be a props for indicate wich page we r in in future
 	const { navigate } = useNavigation();
 	const navigationHandler = (screen) => {
 		setIndicator(screen);
+		if (screen === 'HomeStack') {
+			//incase user searched on search bar and forget to clean her search resulst re apload users
+			//so in posts you wouldnt have any problems
+			getAndListenChatUsers();
+		}
 		navigate(screen);
 	};
 
 	const colorTheme = darkMode
 		? {
-			backgroundColor: COLORS.backgroundDark,
-			indicatorTheme: COLORS.drawerDark,
-		} : {
-			backgroundColor: COLORS.backgroundLight,
-			indicatorTheme: COLORS.acsentColor,
-		};
+				backgroundColor: COLORS.backgroundDark,
+				indicatorTheme: COLORS.drawerDark
+			}
+		: {
+				backgroundColor: COLORS.backgroundLight,
+				indicatorTheme: COLORS.acsentColor
+			};
 
 	return (
 		<View style={{ ...styles.container, ...style, ...GLOBAL_STYLES.shaddowTop, ...colorTheme }}>
@@ -40,7 +52,9 @@ export const Footer = connect(mapStateToProps, {})(({ style, screen, darkMode })
 						key={item.name}
 					>
 						<Image source={darkMode ? item.iconDark : item.icon} style={styles.icon} />
-						{item.name === screen && <View style={{...styles.indicator, backgroundColor: colorTheme.indicatorTheme}} />}
+						{item.name === screen && (
+							<View style={{ ...styles.indicator, backgroundColor: colorTheme.indicatorTheme }} />
+						)}
 					</TouchableOpacity>
 				);
 			})}

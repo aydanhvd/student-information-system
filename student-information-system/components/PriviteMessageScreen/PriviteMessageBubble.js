@@ -4,7 +4,8 @@ import { COLORS } from '../../styles';
 import { CustomText } from '../../commons/CustomText';
 import { connect } from 'react-redux';
 import { selectAuthUserID } from '../../redux/auth';
-import {selectTheme} from "../../redux/theme";
+import { selectTheme } from '../../redux/theme';
+import { timeHumanizer } from '../../utils/timeHumanizer';
 
 const mapStateToProps = (state) => ({
 	userID: selectAuthUserID(state),
@@ -12,35 +13,31 @@ const mapStateToProps = (state) => ({
 });
 
 export const PriviteMessagesBubble = connect(mapStateToProps)(({ messages, userID, darkMode }) => {
-	const date = new Date(messages.time);
-	const styledTime = messages.time ? `${date.getHours()}:${date.getMinutes()}` : '';
-	let week = [ 'Sunday', 'Monday', 'Tuesday', 'Wednesday ', 'Thursday', 'Friday', 'Saturday' ];
-	const chatStarted = week[date.getDay()];
+	const styledTime = messages.time ? timeHumanizer(messages.time) : '';
+	const chatStartedDay = styledTime[0];
 
 	const colorTheme = darkMode
 		? {
-			messageColor: COLORS.drawerDark,
-			senderColor: COLORS.textColorDark,
-			systemColor: COLORS.sendDark
-		} : {
-			messageColor: COLORS.acsentColor,
-			senderColor: COLORS.acsentLight,
-			systemColor: COLORS.drawerLight
-		};
+				messageColor: COLORS.drawerDark,
+				senderColor: COLORS.textColorDark,
+				systemColor: COLORS.sendDark
+			}
+		: {
+				messageColor: COLORS.acsentColor,
+				senderColor: COLORS.acsentLight,
+				systemColor: COLORS.drawerLight
+			};
 
-	const bubbleStyles = [ {...styles.container, backgroundColor: colorTheme.senderColor} ];
+	const bubbleStyles = [ { ...styles.container, backgroundColor: colorTheme.senderColor } ];
 	const isSystem = messages.auther === 'system';
 	const isMyMessage = messages.auther === userID;
-	if (isSystem) bubbleStyles.push({...styles.systemBubble, backgroundColor: colorTheme.systemColor});
-	if (isMyMessage) bubbleStyles.push({...styles.userBubble, backgroundColor: colorTheme.messageColor});
+	if (isSystem) bubbleStyles.push({ ...styles.systemBubble, backgroundColor: colorTheme.systemColor });
+	if (isMyMessage) bubbleStyles.push({ ...styles.userBubble, backgroundColor: colorTheme.messageColor });
 
 	return (
-		<View style={bubbleStyles} >
-			<CustomText style={styles.text}>
-				{
-				isSystem?`${chatStarted}`:`${messages.text}`}
-			</CustomText>
-			<CustomText style={styles.time}>{styledTime}</CustomText>
+		<View style={bubbleStyles}>
+			<CustomText style={styles.text}>{isSystem ? `${chatStartedDay}` : `${messages.text}`}</CustomText>
+			<CustomText style={styles.time}>{styledTime[1]}</CustomText>
 		</View>
 	);
 });

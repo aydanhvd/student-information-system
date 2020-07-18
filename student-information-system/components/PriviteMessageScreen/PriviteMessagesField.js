@@ -2,17 +2,20 @@ import React, { useState } from 'react';
 import { StyleSheet, TextInput, KeyboardAvoidingView, Platform, Keyboard, SafeAreaView } from 'react-native';
 
 import { IconBtn } from '../../commons/IconBtn';
-import {COLORS, ICONS_LIGHT, GLOBAL_STYLES, ICONS_DARK} from '../../styles';
+import { COLORS, ICONS_LIGHT, GLOBAL_STYLES, ICONS_DARK } from '../../styles';
 import { connect } from 'react-redux';
-import { sendMessage } from '../../redux/chats';
-import {selectTheme} from "../../redux/theme";
+import { clearChatMessages, sendMessage } from '../../redux/chats';
+import { selectTheme } from '../../redux/theme';
 
 const mapStateToProps = (state) => ({
 	darkMode: selectTheme(state)
 });
 
-
-export const PriviteMessagesField = connect(mapStateToProps, { sendMessage })(({ style, chatID, sendMessage, darkMode }) => {
+export const PriviteMessagesField = connect(mapStateToProps, {
+	sendMessage,
+	clearChatMessages
+})(({ clearChatMessages, style, chatID, sendMessage, darkMode }) => {
+	clearChatMessages()
 	const [ message, setMesage ] = useState('');
 	const submitHadler = () => {
 		if (message !== '') {
@@ -23,14 +26,15 @@ export const PriviteMessagesField = connect(mapStateToProps, { sendMessage })(({
 
 	const colorTheme = darkMode
 		? {
-			backgroundColor: COLORS.backgroundDark,
-			textColor: COLORS.backgroundLight,
-			sendIcon: ICONS_DARK.sendMessage
-		} : {
-			backgroundColor: COLORS.backgroundLight,
-			textColor: COLORS.backgroundDark,
-			sendIcon: ICONS_LIGHT.sendMessages
-		};
+				backgroundColor: COLORS.backgroundDark,
+				textColor: COLORS.backgroundLight,
+				sendIcon: ICONS_DARK.sendMessage
+			}
+		: {
+				backgroundColor: COLORS.backgroundLight,
+				textColor: COLORS.backgroundDark,
+				sendIcon: ICONS_LIGHT.sendMessages
+			};
 
 	return (
 		<KeyboardAvoidingView
@@ -38,7 +42,11 @@ export const PriviteMessagesField = connect(mapStateToProps, { sendMessage })(({
 			style={{ ...style, ...styles.container, ...colorTheme }}
 			behavior={Platform.OS === 'ios' ? 'padding' : ''}
 		>
-			<TextInput style={{...styles.inputField, color: colorTheme.textColor}} value={message} onChangeText={(value) => setMesage(value)} />
+			<TextInput
+				style={{ ...styles.inputField, color: colorTheme.textColor }}
+				value={message}
+				onChangeText={(value) => setMesage(value)}
+			/>
 			<IconBtn icon={colorTheme.sendIcon} onPress={submitHadler} />
 		</KeyboardAvoidingView>
 	);
