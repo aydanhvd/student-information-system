@@ -10,6 +10,7 @@ import { IconBtn } from '../../commons/IconBtn';
 import { HomeScreenPostLikes } from './HomeScreenPostLikes';
 import { setSelectedPost } from '../../redux/comments';
 import { selectChatsUsers } from '../../redux/chats';
+import { timeHumanizer } from '../../utils/timeHumanizer';
 
 const mapStateToProps = (state) => ({
 	darkMode: selectTheme(state),
@@ -20,10 +21,7 @@ const mapStateToProps = (state) => ({
 export const HomeScreenPostBubble = connect(mapStateToProps, {
 	setSelectedPost
 })(({ navigation, post, setSelectedPost, darkMode, usersList }) => {
-	const date = new Date(post.time);
-	let week = [ 'Sunday', 'Monday', 'Tuesday', 'Wednesday ', 'Thursday', 'Friday', 'Saturday' ];
-	const formattedTime = post.time ? `${week[date.getDay()]} ${date.getHours()}:${date.getMinutes()}` : '';
-
+	const formattedTime = post.time ? timeHumanizer(post.time) : '';
 	const colorTheme = darkMode
 		? {
 				backgroundColor: COLORS.backgroundDark,
@@ -66,7 +64,7 @@ export const HomeScreenPostBubble = connect(mapStateToProps, {
 					<IconBtn icon={ICONS_LIGHT.commentLight} onPress={() => onPressHandler(post)} />
 				</View>
 			</View>
-			<CustomText style={{ ...styles.time, color: colorTheme.textTheme }}>{formattedTime}</CustomText>
+			<CustomText style={{ ...styles.time, color: colorTheme.textTheme }}>{formattedTime[0]} {formattedTime[1]}</CustomText>
 			</>}
 		</View>
 	);
@@ -76,7 +74,7 @@ const styles = StyleSheet.create({
 	container: {
 		flexDirection: 'row',
 		borderColor: COLORS.textColorDark, //find out why box shadow is not working
-		marginBottom: 20,
+		marginBottom: 25,
 		padding: 18,
 		borderRadius: 10,
 		zIndex: 999,
