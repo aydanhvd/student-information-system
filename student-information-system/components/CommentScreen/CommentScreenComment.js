@@ -20,7 +20,7 @@ export const CommentScreenComment = connect(mapStateToProps, {
     useEffect(
         () => {
             if (setSelectedPost !== '') {
-                const unsub = getAndListenComments(setSelectedPost);
+                const unsub = getAndListenComments(setSelectedPost.ID);
                 return unsub;
             }
         },

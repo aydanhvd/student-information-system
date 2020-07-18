@@ -31,7 +31,7 @@ export function reducer(state = initialState, { type, payload }) {
         case SET_COMMENTS:
             return {
                 ...state,
-                posts: payload
+                comments: payload
             };
         default:
             return state;
