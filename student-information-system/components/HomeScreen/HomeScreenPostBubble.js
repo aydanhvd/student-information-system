@@ -10,6 +10,7 @@ import { IconBtn } from '../../commons/IconBtn';
 import { HomeScreenPostLikes } from './HomeScreenPostLikes';
 import { setSelectedPost } from '../../redux/comments';
 import { selectChatsUsers } from '../../redux/chats';
+import { timeHumanizer } from '../../utils/timeHumanizer';
 
 const mapStateToProps = (state) => ({
 	darkMode: selectTheme(state),
@@ -20,10 +21,7 @@ const mapStateToProps = (state) => ({
 export const HomeScreenPostBubble = connect(mapStateToProps, {
 	setSelectedPost
 })(({ navigation, post, setSelectedPost, darkMode, usersList }) => {
-	const date = new Date(post.time);
-	let week = [ 'Sunday', 'Monday', 'Tuesday', 'Wednesday ', 'Thursday', 'Friday', 'Saturday' ];
-	const formattedTime = post.time ? `${week[date.getDay()]} ${date.getHours()}:${date.getMinutes()}` : '';
-
+	const formattedTime = post.time ? timeHumanizer(post.time) : '';
 	const colorTheme = darkMode
 		? {
 				backgroundColor: COLORS.backgroundDark,
@@ -36,7 +34,7 @@ export const HomeScreenPostBubble = connect(mapStateToProps, {
 				textTheme: COLORS.acsentLight
 			};
 
-	const onPressHandler = (post) => {
+	const onPressHandler = (post=[]) => {
 		setSelectedPost(post);
 		navigation.navigate('CommentScreen');
 	};
@@ -49,23 +47,25 @@ export const HomeScreenPostBubble = connect(mapStateToProps, {
 		
 	return (
 		<View style={{ ...styles.container, ...GLOBAL_STYLES.shaddowTop, ...colorTheme }}>
+		{post&&<>
 			<Image
 				style={styles.profilePic}
 				// borderColor={colorTheme.borderTheme}
-				source={auther[0].profilePiC ? { uri: auther[0].profilePiC } : ICONS_LIGHT.userLight}
+				source={auther[0]?.profilePiC ? { uri: auther[0].profilePiC } : ICONS_LIGHT.userLight}
 			/>
 			<View style={styles.postBodyContainer}>
 				<CustomText weight="semi" style={{ ...styles.fullName, color: colorTheme.textTheme }}>
-					{auther[0].name}
+					{auther[0]?.name}
 				</CustomText>
-				<CustomText style={{ ...styles.userName, color: colorTheme.borderTheme }}>@{auther[0].userName}</CustomText>
+				<CustomText style={{ ...styles.userName, color: colorTheme.borderTheme }}>@{auther[0]?.userName}</CustomText>
 				<CustomText style={{ ...styles.text, color: colorTheme.textTheme }}>{post.text}</CustomText>
 				<View style={styles.likesContainer}>
 					{post.likes && <HomeScreenPostLikes postID={post.ID} />}
 					<IconBtn icon={ICONS_LIGHT.commentLight} onPress={() => onPressHandler(post)} />
 				</View>
 			</View>
-			<CustomText style={{ ...styles.time, color: colorTheme.textTheme }}>{formattedTime}</CustomText>
+			<CustomText style={{ ...styles.time, color: colorTheme.textTheme }}>{formattedTime[0]} {formattedTime[1]}</CustomText>
+			</>}
 		</View>
 	);
 });
@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
 	container: {
 		flexDirection: 'row',
 		borderColor: COLORS.textColorDark, //find out why box shadow is not working
-		marginBottom: 20,
+		marginBottom: 25,
 		padding: 18,
 		borderRadius: 10,
 		zIndex: 999,

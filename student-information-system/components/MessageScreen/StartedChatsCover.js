@@ -5,20 +5,18 @@ import { CustomText } from '../../commons/CustomText';
 import { connect } from 'react-redux';
 import { setChatID, setRecieverInfo } from '../../redux/chats';
 import { ICONS_LIGHT } from '../../styles/iconsLight';
-import {selectTheme} from "../../redux/theme";
+import { selectTheme } from '../../redux/theme';
+import { timeHumanizer } from '../../utils/timeHumanizer';
 
 const mapStateToProps = (state) => ({
 	darkMode: selectTheme(state)
 });
 
-
 export const StartedChatsCover = connect(mapStateToProps, {
 	setChatID,
 	setRecieverInfo
 })(({ item, navigation, setChatID, setRecieverInfo, darkMode }) => {
-	const date = new Date(item.lastMessage.time);
-	let week= ["Sunday","Monday","Tuesday","Wednesday ","Thursday","Friday","Saturday"];
-	const humanTime = item.lastMessage.time ? `${week[date.getDay()]} ${date.getHours()}:${date.getMinutes()}` : '';
+	const humanTime = item.lastMessage.time ? timeHumanizer(item.lastMessage.time) : '';
 
 	const onPressHandler = () => {
 		setChatID(item.id),
@@ -31,23 +29,26 @@ export const StartedChatsCover = connect(mapStateToProps, {
 
 	const colorTheme = darkMode
 		? {
-			textColor: COLORS.sendDark,
-			nameColor: COLORS.backgroundLight
-		} : {
-			textColor: COLORS.drawerLight,
-			nameColor: COLORS.acsentLight
-		};
+				textColor: COLORS.sendDark,
+				nameColor: COLORS.backgroundLight
+			}
+		: {
+				textColor: COLORS.drawerLight,
+				nameColor: COLORS.acsentLight
+			};
 
 	return (
 		<TouchableOpacity style={styles.container} onPress={onPressHandler}>
 			<Image source={item.image ? { uri: item.image } : ICONS_LIGHT.userLight} style={styles.image} />
 			<View style={styles.textContainer}>
-				<CustomText style={{...styles.name, color: colorTheme.nameColor}}>{item.title}</CustomText>
-				<CustomText numberOfLines={1} style={{...styles.text, color: colorTheme.textColor}}>
+				<CustomText style={{ ...styles.name, color: colorTheme.nameColor }}>{item.title}</CustomText>
+				<CustomText numberOfLines={1} style={{ ...styles.text, color: colorTheme.textColor }}>
 					{item.lastMessage.text}
 				</CustomText>
 			</View>
-			<CustomText style={{...styles.time, color: colorTheme.nameColor}}>{humanTime}</CustomText>
+			<CustomText style={{ ...styles.time, color: colorTheme.nameColor }}>
+				{humanTime[0]} {humanTime[1]}
+			</CustomText>
 		</TouchableOpacity>
 	);
 });
@@ -56,7 +57,7 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 		marginBottom: 20,
 		alignItems: 'center',
-		justifyContent: 'space-between',
+		justifyContent: 'space-between'
 	},
 	image: {
 		width: 55,
@@ -73,14 +74,14 @@ const styles = StyleSheet.create({
 		// justifyContent:'space-between',
 	},
 	name: {
-		fontSize: 18,
+		fontSize: 18
 	},
 	text: {
-		fontSize: 12,
+		fontSize: 12
 	},
 	time: {
 		fontSize: 13,
-		marginLeft: -17,
+		marginLeft: -17
 		// alignSelf:'flex-start',
 	}
 });

@@ -4,10 +4,10 @@ import { StyleSheet, View, FlatList } from 'react-native';
 import { COLORS, GLOBAL_STYLES, ICONS_LIGHT } from '../../styles';
 import { SearchBar } from './SearchBar';
 import { connect } from 'react-redux';
-import { selectChatsUsers, initPriviteChats, setRecieverInfo} from '../../redux/chats';
+import { selectChatsUsers, initPriviteChats, setRecieverInfo, getAndListenChatUsers } from '../../redux/chats';
 import { UserCard } from './UserCard';
-import { selectAuthUserID} from '../../redux/auth';
-import {selectTheme} from "../../redux/theme";
+import { selectAuthUserID } from '../../redux/auth';
+import { selectTheme } from '../../redux/theme';
 
 const mapStateToProps = (state) => ({
 	users: selectChatsUsers(state),
@@ -16,8 +16,9 @@ const mapStateToProps = (state) => ({
 });
 export const PeopleListField = connect(mapStateToProps, {
 	initPriviteChats,
-	setRecieverInfo
-})(({ users, initPriviteChats, userID, navigation, setRecieverInfo, darkMode}) => {
+	setRecieverInfo,
+	getAndListenChatUsers
+})(({ users, initPriviteChats, userID, navigation, setRecieverInfo, darkMode ,getAndListenChatUsers}) => {
 	const usersArr = Object.keys(users)
 		.map((key) => ({
 			ID: key, //use uppercase letters for IDs
@@ -28,33 +29,36 @@ export const PeopleListField = connect(mapStateToProps, {
 	const onUserCardPressHandler = async (reciever) => {
 		initPriviteChats(reciever.ID);
 		setRecieverInfo({
-			userName:reciever.name,
-			image:reciever.profilePiC
-		})
+			userName: reciever.name,
+			image: reciever.profilePiC
+		});
 		navigation.navigate('PriviteChat');
+		getAndListenChatUsers()
 	};
 
 	const colorTheme = darkMode
 		? {
-			backgroundColor: COLORS.backgroundDark
-		} : {
-			backgroundColor: COLORS.backgroundLight
-		};
+				backgroundColor: COLORS.backgroundDark
+			}
+		: {
+				backgroundColor: COLORS.backgroundLight
+			};
 
 	return (
-		<View style={{...styles.container, ...colorTheme}}>
-			 <SearchBar />
-
-			<FlatList
-				style={styles.listContainer}
-				keyExtractor={(item)=>item.ID}
-				horizontal
-				showsHorizontalScrollIndicator={false}
-				data={usersArr}
-				renderItem={({ item }) => {
-					return <UserCard user={item} onPress={() => onUserCardPressHandler(item)} />;
-				}}
-			/>
+		<View style={{ ...styles.container, ...colorTheme }}>
+			<SearchBar />
+			{!!users && (
+				<FlatList
+					style={styles.listContainer}
+					keyExtractor={(item) => item.ID}
+					horizontal
+					showsHorizontalScrollIndicator={false}
+					data={usersArr}
+					renderItem={({ item }) => {
+						return <UserCard user={item} onPress={() => onUserCardPressHandler(item)} />;
+					}}
+				/>
+			)}
 		</View>
 	);
 });
@@ -65,11 +69,11 @@ const styles = StyleSheet.create({
 		width: '100%',
 		borderBottomEndRadius: 30,
 		borderBottomStartRadius: 30,
-		marginTop: 5,
+		// marginTop: 5,
 		...GLOBAL_STYLES.shaddowBottum
 	},
 	listContainer: {
 		width: '100%',
 		height: '80%'
-	},
+	}
 });

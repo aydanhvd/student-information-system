@@ -94,4 +94,5 @@ const styles = StyleSheet.create({
         padding: 20,
 		marginBottom: -15
     }
+
 });

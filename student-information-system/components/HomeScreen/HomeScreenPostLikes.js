@@ -14,14 +14,18 @@ const mapStateToProps = (state) => ({
 export const HomeScreenPostLikes = connect(mapStateToProps, {
 	toggleLike,
 	getAndListenLikes
-})(({ postID, toggleLike, userID, likes={} , getAndListenLikes }) => {
+})(({ postID, toggleLike, userID, likes = {}, getAndListenLikes }) => {
 	useEffect(() => {
 		const unsub = getAndListenLikes(postID);
 		return unsub;
 	}, []);
-	// const likeStatus = !!likes[postID][userID] 
-	const [ isLiked, setIsLiked ] = useState();
-	// const likesCount = Object.keys(likes[postID]).length;
+	let likeStatus;
+	let likesCount;
+	if (likes[postID]) {
+		likeStatus = !!likes[postID][userID];
+		likesCount = Object.keys(likes[postID]).length - 1;
+	}
+	const [ isLiked, setIsLiked ] = useState(likeStatus);
 	const handleLike = () => {
 		setIsLiked((v) => !v);
 		toggleLike(postID);
@@ -31,7 +35,7 @@ export const HomeScreenPostLikes = connect(mapStateToProps, {
 			<TouchableOpacity onPress={handleLike}>
 				<AntDesign name="heart" size={15} color={isLiked ? '#CF007C' : COLORS.textColorDark} />
 			</TouchableOpacity>
-			<Text style={styles.count}>{}</Text>
+			<Text style={styles.count}>{likesCount}</Text>
 		</View>
 	);
 });

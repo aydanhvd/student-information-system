@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { StyleSheet, View, TextInput } from 'react-native';
 import { connect } from 'react-redux';
 
-import {COLORS, ICONS_DARK, ICONS_LIGHT} from '../../styles';
+import { COLORS, ICONS_DARK, ICONS_LIGHT } from '../../styles';
 import { IconBtn } from '../../commons/IconBtn';
 import { selectChatsUsers, setChatsUsers, getAndListenChatUsers } from '../../redux/chats';
-import {selectTheme} from "../../redux/theme";
+import { selectTheme } from '../../redux/theme';
 
 const mapStateToProps = (state) => ({
 	users: selectChatsUsers(state),
@@ -15,7 +15,7 @@ const mapStateToProps = (state) => ({
 export const SearchBar = connect(mapStateToProps, {
 	setChatsUsers,
 	getAndListenChatUsers
-})(({ users={}, setChatsUsers, getAndListenChatUsers, darkMode }) => {
+})(({ users = {}, setChatsUsers, getAndListenChatUsers, darkMode }) => {
 	const [ searchName, setSaerchName ] = useState('');
 	const usersArr = Object.keys(users).map((key) => ({
 		ID: key, //use uppercase letters for IDs
@@ -27,33 +27,35 @@ export const SearchBar = connect(mapStateToProps, {
 				let user = usersArr.find((user) => {
 					return user.userName.includes(searchName.toLowerCase().trim());
 				});
-				setChatsUsers({user});
+				setChatsUsers({ user });
 			}
 		}
+		setSaerchName('')
 	};
 	const colorTheme = darkMode
 		? {
-			backgroundColor: COLORS.acsentLight,
-			placeHolderColor: COLORS.backgroundLight,
-			refreshIcon: ICONS_DARK.refreshDark,
-			searchIcon: ICONS_DARK.searchDark
-		} : {
-			backgroundColor: COLORS.backgroundLight,
-			placeHolderColor: COLORS.textColorDark,
-			refreshIcon: ICONS_LIGHT.refresUsers,
-			searchIcon: ICONS_LIGHT.search
-		};
+				backgroundColor: COLORS.acsentLight,
+				placeHolderColor: COLORS.backgroundLight,
+				refreshIcon: ICONS_DARK.refreshDark,
+				searchIcon: ICONS_DARK.searchDark
+			}
+		: {
+				backgroundColor: COLORS.backgroundLight,
+				placeHolderColor: COLORS.textColorDark,
+				refreshIcon: ICONS_LIGHT.refresUsers,
+				searchIcon: ICONS_LIGHT.search
+			};
 
 	return (
-		<View style={{...styles.container, ...colorTheme}}>
+		<View style={{ ...styles.container, ...colorTheme }}>
+			<IconBtn icon={colorTheme.searchIcon} style={styles.searchIcon} onPress={onPressHandler} />
 			<TextInput
 				value={searchName}
-				style={{...styles.searchBar, color: colorTheme.placeHolderColor}}
+				style={{ ...styles.searchBar, color: colorTheme.placeHolderColor }}
 				placeholder="search by username"
 				onChangeText={(value) => setSaerchName(value)}
 				placeholderTextColor={colorTheme.placeHolderColor}
 			/>
-			<IconBtn icon={colorTheme.searchIcon} style={styles.searchIcon} onPress={onPressHandler} />
 			<IconBtn icon={colorTheme.refreshIcon} style={styles.refresh} onPress={getAndListenChatUsers} />
 		</View>
 	);
@@ -69,7 +71,7 @@ const styles = StyleSheet.create({
 		paddingHorizontal: 11,
 		paddingVertical: 8,
 		marginTop: 8,
-		marginBottom: 13,
+		marginBottom: 13
 	},
 	searchBar: {
 		width: '95%',
@@ -77,11 +79,12 @@ const styles = StyleSheet.create({
 	},
 	searchIcon: {
 		width: 18,
-		height: 18
+		height: 18,
+		marginRight: 5
 	},
 	refresh: {
 		position: 'absolute',
-		right: 30,
+		right: 0,
 		width: 18,
 		height: 18,
 		marginRight: 5
