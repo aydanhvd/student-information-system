@@ -1,11 +1,11 @@
 import React from 'react';
 import { StyleSheet, View, Image } from 'react-native';
-import { IconBtn } from '../index';
-import {ICONS_LIGHT, COLORS, ICONS_DARK} from '../../styles';
+import {ICONS_LIGHT, COLORS} from '../../styles';
 import { CustomText } from '../../commons/CustomText';
 import { connect } from 'react-redux';
 import { selectRecieverUserName, selectRecieverUserImage } from '../../redux/chats';
 import {selectTheme} from "../../redux/theme";
+import {BackIcon} from "../../commons/icons/BackIcon";
 
 const mapStateToProps = (state) => ({
 	recieverName: selectRecieverUserName(state),
@@ -20,17 +20,15 @@ export const PriviteChatsHeader = connect(mapStateToProps)(({ navigation, reciev
 			backgroundColor: COLORS.backgroundDark,
 			borderColor: COLORS.drawerDark,
 			nameColor: COLORS.backgroundLight,
-			backIcon: ICONS_DARK.backDark
 		} : {
 			backgroundColor: COLORS.backgroundLight,
 			borderColor: COLORS.acsentColor,
 			nameColor: COLORS.textColorDark,
-			backIcon: ICONS_LIGHT.backLight
 		};
 
 	return (
 		<View style={{...styles.container, ...colorTheme}}>
-			<IconBtn icon={colorTheme.backIcon} style={styles.backArrow} onPress={() => navigation.goBack()} />
+			<BackIcon onPress={() => navigation.goBack()} />
 			<Image style={{...styles.profilePiC, borderColor: colorTheme.borderColor}} source={recieverPic ? { uri: recieverPic } : ICONS_LIGHT.userLight} />
 			<View style={styles.nameContainer}>
 				<CustomText style={{...styles.name, color: colorTheme.nameColor}}>{recieverName}</CustomText>
@@ -52,9 +50,6 @@ const styles = StyleSheet.create({
 		borderRadius: 30,
 		marginHorizontal: 15,
 		borderWidth: 2,
-	},
-	backArrow: {
-		marginLeft: 16
 	},
 	nameContainer: {
 		justifyContent: 'space-around'

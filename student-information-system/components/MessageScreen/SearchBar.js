@@ -6,6 +6,8 @@ import { COLORS, ICONS_DARK, ICONS_LIGHT } from '../../styles';
 import { IconBtn } from '../../commons/IconBtn';
 import { selectChatsUsers, setChatsUsers, getAndListenChatUsers } from '../../redux/chats';
 import { selectTheme } from '../../redux/theme';
+import {SearchIcon} from "../../commons/icons/SearchIcon";
+import {RefreshIcon} from "../../commons/icons/RefreshIcon";
 
 const mapStateToProps = (state) => ({
 	users: selectChatsUsers(state),
@@ -36,19 +38,14 @@ export const SearchBar = connect(mapStateToProps, {
 		? {
 				backgroundColor: COLORS.acsentLight,
 				placeHolderColor: COLORS.backgroundLight,
-				refreshIcon: ICONS_DARK.refreshDark,
-				searchIcon: ICONS_DARK.searchDark
-			}
-		: {
+		} : {
 				backgroundColor: COLORS.backgroundLight,
 				placeHolderColor: COLORS.textColorDark,
-				refreshIcon: ICONS_LIGHT.refresUsers,
-				searchIcon: ICONS_LIGHT.search
-			};
+		};
 
 	return (
 		<View style={{ ...styles.container, ...colorTheme }}>
-			<IconBtn icon={colorTheme.searchIcon} style={styles.searchIcon} onPress={onPressHandler} />
+			<SearchIcon onPress={onPressHandler} />
 			<TextInput
 				value={searchName}
 				style={{ ...styles.searchBar, color: colorTheme.placeHolderColor }}
@@ -56,7 +53,7 @@ export const SearchBar = connect(mapStateToProps, {
 				onChangeText={(value) => setSaerchName(value)}
 				placeholderTextColor={colorTheme.placeHolderColor}
 			/>
-			<IconBtn icon={colorTheme.refreshIcon} style={styles.refresh} onPress={getAndListenChatUsers} />
+			<RefreshIcon style={styles.refresh} onPress={getAndListenChatUsers} />
 		</View>
 	);
 });
@@ -77,16 +74,9 @@ const styles = StyleSheet.create({
 		width: '95%',
 		height: '100%'
 	},
-	searchIcon: {
-		width: 18,
-		height: 18,
-		marginRight: 5
-	},
 	refresh: {
 		position: 'absolute',
 		right: 0,
-		width: 18,
-		height: 18,
 		marginRight: 5
 	}
 });

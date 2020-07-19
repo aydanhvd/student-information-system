@@ -6,6 +6,7 @@ import { IconBtn } from '../../commons/IconBtn';
 import { shareNewPost, selectActivePosts } from '../../redux/posts';
 import { connect } from 'react-redux';
 import {selectTheme} from "../../redux/theme";
+import {OrigamiIcon} from "../../commons/icons/OrigamiIcon";
 
 const mapStateToProps = (state) => ({
 	activePostID: selectActivePosts(state),
@@ -26,11 +27,9 @@ export const HomeScreenField = connect(mapStateToProps, { shareNewPost })(({ act
 		? {
 			backgroundColor: COLORS.backgroundDark,
 			placeHolderTheme: COLORS.backgroundLight,
-			source: ICONS_DARK.origamiDark
 		} : {
 			backgroundColor: COLORS.backgroundLight,
 			placeHolderTheme: COLORS.textColorDark,
-			source: ICONS_LIGHT.origamiLight
 		};
 
 	return (
@@ -42,7 +41,7 @@ export const HomeScreenField = connect(mapStateToProps, { shareNewPost })(({ act
 				style={{...styles.field, color: colorTheme.placeHolderTheme}}
 				placeholder="what is on your mind...."
 			/>
-			<IconBtn icon={colorTheme.source} style={styles.icon} onPress={sharePostHandler} />
+			<OrigamiIcon style={styles.icon} onPress={sharePostHandler} />
 		</View>
 	);
 });

@@ -9,6 +9,7 @@ import { ICONS_LIGHT } from '../styles/iconsLight';
 import {selectTheme} from "../redux/theme";
 import {connect} from "react-redux";
 import {ICONS_DARK} from "../styles";
+import {LeftAlignIcon} from "./icons/LeftAlign";
 
 const mapStateToProps = (state) => ({
 	darkMode: selectTheme(state)
@@ -22,17 +23,15 @@ export const Header = connect(mapStateToProps, {})(({ title, darkMode }) => {
 		? {
 			backgroundColor: COLORS.backgroundDark,
 			color: COLORS.backgroundLight,
-			source: ICONS_DARK.leftAlignDark
 		} : {
 			backgroundColor: COLORS.backgroundLight,
 			color: COLORS.backgroundDark,
-			source: ICONS_LIGHT.leftAlignLight
 		};
 
 	return (
 		<View style={{...styles.container, ...colorTheme}}>
 			<CustomText style={{...styles.heading, ...colorTheme}}>{title}</CustomText>
-			<IconBtn onPress={() => toggleDrawer()} style={styles.headerIcon} icon={colorTheme.source} />
+			<LeftAlignIcon onPress={() => toggleDrawer()} style={styles.headerIcon}/>
 		</View>
 	);
 });

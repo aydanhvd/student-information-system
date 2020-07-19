@@ -4,9 +4,9 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import { COLORS } from '../../styles';
-import { DrawerHeader } from './DrawerHeader';
-import { DrawerBody } from './DrawerBody';
-import { DrawerFooter } from './DrawerFooter';
+import { DrawerDarkMode } from './DrawerDarkMode';
+import { DrawerUserInfo } from './DrawerUserInfo';
+import { DrawerFeedback } from './DrawerFeedback';
 import { connect } from 'react-redux';
 import { getAndListenGroup } from '../../redux/materials';
 import { selectTheme } from '../../redux/theme';
@@ -38,9 +38,9 @@ export const Drawer = connect(mapStateToProps, { getAndListenGroup })(({ navigat
 					enabled
 					keyboardVerticalOffset={100}
 				/>
-				<DrawerHeader navigation={navigation} />
-				<DrawerBody />
-				<DrawerFooter navigation={navigation} />
+				<DrawerDarkMode navigation={navigation} />
+				<DrawerUserInfo />
+				<DrawerFeedback navigation={navigation} />
 			</View>
 		</SafeAreaProvider>
 	);

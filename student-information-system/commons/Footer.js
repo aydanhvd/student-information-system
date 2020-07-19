@@ -8,7 +8,6 @@ import { GLOBAL_STYLES } from '../styles';
 import { FOOTER_ICONS_DATA } from '../styles/footerIconsData';
 import { selectTheme } from '../redux/theme';
 import { getAndListenChatUsers } from '../redux/chats';
-import {NoteBookIcon } from '../commons/icons/NoteBookIcon'
 
 
 const mapStateToProps = (state) => ({

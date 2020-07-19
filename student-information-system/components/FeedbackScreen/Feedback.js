@@ -8,6 +8,7 @@ import {Modal} from "./Modal";
 import {submitFeedback} from "../../redux/feedback";
 import { IconBtn } from '../../commons/IconBtn';
 import {selectTheme} from "../../redux/theme";
+import {SendIcon} from "../../commons/icons/SendIcon";
 
 const mapStateToProps = (state) => ({
     darkMode: selectTheme(state)
@@ -30,11 +31,9 @@ export const Feedback = connect(mapStateToProps, { submitFeedback })(({submitFee
         ? {
             backgroundColor: COLORS.backgroundDark,
             placeHolderTheme: COLORS.backgroundLight,
-            sendIcon: ICONS_DARK.sendMessage
         }:{
             backgroundColor: COLORS.backgroundLight ,
             placeHolderTheme: COLORS.textColorDark,
-            sendIcon: ICONS_LIGHT.sendMessages
         };
     return (
         <>
@@ -47,11 +46,9 @@ export const Feedback = connect(mapStateToProps, { submitFeedback })(({submitFee
                         value={field}
                         style={{...styles.text, color: colorTheme.placeHolderTheme}}
                     />
-                    <IconBtn
-                        icon={colorTheme.sendIcon}
-                        style={styles.sendIcon} 
-                        onPress={toggleSend}    
-                    />
+                    <SendIcon
+                        style={styles.sendIcon}
+                        onPress={toggleSend}  />
                 </View>
             </View>
             {send && (

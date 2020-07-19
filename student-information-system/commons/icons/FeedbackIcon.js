@@ -1,7 +1,23 @@
 import React from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 import Svg, { G, Path } from 'react-native-svg';
-export const SettingsIcon = () => {
+import {selectTheme} from "../../redux/theme";
+import {connect} from "react-redux";
+import {COLORS} from "../../styles";
+
+const mapStateToProps = (state) => ({
+	darkMode: selectTheme(state)
+});
+
+export const FeedbackIcon = connect(mapStateToProps, {})(({ darkMode }) => {
+
+	const colorTheme = darkMode
+		? {
+			fill: COLORS.backgroundDark,
+		} : {
+			fill: COLORS.backgroundLight,
+		};
+
 	return (
 		<TouchableOpacity style={styles.container}>
 			<Svg
@@ -22,7 +38,7 @@ export const SettingsIcon = () => {
 								data-original="#000000"
 								class="active-path"
 								data-old_color="#000000"
-								fill="#FFFFFF"
+								fill={colorTheme.fill}
 							/>
 						</G>
 					</G>
@@ -33,7 +49,7 @@ export const SettingsIcon = () => {
 								data-original="#000000"
 								class="active-path"
 								data-old_color="#000000"
-								fill="#FFFFFF"
+								fill={colorTheme.fill}
 							/>
 						</G>
 					</G>
@@ -44,7 +60,7 @@ export const SettingsIcon = () => {
 								data-original="#000000"
 								class="active-path"
 								data-old_color="#000000"
-								fill="#FFFFFF"
+								fill={colorTheme.fill}
 							/>
 						</G>
 					</G>
@@ -55,7 +71,7 @@ export const SettingsIcon = () => {
 								data-original="#000000"
 								class="active-path"
 								data-old_color="#000000"
-								fill="#FFFFFF"
+								fill={colorTheme.fill}
 							/>
 						</G>
 					</G>
@@ -66,7 +82,7 @@ export const SettingsIcon = () => {
 								data-original="#000000"
 								class="active-path"
 								data-old_color="#000000"
-								fill="#FFFFFF"
+								fill={colorTheme.fill}
 							/>
 						</G>
 					</G>
@@ -74,11 +90,12 @@ export const SettingsIcon = () => {
 			</Svg>
 		</TouchableOpacity>
 	);
-};
+});
 
 const styles = StyleSheet.create({
 	container: {
-		width: 22,
-		height: 22
+		width: 30,
+		height: 30,
+		marginRight: 30
 	}
 });
