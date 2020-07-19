@@ -1,21 +1,24 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { connect } from 'react-redux';
 import { CustomText } from '../../commons/CustomText';
 import { IconBtn } from '../../commons/IconBtn';
-import { setSelectedPost, selectComments, getAndListenComments } from '../../redux/comments';
+import { setSelectedPost, getAndListedCommentsList, selectCommentsList } from '../../redux/comments';
 import { COLORS, ICONS_LIGHT } from '../../styles';
 
 const mapStateToProps = (state) => ({
-	comments: selectComments(state)
+	commentsList: selectCommentsList(state)
 });
 
 export const PostCommennts = connect(mapStateToProps, {
 	setSelectedPost,
-	getAndListenComments
-})(({ post, setSelectedPost, navigation, comments = [], getAndListenComments }) => {
-	getAndListenComments(post.ID);
-
+	getAndListedCommentsList
+})(({ post, setSelectedPost, navigation, commentsList = [], getAndListedCommentsList }) => {
+	useEffect(() => {
+		const unsub = getAndListedCommentsList(post.ID);
+		return unsub
+	}, []);
+	const commentsLength=Object.keys(commentsList[post.ID]).length
 	const onPressHandler = (post = []) => {
 		setSelectedPost(post);
 		navigation.navigate('CommentScreen');
@@ -23,14 +26,14 @@ export const PostCommennts = connect(mapStateToProps, {
 	return (
 		<View style={styles.container}>
 			<IconBtn icon={ICONS_LIGHT.commentLight} onPress={() => onPressHandler(post)} />
-			{/* <CustomText>{comments.length}</CustomText> */}
+			<CustomText>  {commentsLength}</CustomText>
 		</View>
 	);
 });
 const styles = StyleSheet.create({
 	container: {
 		alignItems: 'center',
-      justifyContent: 'center',
-      flexDirection: 'row',
+		justifyContent: 'center',
+		flexDirection: 'row'
 	}
 });
