@@ -8,6 +8,12 @@ import { GLOBAL_STYLES } from '../styles';
 import { FOOTER_ICONS_DATA } from '../styles/footerIconsData';
 import { selectTheme } from '../redux/theme';
 import { getAndListenChatUsers } from '../redux/chats';
+import {CalendarIcon} from './icons/CalendarIcon'
+import {NoteBookIcon} from './icons/NoteBookIcon';
+import {MenuIcon} from './icons/MenuIcon';
+import {SendIcon} from './icons/SendIcon';
+import {BookmarkIcon} from './icons/BookmarIcon';
+
 
 
 const mapStateToProps = (state) => ({
@@ -47,10 +53,10 @@ export const Footer = connect(mapStateToProps, {
 				return (
 					<TouchableOpacity
 						style={[ styles.btn ]}
-						onPress={() => navigationHandler(item.name)}
 						key={item.name}
+						onPress={() => navigationHandler(item.name)}
 					>
-						<Image source={darkMode ? item.iconDark : item.icon} style={styles.icon} />
+						<item.Icon />
 						{item.name === screen && (
 							<View style={{ ...styles.indicator, backgroundColor: colorTheme.indicatorTheme }} />
 						)}

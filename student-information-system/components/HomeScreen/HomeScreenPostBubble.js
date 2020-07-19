@@ -57,7 +57,6 @@ export const HomeScreenPostBubble = connect(mapStateToProps,{
 				<CustomText style={{ ...styles.text, color: colorTheme.textTheme }}>{post.text}</CustomText>
 				<View style={styles.likesContainer}>
 					{post.likes && <HomeScreenPostLikes postID={post.ID} />}
-					<CommentIcon style={styles.commentIcon} onPress={() => onPressHandler(post)} />
 					<PostCommennts post={post} navigation={navigation} />
 				</View>
 			</View>
@@ -104,9 +103,6 @@ const styles = StyleSheet.create({
 		marginTop: 10,
 		alignItems: 'center',
 		backgroundColor: COLORS.commentsColorLight,
-	},
-	commentIcon: {
-
 	},
 	time: {
 		position: 'absolute',
