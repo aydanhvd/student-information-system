@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, TouchableOpacity } from 'react-native';
+import { StyleSheet, TouchableOpacity,View } from 'react-native';
 import Svg, { G, Path } from 'react-native-svg';
 import {selectTheme} from "../../redux/theme";
 import {connect} from "react-redux";
@@ -8,7 +8,7 @@ import {COLORS} from "../../styles";
 const mapStateToProps = (state) => ({
 	darkMode: selectTheme(state)
 });
-
+//airplane icon on footer,feedback screen
 export const SendFooterIcon = connect(mapStateToProps, {})(({ darkMode, onPress, style }) => {
 
 	const colorTheme = darkMode
@@ -19,7 +19,7 @@ export const SendFooterIcon = connect(mapStateToProps, {})(({ darkMode, onPress,
 		};
 
 	return (
-		<TouchableOpacity style={{...styles.container, ...style}} onPress={onPress}>
+		<View style={{...styles.container, ...style}} onPress={onPress}>
 			<Svg
 				height="100%"
 				viewBox="0 0 512.005 512.005"
@@ -37,7 +37,7 @@ export const SendFooterIcon = connect(mapStateToProps, {})(({ darkMode, onPress,
 					</G>
 				</G>
 			</Svg>
-		</TouchableOpacity>
+		</View>
 	);
 });
 

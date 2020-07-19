@@ -1,26 +1,34 @@
 import React from 'react';
-import {StyleSheet, TouchableOpacity } from 'react-native';
+import { StyleSheet, TouchableOpacity ,View} from 'react-native';
 import Svg, { G, Path } from 'react-native-svg';
-import {connect} from "react-redux";
-import {COLORS} from "../../styles";
-import {selectTheme} from "../../redux/theme";
+import { connect } from 'react-redux';
+import { COLORS } from '../../styles';
+import { selectTheme } from '../../redux/theme';
 
 const mapStateToProps = (state) => ({
 	darkMode: selectTheme(state)
 });
-
+//notebook icon on footer
 export const NoteBookIcon = connect(mapStateToProps, {})(({ darkMode, onPress }) => {
-
 	const colorTheme = darkMode
 		? {
-			fill: COLORS.backgroundLight,
-		} : {
-			fill: COLORS.acsentLight,
-		};
+				fill: COLORS.backgroundLight
+			}
+		: {
+				fill: COLORS.acsentLight
+			};
 
 	return (
-		<TouchableOpacity style={styles.container} onPress={onPress}>
-			<Svg width="100%" height="100%">
+		<View style={styles.container}>
+			<Svg
+				xmlns="http://www.w3.org/2000/svg"
+				version="1.1"
+				id="Capa_1"
+				viewBox="0 0 58 58"
+				style="enable-background:new 0 0 58 58;"
+				width="100%"
+				height="100%"
+			>
 				<G>
 					<G>
 						<Path
@@ -68,7 +76,7 @@ export const NoteBookIcon = connect(mapStateToProps, {})(({ darkMode, onPress })
 					</G>
 				</G>
 			</Svg>
-		</TouchableOpacity>
+		</View>
 	);
 });
 

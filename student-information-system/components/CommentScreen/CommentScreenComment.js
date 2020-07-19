@@ -17,7 +17,7 @@ const mapStateToProps = (state) => {
 //comments in comment screen
 export const CommentScreenComment = connect(
 	mapStateToProps
-)(({ setSelectedPost, profilePic, navigation, commentsList }) => {
+)(({ setSelectedPost, profilePic, navigation, commentsList={} }) => {
 	const comentsArr = Object.keys(commentsList[setSelectedPost.ID]).map((key) => ({
 		ID: key,
 		...commentsList[setSelectedPost.ID][key]

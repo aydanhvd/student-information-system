@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, TouchableOpacity } from 'react-native';
+import { StyleSheet, TouchableOpacity , View} from 'react-native';
 import Svg, { G, Path } from 'react-native-svg';
 import {connect} from "react-redux";
 import {COLORS} from "../../styles";
@@ -19,7 +19,7 @@ export const BookmarkIcon = connect(mapStateToProps, {})(({ darkMode, onPress })
 		};
 
 	return (
-		<TouchableOpacity style={styles.container} onPress={onPress}>
+		<View style={styles.container} onPress={onPress}>
 			<Svg
 				xmlns="http://www.w3.org/2000/svg"
 				id="Capa_1"
@@ -41,7 +41,7 @@ export const BookmarkIcon = connect(mapStateToProps, {})(({ darkMode, onPress })
 					</G>
 				</G>
 			</Svg>
-		</TouchableOpacity>
+		</View>
 	);
 });
 
