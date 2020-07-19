@@ -14,23 +14,27 @@ const mapStateToProps = (state) => ({
 export const PostCommennts = connect(mapStateToProps, {
 	setSelectedPost,
 	getAndListedCommentsList
-})(({ post, setSelectedPost, navigation, commentsList = {}, getAndListedCommentsList }) => {
+})(({ post, setSelectedPost, navigation, commentsList=[], getAndListedCommentsList }) => {
 	useEffect(() => {
 		const unsub = getAndListedCommentsList(post.ID);
 		return unsub;
 	}, []);
+
 	let commentsLength;
-	if (commentsList[post.ID]) {
-		commentsLength = Object.keys(commentsList[post.ID]).length;
+	if(commentsList[post.ID]) {
+		 commentsLength = Object.keys(commentsList[post.ID]).length;
 	}
+
+
 	const onPressHandler = (post = []) => {
 		setSelectedPost(post);
 		navigation.navigate('CommentScreen');
 	};
 	return (
 		<View style={styles.container}>
-			<CommentIcon style={styles.commentIcon} onPress={() => onPressHandler(post)} />
-			<CustomText> {commentsLength}</CustomText>
+			<CommentIcon onPress={() => onPressHandler(post)} />
+			<CustomText style={styles.length}>  {commentsLength}</CustomText>
+
 		</View>
 	);
 });
@@ -39,5 +43,11 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		justifyContent: 'center',
 		flexDirection: 'row'
-	}
+	},
+	length: {
+		marginTop: -7,
+		fontSize: 13,
+		marginLeft: 3,
+		color: COLORS.backgroundLight
+	},
 });

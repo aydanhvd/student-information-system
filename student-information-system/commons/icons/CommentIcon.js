@@ -1,22 +1,9 @@
 import React from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 import Svg, { G, Path } from 'react-native-svg';
-import {selectTheme} from "../../redux/theme";
-import {connect} from "react-redux";
 import {COLORS} from "../../styles";
 
-const mapStateToProps = (state) => ({
-    darkMode: selectTheme(state)
-});
-
-export const CommentIcon = connect(mapStateToProps, {})(({ darkMode, onPress, style }) => {
-
-    const colorTheme = darkMode
-        ? {
-            fill: COLORS.backgroundLight,
-        } : {
-            fill: COLORS.acsentLight,
-        };
+export const CommentIcon = ({ onPress, style }) => {
 
     return (
         <TouchableOpacity style={{...styles.container, ...style}} onPress={onPress}>
@@ -31,37 +18,37 @@ export const CommentIcon = connect(mapStateToProps, {})(({ darkMode, onPress, st
                     data-original="#000000"
                     class="active-path"
                     data-old_color="#000000"
-                    fill={colorTheme.fill}
+                    fill={COLORS.backgroundLight}
                 />
                 <Path
                     d="m171.292969 131.171875h297.414062v37.5h-297.414062zm0 0"
                     data-original="#000000"
                     class="active-path"
                     data-old_color="#000000"
-                    fill={colorTheme.fill}
+                    fill={COLORS.backgroundLight}
                 />
                 <Path
                     d="m171.292969 211.171875h297.414062v37.5h-297.414062zm0 0"
                     data-original="#000000"
                     class="active-path"
                     data-old_color="#000000"
-                    fill={colorTheme.fill}
+                    fill={COLORS.backgroundLight}
                 />
                 <Path
                     d="m171.292969 291.171875h297.414062v37.5h-297.414062zm0 0"
                     data-original="#000000"
                     class="active-path"
                     data-old_color="#000000"
-                    fill={colorTheme.fill}
+                    fill={COLORS.backgroundLight}
                 />
             </Svg>
         </TouchableOpacity>
     );
-});
+};
 
 const styles = StyleSheet.create({
     container: {
-        width: 22,
-        height: 22
+        width: 20,
+        height: 20
     }
 });
