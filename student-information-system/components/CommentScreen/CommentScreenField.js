@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, TextInput } from 'react-native';
+import {StyleSheet, View, TextInput, KeyboardAvoidingView, Platform} from 'react-native';
 
 import {COLORS, ICONS_LIGHT, GLOBAL_STYLES, ICONS_DARK} from '../../styles';
 import { IconBtn } from '../../commons/IconBtn';
@@ -14,7 +14,7 @@ const mapStateToProps = (state) => ({
     darkMode: selectTheme(state)
 });
 
-export const CommentScreenField = connect(mapStateToProps, { addNewComment })(({ selectedPost, addNewComment, darkMode }) => {
+export const CommentScreenField = connect(mapStateToProps, { addNewComment })(({ selectedPost, addNewComment, darkMode, style }) => {
     const [ newComment, setNewComment ] = useState('');
 
     const sharePostHandler = () => {
@@ -34,7 +34,11 @@ export const CommentScreenField = connect(mapStateToProps, { addNewComment })(({
         };
 
     return (
-        <View style={{ ...styles.container, ...GLOBAL_STYLES.shaddowBottum, ...GLOBAL_STYLES.shaddowTop, ...colorTheme }}>
+        <KeyboardAvoidingView
+            keyboardVerticalOffset={20}
+            style={{ ...style, ...styles.container, ...colorTheme, ...GLOBAL_STYLES.shaddowBottum, ...GLOBAL_STYLES.shaddowTop, }}
+            behavior={Platform.OS === 'ios' ? 'padding' : ''}
+        >
             <TextInput
                 value={newComment}
                 onChangeText={setNewComment}
@@ -43,18 +47,18 @@ export const CommentScreenField = connect(mapStateToProps, { addNewComment })(({
                 placeholder="write a comment"
             />
             <OrigamiIcon style={styles.icon} onPress={sharePostHandler} />
-        </View>
+        </KeyboardAvoidingView>
     );
 });
 
 const styles = StyleSheet.create({
     container: {
-        height: 60,
+        minHeight: 50,
         flexDirection: 'row',
         borderRadius: 50,
-        marginHorizontal: 17,
-        position: 'absolute',
-        bottom: 60,
+        width: '95%',
+        alignSelf: 'center',
+        alignItems: 'center',
     },
     icon: {
         width: 35,

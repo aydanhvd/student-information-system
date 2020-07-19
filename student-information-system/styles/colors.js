@@ -1,6 +1,6 @@
 export const COLORS = Object.freeze({
 	backgroundLight: '#FFFFFF', //background(header footer) color for light theme, text color for dark theme
-	backgroundDark: '#333C40', //background color for dark theme
+	backgroundDark: '#434C4F', //background color for dark theme
 	drawerLight: '#02BCF1', // header, footer, compenents(comunity posts, classes,homeworks, dark part of progress bar) for dark theme and text color, drawer backgraund for light theme
 	drawerDark: '#AE92B6', //components(comunity messages,homeworks tab, grey part of progress bar) for dark theme
 	textColorDark: '#6A7479', // comments for dark theme
@@ -12,4 +12,5 @@ export const COLORS = Object.freeze({
 	sendDark: '#9BE4BC',
 	error: "#CB0000",
 	headerColor: "#4375BF", //header of material screen field
+	screenBgDark: "#333C40"
 });

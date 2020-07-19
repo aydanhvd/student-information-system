@@ -23,17 +23,18 @@ export const HomeScreenPostBubble = connect(mapStateToProps,{
 
 })(({ navigation, post, darkMode, usersList}) => {
 	const formattedTime = post.time ? timeHumanizer(post.time) : '';
+
 	const colorTheme = darkMode
 		? {
-				backgroundColor: COLORS.backgroundDark,
+				backgroundColor: COLORS.screenBgDark,
 				borderTheme: COLORS.drawerDark,
 				textTheme: COLORS.backgroundLight
-			}
-		: {
+		} : {
 				backgroundColor: '#F5F5F5',
 				borderTheme: COLORS.acsentColor,
 				textTheme: COLORS.acsentLight
-			};
+		};
+
 	const auther = Object.keys(usersList)
 		.map((key) => ({
 			ID: key,
@@ -43,6 +44,7 @@ export const HomeScreenPostBubble = connect(mapStateToProps,{
 		
 	return (
 		<View style={{ ...styles.container, ...GLOBAL_STYLES.shaddowTop, ...colorTheme }}>
+			<View style={styles.row}>
 		{post&&<>
 			<Image
 				style={styles.profilePic}
@@ -55,27 +57,30 @@ export const HomeScreenPostBubble = connect(mapStateToProps,{
 				</CustomText>
 				<CustomText style={{ ...styles.userName, color: colorTheme.borderTheme }}>@{auther[0]?.userName}</CustomText>
 				<CustomText style={{ ...styles.text, color: colorTheme.textTheme }}>{post.text}</CustomText>
-				<View style={styles.likesContainer}>
-					{post.likes && <HomeScreenPostLikes postID={post.ID} />}
-					<CommentIcon style={styles.commentIcon} onPress={() => onPressHandler(post)} />
-					<PostCommennts post={post} navigation={navigation} />
-				</View>
+
 			</View>
 			<CustomText style={{ ...styles.time, color: colorTheme.textTheme }}>{formattedTime[0]} {formattedTime[1]}</CustomText>
 			</>}
+			</View>
+			<View style={{...styles.likesContainer, backgroundColor: colorTheme.borderTheme}}>
+				{post.likes && <HomeScreenPostLikes postID={post.ID} />}
+				<PostCommennts post={post} navigation={navigation} />
+			</View>
 		</View>
 	);
 });
 
 const styles = StyleSheet.create({
 	container: {
-		flexDirection: 'row',
 		borderColor: COLORS.textColorDark, //find out why box shadow is not working
 		marginBottom: 25,
-		padding: 18,
 		borderRadius: 10,
 		zIndex: 999,
 		minHeight: 130
+	},
+	row: {
+		flexDirection: 'row',
+		margin: 18,
 	},
 	profilePic: {
 		width: 50,
@@ -103,7 +108,8 @@ const styles = StyleSheet.create({
 		width: '100%',
 		marginTop: 10,
 		alignItems: 'center',
-		backgroundColor: COLORS.commentsColorLight,
+		borderBottomStartRadius: 10,
+		borderBottomEndRadius: 10,
 	},
 	commentIcon: {
 

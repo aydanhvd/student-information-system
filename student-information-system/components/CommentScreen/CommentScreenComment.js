@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
 		marginTop: 30,
 		flexGrow: 1,
 		paddingHorizontal: 17,
-		paddingBottom: 100 //TODO look into post going under footer
+		paddingBottom: 170 //TODO look into post going under footer
 	}
 	// post:{
 	// 	...GLOBAL_STYLES.shaddowTop

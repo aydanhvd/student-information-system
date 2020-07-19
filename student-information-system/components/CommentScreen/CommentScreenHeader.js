@@ -1,13 +1,14 @@
 import React, { useEffect } from 'react';
 import { StyleSheet, View, Image } from 'react-native';
-import { IconBtn } from '../index';
+import {HomeScreenPostLikes, IconBtn} from '../index';
 import { ICONS_LIGHT, COLORS, ICONS_DARK, GLOBAL_STYLES } from '../../styles';
 import { CustomText } from '../../commons/CustomText';
 import { connect } from 'react-redux';
 import { selectTheme } from '../../redux/theme';
 import { selectSelectedPost } from '../../redux/comments';
 import { selectChatsUsers } from '../../redux/chats';
-import {BackIcon, RightArrowIcon} from "../../commons/icons/BackIcon";
+import { BackIcon } from "../../commons/icons/BackIcon";
+import {PostCommennts} from "../HomeScreen/PostComments";
 
 const mapStateToProps = (state) => ({
 	selectedPost: selectSelectedPost(state),
@@ -36,7 +37,7 @@ export const CommentScreenHeader = connect(
 			...usersList[key]
 		}))
 		.filter((user) => user.ID === selectedPost.autherID);
-	console.log('auther', auther[0].name);
+
 	return (
 		<View style={{ ...colorTheme }}>
 			<View style={{ ...styles.container, ...colorTheme }}>
@@ -51,6 +52,10 @@ export const CommentScreenHeader = connect(
 			</View>
 			<View style={{...styles.post, ...colorTheme}}>
 				<CustomText style={{ color: colorTheme.nameColor }}>{selectedPost.text}</CustomText>
+				<View style={{...styles.likesContainer, backgroundColor: colorTheme.borderColor}}>
+					{selectedPost.likes && <HomeScreenPostLikes postID={selectedPost.ID} />}
+					<PostCommennts post={selectedPost} navigation={navigation} />
+				</View>
 			</View>
 		</View>
 	);
@@ -81,14 +86,20 @@ const styles = StyleSheet.create({
     },
     post:{
         width:"100%",
-        minHeight:90,
+        minHeight: 80,
         ...GLOBAL_STYLES.shaddowBottum,
-        borderBottomEndRadius: 50,
-        borderBottomStartRadius: 50,
-        // alignItems:'center',
-        justifyContent:'center',
-        padding: 20,
-		marginBottom: -15
-    }
+        borderBottomEndRadius: 40,
+        borderBottomStartRadius: 40,
+		marginBottom: -15,
+		paddingTop: 10,
+
+    },
+	likesContainer: {
+		flexDirection: 'row',
+		width: '100%',
+		marginTop: 10,
+		borderBottomStartRadius: 40,
+		borderBottomEndRadius: 40,
+	},
 
 });

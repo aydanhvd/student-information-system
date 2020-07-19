@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { COLORS } from '../../styles';
 import { toggleLike, getAndListenLikes, selectLikes } from '../../redux/posts';
 import { selectAuthUserID } from '../../redux/auth';
+import {CustomText} from "../../commons/CustomText";
 
 const mapStateToProps = (state) => ({
 	likes: selectLikes(state),
@@ -33,9 +34,9 @@ export const HomeScreenPostLikes = connect(mapStateToProps, {
 	return (
 		<View style={styles.container}>
 			<TouchableOpacity onPress={handleLike}>
-				<AntDesign name="heart" size={15} color={isLiked ? '#CF007C' : COLORS.textColorDark} />
+				<AntDesign name="heart" size={17} color={isLiked ? '#F26161' : COLORS.backgroundLight} />
 			</TouchableOpacity>
-			<Text style={styles.count}>{likesCount}</Text>
+			<CustomText style={styles.count}>{likesCount}</CustomText>
 		</View>
 	);
 });
@@ -47,8 +48,9 @@ const styles = StyleSheet.create({
 		alignItems: 'center'
 	},
 	count: {
+		marginTop: -5,
 		marginLeft: 10,
 		fontSize: 13,
-		color: COLORS.acsentLight
+		color: COLORS.backgroundLight
 	}
 });
