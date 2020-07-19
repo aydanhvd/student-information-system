@@ -3,32 +3,19 @@ import { StyleSheet, TextInput, View } from 'react-native';
 import { connect } from 'react-redux';
 import { COLORS } from '../../styles';
 
-export const SignUpInput = () => {
-	const [ fields, setFields ] = useState([
-		{ placeholder: 'email', value: '', secureTextEntry: false },
-		{ placeholder: 'username', value: '', secureTextEntry: false },
-		{ placeholder: 'full name', value: '', secureTextEntry: false },
-		{ placeholder: 'password', value: '', secureTextEntry: true },
-		{ placeholder: 'repeat password', value: '', secureTextEntry: true }
-	]);
-	console.log(fields);
-	const fieldsChangeHandler = (key, value) => {
-		
-	};
+export const SignUpInput = ({ fields, fieldsChangeHandler }) => {
 	return (
 		<View>
-			{fields.map((field, key) => {
-				return (
-					<TextInput
-						style={styles.input}
-						value={field.value}
-						placeholder={field.placeholder}
-						secureTextEntry={field.secureTextEntry}
-						placeholderTextColor="rgba(255,255,255, 0.3)"
-						onChange={(value) => fieldsChangeHandler(key, value)}
-					/>
-				);
-			})}
+			{Object.keys(fields).map((key) => (
+				<TextInput
+					key={fields[key].placeholder}
+					style={styles.input}
+					placeholder={fields[key].label}
+					placeholderTextColor="rgba(255,255,255, 0.3)"
+					secureTextEntry={fields[key].secureTextEntry}
+					onChangeText={(value) => fieldsChangeHandler(key, value)}
+				/>
+			))}
 		</View>
 	);
 };
