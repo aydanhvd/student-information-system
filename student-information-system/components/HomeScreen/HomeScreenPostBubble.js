@@ -57,7 +57,6 @@ export const HomeScreenPostBubble = connect(mapStateToProps,{
 				</CustomText>
 				<CustomText style={{ ...styles.userName, color: colorTheme.borderTheme }}>@{auther[0]?.userName}</CustomText>
 				<CustomText style={{ ...styles.text, color: colorTheme.textTheme }}>{post.text}</CustomText>
-
 			</View>
 			<CustomText style={{ ...styles.time, color: colorTheme.textTheme }}>{formattedTime[0]} {formattedTime[1]}</CustomText>
 			</>}
@@ -110,9 +109,6 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		borderBottomStartRadius: 10,
 		borderBottomEndRadius: 10,
-	},
-	commentIcon: {
-
 	},
 	time: {
 		position: 'absolute',

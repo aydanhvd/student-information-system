@@ -1,30 +1,31 @@
-import { ICONS_LIGHT } from './iconsLight';
+import React from 'react';
+import { TouchableOpacity } from 'react-native';
 import { ICONS_DARK } from './iconsDark';
+import { CalendarIcon } from '../commons/icons/CalendarIcon';
+import { BookmarkIcon } from '../commons/icons/BookmarIcon';
+import { MenuIcon } from '../commons/icons/MenuIcon';
+import { SendFooterIcon } from '../commons/icons/SendFooterIcon';
+import { NoteBookIcon } from '../commons/icons/NoteBookIcon';
 
 export const FOOTER_ICONS_DATA = [
 	{
 		name: 'CallendarStack',
-		icon: ICONS_LIGHT.calendarLight,
-		iconDark: ICONS_DARK.calendarDark
+		Icon: () => <CalendarIcon />
 	},
 	{
 		name: 'MaterialsStack',
-		icon: ICONS_LIGHT.bookmarkLight,
-		iconDark: ICONS_DARK.bookmarkDark
+		Icon: () => <BookmarkIcon  />
 	},
 	{
 		name: 'HomeStack',
-		icon: ICONS_LIGHT.menuLight,
-		iconDark: ICONS_DARK.menuDark
+		Icon: () => <MenuIcon  />
 	},
 	{
 		name: 'MessagesStack',
-		icon: ICONS_LIGHT.sendLight,
-		iconDark: ICONS_DARK.sendDark
+		Icon: () => <SendFooterIcon />
 	},
 	{
 		name: 'ClassStack',
-		icon: ICONS_LIGHT.notebookLight,
-		iconDark: ICONS_DARK.notebookDark
+		Icon: () => <NoteBookIcon/>
 	}
 ];

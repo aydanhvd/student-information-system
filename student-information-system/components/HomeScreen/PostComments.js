@@ -17,13 +17,14 @@ export const PostCommennts = connect(mapStateToProps, {
 })(({ post, setSelectedPost, navigation, commentsList=[], getAndListedCommentsList }) => {
 	useEffect(() => {
 		const unsub = getAndListedCommentsList(post.ID);
-		return unsub
+		return unsub;
 	}, []);
 
 	let commentsLength;
 	if(commentsList[post.ID]) {
 		 commentsLength = Object.keys(commentsList[post.ID]).length;
 	}
+
 
 	const onPressHandler = (post = []) => {
 		setSelectedPost(post);
@@ -33,6 +34,7 @@ export const PostCommennts = connect(mapStateToProps, {
 		<View style={styles.container}>
 			<CommentIcon onPress={() => onPressHandler(post)} />
 			<CustomText style={styles.length}>  {commentsLength}</CustomText>
+
 		</View>
 	);
 });
