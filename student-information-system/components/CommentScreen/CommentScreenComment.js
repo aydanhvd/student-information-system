@@ -4,11 +4,10 @@ import { connect } from 'react-redux';
 
 import { selectUser, selectProfilePiC } from '../../redux/auth';
 import { CommentScreenCommentBubble } from './CommentScreenCommentBubble';
-import { getAndListenComments, selectComments, selectSelectedPost, selectCommentsList } from '../../redux/comments';
+import { selectSelectedPost, selectCommentsList } from '../../redux/comments';
 
 const mapStateToProps = (state) => {
 	return {
-		comments: selectComments(state),
 		setSelectedPost: selectSelectedPost(state),
 		user: selectUser(state),
 		profilePic: selectProfilePiC(state),
@@ -16,25 +15,19 @@ const mapStateToProps = (state) => {
 	};
 };
 //comments in comment screen
-export const CommentScreenComment = connect(mapStateToProps, {
-	getAndListenComments
-})(({ getAndListenComments, comments, setSelectedPost, profilePic, navigation, commentsList }) => {
-	useEffect(
-		() => {
-			const unsub = getAndListenComments(setSelectedPost.ID);
-			return unsub;
-		},
-		[ setSelectedPost ]
-    );
-    const comentsArr=Object.keys(commentsList[setSelectedPost.ID]).map((key)=>({
-        ID:key,
-        ...commentsList[setSelectedPost.ID][key]
-    }))
+export const CommentScreenComment = connect(
+	mapStateToProps
+)(({ setSelectedPost, profilePic, navigation, commentsList }) => {
+	const comentsArr = Object.keys(commentsList[setSelectedPost.ID]).map((key) => ({
+		ID: key,
+		...commentsList[setSelectedPost.ID][key]
+	}));
+	console.log('comentsArr', comentsArr);
 	return (
 		<FlatList
 			keyExtractor={(item) => item.ID}
 			contentContainerStyle={styles.container}
-			data={comments}
+			data={comentsArr}
 			renderItem={({ item }) => {
 				return (
 					<CommentScreenCommentBubble

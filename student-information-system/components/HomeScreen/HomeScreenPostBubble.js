@@ -8,7 +8,6 @@ import { selectTheme } from '../../redux/theme';
 import { connect } from 'react-redux';
 import { IconBtn } from '../../commons/IconBtn';
 import { HomeScreenPostLikes } from './HomeScreenPostLikes';
-import { clearComments, setSelectedPost } from '../../redux/comments';
 import { selectChatsUsers } from '../../redux/chats';
 import { timeHumanizer } from '../../utils/timeHumanizer';
 import {CommentIcon} from "../../commons/icons/CommentIcon";
@@ -21,10 +20,9 @@ const mapStateToProps = (state) => ({
 
 //single posts in home screen
 export const HomeScreenPostBubble = connect(mapStateToProps,{
-	clearComments
-})(({ navigation, post, darkMode, usersList,clearComments }) => {
+
+})(({ navigation, post, darkMode, usersList}) => {
 	const formattedTime = post.time ? timeHumanizer(post.time) : '';
-	clearComments()
 	const colorTheme = darkMode
 		? {
 				backgroundColor: COLORS.backgroundDark,
