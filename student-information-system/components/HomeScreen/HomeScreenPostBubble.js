@@ -8,9 +8,10 @@ import { selectTheme } from '../../redux/theme';
 import { connect } from 'react-redux';
 import { IconBtn } from '../../commons/IconBtn';
 import { HomeScreenPostLikes } from './HomeScreenPostLikes';
-import { setSelectedPost } from '../../redux/comments';
+import { clearComments, setSelectedPost } from '../../redux/comments';
 import { selectChatsUsers } from '../../redux/chats';
 import { timeHumanizer } from '../../utils/timeHumanizer';
+import { PostCommennts } from './PostComments';
 
 const mapStateToProps = (state) => ({
 	darkMode: selectTheme(state),
@@ -18,10 +19,11 @@ const mapStateToProps = (state) => ({
 });
 
 //single posts in home screen
-export const HomeScreenPostBubble = connect(mapStateToProps, {
-	setSelectedPost
-})(({ navigation, post, setSelectedPost, darkMode, usersList }) => {
+export const HomeScreenPostBubble = connect(mapStateToProps,{
+	clearComments
+})(({ navigation, post, darkMode, usersList,clearComments }) => {
 	const formattedTime = post.time ? timeHumanizer(post.time) : '';
+	clearComments()
 	const colorTheme = darkMode
 		? {
 				backgroundColor: COLORS.backgroundDark,
@@ -33,11 +35,6 @@ export const HomeScreenPostBubble = connect(mapStateToProps, {
 				borderTheme: COLORS.acsentColor,
 				textTheme: COLORS.acsentLight
 			};
-
-	const onPressHandler = (post=[]) => {
-		setSelectedPost(post);
-		navigation.navigate('CommentScreen');
-	};
 	const auther = Object.keys(usersList)
 		.map((key) => ({
 			ID: key,
@@ -61,7 +58,7 @@ export const HomeScreenPostBubble = connect(mapStateToProps, {
 				<CustomText style={{ ...styles.text, color: colorTheme.textTheme }}>{post.text}</CustomText>
 				<View style={styles.likesContainer}>
 					{post.likes && <HomeScreenPostLikes postID={post.ID} />}
-					<IconBtn icon={ICONS_LIGHT.commentLight} onPress={() => onPressHandler(post)} />
+					<PostCommennts post={post} navigation={navigation} />
 				</View>
 			</View>
 			<CustomText style={{ ...styles.time, color: colorTheme.textTheme }}>{formattedTime[0]} {formattedTime[1]}</CustomText>
@@ -106,8 +103,7 @@ const styles = StyleSheet.create({
 		width: '100%',
 		marginTop: 10,
 		alignItems: 'center',
-		backgroundColor: COLORS.commentsColorLight
-		// justifyContent: 'flex-end'
+		backgroundColor: COLORS.commentsColorLight,
 	},
 	time: {
 		position: 'absolute',

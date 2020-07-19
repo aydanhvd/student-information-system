@@ -46,9 +46,11 @@ export function reducer(state = initialState, { type, payload }) {
 				...state,
 				likes: {
 					...state.likes,
-					[payload.postID]: payload.likesObj?{
-						...payload.likesObj
-					}:{}
+					[payload.postID]: payload.likesObj
+						? {
+								...payload.likesObj
+							}
+						: {}
 				}
 			};
 		default:
@@ -172,9 +174,9 @@ export const shareNewPost = (feedID, text) => (dispatch, getState) => {
 			autherID: user.userID, //use uppercase for IDS
 			time: fbApp.root.database.ServerValue.TIMESTAMP,
 			text,
-			likes:{
-				title :'likes'
-			},
+			likes: {
+				title: 'likes'
+			}
 		};
 		reference.push().set(newPost, (err) => {
 			if (err) {
@@ -242,11 +244,11 @@ export const getAndListenLikes = (postID) => (dispatch, getState) => {
 		const feedID = selectActivePosts(state);
 		const reference = fbApp.db.ref(`posts/${feedID}/${postID}/likes`);
 		reference.on('value', (snapshot) => {
-			let likesObj 
+			let likesObj;
 			if (snapshot.exists()) {
 				likesObj = snapshot.val();
-			}else{
-				likesObj={}
+			} else {
+				likesObj = {};
 			}
 			dispatch(setPostLikes({ likesObj, postID }));
 		});
