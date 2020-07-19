@@ -1,10 +1,25 @@
 import React from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 import Svg, { G, Path } from 'react-native-svg';
+import {selectTheme} from "../../redux/theme";
+import {connect} from "react-redux";
+import {COLORS} from "../../styles";
 
-export const RightArrowIcon = () => {
+const mapStateToProps = (state) => ({
+	darkMode: selectTheme(state)
+});
+
+export const BackIcon = connect(mapStateToProps, {})(({ darkMode, onPress }) => {
+
+	const colorTheme = darkMode
+		? {
+			fill: COLORS.backgroundLight,
+		} : {
+			fill: COLORS.acsentLight,
+		};
+
 	return (
-		<TouchableOpacity style={styles.container}>
+		<TouchableOpacity style={styles.container} onPress={onPress}>
 			<Svg
 				xmlns="http://www.w3.org/2000/svg"
 				version="1.1"
@@ -22,7 +37,7 @@ export const RightArrowIcon = () => {
 								data-original="#000000"
 								class="active-path"
 								data-old_color="#000000"
-								fill="#53565A"
+								fill = {colorTheme.fill}
 							/>
 						</G>
 					</G>
@@ -30,11 +45,12 @@ export const RightArrowIcon = () => {
 			</Svg>
 		</TouchableOpacity>
 	);
-};
+});
 
 const styles = StyleSheet.create({
 	container: {
 		width: 22,
-		height: 22
+		height: 22,
+		marginLeft: 16
 	}
 });

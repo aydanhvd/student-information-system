@@ -6,6 +6,7 @@ import { COLORS, ICONS_LIGHT, GLOBAL_STYLES, ICONS_DARK } from '../../styles';
 import { connect } from 'react-redux';
 import { clearChatMessages, sendMessage } from '../../redux/chats';
 import { selectTheme } from '../../redux/theme';
+import {SendIcon} from "../../commons/icons/SendIcon";
 
 const mapStateToProps = (state) => ({
 	darkMode: selectTheme(state)
@@ -28,12 +29,10 @@ export const PriviteMessagesField = connect(mapStateToProps, {
 		? {
 				backgroundColor: COLORS.backgroundDark,
 				textColor: COLORS.backgroundLight,
-				sendIcon: ICONS_DARK.sendMessage
 			}
 		: {
 				backgroundColor: COLORS.backgroundLight,
 				textColor: COLORS.backgroundDark,
-				sendIcon: ICONS_LIGHT.sendMessages
 			};
 
 	return (
@@ -47,7 +46,7 @@ export const PriviteMessagesField = connect(mapStateToProps, {
 				value={message}
 				onChangeText={(value) => setMesage(value)}
 			/>
-			<IconBtn icon={colorTheme.sendIcon} onPress={submitHadler} />
+			<SendIcon onPress={submitHadler} />
 		</KeyboardAvoidingView>
 	);
 });

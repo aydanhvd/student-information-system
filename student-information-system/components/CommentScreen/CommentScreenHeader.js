@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import { selectTheme } from '../../redux/theme';
 import { selectSelectedPost } from '../../redux/comments';
 import { selectChatsUsers } from '../../redux/chats';
+import {BackIcon, RightArrowIcon} from "../../commons/icons/BackIcon";
 
 const mapStateToProps = (state) => ({
 	selectedPost: selectSelectedPost(state),
@@ -22,13 +23,11 @@ export const CommentScreenHeader = connect(
 				backgroundColor: COLORS.backgroundDark,
 				borderColor: COLORS.drawerDark,
 				nameColor: COLORS.backgroundLight,
-				backIcon: ICONS_DARK.backDark
 			}
 		: {
 				backgroundColor: COLORS.backgroundLight,
 				borderColor: COLORS.acsentColor,
 				nameColor: COLORS.textColorDark,
-				backIcon: ICONS_LIGHT.backLight
 			};
 
 	const auther = Object.keys(usersList)
@@ -41,7 +40,7 @@ export const CommentScreenHeader = connect(
 	return (
 		<View style={{ ...colorTheme }}>
 			<View style={{ ...styles.container, ...colorTheme }}>
-				<IconBtn icon={colorTheme.backIcon} style={styles.backArrow} onPress={() => navigation.goBack()} />
+				<BackIcon onPress={() => navigation.goBack()} />
 				<Image
 					style={{ ...styles.profilePiC, borderColor: colorTheme.borderColor }}
 					source={auther[0].profilePiC ? { uri: auther[0].profilePiC } : ICONS_LIGHT.userLight}
@@ -69,9 +68,6 @@ const styles = StyleSheet.create({
 		borderRadius: 30,
 		marginHorizontal: 15,
 		borderWidth: 2
-	},
-	backArrow: {
-		marginLeft: 16
 	},
 	nameContainer: {
 		justifyContent: 'space-around'

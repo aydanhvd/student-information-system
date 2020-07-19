@@ -6,12 +6,13 @@ import {COLORS, ICONS_DARK, ICONS_LIGHT} from '../../styles';
 import { toggleTheme, selectTheme } from '../../redux/theme';
 import { connect } from 'react-redux';
 import { CustomText } from '../../commons/CustomText';
+import {SettingsIcon} from "../../commons/icons/SettingsIcon";
 
 const mapStateToProps = (state) => ({
 	theme: selectTheme(state)//true if dark mode false if light
 });
 
-export const DrawerHeader = connect(mapStateToProps, { toggleTheme })(({ navigation, theme, toggleTheme }) => {
+export const DrawerDarkMode = connect(mapStateToProps, { toggleTheme })(({ navigation, theme, toggleTheme }) => {
 
 	const iconTheme= theme ? { source: ICONS_DARK.settingsDark } : { source: ICONS_LIGHT.settingsWhite }
 
@@ -19,9 +20,7 @@ export const DrawerHeader = connect(mapStateToProps, { toggleTheme })(({ navigat
 		<SafeAreaProvider>
 			<View style={styles.container}>
 				<View style={styles.header}>
-					<TouchableOpacity onPress={() => navigation.navigate('Settings')}>
-						<Image resizeMode="cover" style={styles.userSettings} source={iconTheme.source} />
-					</TouchableOpacity>
+					<SettingsIcon onPress={() => navigation.navigate('Settings')} />
 					<View style={styles.toggleContainer}>
 						<Toggle
 							style={styles.switch}

@@ -1,10 +1,25 @@
 import React from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 import Svg, { G, Path } from 'react-native-svg';
+import {selectTheme} from "../../redux/theme";
+import {connect} from "react-redux";
+import {COLORS} from "../../styles";
 
-export const CameraIcon = () => {
+const mapStateToProps = (state) => ({
+	darkMode: selectTheme(state)
+});
+
+export const CameraIcon = connect(mapStateToProps, {})(({ darkMode, onPress }) => {
+
+	const colorTheme = darkMode
+		? {
+			fill: COLORS.backgroundLight,
+		} : {
+			fill: COLORS.acsentLight,
+		};
+
 	return (
-		<TouchableOpacity style={styles.container}>
+		<TouchableOpacity style={styles.container} onPress={onPress}>
 			<Svg
 				xmlns="http://www.w3.org/2000/svg"
 				version="1.1"
@@ -23,7 +38,7 @@ export const CameraIcon = () => {
 								data-original="#000000"
 								class="active-path"
 								data-old_color="#000000"
-								fill="#53565A"
+								fill= {colorTheme.fill}
 							/>
 						</G>
 					</G>
@@ -34,7 +49,7 @@ export const CameraIcon = () => {
 								data-original="#000000"
 								class="active-path"
 								data-old_color="#000000"
-								fill="#53565A"
+								fill={colorTheme.fill}
 							/>
 						</G>
 					</G>
@@ -45,7 +60,7 @@ export const CameraIcon = () => {
 								data-original="#000000"
 								class="active-path"
 								data-old_color="#000000"
-								fill="#53565A"
+								fill={colorTheme.fill}
 							/>
 						</G>
 					</G>
@@ -56,29 +71,29 @@ export const CameraIcon = () => {
 								data-original="#000000"
 								class="active-path"
 								data-old_color="#000000"
-								fill="#53565A"
+								fill={colorTheme.fill}
 							/>
 						</G>
 					</G>
 					<G>
 						<G>
-							<path
+							<Path
 								d="M211.627,184.32c-30.114,0-54.613,24.499-54.613,54.613c0,3.77,3.053,6.827,6.827,6.827s6.827-3.057,6.827-6.827    c0-22.586,18.374-40.96,40.96-40.96c3.773,0,6.827-3.057,6.827-6.827S215.4,184.32,211.627,184.32z"
 								data-original="#000000"
 								class="active-path"
 								data-old_color="#000000"
-								fill="#53565A"
+								fill={colorTheme.fill}
 							/>
-						</G>                   
+						</G>
 					</G>
 					<G>
 						<G>
-							<path
+							<Path
 								d="M95.573,75.093H47.787c-3.773,0-6.827,3.057-6.827,6.827v27.307c0,3.77,3.053,6.827,6.827,6.827h47.787    c3.773,0,6.827-3.057,6.827-6.827V81.92C102.4,78.15,99.347,75.093,95.573,75.093z M88.747,102.4H54.613V88.747h34.133V102.4z"
 								data-original="#000000"
 								class="active-path"
 								data-old_color="#000000"
-								fill="#53565A"
+								fill={colorTheme.fill}
 							/>
 						</G>
 					</G>
@@ -89,7 +104,7 @@ export const CameraIcon = () => {
 								data-original="#000000"
 								class="active-path"
 								data-old_color="#000000"
-								fill="#53565A"
+								fill={colorTheme.fill}
 							/>
 						</G>
 					</G>
@@ -97,7 +112,7 @@ export const CameraIcon = () => {
 			</Svg>
 		</TouchableOpacity>
 	);
-};
+});
 
 const styles = StyleSheet.create({
 	container: {

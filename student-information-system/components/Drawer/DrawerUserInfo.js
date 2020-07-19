@@ -19,7 +19,7 @@ const mapStateToProps = (state) => ({
 	darkMode: selectTheme(state)
 });
 
-export const DrawerBody = connect(mapStateToProps, {
+export const DrawerUserInfo = connect(mapStateToProps, {
 	uploadProfilePic,
 })(({ profilePic, userName, name, group={}, darkMode }) => {
 

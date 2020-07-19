@@ -1,10 +1,25 @@
 import React from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 import Svg, { G, Path } from 'react-native-svg';
+import {connect} from "react-redux";
+import {COLORS} from "../../styles";
+import {selectTheme} from "../../redux/theme";
 
-export const RefreshIcon = () => {
+const mapStateToProps = (state) => ({
+	darkMode: selectTheme(state)
+});
+
+export const BookmarkIcon = connect(mapStateToProps, {})(({ darkMode, onPress }) => {
+
+	const colorTheme = darkMode
+		? {
+			fill: COLORS.backgroundLight,
+		} : {
+			fill: COLORS.acsentLight,
+		};
+
 	return (
-		<TouchableOpacity style={styles.container}>
+		<TouchableOpacity style={styles.container} onPress={onPress}>
 			<Svg
 				xmlns="http://www.w3.org/2000/svg"
 				id="Capa_1"
@@ -21,14 +36,14 @@ export const RefreshIcon = () => {
 							data-original="#000000"
 							class="active-path"
 							data-old_color="#000000"
-							fill="#53565A"
+							fill={colorTheme.fill}
 						/>
 					</G>
 				</G>
 			</Svg>
 		</TouchableOpacity>
 	);
-};
+});
 
 const styles = StyleSheet.create({
 	container: {

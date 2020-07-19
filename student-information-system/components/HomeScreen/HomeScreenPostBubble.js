@@ -11,6 +11,7 @@ import { HomeScreenPostLikes } from './HomeScreenPostLikes';
 import { setSelectedPost } from '../../redux/comments';
 import { selectChatsUsers } from '../../redux/chats';
 import { timeHumanizer } from '../../utils/timeHumanizer';
+import {CommentIcon} from "../../commons/icons/CommentIcon";
 
 const mapStateToProps = (state) => ({
 	darkMode: selectTheme(state),
@@ -61,7 +62,7 @@ export const HomeScreenPostBubble = connect(mapStateToProps, {
 				<CustomText style={{ ...styles.text, color: colorTheme.textTheme }}>{post.text}</CustomText>
 				<View style={styles.likesContainer}>
 					{post.likes && <HomeScreenPostLikes postID={post.ID} />}
-					<IconBtn icon={ICONS_LIGHT.commentLight} onPress={() => onPressHandler(post)} />
+					<CommentIcon style={styles.commentIcon} onPress={() => onPressHandler(post)} />
 				</View>
 			</View>
 			<CustomText style={{ ...styles.time, color: colorTheme.textTheme }}>{formattedTime[0]} {formattedTime[1]}</CustomText>
@@ -108,6 +109,9 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		backgroundColor: COLORS.commentsColorLight
 		// justifyContent: 'flex-end'
+	},
+	commentIcon: {
+
 	},
 	time: {
 		position: 'absolute',

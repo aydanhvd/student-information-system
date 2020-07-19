@@ -7,6 +7,7 @@ import { shareNewPost, selectActivePosts } from '../../redux/posts';
 import { connect } from 'react-redux';
 import {selectTheme} from "../../redux/theme";
 import {addNewComment, selectSelectedPost} from "../../redux/comments";
+import {OrigamiIcon} from "../../commons/icons/OrigamiIcon";
 
 const mapStateToProps = (state) => ({
     selectedPost: selectSelectedPost(state),
@@ -27,11 +28,9 @@ export const CommentScreenField = connect(mapStateToProps, { addNewComment })(({
         ? {
             backgroundColor: COLORS.backgroundDark,
             placeHolderTheme: COLORS.backgroundLight,
-            source: ICONS_DARK.origamiDark
         } : {
             backgroundColor: COLORS.backgroundLight,
             placeHolderTheme: COLORS.textColorDark,
-            source: ICONS_LIGHT.origamiLight
         };
 
     return (
@@ -43,7 +42,7 @@ export const CommentScreenField = connect(mapStateToProps, { addNewComment })(({
                 style={{...styles.field, color: colorTheme.placeHolderTheme}}
                 placeholder="write a comment"
             />
-            <IconBtn icon={colorTheme.source} style={styles.icon} onPress={sharePostHandler} />
+            <OrigamiIcon style={styles.icon} onPress={sharePostHandler} />
         </View>
     );
 });

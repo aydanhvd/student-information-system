@@ -10,6 +10,8 @@ import { askForCameraPermissions, imagePickerOptions } from '../../utils/askForC
 import { connect } from 'react-redux';
 import { uploadProfilePic, selectProfilePiC } from '../../redux/auth';
 import {selectTheme} from "../../redux/theme";
+import {CameraIcon} from "../../commons/icons/CameraIcon";
+import {GalleryIcon} from "../../commons/icons/GalleryIcon";
 
 const mapStateToProps = (state) => ({
 	profilePic: selectProfilePiC(state),
@@ -47,12 +49,8 @@ export const ProfilePictureLoader = connect(mapStateToProps, {
 	const colorTheme = darkMode
 		? {
 			color: COLORS.drawerDark,
-			gallery: ICONS_DARK.galleryDark,
-			camera: ICONS_DARK.cameraDark
 		} : {
 			color: COLORS.acsentColor,
-			gallery: ICONS_LIGHT.gallery,
-			camera: ICONS_LIGHT.camera
 		};
 
 	return (
@@ -65,8 +63,8 @@ export const ProfilePictureLoader = connect(mapStateToProps, {
 			</CustomText>		
 
 			<View style={styles.row}>
-				<IconBtn icon={colorTheme.camera} style={styles.icon} onPress={() => selectImage(true)} />
-				<IconBtn icon={colorTheme.gallery} style={styles.icon} onPress={() => selectImage()} />
+				<CameraIcon onPress={() => selectImage(true)} />
+				<GalleryIcon onPress={() => selectImage()} />
 			</View>
 			<Seperator style={{...styles.seperator, backgroundColor: colorTheme.color}} />
 		</View>

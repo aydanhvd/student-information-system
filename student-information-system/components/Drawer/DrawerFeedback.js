@@ -6,21 +6,19 @@ import {COLORS, ICONS_DARK, ICONS_LIGHT} from '../../styles';
 import { selectTheme } from '../../redux/theme';
 import { connect } from 'react-redux';
 import { dark } from '@eva-design/eva';
+import {FeedbackIcon} from "../../commons/icons/FeedbackIcon";
 
 const mapStateToProps = (state) => ({
 	darkMode: selectTheme(state)
 });
 
-export const DrawerFooter = connect(mapStateToProps)(({ navigation, darkMode }) => {
-
-	const iconTheme= darkMode ? { source: ICONS_DARK.chatBubbleDark } : { source: ICONS_LIGHT.feedbackWhite}
-
+export const DrawerFeedback = connect(mapStateToProps)(({ navigation, darkMode }) => {
 
 	return (
 		<SafeAreaProvider>
 			<View style={styles.container}>
 				<TouchableOpacity style={styles.feedback} onPress={() => navigation.navigate('Feedback')}>
-					<Image source={iconTheme.source} style={styles.feedbackIcon} />
+					<FeedbackIcon/>
 					<CustomText
 						style={{
 							...styles.feedbackText,
@@ -43,11 +41,6 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 		paddingVertical: 10,
 		justifyContent: 'center'
-	},
-	feedbackIcon: {
-		width: 30,
-		height: 30,
-		marginRight: 30
 	},
 	feedbackText: {
 		fontSize: 20
