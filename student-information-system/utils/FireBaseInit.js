@@ -15,7 +15,6 @@ const fbApp = {
 	root: firebase,
 	db: firebase.database(),
 	auth: firebase.auth(),
-
 	storage:firebase.storage(),
 };
 

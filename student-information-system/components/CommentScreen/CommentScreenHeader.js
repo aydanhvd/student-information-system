@@ -1,19 +1,19 @@
 import React, { useEffect } from 'react';
 import { StyleSheet, View, Image } from 'react-native';
-import {HomeScreenPostLikes, IconBtn} from '../index';
+import { HomeScreenPostLikes, IconBtn } from '../index';
 import { ICONS_LIGHT, COLORS, ICONS_DARK, GLOBAL_STYLES } from '../../styles';
 import { CustomText } from '../../commons/CustomText';
 import { connect } from 'react-redux';
 import { selectTheme } from '../../redux/theme';
 import { selectSelectedPost } from '../../redux/comments';
 import { selectChatsUsers } from '../../redux/chats';
-import { BackIcon } from "../../commons/icons/BackIcon";
-import {PostCommennts} from "../HomeScreen/PostComments";
+import { BackIcon } from '../../commons/icons/BackIcon';
+import { PostCommennts } from '../HomeScreen/PostComments';
 
 const mapStateToProps = (state) => ({
 	selectedPost: selectSelectedPost(state),
 	usersList: selectChatsUsers(state),
-	darkMode: selectTheme(state),
+	darkMode: selectTheme(state)
 });
 
 export const CommentScreenHeader = connect(
@@ -23,12 +23,12 @@ export const CommentScreenHeader = connect(
 		? {
 				backgroundColor: COLORS.backgroundDark,
 				borderColor: COLORS.drawerDark,
-				nameColor: COLORS.backgroundLight,
+				nameColor: COLORS.backgroundLight
 			}
 		: {
 				backgroundColor: COLORS.backgroundLight,
 				borderColor: COLORS.acsentColor,
-				nameColor: COLORS.textColorDark,
+				nameColor: COLORS.textColorDark
 			};
 
 	const auther = Object.keys(usersList)
@@ -39,7 +39,7 @@ export const CommentScreenHeader = connect(
 		.filter((user) => user.ID === selectedPost.autherID);
 
 	return (
-		<View style={{ ...colorTheme }}>
+		<View style={{ ...colorTheme, ...styles.postContainer }}>
 			<View style={{ ...styles.container, ...colorTheme }}>
 				<BackIcon onPress={() => navigation.goBack()} />
 				<Image
@@ -50,17 +50,27 @@ export const CommentScreenHeader = connect(
 					<CustomText style={{ ...styles.name, color: colorTheme.nameColor }}>{auther[0].name}</CustomText>
 				</View>
 			</View>
-			<View style={{...styles.post, ...colorTheme}}>
-				<CustomText style={{ color: colorTheme.nameColor }}>{selectedPost.text}</CustomText>
-				<View style={{...styles.likesContainer, backgroundColor: colorTheme.borderColor}}>
-					{selectedPost.likes && <HomeScreenPostLikes postID={selectedPost.ID} />}
-					<PostCommennts post={selectedPost} navigation={navigation} />
-				</View>
+
+			<View style={{ ...styles.post, ...colorTheme }}>
+				<CustomText style={{ color: colorTheme.nameColor, marginHorizontal: 20 }}>
+					{selectedPost.text}
+				</CustomText>
+			</View>
+			<View style={{ ...styles.likesContainer, backgroundColor: colorTheme.borderColor }}>
+				{selectedPost.likes && <HomeScreenPostLikes postID={selectedPost.ID} />}
+				<PostCommennts post={selectedPost} navigation={navigation} />
 			</View>
 		</View>
 	);
 });
 const styles = StyleSheet.create({
+	postContainer: {
+		width: '100%',
+		minHeight: 100,
+		borderBottomEndRadius: 30,
+		borderBottomStartRadius: 30,
+		backgroundColor: COLORS.backgroundLight,
+	},
 	container: {
 		flexDirection: 'row',
 		width: '100%',
@@ -83,23 +93,20 @@ const styles = StyleSheet.create({
 	userName: {
 		fontSize: 12,
 		color: COLORS.acsentColor
-    },
-    post:{
-        width:"100%",
-        minHeight: 80,
-        ...GLOBAL_STYLES.shaddowBottum,
-        borderBottomEndRadius: 40,
-        borderBottomStartRadius: 40,
+	},
+	post: {
+		width: '100%',
+		minHeight: 60,
 		marginBottom: -15,
-		paddingTop: 10,
-
-    },
+		paddingTop: 10
+	},
 	likesContainer: {
 		flexDirection: 'row',
 		width: '100%',
 		marginTop: 10,
-		borderBottomStartRadius: 40,
-		borderBottomEndRadius: 40,
-	},
-
+		height:50,
+		borderBottomStartRadius: 30,
+		borderBottomEndRadius: 30,
+		...GLOBAL_STYLES.shaddowBottum
+	}
 });
