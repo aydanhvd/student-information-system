@@ -7,7 +7,7 @@ export const SignUpInput = ({ fields, fieldsChangeHandler }) => {
 		<View>
 			{Object.keys(fields).map((key) => (
 				<TextInput
-					key={fields[key].placeholder}
+					key={Date.now()}
 					style={styles.input}
 					placeholder={fields[key].label}
 					placeholderTextColor="rgba(255,255,255, 0.3)"

@@ -1,6 +1,6 @@
 import fbApp from '../utils/FireBaseInit';
 import { showMessage } from 'react-native-flash-message';
-import {COLORS} from '../styles/colors'
+import { COLORS } from '../styles/colors';
 
 //Action Types
 const SET_AUTH_STATUS = 'SET_AUTH_STATUS';
@@ -13,7 +13,6 @@ const SET_AUTH_ABSENCE = 'SET_AUTH_ABSENCE';
 const SET_AUTH_ERROR = 'SET_AUTH_ERROR';
 const CLEAR_AUTH_ERROR = 'CLEAR_AUTH_ERROR';
 const SET_AUTH_PASS = 'SET_AUTH_PASS';
-const CLEAR_AUTH_PASS = 'CLEAR_AUTH_PASS';
 
 //Selectors
 export const MODULE_NAME = 'auth';
@@ -40,8 +39,7 @@ const initialState = {
 	error: {
 		status: false,
 		errCode: null
-	},
-	passWord: null, 
+	}
 };
 
 export function reducer(state = initialState, { type, payload }) {
@@ -111,16 +109,6 @@ export function reducer(state = initialState, { type, payload }) {
 					errCode: null
 				}
 			};
-		case SET_AUTH_PASS:
-			return {
-				...state,
-				passWord: payload
-			};
-		case CLEAR_AUTH_PASS:
-			return {
-				...state,
-				passWord: null
-			};
 		default:
 			return state;
 	}
@@ -161,13 +149,7 @@ export const setAuthError = (payload) => ({
 export const clearAuthError = () => ({
 	type: CLEAR_AUTH_ERROR
 });
-export const setAuthPass = (payload) => ({
-	type: SET_AUTH_PASS,
-	payload
-});
-export const clearAuthPass = () => ({
-	type: CLEAR_AUTH_PASS
-});
+
 //Middlewares
 export const getAndListenAuthGroupsList = () => (dispatch) => {
 	try {
@@ -241,6 +223,7 @@ export const logIn = (email, password) => async (dispatch) => {
 	try {
 		//todo ask what else can u use for not using email
 		const { user: { uid } } = await fbApp.auth.signInWithEmailAndPassword(email, password);
+		const user = firebase.auth().currentUser;
 		//full name of user
 		const reference = await fbApp.db.ref(`users/${uid}`);
 		reference.on('value', (snapshot) => {
@@ -264,6 +247,7 @@ export const logIn = (email, password) => async (dispatch) => {
 				});
 			}
 		});
+
 		return () => reference.off();
 	} catch (err) {
 		console.log('logIn', err);
@@ -284,7 +268,7 @@ export const signUp = (email, name, userName, password, group) => async (dispatc
 	try {
 		//todo ask what else can u use for not using email
 		const { user: { uid } } = await fbApp.auth.createUserWithEmailAndPassword(email, password);
-
+		// const user = fbApp.auth.currentUser;
 		fbApp.db.ref(`users/${uid}`).set({
 			userName: userName,
 			name: name,
