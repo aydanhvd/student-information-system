@@ -24,7 +24,8 @@ export const SignUpForm = connect(null, { signUp })(({ groupsList = [], signUp }
 			[name]: {
 				...fields[name],
 				value
-			}}));
+			}
+		}));
 	};
 	const submintHandlerSignUp = () => {
 		const email = fields.email.value.trim();
@@ -40,7 +41,7 @@ export const SignUpForm = connect(null, { signUp })(({ groupsList = [], signUp }
 		<View style={styles.form}>
 			<SignUpInput fields={fields} fieldsChangeHandler={fieldsChangeHandler} />
 			<GroupPicker item={groupsList} onChange={setSelectedGroup} />
-			<CustomSlider onEndReachedHandler={submintHandlerSignUp}/>
+			<CustomSlider onEndReachedHandler={submintHandlerSignUp} />
 		</View>
 	);
 });
@@ -70,5 +71,13 @@ const styles = StyleSheet.create({
 		fontSize: 16,
 		color: 'red',
 		marginTop: 10
-	},
+	}
 });
+// {
+// 	/* Visit https://firebase.google.com/docs/database/security to learn more about security rules. */
+// 	"rules": {
+
+// 	  ".read": "true",
+// 	  ".write": "auth!=null"
+// 	}
+//  }
