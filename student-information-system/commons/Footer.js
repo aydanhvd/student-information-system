@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 
@@ -8,13 +8,6 @@ import { GLOBAL_STYLES } from '../styles';
 import { FOOTER_ICONS_DATA } from '../styles/footerIconsData';
 import { selectTheme } from '../redux/theme';
 import { getAndListenChatUsers } from '../redux/chats';
-import {CalendarIcon} from './icons/CalendarIcon'
-import {NoteBookIcon} from './icons/NoteBookIcon';
-import {MenuIcon} from './icons/MenuIcon';
-import {SendIcon} from './icons/SendIcon';
-import {BookmarkIcon} from './icons/BookmarIcon';
-
-
 
 const mapStateToProps = (state) => ({
 	darkMode: selectTheme(state)

@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { StyleSheet, FlatList } from 'react-native';
 import { connect } from 'react-redux';
 
 import { selectUser, selectProfilePiC } from '../../redux/auth';
-import { CommentScreenCommentBubble } from './CommentScreenCommentBubble';
+import { CommentBubble } from './CommentBubble';
 import { selectSelectedPost, selectCommentsList } from '../../redux/comments';
 
 const mapStateToProps = (state) => {
@@ -15,7 +15,7 @@ const mapStateToProps = (state) => {
 	};
 };
 //comments in comment screen
-export const CommentScreenComment = connect(
+export const Comment = connect(
 	mapStateToProps
 )(({ setSelectedPost, profilePic, navigation, commentsList={} }) => {
 	const comentsArr = Object.keys(commentsList[setSelectedPost.ID]).map((key) => ({
@@ -30,7 +30,7 @@ export const CommentScreenComment = connect(
 			data={comentsArr}
 			renderItem={({ item }) => {
 				return (
-					<CommentScreenCommentBubble
+					<CommentBubble
 						post={item}
 						style={styles.post}
 						profilePic={profilePic}
@@ -49,7 +49,4 @@ const styles = StyleSheet.create({
 		paddingHorizontal: 17,
 		paddingBottom: 170 //TODO look into post going under footer
 	}
-	// post:{
-	// 	...GLOBAL_STYLES.shaddowTop
-	// }
 });

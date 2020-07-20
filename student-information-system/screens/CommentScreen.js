@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import {CommentScreenHeader, CommentScreenField, Footer, CommentScreenComment} from '../components';
+import {CommentScreenHeader, CommentScreenField, Footer, Comment} from '../components';
 import { COLORS } from '../styles';
 import { connect } from 'react-redux';
 import {selectTheme} from "../redux/theme";
@@ -21,7 +21,7 @@ export const CommentScreen = connect(mapStateToProps, {})(({ post, navigation, d
     return (
         <View style={{...styles.container, ...colorTheme}}>
             <CommentScreenHeader navigation={navigation}/>
-            <CommentScreenComment navigation={navigation}/>
+            <Comment navigation={navigation}/>
             <CommentScreenField style={styles.field}/>
             <Footer style={styles.footer} />
         </View>

@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { StyleSheet, View, Image } from 'react-native';
-import {HomeScreenPostLikes, IconBtn} from '../index';
-import { ICONS_LIGHT, COLORS, ICONS_DARK, GLOBAL_STYLES } from '../../styles';
+import { HomeScreenPostLikes } from '../index';
+import { ICONS_LIGHT, COLORS, GLOBAL_STYLES } from '../../styles';
 import { CustomText } from '../../commons/CustomText';
 import { connect } from 'react-redux';
 import { selectTheme } from '../../redux/theme';

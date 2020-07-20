@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { StyleSheet, TextInput, View } from 'react-native';
-import { connect } from 'react-redux';
 import { COLORS } from '../../styles';
 
 export const SignUpInput = ({ fields, fieldsChangeHandler }) => {
