@@ -6,11 +6,9 @@ import { GLOBAL_STYLES } from '../../styles/globalStyles';
 import { ICONS_LIGHT } from '../../styles';
 import { selectTheme } from '../../redux/theme';
 import { connect } from 'react-redux';
-import { IconBtn } from '../../commons/IconBtn';
 import { HomeScreenPostLikes } from './HomeScreenPostLikes';
 import { selectChatsUsers } from '../../redux/chats';
 import { timeHumanizer } from '../../utils/timeHumanizer';
-import {CommentIcon} from "../../commons/icons/CommentIcon";
 import { PostCommennts } from './PostComments';
 
 const mapStateToProps = (state) => ({
@@ -28,11 +26,11 @@ export const HomeScreenPostBubble = connect(mapStateToProps,{
 		? {
 				backgroundColor: COLORS.screenBgDark,
 				borderTheme: COLORS.drawerDark,
-				textTheme: COLORS.backgroundLight
+				textTheme: COLORS.backgroundLight,
 		} : {
-				backgroundColor: '#F5F5F5',
+				backgroundColor: COLORS.screenBgLight,
 				borderTheme: COLORS.acsentColor,
-				textTheme: COLORS.acsentLight
+				textTheme: COLORS.acsentLight,
 		};
 
 	const auther = Object.keys(usersList)

@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { StyleSheet, View } from 'react-native';
+import React, { useEffect } from 'react';
+import { View } from 'react-native';
 import { Agenda } from 'react-native-calendars';
 import { COLORS } from '../../styles';
 

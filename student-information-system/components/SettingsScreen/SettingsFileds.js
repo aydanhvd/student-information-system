@@ -3,9 +3,8 @@ import { connect } from 'react-redux';
 
 import { StyleSheet, View, TextInput } from 'react-native';
 import { CustomText } from '../../commons/CustomText';
-import { COLORS, GLOBAL_STYLES, ICONS_LIGHT } from '../../styles';
+import { COLORS } from '../../styles';
 import { selectUser, logOut, changeName } from '../../redux/auth';
-import { IconBtn } from '../../commons/IconBtn';
 import { Button } from '../../commons/Button';
 import {selectTheme} from "../../redux/theme";
 

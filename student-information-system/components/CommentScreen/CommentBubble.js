@@ -17,7 +17,7 @@ const mapStateToProps = (state) => ({
 });
 
 //single posts in home screen
-export const CommentScreenCommentBubble = connect(mapStateToProps, {})(({ post, darkMode, usersList }) => {
+export const CommentBubble = connect(mapStateToProps, {})(({ post, darkMode, usersList }) => {
 	const colorTheme = darkMode
 		? {
 				backgroundColor: COLORS.backgroundDark,
