@@ -27,9 +27,9 @@ export const SearchBar = connect(mapStateToProps, {
 	const onPressHandler = () => {
 		if (searchName !== '') {
 			if (!!usersArr) {
-				let user = usersArr.filter((user) => {return user.userName.contains(searchName.toLowerCase().trim());});
-				console.log(user)
-				// setChatsUsers({...user});
+				let user = usersArr.filter((user) => {return user.userName.includes(searchName.toLowerCase().trim());});
+				// console.log(user)
+				setChatsUsers({...user});
 			}
 		}
 		setSaerchName('');
@@ -61,7 +61,6 @@ export const SearchBar = connect(mapStateToProps, {
 				style={styles.refresh}
 				onPress={getAndListenChatUsers}
 			/>
-			{/* <RefreshIcon style={styles.refresh} onPress={getAndListenChatUsers} /> */}
 		</View>
 	);
 });
