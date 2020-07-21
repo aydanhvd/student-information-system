@@ -1,6 +1,5 @@
 import React,{useEffect} from 'react';
 import { StyleSheet, View, FlatList } from 'react-native';
-// import { SearchableFlatList } from "react-native-searchable-list";
 
 import { COLORS, GLOBAL_STYLES } from '../../styles';
 import { SearchBar } from './SearchBar';

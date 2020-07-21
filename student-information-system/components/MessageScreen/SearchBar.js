@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import { StyleSheet, View, TextInput } from 'react-native';
 import { connect } from 'react-redux';
 
-import { COLORS, ICONS_DARK, ICONS_LIGHT } from '../../styles';
-import { IconBtn } from '../../commons/IconBtn';
+import { COLORS } from '../../styles';
+import { MaterialIcons } from '@expo/vector-icons';
 import { selectChatsUsers, setChatsUsers, getAndListenChatUsers } from '../../redux/chats';
 import { selectTheme } from '../../redux/theme';
-import {SearchIcon} from "../../commons/icons/SearchIcon";
-import {RefreshIcon} from "../../commons/icons/RefreshIcon";
+import { SearchIcon } from '../../commons/icons/SearchIcon';
+import { RefreshIcon } from '../../commons/icons/RefreshIcon';
 
 const mapStateToProps = (state) => ({
 	users: selectChatsUsers(state),
@@ -29,19 +29,24 @@ export const SearchBar = connect(mapStateToProps, {
 				let user = usersArr.find((user) => {
 					return user.userName.includes(searchName.toLowerCase().trim());
 				});
-				setChatsUsers({ user });
+				if (!!user) {
+					setChatsUsers({ user });
+				} else {
+					setChatsUsers({});
+				}
 			}
 		}
-		setSaerchName('')
+		setSaerchName('');
 	};
 	const colorTheme = darkMode
 		? {
 				backgroundColor: COLORS.acsentLight,
-				placeHolderColor: COLORS.backgroundLight,
-		} : {
+				placeHolderColor: COLORS.backgroundLight
+			}
+		: {
 				backgroundColor: COLORS.backgroundLight,
-				placeHolderColor: COLORS.textColorDark,
-		};
+				placeHolderColor: COLORS.textColorDark
+			};
 
 	return (
 		<View style={{ ...styles.container, ...colorTheme }}>
@@ -53,7 +58,13 @@ export const SearchBar = connect(mapStateToProps, {
 				onChangeText={(value) => setSaerchName(value)}
 				placeholderTextColor={colorTheme.placeHolderColor}
 			/>
-			<RefreshIcon style={styles.refresh} onPress={getAndListenChatUsers} />
+			<MaterialIcons
+				name="cancel"
+				size={24}
+				color={COLORS.commentsColorLight}
+				onPress={getAndListenChatUsers}
+				style={styles.refresh}
+			/>
 		</View>
 	);
 });
