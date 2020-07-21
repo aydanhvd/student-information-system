@@ -53,7 +53,7 @@ export const CommentScreenHeader = connect(
 			</View>
 
 			<View style={{ ...styles.post, ...colorTheme }}>
-				<CustomText style={{ color: colorTheme.nameColor, marginHorizontal: 20 }}>
+				<CustomText style={{ color: colorTheme.nameColor, marginHorizontal: 20, marginBottom: 30 }}>
 					{selectedPost.text}
 				</CustomText>
 			</View>
