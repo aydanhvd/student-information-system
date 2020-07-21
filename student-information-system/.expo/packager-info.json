@@ -2,9 +2,10 @@
   "devToolsPort": 19002,
   "expoServerPort": 19000,
   "packagerPort": 19001,
-  "packagerPid": 15656,
-  "expoServerNgrokUrl": "https://us-p7x.anonymous.student-information-system.exp.direct",
-  "packagerNgrokUrl": "https://packager.us-p7x.anonymous.student-information-system.exp.direct",
-  "ngrokPid": 15420,
+
+  "packagerPid": 6016,
+  "expoServerNgrokUrl": "https://s2-ssi.anonymous.student-information-system.exp.direct",
+  "packagerNgrokUrl": "https://packager.s2-ssi.anonymous.student-information-system.exp.direct",
+  "ngrokPid": 9712,
   "webpackServerPort": null
 }

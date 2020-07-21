@@ -3,61 +3,46 @@ import { StyleSheet, TextInput, View } from 'react-native';
 import { COLORS } from '../../styles';
 
 export const SignUpInput = ({ fields, fieldsChangeHandler }) => {
+
 	return (
 		<View>
-				{/*<TextInput*/}
-				{/*	style={styles.input}*/}
-				{/*	placeholder='Full Name'*/}
-				{/*	placeholderTextColor="rgba(255,255,255, 0.3)"*/}
-				{/*	value={fields}*/}
-				{/*	onChangeText={(value) => fieldsChangeHandler(value)}*/}
-				{/*/>*/}
-
-				{/*<TextInput*/}
-				{/*	style={styles.input}*/}
-				{/*	placeholder='Username'*/}
-				{/*	placeholderTextColor="rgba(255,255,255, 0.3)"*/}
-				{/*	value={fields}*/}
-				{/*	onChangeText={(value) => fieldsChangeHandler(value)}*/}
-				{/*/>*/}
-
-				{/*<TextInput*/}
-				{/*	style={styles.input}*/}
-				{/*	placeholder='Email'*/}
-				{/*	placeholderTextColor="rgba(255,255,255, 0.3)"*/}
-				{/*	value={fields}*/}
-				{/*	onChangeText={(value) => fieldsChangeHandler(value)}*/}
-				{/*/>*/}
-
-				{/*<TextInput*/}
-				{/*	style={styles.input}*/}
-				{/*	placeholder='Password'*/}
-				{/*	placeholderTextColor="rgba(255,255,255, 0.3)"*/}
-				{/*	secureTextEntry={true}*/}
-				{/*	value={fields}*/}
-				{/*	onChangeText={(value) => fieldsChangeHandler(value)}*/}
-				{/*/>*/}
-
-				{/*<TextInput*/}
-				{/*	style={styles.input}*/}
-				{/*	placeholder='Confirm Password'*/}
-				{/*	placeholderTextColor="rgba(255,255,255, 0.3)"*/}
-				{/*	secureTextEntry={true}*/}
-				{/*	value={fields}*/}
-				{/*	onChangeText={(value) => fieldsChangeHandler(value)}*/}
-				{/*/>*/}
-
-			{Object.keys(fields).map((key) => (
 				<TextInput
-					key={fields}
 					style={styles.input}
-					placeholder={fields[key].label}
+					placeholder='email'
+					value={fields.email}
 					placeholderTextColor="rgba(255,255,255, 0.3)"
-					secureTextEntry={fields[key].secureTextEntry}
-					onChangeText={(value) => fieldsChangeHandler(key, value)}
+					onChangeText={(value) => fieldsChangeHandler("email", value)}
 				/>
-			))}
-
+					<TextInput
+					style={styles.input}
+					value={fields.name}
+					placeholder='full name'
+					placeholderTextColor="rgba(255,255,255, 0.3)"
+					onChangeText={(value) => fieldsChangeHandler("name", value)}
+				/>
+					<TextInput
+					style={styles.input}
+					value={fields.username}
+					placeholder='username'
+					placeholderTextColor="rgba(255,255,255, 0.3)"
+					onChangeText={(value) => fieldsChangeHandler("username", value)}
+				/>
+					<TextInput
+					style={styles.input}
+					placeholder='password'
+					value={fields.password}
+					placeholderTextColor="rgba(255,255,255, 0.3)"
+					secureTextEntry={true}
+					onChangeText={(value) => fieldsChangeHandler("password", value)}
+				/>
+					<TextInput
+					style={styles.input}
+					value={fields.rePassword}
+					placeholder='repeat password'
+					placeholderTextColor="rgba(255,255,255, 0.3)"
+					secureTextEntry={true}
+					onChangeText={(value) => fieldsChangeHandler("rePassword", value)}
+				/>
 		</View>
 	);
 };
