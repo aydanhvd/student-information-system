@@ -1,6 +1,5 @@
 import React from 'react';
 import { StyleSheet, View, FlatList } from 'react-native';
-import { Spinner } from "@ui-kitten/components";
 import { GLOBAL_STYLES } from '../../styles';
 import { SearchBar } from './SearchBar';
 import { connect } from 'react-redux';
