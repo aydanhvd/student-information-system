@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { selectRecieverUserName, selectRecieverUserImage } from '../../redux/chats';
 import {selectTheme} from "../../redux/theme";
 import {BackIcon} from "../../commons/icons/BackIcon";
+import {darkModeHandler} from "../../styles/darkModeHandler";
 
 const mapStateToProps = (state) => ({
 	recieverName: selectRecieverUserName(state),
@@ -15,24 +16,14 @@ const mapStateToProps = (state) => ({
 
 export const PriviteChatsHeader = connect(mapStateToProps)(({ navigation, recieverName, recieverPic, darkMode }) => {
 
-	const colorTheme = darkMode
-		? {
-			backgroundColor: COLORS.backgroundDark,
-			borderColor: COLORS.drawerDark,
-			nameColor: COLORS.backgroundLight,
-		} : {
-			backgroundColor: COLORS.backgroundLight,
-			borderColor: COLORS.acsentColor,
-			nameColor: COLORS.textColorDark,
-		};
+	const theme = darkModeHandler(darkMode);
 
 	return (
-		<View style={{...styles.container, ...colorTheme}}>
+		<View style={{...styles.container, ...theme}}>
 			<BackIcon onPress={() => navigation.goBack()} />
-			<Image style={{...styles.profilePiC, borderColor: colorTheme.borderColor}} source={recieverPic ? { uri: recieverPic } : ICONS_LIGHT.userLight} />
+			<Image style={{...styles.profilePiC, borderColor: theme.mainColor}} source={recieverPic ? { uri: recieverPic } : ICONS_LIGHT.userLight} />
 			<View style={styles.nameContainer}>
-				<CustomText style={{...styles.name, color: colorTheme.nameColor}}>{recieverName}</CustomText>
-				{/* <CustomText style={styles.userName}>@{reciever.userName}</CustomText> */}
+				<CustomText style={{...styles.name, color: theme.textColor}}>{recieverName}</CustomText>
 			</View>
 		</View>
 	);
@@ -57,8 +48,4 @@ const styles = StyleSheet.create({
 	name: {
 		fontSize: 18,
 	},
-	userName: {
-		fontSize: 12,
-		color: COLORS.acsentColor
-	}
 });

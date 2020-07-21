@@ -7,6 +7,7 @@ import { COLORS } from '../../styles/colors';
 import { connect } from 'react-redux';
 import { selectGrades, getAndListenGrades } from '../../redux/materials';
 import {selectTheme} from "../../redux/theme";
+import {darkModeHandler} from "../../styles/darkModeHandler";
 
 const mapStateToProps = (state) => ({
 	grades: selectGrades(state),
@@ -20,19 +21,11 @@ export const GradeShower = connect(mapStateToProps, { getAndListenGrades })(({ g
 		return unsub;
 	}, []);
 
-	const colorTheme = darkMode
-		? {
-			start: COLORS.drawerLight,
-			end: COLORS.drawerDark,
-		}
-		: {
-			start: COLORS.headerColor,
-			end: COLORS.acsentColor,
-		};
+	const theme = darkModeHandler(darkMode);
 
 	return (
 		<View style={styles.container}>
-			<LinearGradient colors={[ colorTheme.start, colorTheme.end ]} style={styles.gradient} />
+			<LinearGradient colors={[ theme.drawerStart, theme.drawerEnd ]} style={styles.gradient} />
 		{grades.map((grade) => (
 				<View style={styles.gradeSection} key={grade.ID}>
 					<CustomText style={styles.gradeSectionName}>{grade.title}</CustomText>

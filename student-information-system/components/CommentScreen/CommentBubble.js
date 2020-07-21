@@ -2,33 +2,23 @@ import React from 'react';
 import { StyleSheet, View, Image } from 'react-native';
 import { CustomText } from '../../commons/CustomText';
 import { COLORS } from '../../styles/colors';
-import { GLOBAL_STYLES } from '../../styles/globalStyles';
 import { ICONS_LIGHT } from '../../styles';
 import { selectTheme } from '../../redux/theme';
 import { connect } from 'react-redux';
-import { IconBtn } from '../../commons/IconBtn';
 import { selectChatsUsers } from '../../redux/chats';
 import { Seperator } from '../../commons/Seperator';
 import { timeHumanizer } from '../../utils/timeHumanizer';
+import {darkModeHandler} from "../../styles/darkModeHandler";
 
 const mapStateToProps = (state) => ({
 	darkMode: selectTheme(state),
 	usersList: selectChatsUsers(state)
 });
 
-//single posts in home screen
+//single comments in comment screen
 export const CommentBubble = connect(mapStateToProps, {})(({ post, darkMode, usersList }) => {
-	const colorTheme = darkMode
-		? {
-				backgroundColor: COLORS.backgroundDark,
-				borderTheme: COLORS.drawerDark,
-				textTheme: COLORS.backgroundLight
-			}
-		: {
-				backgroundColor: COLORS.backgroundLight,
-				borderTheme: COLORS.acsentColor,
-				textTheme: COLORS.acsentLight
-			};
+
+	const theme = darkModeHandler(darkMode);
 
 	const auther = Object.keys(usersList)
 		.map((key) => ({
@@ -37,28 +27,29 @@ export const CommentBubble = connect(mapStateToProps, {})(({ post, darkMode, use
 		}))
 		.filter((user) => user.ID === post.autherID);
 	const time = timeHumanizer(post.time);
+
 	return (
 		<View>
-			<View style={{ ...styles.container, ...colorTheme }}>
+			<View style={{ ...styles.container, ...theme }}>
 				<Image
 					style={styles.profilePic}
 					// borderColor={colorTheme.borderTheme}
 					source={auther[0].profilePiC ? { uri: auther[0].profilePiC } : ICONS_LIGHT.userLight}
 				/>
 				<View style={styles.postBodyContainer}>
-					<CustomText weight="semi" style={{ ...styles.fullName, color: colorTheme.textTheme }}>
+					<CustomText weight="semi" style={{ ...styles.fullName, color: theme.textColor }}>
 						{auther[0].name}
 					</CustomText>
-					<CustomText style={{ ...styles.userName, color: colorTheme.borderTheme }}>
+					<CustomText style={{ ...styles.userName, color: theme.mainColor }}>
 						@{auther[0].userName}
 					</CustomText>
-					<CustomText style={{ ...styles.text, color: colorTheme.textTheme }}>{post.text}</CustomText>
+					<CustomText style={{ ...styles.text, color: theme.textColor }}>{post.text}</CustomText>
 				</View>
 			</View>
-			<CustomText style={{...styles.time, color: colorTheme.textTheme}}>
+			<CustomText style={{...styles.time, color: theme.textColor}}>
 				{time[0]} {time[1]}
 			</CustomText>
-			<Seperator color={colorTheme.borderTheme} style={styles.borderTheme} />
+			<Seperator color={theme.mainColor} style={styles.borderTheme} />
 		</View>
 	);
 });

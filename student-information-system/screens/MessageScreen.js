@@ -7,6 +7,7 @@ import { COLORS } from '../styles/colors';
 import { getAndListenChatUsers, getAndListenStartedChatsList,  selectChatID } from '../redux/chats';
 import { StartedMessagesField } from '../components/MessageScreen/StartedMessagesField';
 import {selectTheme} from "../redux/theme";
+import {darkModeHandler} from "../styles/darkModeHandler";
 
 const mapStateToProps = (state) => ({
 	darkMode: selectTheme(state)
@@ -25,15 +26,10 @@ export const MessageScreen = connect(mapStateToProps, {
 		return unsubscribe;
 	}, []);
 
-	const colorTheme = darkMode
-		? {
-			backgroundColor: COLORS.backgroundDark
-		} : {
-			backgroundColor: COLORS.backgroundLight
-		};
+	const theme = darkModeHandler(darkMode);
 
 	return (
-		<View style={{...styles.container, ...colorTheme}}>
+		<View style={{...styles.container, ...theme}}>
 			<Header title="Messages" />
 			<PeopleListField navigation={navigation} />
 			<StartedMessagesField navigation={navigation} />

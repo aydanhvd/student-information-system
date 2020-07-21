@@ -14,4 +14,5 @@ export const COLORS = Object.freeze({
 	headerColor: "#4375BF", //header of material screen field
 	screenBgDark: "#333C40",
 	screenBgLight: "#F5F5F5",
+	likeColor: '#F26161',
 });

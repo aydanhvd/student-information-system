@@ -6,6 +6,7 @@ import { Link } from '../commons/Link';
 import { GLOBAL_STYLES } from '../styles';
 import {selectTheme} from "../redux/theme";
 import {connect} from "react-redux";
+import {darkModeHandler} from "../styles/darkModeHandler";
 
 const mapStateToProps = (state) => ({
 	darkMode: selectTheme(state)
@@ -14,22 +15,15 @@ const mapStateToProps = (state) => ({
 export const ClassField = connect(mapStateToProps, {})
 	(({ heading, topic, backgroundColor,  onPress , textStyles, style, darkMode }) => {
 
-	const colorTheme = darkMode
-		? {
-			backgroundColor: COLORS.backgroundDark,
-			linkColor: COLORS.backgroundLight
-		} : {
-			backgroundColor: COLORS.backgroundLight,
-			linkColor: COLORS.drawerLight
-		};
+		const theme = darkModeHandler(darkMode);
 
 	return (
-		<TouchableOpacity style={{ ...styles.container, ...style, ...colorTheme }} onPress={onPress}>
+		<TouchableOpacity style={{ ...styles.container, ...style, ...theme }} onPress={onPress}>
 			<View style={{ ...styles.headerContainer, ...backgroundColor }}>
 				<CustomText style={{ ...styles.heading, ...textStyles }}>{heading}</CustomText>
 			</View>
 			<View style={styles.row}>
-				<Link link={topic} styleText={{...styles.topic, color: colorTheme.linkColor}} />
+				<Link link={topic} styleText={{...styles.topic, color: theme.linkColor}} />
 			</View>
 		</TouchableOpacity>
 	);

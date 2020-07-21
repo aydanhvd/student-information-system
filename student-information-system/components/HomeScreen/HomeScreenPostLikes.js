@@ -34,7 +34,7 @@ export const HomeScreenPostLikes = connect(mapStateToProps, {
 	return (
 		<View style={styles.container}>
 			<TouchableOpacity onPress={handleLike}>
-				<AntDesign name="heart" size={17} color={isLiked ? '#F26161' : COLORS.backgroundLight} />
+				<AntDesign name="heart" size={17} color={isLiked ? COLORS.likeColor : COLORS.backgroundLight} />
 			</TouchableOpacity>
 			<CustomText style={styles.count}>{likesCount}</CustomText>
 		</View>

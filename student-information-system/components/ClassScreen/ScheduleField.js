@@ -5,6 +5,7 @@ import { CustomText } from '../../commons/CustomText';
 import { Seperator } from '../../commons/Seperator';
 import {selectTheme} from "../../redux/theme";
 import {connect} from "react-redux";
+import {darkModeHandler} from "../../styles/darkModeHandler";
 
 const mapStateToProps = (state) => ({
     darkMode: selectTheme(state)
@@ -12,20 +13,13 @@ const mapStateToProps = (state) => ({
 
 export const ScheduleField = connect(mapStateToProps, {})(({ heading, date, style , fontSize, darkMode }) => {
 
-    const colorTheme = darkMode
-        ? {
-            backgroundColor: COLORS.backgroundDark,
-            headerText: COLORS.backgroundLight
-        } : {
-            backgroundColor: COLORS.backgroundLight,
-            headerText: COLORS.acsentLight
-        };
+    const theme = darkModeHandler(darkMode);
 
     return (
-        <TouchableOpacity style={{...styles.container,...style, ...colorTheme}}>
-            <CustomText weight="semi" style={{...styles.heading, ...fontSize, color: colorTheme.headerText}}>{heading}</CustomText>
+        <TouchableOpacity style={{...styles.container,...style, ...theme}}>
+            <CustomText weight="semi" style={{...styles.heading, ...fontSize, color: theme.textColor}}>{heading}</CustomText>
             <Seperator color={COLORS.commentsColorLight} distance={9}/>
-                <CustomText weight="semi" style={{...styles.date, color: colorTheme.headerText}}>{date}</CustomText>
+                <CustomText weight="semi" style={{...styles.date, color: theme.textColor}}>{date}</CustomText>
         </TouchableOpacity>
     );
 });

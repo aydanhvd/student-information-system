@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { selectAuthUserID } from '../../redux/auth';
 import { selectTheme } from '../../redux/theme';
 import { timeHumanizer } from '../../utils/timeHumanizer';
+import {darkModeHandler} from "../../styles/darkModeHandler";
 
 const mapStateToProps = (state) => ({
 	userID: selectAuthUserID(state),
@@ -16,23 +17,13 @@ export const PriviteMessagesBubble = connect(mapStateToProps)(({ messages, userI
 	const styledTime = messages.time ? timeHumanizer(messages.time) : '';
 	const chatStartedDay = styledTime[0];
 
-	const colorTheme = darkMode
-		? {
-				messageColor: COLORS.drawerDark,
-				senderColor: COLORS.textColorDark,
-				systemColor: COLORS.sendDark
-			}
-		: {
-				messageColor: COLORS.acsentColor,
-				senderColor: COLORS.acsentLight,
-				systemColor: COLORS.drawerLight
-			};
+	const theme = darkModeHandler(darkMode);
 
-	const bubbleStyles = [ { ...styles.container, backgroundColor: colorTheme.senderColor } ];
+	const bubbleStyles = [ { ...styles.container, backgroundColor: theme.senderColor } ];
 	const isSystem = messages.auther === 'system';
 	const isMyMessage = messages.auther === userID;
-	if (isSystem) bubbleStyles.push({ ...styles.systemBubble, backgroundColor: colorTheme.systemColor });
-	if (isMyMessage) bubbleStyles.push({ ...styles.userBubble, backgroundColor: colorTheme.messageColor });
+	if (isSystem) bubbleStyles.push({ ...styles.systemBubble, backgroundColor: theme.messageColor });
+	if (isMyMessage) bubbleStyles.push({ ...styles.userBubble, backgroundColor: theme.mainColor });
 
 	return (
 		<View style={bubbleStyles}>

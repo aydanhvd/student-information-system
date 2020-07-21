@@ -7,6 +7,7 @@ import { selectTheme } from '../../redux/theme';
 import { connect } from 'react-redux';
 import { dark } from '@eva-design/eva';
 import {FeedbackIcon} from "../../commons/icons/FeedbackIcon";
+import {darkModeHandler} from "../../styles/darkModeHandler";
 
 const mapStateToProps = (state) => ({
 	darkMode: selectTheme(state)
@@ -14,17 +15,14 @@ const mapStateToProps = (state) => ({
 
 export const DrawerFeedback = connect(mapStateToProps)(({ navigation, darkMode }) => {
 
+	const theme = darkModeHandler(darkMode);
+
 	return (
 		<SafeAreaProvider>
 			<View style={styles.container}>
 				<TouchableOpacity style={styles.feedback} onPress={() => navigation.navigate('Feedback')}>
 					<FeedbackIcon/>
-					<CustomText
-						style={{
-							...styles.feedbackText,
-							color: darkMode ? COLORS.backgroundDark : COLORS.backgroundLight
-						}}
-					>
+					<CustomText style={{ ...styles.feedbackText, color: theme.drawerText }} >
 						Feedback
 					</CustomText>
 				</TouchableOpacity>

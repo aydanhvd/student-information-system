@@ -5,6 +5,7 @@ import { Footer, Header, ProfilePictureLoader, SettingsFileds } from '../compone
 import { COLORS } from '../styles/colors';
 import {selectTheme} from "../redux/theme";
 import {connect} from "react-redux";
+import {darkModeHandler} from "../styles/darkModeHandler";
 
 
 const mapStateToProps = (state) => ({
@@ -13,15 +14,10 @@ const mapStateToProps = (state) => ({
 
 export const SettingsScreen = connect(mapStateToProps, {})(({ darkMode }) => {
 
-	const colorTheme = darkMode
-		? {
-			backgroundColor: COLORS.backgroundDark
-		} : {
-			backgroundColor: COLORS.backgroundLight
-		};
+	const theme = darkModeHandler(darkMode);
 
 	return (
-		<KeyboardAvoidingView style={{...styles.container, ...colorTheme}} behavior={Platform.OS === 'ios' ? 'padding' : ''}>
+		<KeyboardAvoidingView style={{...styles.container, ...theme}} behavior={Platform.OS === 'ios' ? 'padding' : ''}>
 			<Header title="Settings" />
 			<ScrollView>
 				<ProfilePictureLoader />

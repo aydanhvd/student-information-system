@@ -5,6 +5,7 @@ import { selectMaterials } from '../../redux/materials';
 import { COLORS } from '../../styles';
 import { ClassField } from '../ClassField';
 import {selectTheme} from "../../redux/theme";
+import {darkModeHandler} from "../../styles/darkModeHandler";
 
 
 const mapStateToProps = (state) => ({
@@ -14,12 +15,7 @@ const mapStateToProps = (state) => ({
 
 export const Materialslist = connect(mapStateToProps)(({ materials, darkMode }) => {
 
-	const colorTheme = darkMode
-		? {
-			backgroundColor: COLORS.headerColor
-		} : {
-			backgroundColor: COLORS.drawerLight
-		};
+	const theme = darkModeHandler(darkMode);
 
 	return (
 		<FlatList
@@ -31,7 +27,7 @@ export const Materialslist = connect(mapStateToProps)(({ materials, darkMode }) 
 					<ClassField
 						heading={item.title}
 						topic={item.link}
-						backgroundColor={{ ...colorTheme }}
+						backgroundColor={{ backgroundColor: theme.headerColor }}
 						textStyles={{ color: COLORS.backgroundLight }}
 					/>
 				);

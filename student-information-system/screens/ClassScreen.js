@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { selectGroup, getAndListenHomeWorks } from '../redux/materials';
 import {selectTheme} from "../redux/theme";
 import {backgroundColor} from "react-native-calendars/src/style";
+import {darkModeHandler} from "../styles/darkModeHandler";
 
 const mapStateToProps = (state) => ({
 	groupData: selectGroup(state),
@@ -20,27 +21,18 @@ export const ClassScreen = connect(mapStateToProps, {
 		return unsub;
 	}, []);
 
-	const colorTheme = darkMode
-		? {
-			backgroundColor: COLORS.backgroundDark,
-			headerBackground: COLORS.acsentLight,
-			headerText: COLORS.backgroundLight
-		} : {
-			backgroundColor: COLORS.backgroundLight,
-			headerBackground: COLORS.commentsColorLight,
-			headerText: COLORS.acsentLight
-		};
+	const theme = darkModeHandler(darkMode);
 
 	return (
-		<View style={{...styles.container, ...colorTheme}}>
+		<View style={{...styles.container, ...theme}}>
 			<Header title={`Group ${groupData.label}`} />
 			<Information />
 			<GradeShower />
 			<ClassField
 				heading="Homeworks"
 				topic="Your assingned homeworks"
-				backgroundColor = {{backgroundColor: colorTheme.headerBackground}}
-				textStyles = {{color: colorTheme.headerText}}
+				backgroundColor = {{backgroundColor: theme.headerBackground}}
+				textStyles = {{color: theme.textColor}}
 				style={{ width: '92%', marginHorizontal: 15, marginVertical: 15 }}
 				onPress={() => navigation.navigate('Homeworks')}
 			/>

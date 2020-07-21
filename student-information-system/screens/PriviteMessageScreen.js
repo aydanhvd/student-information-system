@@ -7,6 +7,7 @@ import { PriviteMessagesField, PriviteMessages } from '../components';
 import { getAndListenChatMessages, selectChatID } from '../redux/chats';
 import { PriviteChatsHeader } from '../components/PriviteMessageScreen/PriviteChatHeader';
 import {selectTheme} from "../redux/theme";
+import {darkModeHandler} from "../styles/darkModeHandler";
 
 const mapStateToProps = (state) => ({
 	chatID: selectChatID(state),
@@ -22,15 +23,10 @@ export const PriviteMessageScreen = connect(mapStateToProps, {
 		return unsub;
 	}, [chatID]);
 
-	const colorTheme = darkMode
-		? {
-			backgroundColor: COLORS.backgroundDark
-		} : {
-			backgroundColor: COLORS.backgroundLight
-		};
+	const theme = darkModeHandler(darkMode);
 
 	return (
-		<View style={{...styles.container, ...colorTheme}}>
+		<View style={{...styles.container, ...theme}}>
 			<PriviteChatsHeader navigation={navigation} />
 			<PriviteMessages />
 			<PriviteMessagesField style={styles.field} chatID={chatID} />

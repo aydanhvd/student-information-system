@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { ClassField } from '../ClassField';
 import { COLORS } from '../../styles';
 import { selectTheme } from '../../redux/theme';
+import {darkModeHandler} from "../../styles/darkModeHandler";
 
 const mapStateToProps = (state) => ({
 	homeworks: selectHomeworks(state),
@@ -12,15 +13,8 @@ const mapStateToProps = (state) => ({
 });
 
 export const HomeWorksList = connect(mapStateToProps)(({ homeworks, darkMode }) => {
-	const colorTheme = darkMode
-		? {
-				headerBackground: COLORS.acsentLight,
-				headerText: COLORS.backgroundLight
-			}
-		: {
-				headerBackground: COLORS.commentsColorLight,
-				headerText: COLORS.acsentLight
-			};
+
+	const theme = darkModeHandler(darkMode);
 
 	return (
 		<FlatList
@@ -32,8 +26,8 @@ export const HomeWorksList = connect(mapStateToProps)(({ homeworks, darkMode }) 
 					<ClassField
 						heading={item.title}
 						topic={item.link}
-						backgroundColor={{ backgroundColor: colorTheme.headerBackground }}
-						textStyles={{ color: colorTheme.headerText }}
+						backgroundColor={{ backgroundColor: theme.headerBackground }}
+						textStyles={{ color: theme.textColor }}
 					/>
 				);
 			}}

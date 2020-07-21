@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-import { StyleSheet, TextInput, KeyboardAvoidingView, Platform, Keyboard, SafeAreaView } from 'react-native';
-
-import { IconBtn } from '../../commons/IconBtn';
-import { COLORS, ICONS_LIGHT, GLOBAL_STYLES, ICONS_DARK } from '../../styles';
+import { StyleSheet, TextInput, KeyboardAvoidingView, Platform } from 'react-native';
+import { GLOBAL_STYLES } from '../../styles';
 import { connect } from 'react-redux';
 import { clearChatMessages, sendMessage } from '../../redux/chats';
 import { selectTheme } from '../../redux/theme';
 import {SendIcon} from "../../commons/icons/SendIcon";
+import {darkModeHandler} from "../../styles/darkModeHandler";
 
 const mapStateToProps = (state) => ({
 	darkMode: selectTheme(state)
@@ -26,24 +25,16 @@ export const PriviteMessagesField = connect(mapStateToProps, {
 		}
 	};
 
-	const colorTheme = darkMode
-		? {
-				backgroundColor: COLORS.backgroundDark,
-				textColor: COLORS.backgroundLight,
-			}
-		: {
-				backgroundColor: COLORS.backgroundLight,
-				textColor: COLORS.backgroundDark,
-			};
+	const theme = darkModeHandler(darkMode);
 
 	return (
 		<KeyboardAvoidingView
 			keyboardVerticalOffset={20}
-			style={{ ...style, ...styles.container, ...colorTheme }}
+			style={{ ...style, ...styles.container, ...theme }}
 			behavior={Platform.OS === 'ios' ? 'padding' : ''}
 		>
 			<TextInput
-				style={{ ...styles.inputField, color: colorTheme.textColor }}
+				style={{ ...styles.inputField, color: theme.textColor }}
 				value={message}
 				onChangeText={(value) => setMesage(value)}
 			/>

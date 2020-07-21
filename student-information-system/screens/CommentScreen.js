@@ -4,6 +4,7 @@ import {CommentScreenHeader, CommentScreenField, Footer, Comment} from '../compo
 import { COLORS } from '../styles';
 import { connect } from 'react-redux';
 import {selectTheme} from "../redux/theme";
+import {darkModeHandler} from "../styles/darkModeHandler";
 
 const mapStateToProps = (state) => ({
     darkMode: selectTheme(state)
@@ -11,15 +12,11 @@ const mapStateToProps = (state) => ({
 
 
 export const CommentScreen = connect(mapStateToProps, {})(({ post, navigation, darkMode }) => {
-    const colorTheme = darkMode
-        ? {
-            backgroundColor: COLORS.backgroundDark
-        } : {
-            backgroundColor: COLORS.backgroundLight
-        };
+
+    const theme = darkModeHandler(darkMode);
 
     return (
-        <View style={{...styles.container, ...colorTheme}}>
+        <View style={{...styles.container, ...theme}}>
             <CommentScreenHeader navigation={navigation}/>
             <Comment navigation={navigation}/>
             <CommentScreenField style={styles.field}/>

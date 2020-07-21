@@ -5,6 +5,7 @@ import { CustomText } from '../../commons/CustomText';
 import { connect } from 'react-redux';
 import { selectGroup } from '../../redux/materials';
 import { selectTheme } from '../../redux/theme';
+import {darkModeHandler} from "../../styles/darkModeHandler";
 
 const mapStateToProps = (state) => ({
 	group: selectGroup(state),
@@ -12,18 +13,13 @@ const mapStateToProps = (state) => ({
 });
 
 export const Information = connect(mapStateToProps)(({ group, darkMode }) => {
-	const colorTheme = darkMode
-		? {
-				color: COLORS.headerColor
-			}
-		: {
-				color: COLORS.drawerLight
-			};
+
+	const theme = darkModeHandler(darkMode);
 
 	return (
 		<View style={styles.information}>
-			<CustomText style={styles.informationText}>Course teacher</CustomText>
-			<CustomText weight="semi" style={{ ...styles.informationText, color: colorTheme.color, fontSize: 18 }}>
+			<CustomText style={{...styles.informationText, color: theme.textColor}}>Course teacher</CustomText>
+			<CustomText weight="semi" style={{ ...styles.informationText, color: theme.headerColor, fontSize: 18 }}>
 				{group.teacher}
 			</CustomText>
 		</View>
@@ -36,7 +32,6 @@ const styles = StyleSheet.create({
 		marginTop: 17
 	},
 	informationText: {
-		color: COLORS.backgroundDark,
 		marginBottom: 5,
 		fontSize: 12
 	}

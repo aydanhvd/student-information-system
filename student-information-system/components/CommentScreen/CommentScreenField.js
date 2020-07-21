@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
-import {StyleSheet, View, TextInput, KeyboardAvoidingView, Platform} from 'react-native';
+import {StyleSheet, TextInput, KeyboardAvoidingView, Platform} from 'react-native';
 
-import {COLORS, ICONS_LIGHT, GLOBAL_STYLES, ICONS_DARK} from '../../styles';
-import { IconBtn } from '../../commons/IconBtn';
-import { shareNewPost, selectActivePosts } from '../../redux/posts';
+import {COLORS, GLOBAL_STYLES } from '../../styles';
 import { connect } from 'react-redux';
 import {selectTheme} from "../../redux/theme";
 import {addNewComment, selectSelectedPost} from "../../redux/comments";
 import {OrigamiIcon} from "../../commons/icons/OrigamiIcon";
+import {darkModeHandler} from "../../styles/darkModeHandler";
 
 const mapStateToProps = (state) => ({
     selectedPost: selectSelectedPost(state),
@@ -24,26 +23,19 @@ export const CommentScreenField = connect(mapStateToProps, { addNewComment })(({
         }
     };
 
-    const colorTheme = darkMode
-        ? {
-            backgroundColor: COLORS.backgroundDark,
-            placeHolderTheme: COLORS.backgroundLight,
-        } : {
-            backgroundColor: COLORS.backgroundLight,
-            placeHolderTheme: COLORS.textColorDark,
-        };
+    const theme = darkModeHandler(darkMode);
 
     return (
         <KeyboardAvoidingView
             keyboardVerticalOffset={20}
-            style={{ ...style, ...styles.container, ...colorTheme, ...GLOBAL_STYLES.shaddowBottum, ...GLOBAL_STYLES.shaddowTop, }}
+            style={{ ...style, ...styles.container, ...theme, ...GLOBAL_STYLES.shaddowBottum, ...GLOBAL_STYLES.shaddowTop, }}
             behavior={Platform.OS === 'ios' ? 'padding' : ''}
         >
             <TextInput
                 value={newComment}
                 onChangeText={setNewComment}
-                placeholderTextColor = {colorTheme.placeHolderTheme}
-                style={{...styles.field, color: colorTheme.placeHolderTheme}}
+                placeholderTextColor = {theme.placeholderColor}
+                style={{...styles.field, color: theme.placeholderColor}}
                 placeholder="write a comment"
             />
             <OrigamiIcon style={styles.icon} onPress={sharePostHandler} />
