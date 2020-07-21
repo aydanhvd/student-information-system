@@ -24,14 +24,16 @@ export const ProgressBar = connect(mapStateToProps, {
 
 	const colorTheme = darkMode
 		? {
-			backgroundColor: COLORS.drawerDark
+			backgroundColor: COLORS.drawerDark,
+			textColor: COLORS.backgroundLight
 		} : {
-			backgroundColor: COLORS.drawerLight
+			backgroundColor: COLORS.drawerLight,
+			textColor: COLORS.backgroundDark
 		};
 
 	return (
 		<View style={styles.margin}>
-			<CustomText style={styles.informationText}>Attendance : {attencenceprogress}% </CustomText>
+			<CustomText style={{...styles.informationText, color: colorTheme.textColor }}>Attendance : {attencenceprogress}% </CustomText>
 			<View style={[ styles.container, { height: height } ]}>
 				<View
 					style={{ ...styles.progress, width: `${attencenceprogress}%`, ...colorTheme }}
@@ -57,7 +59,6 @@ const styles = StyleSheet.create({
 		borderRadius: 4
 	},
 	informationText: {
-		color: COLORS.backgroundDark,
 		marginLeft: 14,
 		fontSize: 14,
 		marginBottom: 8

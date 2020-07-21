@@ -12,5 +12,6 @@ export const COLORS = Object.freeze({
 	sendDark: '#9BE4BC',
 	error: "#CB0000",
 	headerColor: "#4375BF", //header of material screen field
-	screenBgDark: "#333C40"
+	screenBgDark: "#333C40",
+	screenBgLight: "#F5F5F5",
 });

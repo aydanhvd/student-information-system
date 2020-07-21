@@ -9,7 +9,7 @@ const mapStateToProps = (state) => ({
 	darkMode: selectTheme(state)
 });
 
-export const SendIcon = connect(mapStateToProps, {})(({ darkMode, style , onPress}) => {
+export const SendIcon = connect(mapStateToProps, {})(({ darkMode, style, onPress }) => {
 
 	const colorTheme = darkMode
 		? {

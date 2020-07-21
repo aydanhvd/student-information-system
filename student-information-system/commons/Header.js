@@ -1,14 +1,11 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 import { CustomText } from './CustomText';
-import { IconBtn } from './IconBtn';
 import { COLORS } from '../styles/colors';
-import { ICONS_LIGHT } from '../styles/iconsLight';
 import {selectTheme} from "../redux/theme";
 import {connect} from "react-redux";
-import {ICONS_DARK} from "../styles";
 import {LeftAlignIcon} from "./icons/LeftAlign";
 
 const mapStateToProps = (state) => ({

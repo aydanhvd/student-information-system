@@ -1,8 +1,8 @@
 import React from 'react';
 import { Toggle } from '@ui-kitten/components';
-import { StyleSheet, View, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import {COLORS, ICONS_DARK, ICONS_LIGHT} from '../../styles';
+import { COLORS } from '../../styles';
 import { toggleTheme, selectTheme } from '../../redux/theme';
 import { connect } from 'react-redux';
 import { CustomText } from '../../commons/CustomText';
@@ -13,8 +13,6 @@ const mapStateToProps = (state) => ({
 });
 
 export const DrawerDarkMode = connect(mapStateToProps, { toggleTheme })(({ navigation, theme, toggleTheme }) => {
-
-	const iconTheme= theme ? { source: ICONS_DARK.settingsDark } : { source: ICONS_LIGHT.settingsWhite }
 
 	return (
 		<SafeAreaProvider>

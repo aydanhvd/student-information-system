@@ -32,7 +32,7 @@ export { PriviteMessages} from './PriviteMessageScreen/PriviteMessages'
 
 export { CommentScreenHeader } from './CommentScreen/CommentScreenHeader';
 export { CommentScreenField } from './CommentScreen/CommentScreenField';
-export { CommentScreenCommentBubble } from './CommentScreen/CommentScreenCommentBubble'
-export { CommentScreenComment } from './CommentScreen/CommentScreenComment'
+export { CommentBubble } from './CommentScreen/CommentBubble'
+export { Comment } from './CommentScreen/Comment'
 
 

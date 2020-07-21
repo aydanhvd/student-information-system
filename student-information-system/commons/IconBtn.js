@@ -1,6 +1,5 @@
 import React from 'react';
 import { StyleSheet, TouchableOpacity, Image } from 'react-native';
-import { ICONS_LIGHT } from '../styles/iconsLight';
 
 // a component for wrapping a icon with TouchableOpacity and using is as btn since we have a lot of them in this project
 export const IconBtn = ({ icon, style, onPress, children }) => {

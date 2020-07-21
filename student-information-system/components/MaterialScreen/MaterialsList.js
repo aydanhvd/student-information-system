@@ -23,8 +23,8 @@ export const Materialslist = connect(mapStateToProps)(({ materials, darkMode }) 
 
 	return (
 		<FlatList
-         keyExtractor={(item)=>item.ID}
-      style={styles.container}
+         	keyExtractor={(item)=>item.ID}
+      		style={styles.container}
 			data={materials}
 			renderItem={({ item }) => {
 				return (

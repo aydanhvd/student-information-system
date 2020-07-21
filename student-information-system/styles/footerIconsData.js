@@ -1,6 +1,4 @@
 import React from 'react';
-import { TouchableOpacity } from 'react-native';
-import { ICONS_DARK } from './iconsDark';
 import { CalendarIcon } from '../commons/icons/CalendarIcon';
 import { BookmarkIcon } from '../commons/icons/BookmarIcon';
 import { MenuIcon } from '../commons/icons/MenuIcon';

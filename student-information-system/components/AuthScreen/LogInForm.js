@@ -2,17 +2,16 @@ import React, { useState } from 'react';
 import { StyleSheet, TextInput, View } from 'react-native';
 import { validateForm } from '../../utils/validateField';
 import { ICONS_LIGHT, COLORS } from '../../styles';
-import {IconBtn, CustomText} from '../index';
+import { IconBtn } from '../index';
 import {clearAuthError, getAuthError, logIn, setAuthError} from '../../redux/auth';
 import { connect } from 'react-redux';
-import Slider from 'react-native-slide-to-unlock';
 
 const mapStateToProps = (state) => ({
 	error: getAuthError(state),
 });
 
 export const LogInForm = connect(mapStateToProps, { logIn, setAuthError, clearAuthError })
-	(({ logIn, navigation, error, setAuthError, clearAuthError }) => {
+	(({ logIn, clearAuthError }) => {
 	const [ fields, setFields ] = useState({
 		email: '',
 		password: ''
