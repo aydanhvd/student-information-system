@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, Image, TouchableOpacity, View } from 'react-native';
 import { COLORS, ICONS_LIGHT } from '../../styles';
 import { CustomText } from '../../commons/CustomText';
 import {selectTheme} from "../../redux/theme";
@@ -28,6 +28,7 @@ export const UserCard = connect(
   const loadData = () => {
     setData(DATA);
   };
+
   renderData = () =>{
   return (
     <TouchableOpacity style={styles.card} onPress={onPress}>

@@ -22,7 +22,13 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "ua.cc.durnazeynalli.student-information-system",
+      "buildNumber": "1.0.0"
+    },
+    "android": {
+      "package": "ua.cc.durnazeynalli.student_information_system",
+      "versionCode": 1
     }
   }
 }
