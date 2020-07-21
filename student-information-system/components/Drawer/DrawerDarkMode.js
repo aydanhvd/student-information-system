@@ -7,12 +7,15 @@ import { toggleTheme, selectTheme } from '../../redux/theme';
 import { connect } from 'react-redux';
 import { CustomText } from '../../commons/CustomText';
 import {SettingsIcon} from "../../commons/icons/SettingsIcon";
+import {darkModeHandler} from "../../styles/darkModeHandler";
 
 const mapStateToProps = (state) => ({
-	theme: selectTheme(state)//true if dark mode false if light
+	darkMode: selectTheme(state)//true if dark mode false if light
 });
 
-export const DrawerDarkMode = connect(mapStateToProps, { toggleTheme })(({ navigation, theme, toggleTheme }) => {
+export const DrawerDarkMode = connect(mapStateToProps, { toggleTheme })(({ navigation, darkMode, toggleTheme }) => {
+
+	const theme = darkModeHandler(darkMode);
 
 	return (
 		<SafeAreaProvider>
@@ -22,16 +25,11 @@ export const DrawerDarkMode = connect(mapStateToProps, { toggleTheme })(({ navig
 					<View style={styles.toggleContainer}>
 						<Toggle
 							style={styles.switch}
-							onChange={() => toggleTheme(!theme)}
-							checked={theme}
+							onChange={() => toggleTheme(!darkMode)}
+							checked={darkMode}
 							status="control"
 						/>
-						<CustomText
-							weight="semi"
-							style={{ color: theme ? COLORS.backgroundDark : COLORS.backgroundLight }}
-						>
-							dark mode
-						</CustomText>
+						<CustomText weight="semi" style={{ color: theme.drawerText }}> dark mode </CustomText>
 					</View>
 				</View>
 			</View>

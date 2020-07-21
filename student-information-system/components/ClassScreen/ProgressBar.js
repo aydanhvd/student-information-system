@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { selectAuthAbsence, getAndListenAbcence } from '../../redux/auth';
 import { selectGroup } from '../../redux/materials';
 import {selectTheme} from "../../redux/theme";
+import {darkModeHandler} from "../../styles/darkModeHandler";
 
 const mapStateToProps = (state) => ({
 	abcenceMark: selectAuthAbsence(state),
@@ -22,21 +23,14 @@ export const ProgressBar = connect(mapStateToProps, {
 		return unsub
 	}, []);
 
-	const colorTheme = darkMode
-		? {
-			backgroundColor: COLORS.drawerDark,
-			textColor: COLORS.backgroundLight
-		} : {
-			backgroundColor: COLORS.drawerLight,
-			textColor: COLORS.backgroundDark
-		};
+	const theme = darkModeHandler(darkMode);
 
 	return (
 		<View style={styles.margin}>
-			<CustomText style={{...styles.informationText, color: colorTheme.textColor }}>Attendance : {attencenceprogress}% </CustomText>
+			<CustomText style={{...styles.informationText, color: theme.textColor }}>Attendance : {attencenceprogress}% </CustomText>
 			<View style={[ styles.container, { height: height } ]}>
 				<View
-					style={{ ...styles.progress, width: `${attencenceprogress}%`, ...colorTheme }}
+					style={{ ...styles.progress, width: `${attencenceprogress}%`, backgroundColor: theme.mainColor }}
 				/>
 			</View>
 		</View>

@@ -10,6 +10,7 @@ import { DrawerFeedback } from './DrawerFeedback';
 import { connect } from 'react-redux';
 import { getAndListenGroup } from '../../redux/materials';
 import { selectTheme } from '../../redux/theme';
+import {darkModeHandler} from "../../styles/darkModeHandler";
 
 const mapStateToProps = (state) => ({
 	darkMode: selectTheme(state)
@@ -20,20 +21,14 @@ export const Drawer = connect(mapStateToProps, { getAndListenGroup })(({ navigat
 		const unsub = getAndListenGroup();
 		return unsub;
 	}, []);
-	const colorTheme = darkMode
-		? {
-				drawerStart: COLORS.drawerLight,
-				drawerEnd: COLORS.drawerDark,
-			}
-		: {
-				drawerStart: COLORS.drawerLight,
-				drawerEnd: COLORS.acsentColor,
-			};
+
+	const theme = darkModeHandler(darkMode);
+
 	return (
 		<SafeAreaProvider>
 			<View style={styles.container}>
 				<LinearGradient
-					colors={[ colorTheme.drawerStart, colorTheme.drawerEnd ]}
+					colors={[ theme.drawerStart, theme.drawerEnd ]}
 					style={{ ...StyleSheet.absoluteFill }}
 					enabled
 					keyboardVerticalOffset={100}

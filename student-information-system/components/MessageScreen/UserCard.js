@@ -4,6 +4,7 @@ import { COLORS, ICONS_LIGHT } from '../../styles';
 import { CustomText } from '../../commons/CustomText';
 import {selectTheme} from "../../redux/theme";
 import {connect} from "react-redux";
+import {darkModeHandler} from "../../styles/darkModeHandler";
 
 const mapStateToProps = (state) => ({
 	darkMode: selectTheme(state)
@@ -11,24 +12,15 @@ const mapStateToProps = (state) => ({
 
 export const UserCard = connect(mapStateToProps, {})(({ user, onPress, darkMode }) => {
 
-	const colorTheme = darkMode
-		? {
-			backgroundColor: COLORS.backgroundDark,
-			userColor: COLORS.sendDark,
-			nameColor: COLORS.backgroundLight
-		} : {
-			backgroundColor: COLORS.backgroundLight,
-			userColor: COLORS.drawerLight,
-			nameColor: COLORS.acsentLight
-		};
+	const theme = darkModeHandler(darkMode);
 
 	return (
 		<TouchableOpacity style={styles.card} onPress={onPress}>
 			<Image source={user.profilePiC ? { uri: user.profilePiC } : ICONS_LIGHT.userLight} style={styles.image} />
-			<CustomText numberOfLines={1} style={{...styles.userName, color: colorTheme.userColor}}>
+			<CustomText numberOfLines={1} style={{...styles.userName, color: theme.messageColor}}>
 				@{user.userName}
 			</CustomText>
-			<CustomText numberOfLines={2} style={{...styles.name, color: colorTheme.nameColor}}>
+			<CustomText numberOfLines={2} style={{...styles.name, color: theme.textColor}}>
 				{user.name}
 			</CustomText>
 		</TouchableOpacity>

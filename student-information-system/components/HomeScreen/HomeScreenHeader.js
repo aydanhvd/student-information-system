@@ -7,6 +7,7 @@ import { CustomText } from '../../commons/CustomText';
 import { setActivePosts, selectActivePosts } from '../../redux/posts';
 import { selectAuthGroup } from '../../redux/auth';
 import {selectTheme} from "../../redux/theme";
+import {darkModeHandler} from "../../styles/darkModeHandler";
 
 const mapStateToProps = (state) => ({
 	activePostID: selectActivePosts(state),
@@ -19,30 +20,21 @@ export const HomeScreenHeader = connect(mapStateToProps, {
 })(({ feeds, setActivePosts, activePostID, groupID, darkMode }) => {
 	const filteredFeed = feeds.filter((feed) => feed.ID === groupID || feed.feed === 'News');
 
-	const colorTheme = darkMode
-		? {
-			backgroundColor: COLORS.backgroundDark,
-			textTheme: COLORS.backgroundLight,
-			activeTextTheme: COLORS.drawerDark
-		} : {
-			backgroundColor: COLORS.backgroundLight,
-			textTheme: COLORS.acsentLight,
-			activeTextTheme: COLORS.acsentColor
-		};
+	const theme = darkModeHandler(darkMode);
 
 	return (
-		<View style={{...styles.container, ...colorTheme}}>
+		<View style={{...styles.container, ...theme}}>
 			{filteredFeed.map((feed) => (
 				<TouchableOpacity style={styles.btn} onPress={() => setActivePosts(feed.ID)} key={feed.ID}>
 					<CustomText
 						style={{
 							...styles.btnText,
-							color: activePostID === feed.ID ? colorTheme.activeTextTheme : colorTheme.textTheme
+							color: activePostID === feed.ID ? theme.mainColor : theme.textColor
 						}}
 					>
 						{feed.feed}
 					</CustomText>
-					{activePostID === feed.ID && <View style={styles.indicator} backgroundColor={colorTheme.activeTextTheme}/>}
+					{activePostID === feed.ID && <View style={styles.indicator} backgroundColor={theme.mainColor}/>}
 				</TouchableOpacity>
 			))}
 		</View>

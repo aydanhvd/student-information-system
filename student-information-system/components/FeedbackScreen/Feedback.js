@@ -3,12 +3,12 @@ import {StyleSheet, View, TextInput } from 'react-native';
 import {connect} from "react-redux";
 
 import { COLORS } from '../../styles/colors';
-import {ICONS_LIGHT, GLOBAL_STYLES, ICONS_DARK} from "../../styles";
+import { GLOBAL_STYLES } from "../../styles";
 import {Modal} from "./Modal";
 import {submitFeedback} from "../../redux/feedback";
-import { IconBtn } from '../../commons/IconBtn';
 import {selectTheme} from "../../redux/theme";
 import {SendIcon} from "../../commons/icons/SendIcon";
+import {darkModeHandler} from "../../styles/darkModeHandler";
 
 const mapStateToProps = (state) => ({
     darkMode: selectTheme(state)
@@ -27,24 +27,18 @@ export const Feedback = connect(mapStateToProps, { submitFeedback })(({submitFee
     };
     const toggleSend = () => setSend(v => !v);
 
-    const colorTheme= darkMode
-        ? {
-            backgroundColor: COLORS.backgroundDark,
-            placeHolderTheme: COLORS.backgroundLight,
-        }:{
-            backgroundColor: COLORS.backgroundLight ,
-            placeHolderTheme: COLORS.textColorDark,
-        };
+    const theme = darkModeHandler(darkMode);
+
     return (
         <>
             <View style={styles.container }>
-                <View style={{...styles.textInput, ...colorTheme}}>
+                <View style={{...styles.textInput, ...theme}}>
                     <TextInput
                         placeholder = 'any suggestions for us to improve ?..'    
-                        placeholderTextColor = {colorTheme.placeHolderTheme}
+                        placeholderTextColor = {theme.placeholderColor}
                         onChangeText={setField}
                         value={field}
-                        style={{...styles.text, color: colorTheme.placeHolderTheme}}
+                        style={{...styles.text, color: theme.placeholderColor}}
                     />
                     <SendIcon
                         style={styles.sendIcon}

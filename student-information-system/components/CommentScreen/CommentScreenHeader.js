@@ -10,6 +10,7 @@ import { selectSelectedPost } from '../../redux/comments';
 import { selectChatsUsers } from '../../redux/chats';
 import { BackIcon } from '../../commons/icons/BackIcon';
 import { PostCommennts } from '../HomeScreen/PostComments';
+import {darkModeHandler} from "../../styles/darkModeHandler";
 
 const mapStateToProps = (state) => ({
 	selectedPost: selectSelectedPost(state),
@@ -20,17 +21,8 @@ const mapStateToProps = (state) => ({
 export const CommentScreenHeader = connect(
 	mapStateToProps
 )(({ navigation, darkMode, selectedPost, usersList = [] }) => {
-	const colorTheme = darkMode
-		? {
-				backgroundColor: COLORS.backgroundDark,
-				borderColor: COLORS.drawerDark,
-				nameColor: COLORS.backgroundLight
-			}
-		: {
-				backgroundColor: COLORS.backgroundLight,
-				borderColor: COLORS.acsentColor,
-				nameColor: COLORS.textColorDark
-			};
+
+	const theme = darkModeHandler(darkMode);
 
 	const auther = Object.keys(usersList)
 		.map((key) => ({
@@ -40,24 +32,24 @@ export const CommentScreenHeader = connect(
 		.filter((user) => user.ID === selectedPost.autherID);
 
 	return (
-		<View style={{ ...colorTheme, ...styles.postContainer }}>
-			<View style={{ ...styles.container, ...colorTheme }}>
+		<View style={{ ...theme, ...styles.postContainer }}>
+			<View style={{ ...styles.container, ...theme }}>
 				<BackIcon onPress={() => navigation.goBack()} />
 				<Image
-					style={{ ...styles.profilePiC, borderColor: colorTheme.borderColor }}
+					style={{ ...styles.profilePiC, borderColor: theme.mainColor }}
 					source={auther[0].profilePiC ? { uri: auther[0].profilePiC } : ICONS_LIGHT.userLight}
 				/>
 				<View style={styles.nameContainer}>
-					<CustomText style={{ ...styles.name, color: colorTheme.nameColor }}>{auther[0].name}</CustomText>
+					<CustomText style={{ ...styles.name, color: theme.textColor }}>{auther[0].name}</CustomText>
 				</View>
 			</View>
 
-			<View style={{ ...styles.post, ...colorTheme }}>
-				<CustomText style={{ color: colorTheme.nameColor, marginHorizontal: 20, marginBottom: 30 }}>
+			<View style={{ ...styles.post, ...theme }}>
+				<CustomText style={{ color: theme.textColor, marginHorizontal: 20, marginBottom: 30 }}>
 					{selectedPost.text}
 				</CustomText>
 			</View>
-			<View style={{ ...styles.likesContainer, backgroundColor: colorTheme.borderColor }}>
+			<View style={{ ...styles.likesContainer, backgroundColor: theme.mainColor }}>
 				{selectedPost.likes && <HomeScreenPostLikes postID={selectedPost.ID} />}
 				<PostCommennts post={selectedPost} navigation={navigation} />
 			</View>

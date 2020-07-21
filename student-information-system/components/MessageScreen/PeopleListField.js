@@ -1,8 +1,7 @@
-import React,{useEffect} from 'react';
+import React from 'react';
 import { StyleSheet, View, FlatList } from 'react-native';
-// import { SearchableFlatList } from "react-native-searchable-list";
 
-import { COLORS, GLOBAL_STYLES } from '../../styles';
+import { GLOBAL_STYLES } from '../../styles';
 import { SearchBar } from './SearchBar';
 import { connect } from 'react-redux';
 import { selectChatsUsers, initPriviteChats, setRecieverInfo, getAndListenChatUsers } from '../../redux/chats';
@@ -22,7 +21,8 @@ export const PeopleListField = connect(mapStateToProps, {
 	getAndListenChatUsers
 
 })(({ users, initPriviteChats, userID, navigation, setRecieverInfo, darkMode ,getAndListenChatUsers}) => {
-		const theme = darkModeHandler(darkMode)
+
+	const theme = darkModeHandler(darkMode);
 
 	const usersArr = Object.keys(users)
 		.map((key) => ({
@@ -40,14 +40,6 @@ export const PeopleListField = connect(mapStateToProps, {
 		navigation.navigate('PriviteChat');
 		getAndListenChatUsers();
 	};
-
-	const colorTheme = darkMode
-		? {
-				backgroundColor: COLORS.backgroundDark
-			}
-		: {
-				backgroundColor: COLORS.backgroundLight
-			};
 
 	return (
 		<View style={{ ...styles.container, ...theme }}>

@@ -5,6 +5,7 @@ import { COLORS } from '../styles/colors';
 import { CalendarAgenda } from '../components/CalendarScreen/CalendarAgenda';
 import {selectTheme} from "../redux/theme";
 import {connect} from "react-redux";
+import {darkModeHandler} from "../styles/darkModeHandler";
 
 const mapStateToProps = (state) => ({
 	darkMode: selectTheme(state)
@@ -12,15 +13,10 @@ const mapStateToProps = (state) => ({
 
 export const CalendarScreen = connect(mapStateToProps, {})(({ darkMode }) => {
 
-	const colorTheme = darkMode
-		? {
-			backgroundColor: COLORS.backgroundDark
-		} : {
-			backgroundColor: COLORS.backgroundLight
-		};
+	const theme = darkModeHandler(darkMode);
 
 	return (
-		<View style={{...styles.container, ...colorTheme}}>
+		<View style={{...styles.container, ...theme}}>
 			<Header title="Calendar" />
 			<CalendarAgenda/>
 			<Footer style={styles.footer} screen="CallendarStack" />

@@ -7,6 +7,7 @@ import { COLORS } from '../styles/colors';
 import {selectTheme} from "../redux/theme";
 import {connect} from "react-redux";
 import {LeftAlignIcon} from "./icons/LeftAlign";
+import {darkModeHandler} from "../styles/darkModeHandler";
 
 const mapStateToProps = (state) => ({
 	darkMode: selectTheme(state)
@@ -16,18 +17,11 @@ export const Header = connect(mapStateToProps, {})(({ title, darkMode }) => {
 
 	const { toggleDrawer } = useNavigation();
 
-	const colorTheme = darkMode
-		? {
-			backgroundColor: COLORS.backgroundDark,
-			color: COLORS.backgroundLight,
-		} : {
-			backgroundColor: COLORS.backgroundLight,
-			color: COLORS.backgroundDark,
-		};
+	const theme = darkModeHandler(darkMode);
 
 	return (
-		<View style={{...styles.container, ...colorTheme}}>
-			<CustomText style={{...styles.heading, ...colorTheme}}>{title}</CustomText>
+		<View style={{...styles.container, ...theme}}>
+			<CustomText style={{...styles.heading, color: theme.textColor}}>{title}</CustomText>
 			<LeftAlignIcon onPress={() => toggleDrawer()} style={styles.headerIcon}/>
 		</View>
 	);

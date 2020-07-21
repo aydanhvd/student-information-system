@@ -10,6 +10,7 @@ import { selectGroup } from '../../redux/materials';
 import { Seperator } from '../../commons/Seperator';
 import { selectTheme } from '../../redux/theme';
 import { ICONS_LIGHT } from '../../styles/iconsLight';
+import {darkModeHandler} from "../../styles/darkModeHandler";
 
 const mapStateToProps = (state) => ({
 	profilePic: selectProfilePiC(state),
@@ -23,17 +24,17 @@ export const DrawerUserInfo = connect(mapStateToProps, {
 	uploadProfilePic,
 })(({ profilePic, userName, name, group={}, darkMode }) => {
 
-	const colorTheme= darkMode ? { color: COLORS.backgroundDark } : { color: COLORS.backgroundLight };
+	const theme = darkModeHandler(darkMode);
 
 	return (
 		<SafeAreaProvider>
 			<View style={styles.container}>
 				<Image style={styles.profilePic} source={profilePic ? { uri: profilePic } : ICONS_LIGHT.userLight} />
-				<CustomText style={{ ...styles.name, ...colorTheme }}>{name}</CustomText>
-				<CustomText style={{ ...styles.username, ...colorTheme }}>@{userName}</CustomText>
-				<Seperator color={{ ...COLORS.backgroundLight, ...colorTheme }} style={styles.seperator} />
-				<CustomText style={{ ...styles.drawerTitle, ...colorTheme }}>group: {group.label}</CustomText>
-				<CustomText style={{ ...styles.drawerTitle, ...colorTheme }}>adviser: {group.teacher}</CustomText>
+				<CustomText style={{ ...styles.name, color: theme.drawerText }}>{name}</CustomText>
+				<CustomText style={{ ...styles.username, color: theme.drawerText }}>@{userName}</CustomText>
+				<Seperator color={{ ...COLORS.backgroundLight, color: theme.drawerText }} style={styles.seperator} />
+				<CustomText style={{ ...styles.drawerTitle, color: theme.drawerText }}>group: {group.label}</CustomText>
+				<CustomText style={{ ...styles.drawerTitle, color: theme.drawerText }}>adviser: {group.teacher}</CustomText>
 			</View>
 		</SafeAreaProvider>
 	);

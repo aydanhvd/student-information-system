@@ -10,6 +10,7 @@ import { HomeScreenPostLikes } from './HomeScreenPostLikes';
 import { selectChatsUsers } from '../../redux/chats';
 import { timeHumanizer } from '../../utils/timeHumanizer';
 import { PostCommennts } from './PostComments';
+import {darkModeHandler} from "../../styles/darkModeHandler";
 
 const mapStateToProps = (state) => ({
 	darkMode: selectTheme(state),
@@ -22,16 +23,7 @@ export const HomeScreenPostBubble = connect(mapStateToProps,{
 })(({ navigation, post, darkMode, usersList}) => {
 	const formattedTime = post.time ? timeHumanizer(post.time) : '';
 
-	const colorTheme = darkMode
-		? {
-				backgroundColor: COLORS.screenBgDark,
-				borderTheme: COLORS.drawerDark,
-				textTheme: COLORS.backgroundLight,
-		} : {
-				backgroundColor: COLORS.screenBgLight,
-				borderTheme: COLORS.acsentColor,
-				textTheme: COLORS.acsentLight,
-		};
+	const theme = darkModeHandler(darkMode);
 
 	const auther = Object.keys(usersList)
 		.map((key) => ({
@@ -41,7 +33,7 @@ export const HomeScreenPostBubble = connect(mapStateToProps,{
 		.filter((user) => user.ID === post.autherID);
 		
 	return (
-		<View style={{ ...styles.container, ...GLOBAL_STYLES.shaddowTop, ...colorTheme }}>
+		<View style={{ ...styles.container, ...GLOBAL_STYLES.shaddowTop, backgroundColor: theme.postBgColor }}>
 			<View style={styles.row}>
 		{post&&<>
 			<Image
@@ -50,16 +42,16 @@ export const HomeScreenPostBubble = connect(mapStateToProps,{
 				source={auther[0]?.profilePiC ? { uri: auther[0].profilePiC } : ICONS_LIGHT.userLight}
 			/>
 			<View style={styles.postBodyContainer}>
-				<CustomText weight="semi" style={{ ...styles.fullName, color: colorTheme.textTheme }}>
+				<CustomText weight="semi" style={{ ...styles.fullName, color: theme.textColor }}>
 					{auther[0]?.name}
 				</CustomText>
-				<CustomText style={{ ...styles.userName, color: colorTheme.borderTheme }}>@{auther[0]?.userName}</CustomText>
-				<CustomText style={{ ...styles.text, color: colorTheme.textTheme }}>{post.text}</CustomText>
+				<CustomText style={{ ...styles.userName, color: theme.mainColor }}>@{auther[0]?.userName}</CustomText>
+				<CustomText style={{ ...styles.text, color: theme.textColor }}>{post.text}</CustomText>
 			</View>
-			<CustomText style={{ ...styles.time, color: colorTheme.textTheme }}>{formattedTime[0]} {formattedTime[1]}</CustomText>
+			<CustomText style={{ ...styles.time, color: theme.textColor }}>{formattedTime[0]} {formattedTime[1]}</CustomText>
 			</>}
 			</View>
-			<View style={{...styles.likesContainer, backgroundColor: colorTheme.borderTheme}}>
+			<View style={{...styles.likesContainer, backgroundColor: theme.mainColor}}>
 				{post.likes && <HomeScreenPostLikes postID={post.ID} />}
 				<PostCommennts post={post} navigation={navigation} />
 			</View>
@@ -110,8 +102,8 @@ const styles = StyleSheet.create({
 	},
 	time: {
 		position: 'absolute',
-		top: 10,
-		right: 16,
+		top: 3,
+		right: 10,
 		fontSize: 12
 	}
 });

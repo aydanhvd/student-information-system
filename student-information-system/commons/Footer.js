@@ -8,6 +8,7 @@ import { GLOBAL_STYLES } from '../styles';
 import { FOOTER_ICONS_DATA } from '../styles/footerIconsData';
 import { selectTheme } from '../redux/theme';
 import { getAndListenChatUsers } from '../redux/chats';
+import {darkModeHandler} from "../styles/darkModeHandler";
 
 const mapStateToProps = (state) => ({
 	darkMode: selectTheme(state)
@@ -29,19 +30,10 @@ export const Footer = connect(mapStateToProps, {
 		}
 		navigate(screen);
 	};
-
-	const colorTheme = darkMode
-		? {
-				backgroundColor: COLORS.backgroundDark,
-				indicatorTheme: COLORS.drawerDark
-			}
-		: {
-				backgroundColor: COLORS.backgroundLight,
-				indicatorTheme: COLORS.acsentColor
-			};
+	const theme = darkModeHandler(darkMode);
 
 	return (
-		<View style={{ ...styles.container, ...style, ...GLOBAL_STYLES.shaddowTop, ...colorTheme }}>
+		<View style={{ ...styles.container, ...style, ...GLOBAL_STYLES.shaddowTop, ...theme }}>
 			{FOOTER_ICONS_DATA.map((item) => {
 				return (
 					<TouchableOpacity
@@ -51,7 +43,7 @@ export const Footer = connect(mapStateToProps, {
 					>
 						<item.Icon />
 						{item.name === screen && (
-							<View style={{ ...styles.indicator, backgroundColor: colorTheme.indicatorTheme }} />
+							<View style={{ ...styles.indicator, backgroundColor: theme.mainColor }} />
 						)}
 					</TouchableOpacity>
 				);
