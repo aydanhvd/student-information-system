@@ -1,13 +1,15 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import { StyleSheet, View, FlatList } from 'react-native';
+// import { SearchableFlatList } from "react-native-searchable-list";
 
-import { COLORS, GLOBAL_STYLES, ICONS_LIGHT } from '../../styles';
+import { COLORS, GLOBAL_STYLES } from '../../styles';
 import { SearchBar } from './SearchBar';
 import { connect } from 'react-redux';
 import { selectChatsUsers, initPriviteChats, setRecieverInfo, getAndListenChatUsers } from '../../redux/chats';
 import { UserCard } from './UserCard';
 import { selectAuthUserID } from '../../redux/auth';
 import { selectTheme } from '../../redux/theme';
+import { darkModeHandler } from '../../styles/darkModeHandler';
 
 const mapStateToProps = (state) => ({
 	users: selectChatsUsers(state),
@@ -19,6 +21,8 @@ export const PeopleListField = connect(mapStateToProps, {
 	setRecieverInfo,
 	getAndListenChatUsers
 })(({ users, initPriviteChats, userID, navigation, setRecieverInfo, darkMode ,getAndListenChatUsers}) => {
+		const theme = darkModeHandler(darkMode)
+
 	const usersArr = Object.keys(users)
 		.map((key) => ({
 			ID: key, //use uppercase letters for IDs
@@ -45,7 +49,7 @@ export const PeopleListField = connect(mapStateToProps, {
 			};
 
 	return (
-		<View style={{ ...styles.container, ...colorTheme }}>
+		<View style={{ ...styles.container, ...theme }}>
 			<SearchBar />
 			{!!users && (
 				<FlatList
@@ -59,6 +63,7 @@ export const PeopleListField = connect(mapStateToProps, {
 					}}
 				/>
 			)}
+
 		</View>
 	);
 });
