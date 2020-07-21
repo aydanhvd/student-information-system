@@ -20,6 +20,7 @@ export const PeopleListField = connect(mapStateToProps, {
 	initPriviteChats,
 	setRecieverInfo,
 	getAndListenChatUsers
+
 })(({ users, initPriviteChats, userID, navigation, setRecieverInfo, darkMode ,getAndListenChatUsers}) => {
 		const theme = darkModeHandler(darkMode)
 
@@ -37,7 +38,7 @@ export const PeopleListField = connect(mapStateToProps, {
 			image: reciever.profilePiC
 		});
 		navigation.navigate('PriviteChat');
-		getAndListenChatUsers()
+		getAndListenChatUsers();
 	};
 
 	const colorTheme = darkMode
@@ -53,6 +54,7 @@ export const PeopleListField = connect(mapStateToProps, {
 			<SearchBar />
 			{!!users && (
 				<FlatList
+				// ListHeaderComponent={()=><SearchBar/>}
 					style={styles.listContainer}
 					keyExtractor={(item) => item.ID}
 					horizontal
@@ -63,7 +65,6 @@ export const PeopleListField = connect(mapStateToProps, {
 					}}
 				/>
 			)}
-
 		</View>
 	);
 });
