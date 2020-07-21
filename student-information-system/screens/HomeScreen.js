@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { getAndListenFeeds, selectFeeds } from '../redux/posts';
 import { selectTheme } from '../redux/theme';
 import { getAndListenChatUsers } from '../redux/chats';
+import {darkModeHandler} from "../styles/darkModeHandler";
 
 const mapStateToProps = (state) => ({
 	feeds: selectFeeds(state),
@@ -20,16 +21,11 @@ export const HomeScreen = connect(mapStateToProps, {
 		const unsubscribe = getAndListenFeeds();
 		return unsubscribe;
 	}, []);
-	const colorTheme = darkMode
-		? {
-				backgroundColor: COLORS.backgroundDark
-			}
-		: {
-				backgroundColor: COLORS.backgroundLight
-			};
+
+	const theme = darkModeHandler(darkMode);
 
 	return (
-		<View style={{ ...styles.container, ...colorTheme }}>
+		<View style={{ ...styles.container, ...theme }}>
 			<HomeScreenHeader feeds={feeds} />
 			<HomeScreenField />
 			<HomeScreenPosts navigation={navigation} />

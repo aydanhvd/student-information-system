@@ -3,8 +3,7 @@ import { StyleSheet, View, Image } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 
 import { CustomText } from '../../commons/CustomText';
-import { IconBtn } from '../../commons/IconBtn';
-import {ICONS_LIGHT, COLORS, GLOBAL_STYLES, ICONS_DARK} from '../../styles';
+import { ICONS_LIGHT, COLORS, GLOBAL_STYLES } from '../../styles';
 import { Seperator } from '../../commons/Seperator';
 import { askForCameraPermissions, imagePickerOptions } from '../../utils/askForCameraPermissions';
 import { connect } from 'react-redux';
@@ -12,6 +11,7 @@ import { uploadProfilePic, selectProfilePiC } from '../../redux/auth';
 import {selectTheme} from "../../redux/theme";
 import {CameraIcon} from "../../commons/icons/CameraIcon";
 import {GalleryIcon} from "../../commons/icons/GalleryIcon";
+import {darkModeHandler} from "../../styles/darkModeHandler";
 
 const mapStateToProps = (state) => ({
 	profilePic: selectProfilePiC(state),
@@ -46,19 +46,14 @@ export const ProfilePictureLoader = connect(mapStateToProps, {
 		}
 	};
 
-	const colorTheme = darkMode
-		? {
-			color: COLORS.drawerDark,
-		} : {
-			color: COLORS.acsentColor,
-		};
+	const theme = darkModeHandler(darkMode);
 
 	return (
 		<View style={styles.container}>
-			<View style={{...styles.imageWrapper, borderColor: colorTheme.color}}>
+			<View style={{...styles.imageWrapper, borderColor: theme.mainColor}}>
 				<Image style={styles.profilePic} source={profilePic ? { uri: profilePic } : ICONS_LIGHT.userLight} />
 			</View>
-			<CustomText  style={{...styles.editText, color: colorTheme.color}}>
+			<CustomText  style={{...styles.editText, color: theme.mainColor}}>
 				Edit Picture
 			</CustomText>		
 
@@ -66,7 +61,7 @@ export const ProfilePictureLoader = connect(mapStateToProps, {
 				<CameraIcon onPress={() => selectImage(true)} />
 				<GalleryIcon onPress={() => selectImage()} />
 			</View>
-			<Seperator style={{...styles.seperator, backgroundColor: colorTheme.color}} />
+			<Seperator style={{...styles.seperator, backgroundColor: theme.mainColor}} />
 		</View>
 	);
 });

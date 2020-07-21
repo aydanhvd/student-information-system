@@ -8,6 +8,7 @@ import {Feedback} from "../components";
 
 import {selectTheme} from "../redux/theme";
 import {connect} from "react-redux";
+import {darkModeHandler} from "../styles/darkModeHandler";
 
 const mapStateToProps = (state) => ({
     darkMode: selectTheme(state)
@@ -16,15 +17,10 @@ const mapStateToProps = (state) => ({
 
 export const FeedbackScreen = connect(mapStateToProps, {})(({ darkMode }) => {
 
-    const colorTheme = darkMode
-        ? {
-            backgroundColor: COLORS.backgroundDark
-        } : {
-            backgroundColor: COLORS.backgroundLight
-        };
+    const theme = darkModeHandler(darkMode);
 
     return (
-        <View style={{...styles.container, ...colorTheme}}>
+        <View style={{...styles.container, ...theme}}>
             <Header title='Feedback' />
             <Feedback/>
             <Footer style={styles.footer} />

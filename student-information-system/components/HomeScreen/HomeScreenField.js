@@ -7,6 +7,7 @@ import { shareNewPost, selectActivePosts } from '../../redux/posts';
 import { connect } from 'react-redux';
 import {selectTheme} from "../../redux/theme";
 import {OrigamiIcon} from "../../commons/icons/OrigamiIcon";
+import {darkModeHandler} from "../../styles/darkModeHandler";
 
 const mapStateToProps = (state) => ({
 	activePostID: selectActivePosts(state),
@@ -23,22 +24,15 @@ export const HomeScreenField = connect(mapStateToProps, { shareNewPost })(({ act
 		}
 	};
 
-	const colorTheme = darkMode
-		? {
-			backgroundColor: COLORS.backgroundDark,
-			placeHolderTheme: COLORS.backgroundLight,
-		} : {
-			backgroundColor: COLORS.backgroundLight,
-			placeHolderTheme: COLORS.textColorDark,
-		};
+	const theme = darkModeHandler(darkMode);
 
 	return (
-		<View style={{ ...styles.container, ...GLOBAL_STYLES.shaddowBottum, ...colorTheme }}>
+		<View style={{ ...styles.container, ...GLOBAL_STYLES.shaddowBottum, ...theme }}>
 			<TextInput
 				value={newPost}
 				onChangeText={setNewPost}
-				placeholderTextColor = {colorTheme.placeHolderTheme}
-				style={{...styles.field, color: colorTheme.placeHolderTheme}}
+				placeholderTextColor = {theme.placeholderColor}
+				style={{...styles.field, color: theme.placeholderColor}}
 				placeholder="what is on your mind...."
 			/>
 			<OrigamiIcon style={styles.icon} onPress={sharePostHandler} />

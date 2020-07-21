@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import { getAndListenMaterials } from '../redux/materials';
 import { Materialslist } from '../components/MaterialScreen/MaterialsList';
 import {selectTheme} from "../redux/theme";
+import {darkModeHandler} from "../styles/darkModeHandler";
 
 const mapStateToProps = (state) => ({
 	darkMode: selectTheme(state)
@@ -20,15 +21,10 @@ export const MaterialsScreen = connect(mapStateToProps, {
 		getAndListenMaterials();
 	}, []);
 
-	const colorTheme = darkMode
-		? {
-			backgroundColor: COLORS.backgroundDark
-		} : {
-			backgroundColor: COLORS.backgroundLight
-		};
+	const theme = darkModeHandler(darkMode);
 
 	return (
-		<View style={{...styles.container, ...colorTheme}}>
+		<View style={{...styles.container, ...theme}}>
 			<Header title={'Materials'} style={{ position: 'absolute', top: -20 }} />
 			<Materialslist/>
 			<Footer style={styles.footer} screen="MaterialsStack" />

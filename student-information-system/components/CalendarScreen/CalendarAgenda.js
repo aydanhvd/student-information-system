@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import { selectAgenda, getAndListenAgenda } from '../../redux/materials';
 import { ClassField } from '../ClassField';
 import { selectTheme } from '../../redux/theme';
+import {darkModeHandler} from "../../styles/darkModeHandler";
 
 const mapStateToProps = (state) => ({
 	agendaData: selectAgenda(state),
@@ -21,17 +22,7 @@ export const CalendarAgenda = connect(mapStateToProps, {
 		return unsub;
 	}, []);
 
-	const colorTheme = darkMode
-		? {
-				backgroundColor: COLORS.backgroundDark,
-				fieldColor: COLORS.headerColor,
-				dayColor: COLORS.backgroundLight
-			}
-		: {
-				backgroundColor: COLORS.backgroundLight,
-				fieldColor: COLORS.acsentColor,
-				dayColor: COLORS.backgroundDark
-			};
+	const theme = darkModeHandler(darkMode);
 
 	return (
 		<Agenda
@@ -42,7 +33,7 @@ export const CalendarAgenda = connect(mapStateToProps, {
 						<ClassField
 							heading={item.time}
 							topic={item.topic}
-							backgroundColor={{ backgroundColor: colorTheme.fieldColor }}
+							backgroundColor={{ backgroundColor: theme.calendarHeader }}
 							textStyles={{ color: COLORS.backgroundLight, fontSize: 15, textAlign: 'right' }}
 						/>
 					</View>
@@ -56,12 +47,10 @@ export const CalendarAgenda = connect(mapStateToProps, {
 			}}
 			refreshing={true}
 			theme={{
-				...colorTheme,
-				agendaTodayColor: colorTheme.fieldColor,
-				agendaDayNumColor: colorTheme.dayColor,
-				agendaDayTextColor: colorTheme.dayColor
+				...theme,
+				agendaTodayColor: theme.calendarHeader,
 			}}
-			style={{ ...colorTheme }}
+			style={{ ...theme }}
 		/>
 	);
 });

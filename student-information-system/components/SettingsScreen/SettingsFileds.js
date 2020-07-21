@@ -7,6 +7,7 @@ import { COLORS } from '../../styles';
 import { selectUser, logOut, changeName } from '../../redux/auth';
 import { Button } from '../../commons/Button';
 import {selectTheme} from "../../redux/theme";
+import {darkModeHandler} from "../../styles/darkModeHandler";
 
 const mapStateToProps = (state) => ({
 	userName: selectUser(state).userName,
@@ -18,21 +19,14 @@ export const SettingsFileds = connect(mapStateToProps, { logOut, changeName })
 
 	const [ name, setName ] = useState(userName);
 
-	const colorTheme = darkMode
-		? {
-			color: COLORS.drawerDark,
-			textColor: COLORS.backgroundLight
-		} : {
-			color: COLORS.acsentColor,
-			textColor: COLORS.textColorDark
-		};
+	const theme = darkModeHandler(darkMode);
 
 	return (
 		<View style={styles.container}>
 			<View style={styles.input}>
-				<CustomText style={{...styles.label, ...colorTheme}}>name:</CustomText>
+				<CustomText style={{...styles.label, color: theme.mainColor}}>name:</CustomText>
 				<TextInput value={name} onChangeText={(value) => setName(value)}
-						   style={{...styles.name, color: colorTheme.textColor, borderBottomColor: colorTheme.color}} />
+						   style={{...styles.name, color: theme.textColor, borderColor: theme.mainColor}} />
 			</View>
 			<View style={styles.btnContainer}>
 				<Button text="save changes" onPress={() => changeName(name)} style={styles.btn} />

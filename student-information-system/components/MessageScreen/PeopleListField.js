@@ -1,27 +1,21 @@
-import React, { useEffect } from "react";
-import { StyleSheet, View, FlatList } from "react-native";
-// import { SearchableFlatList } from "react-native-searchable-list";
+import React from 'react';
+import { StyleSheet, View, FlatList } from 'react-native';
 import { Spinner } from "@ui-kitten/components";
-
-import { COLORS, GLOBAL_STYLES } from "../../styles";
-import { SearchBar } from "./SearchBar";
-import { connect } from "react-redux";
-import {
-  selectChatsUsers,
-  initPriviteChats,
-  setRecieverInfo,
-  getAndListenChatUsers,
-} from "../../redux/chats";
-import { UserCard } from "./UserCard";
-import { selectAuthUserID } from "../../redux/auth";
-import { selectTheme } from "../../redux/theme";
-import { darkModeHandler } from "../../styles/darkModeHandler";
+import { GLOBAL_STYLES } from '../../styles';
+import { SearchBar } from './SearchBar';
+import { connect } from 'react-redux';
+import { selectChatsUsers, initPriviteChats, setRecieverInfo, getAndListenChatUsers } from '../../redux/chats';
+import { UserCard } from './UserCard';
+import { selectAuthUserID } from '../../redux/auth';
+import { selectTheme } from '../../redux/theme';
+import { darkModeHandler } from '../../styles/darkModeHandler';
 
 const mapStateToProps = (state) => ({
   users: selectChatsUsers(state),
   userID: selectAuthUserID(state),
   darkMode: selectTheme(state),
 });
+
 export const PeopleListField = connect(mapStateToProps, {
   initPriviteChats,
   setRecieverInfo,
@@ -45,6 +39,7 @@ export const PeopleListField = connect(mapStateToProps, {
       }))
       .filter((user) => user.ID !== userID);
 
+
     const onUserCardPressHandler = async (reciever) => {
       initPriviteChats(reciever.ID);
       setRecieverInfo({
@@ -54,15 +49,6 @@ export const PeopleListField = connect(mapStateToProps, {
       navigation.navigate("PriviteChat");
       getAndListenChatUsers();
     };
-
-    const colorTheme = darkMode
-      ? {
-          backgroundColor: COLORS.backgroundDark,
-        }
-      : {
-          backgroundColor: COLORS.backgroundLight,
-        };
-
    
       return (
         <View style={{ ...styles.container, ...theme }}>
@@ -94,6 +80,7 @@ export const PeopleListField = connect(mapStateToProps, {
 
   }
 );
+
 
 const styles = StyleSheet.create({
   container: {

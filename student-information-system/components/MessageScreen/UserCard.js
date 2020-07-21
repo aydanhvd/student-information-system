@@ -1,9 +1,10 @@
-import React from "react";
-import { StyleSheet, Image, TouchableOpacity,View } from "react-native";
-import { COLORS, ICONS_LIGHT } from "../../styles";
-import { CustomText } from "../../commons/CustomText";
-import { selectTheme } from "../../redux/theme";
-import { connect } from "react-redux";
+import React from 'react';
+import { StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { COLORS, ICONS_LIGHT } from '../../styles';
+import { CustomText } from '../../commons/CustomText';
+import {selectTheme} from "../../redux/theme";
+import {connect} from "react-redux";
+import {darkModeHandler} from "../../styles/darkModeHandler";
 import { Spinner } from "@ui-kitten/components";
 
 const mapStateToProps = (state) => ({
@@ -15,20 +16,12 @@ export const UserCard = connect(
   mapStateToProps,
   {}
 )(({ user, onPress, darkMode }) => {
-  const colorTheme = darkMode
-    ? {
-        backgroundColor: COLORS.backgroundDark,
-        userColor: COLORS.sendDark,
-        nameColor: COLORS.backgroundLight,
-      }
-    : {
-        backgroundColor: COLORS.backgroundLight,
-        userColor: COLORS.drawerLight,
-        nameColor: COLORS.acsentLight,
-      };
+
   const [data, setData] = React.useState([]);
 
-  React.useEffect(() => {
+  const theme = darkModeHandler(darkMode);
+
+    React.useEffect(() => {
     setTimeout(loadData, 1000);
   }, []);
 
@@ -46,13 +39,13 @@ export const UserCard = connect(
       />
       <CustomText
         numberOfLines={1}
-        style={{ ...styles.userName, color: colorTheme.userColor }}
+        style={{ ...styles.userName, color: theme.messageColor }}
       >
         @{user.userName}
       </CustomText>
       <CustomText
         numberOfLines={2}
-        style={{ ...styles.name, color: colorTheme.nameColor }}
+        style={{ ...styles.name, color: theme.textColor }}
       >
         {user.name}
       </CustomText>
@@ -66,6 +59,7 @@ export const UserCard = connect(
     );
   };
   return data.length > 0 ? renderData() : renderLoading();
+
 });
 const styles = StyleSheet.create({
   card: {

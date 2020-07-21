@@ -1,10 +1,11 @@
 {
   "devToolsPort": 19002,
-  "expoServerPort": null,
-  "packagerPort": null,
-  "packagerPid": null,
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null,
+
+  "expoServerPort": 19000,
+  "packagerPort": 19001,
+  "packagerPid": 18312,
+  "expoServerNgrokUrl": "https://us-p7x.anonymous.student-information-system.exp.direct",
+  "packagerNgrokUrl": "https://packager.us-p7x.anonymous.student-information-system.exp.direct",
+  "ngrokPid": 8156,
   "webpackServerPort": null
 }

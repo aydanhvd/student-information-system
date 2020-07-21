@@ -3,12 +3,11 @@ import { StyleSheet, View, TextInput } from 'react-native';
 import { connect } from 'react-redux';
 import { MaterialIcons } from '@expo/vector-icons';
 
-import { COLORS, ICONS_DARK, ICONS_LIGHT } from '../../styles';
-import { IconBtn } from '../../commons/IconBtn';
+import { COLORS } from '../../styles';
 import { selectChatsUsers, setChatsUsers, getAndListenChatUsers } from '../../redux/chats';
 import { selectTheme } from '../../redux/theme';
 import { SearchIcon } from '../../commons/icons/SearchIcon';
-import { RefreshIcon } from '../../commons/icons/RefreshIcon';
+import {darkModeHandler} from "../../styles/darkModeHandler";
 
 const mapStateToProps = (state) => ({
 	users: selectChatsUsers(state),
@@ -27,32 +26,25 @@ export const SearchBar = connect(mapStateToProps, {
 	const onPressHandler = () => {
 		if (searchName !== '') {
 			if (!!usersArr) {
-				let user = usersArr.filter((user) => {return user.userName.contains(searchName.toLowerCase().trim());});
-				console.log(user)
-				// setChatsUsers({...user});
+				let user = usersArr.filter((user) => {return user.userName.includes(searchName.toLowerCase().trim());});
+				// console.log(user)
+				setChatsUsers({...user});
 			}
 		}
 		setSaerchName('');
 	};
-	const colorTheme = darkMode
-		? {
-				backgroundColor: COLORS.acsentLight,
-				placeHolderColor: COLORS.backgroundLight
-			}
-		: {
-				backgroundColor: COLORS.backgroundLight,
-				placeHolderColor: COLORS.textColorDark
-			};
+
+	const theme = darkModeHandler(darkMode);
 
 	return (
-		<View style={{ ...styles.container, ...colorTheme }}>
+		<View style={{ ...styles.container, backgroundColor: theme.searchBgColor }}>
 			<SearchIcon onPress={onPressHandler} />
 			<TextInput
 				value={searchName}
-				style={{ ...styles.searchBar, color: colorTheme.placeHolderColor }}
+				style={{ ...styles.searchBar, color: theme.placeholderColor }}
 				placeholder="search by username"
 				onChangeText={(value) => setSaerchName(value)}
-				placeholderTextColor={colorTheme.placeHolderColor}
+				placeholderTextColor={theme.placeholderColor}
 			/>
 			<MaterialIcons
 				name="cancel"
@@ -61,7 +53,6 @@ export const SearchBar = connect(mapStateToProps, {
 				style={styles.refresh}
 				onPress={getAndListenChatUsers}
 			/>
-			{/* <RefreshIcon style={styles.refresh} onPress={getAndListenChatUsers} /> */}
 		</View>
 	);
 });

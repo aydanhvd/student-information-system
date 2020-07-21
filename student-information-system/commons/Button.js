@@ -4,6 +4,7 @@ import { CustomText } from './CustomText';
 import { COLORS, ICONS_LIGHT, GLOBAL_STYLES } from '../styles';
 import {connect} from "react-redux";
 import {selectTheme} from "../redux/theme";
+import {darkModeHandler} from "../styles/darkModeHandler";
 
 const mapStateToProps = (state) => ({
 	darkMode: selectTheme(state)
@@ -12,16 +13,11 @@ const mapStateToProps = (state) => ({
 
 export const Button = connect(mapStateToProps, {})(({ text, style, children, onPress, darkMode }) => {
 
-	const colorTheme = darkMode
-		? {
-			color: COLORS.drawerDark,
-		} : {
-			color: COLORS.acsentColor,
-		};
+	const theme = darkModeHandler(darkMode);
 
 	return (
-		<TouchableOpacity style={{...styles.btn, ...style, borderColor: colorTheme.color}} onPress={onPress}>
-			<CustomText style={{...styles.text, ...colorTheme}}>{text}</CustomText>
+		<TouchableOpacity style={{...styles.btn, ...style, borderColor: theme.mainColor}} onPress={onPress}>
+			<CustomText style={{...styles.text, color: theme.mainColor}}>{text}</CustomText>
 			{children}
 		</TouchableOpacity>
 	)

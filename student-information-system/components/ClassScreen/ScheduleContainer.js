@@ -8,6 +8,7 @@ import { GLOBAL_STYLES } from '../../styles';
 import { selectTheme } from '../../redux/theme';
 import { connect } from 'react-redux';
 import { getAndListenSchedule, selectSchedule } from '../../redux/materials';
+import {darkModeHandler} from "../../styles/darkModeHandler";
 
 const mapStateToProps = (state) => ({
 	schedule: selectSchedule(state),
@@ -22,17 +23,11 @@ export const ScheduleContainer = connect(mapStateToProps, {
 		return unsub;
 	}, []);
 
-	const colorTheme = darkMode
-		? {
-				color: COLORS.headerColor
-			}
-		: {
-				color: COLORS.acsentColor
-			};
+	const theme = darkModeHandler(darkMode);
 
 	return (
 		<View style={styles.container}>
-			<CustomText style={{ ...styles.heading, ...colorTheme }}>Schedule</CustomText>
+			<CustomText style={{ ...styles.heading, color: theme.headerColor }}>Schedule</CustomText>
 			<Seperator distance={17} color={COLORS.commentsColorLight} />
 			<View style={styles.row}>
 				{schedule.map((schedule) => (
