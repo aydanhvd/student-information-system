@@ -21,6 +21,7 @@ export const PriviteMessagesField = connect(mapStateToProps, {
 	const submitHadler = () => {
 		if (message !== '') {
 			sendMessage(chatID, message);
+			console.log(message)
 			setMesage('');
 		}
 	};

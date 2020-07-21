@@ -9,7 +9,7 @@ const mapStateToProps = (state) => ({
 	darkMode: selectTheme(state)
 });
 
-export const SendIcon = connect(mapStateToProps, {})(({ darkMode, style }) => {
+export const SendIcon = connect(mapStateToProps, {})(({ darkMode, style , onPress}) => {
 
 	const colorTheme = darkMode
 		? {
@@ -19,7 +19,7 @@ export const SendIcon = connect(mapStateToProps, {})(({ darkMode, style }) => {
 		};
 
 	return (
-		<TouchableOpacity style={{...styles.container, ...style}}>
+		<TouchableOpacity style={{...styles.container, ...style}} onPress={onPress}>
 			<Svg
 				height="100%"
 				viewBox="0 0 512.005 512.005"

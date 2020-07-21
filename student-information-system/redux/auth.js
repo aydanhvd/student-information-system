@@ -223,7 +223,6 @@ export const logIn = (email, password) => async (dispatch) => {
 	try {
 		//todo ask what else can u use for not using email
 		const { user: { uid } } = await fbApp.auth.signInWithEmailAndPassword(email, password);
-		const user = firebase.auth().currentUser;
 		//full name of user
 		const reference = await fbApp.db.ref(`users/${uid}`);
 		reference.on('value', (snapshot) => {

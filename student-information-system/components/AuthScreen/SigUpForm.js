@@ -12,27 +12,25 @@ import { CustomSlider } from '../../commons/CustomSlider';
 export const SignUpForm = connect(null, { signUp })(({ groupsList = [], signUp }) => {
 	const [ selectedGroup, setSelectedGroup ] = useState('');
 	const [ fields, setFields ] = useState({
-		email: { value: '', label: 'Email' },
-		name: { value: '', label: 'Full Name' },
-		username: { value: '', label: 'Username' },
-		password: { value: '', label: 'Password', secureTextEntry: true },
-		repassword: { value: '', label: 'Repeat Password', secureTextEntry: true }
+		email: '',
+		name: '',
+		username: '',
+		password: '',
+		rePassword: ''
 	});
 	const fieldsChangeHandler = (name, value) => {
 		setFields((fields) => ({
 			...fields,
-			[name]: {
-				...fields[name],
-				value
-			}
+			[name]: value
 		}));
 	};
 	const submintHandlerSignUp = () => {
-		const email = fields.email.value.trim();
-		const pass = fields.password.value.trim();
-		const rePass = fields.repassword.value.trim();
-		const userName = fields.username.value.trim();
-		const name = fields.name.value.trim();
+		console.log(fields)
+		const email = fields.email.trim();
+		const pass = fields.password.trim();
+		const rePass = fields.rePassword.trim();
+		const userName = fields.username.trim();
+		const name = fields.name.trim();
 		if (validateForm(true, email, pass, rePass, userName, name, selectedGroup)) {
 			signUp(email, name, userName, pass, selectedGroup);
 		}

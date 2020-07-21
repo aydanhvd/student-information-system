@@ -8,6 +8,7 @@ import { selectChatsUsers, initPriviteChats, setRecieverInfo, getAndListenChatUs
 import { UserCard } from './UserCard';
 import { selectAuthUserID } from '../../redux/auth';
 import { selectTheme } from '../../redux/theme';
+import CompleteFlatList from 'react-native-complete-flatlist';
 
 const mapStateToProps = (state) => ({
 	users: selectChatsUsers(state),
@@ -18,7 +19,7 @@ export const PeopleListField = connect(mapStateToProps, {
 	initPriviteChats,
 	setRecieverInfo,
 	getAndListenChatUsers
-})(({ users, initPriviteChats, userID, navigation, setRecieverInfo, darkMode ,getAndListenChatUsers}) => {
+})(({ users, initPriviteChats, userID, navigation, setRecieverInfo, darkMode, getAndListenChatUsers }) => {
 	const usersArr = Object.keys(users)
 		.map((key) => ({
 			ID: key, //use uppercase letters for IDs
@@ -33,7 +34,7 @@ export const PeopleListField = connect(mapStateToProps, {
 			image: reciever.profilePiC
 		});
 		navigation.navigate('PriviteChat');
-		getAndListenChatUsers()
+		getAndListenChatUsers();
 	};
 
 	const colorTheme = darkMode
@@ -49,6 +50,7 @@ export const PeopleListField = connect(mapStateToProps, {
 			<SearchBar />
 			{!!users && (
 				<FlatList
+				// ListHeaderComponent={()=><SearchBar/>}
 					style={styles.listContainer}
 					keyExtractor={(item) => item.ID}
 					horizontal
@@ -59,6 +61,14 @@ export const PeopleListField = connect(mapStateToProps, {
 					}}
 				/>
 			)}
+			{/* <CompleteFlatList
+				data={usersArr}
+				searchKey={['useName','name']}
+				// horizantal
+				renderItem={({ item }) => {
+					return <UserCard user={item} onPress={() => onUserCardPressHandler(item)} />;
+				}}
+			/> */}
 		</View>
 	);
 });
